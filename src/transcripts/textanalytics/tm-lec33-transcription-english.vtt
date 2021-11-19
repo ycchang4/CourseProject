@@ -1,0 +1,1092 @@
+WEBVTT Kind: captions; Language: en-US
+
+NOTE
+Created on 2021-02-27T00:01:10.4166918Z by ClassTranscribe
+
+00:00:00.300 --> 00:00:02.290
+This lecture is a continued discussion
+
+00:00:02.290 --> 00:00:04.310
+of generative probabilistic models for
+
+00:00:04.310 --> 00:00:05.110
+text clustering.
+
+00:00:14.090 --> 00:00:16.330
+In this lecture we're going to finish
+
+00:00:16.330 --> 00:00:17.830
+the discussion of generative
+
+00:00:17.830 --> 00:00:19.310
+probabilistic models for text
+
+00:00:19.310 --> 00:00:19.790
+clustering.
+
+00:00:21.460 --> 00:00:23.880
+So this is a slide that you have seen
+
+00:00:23.880 --> 00:00:27.590
+before and here we show how we define
+
+00:00:27.590 --> 00:00:29.720
+the mixture model for text clustering
+
+00:00:29.720 --> 00:00:31.610
+an what the likelihood function looks
+
+00:00:31.610 --> 00:00:33.100
+like and
+
+00:00:33.790 --> 00:00:36.520
+we can also compute the maximum liklihood
+
+00:00:36.520 --> 00:00:38.190
+estimate to estimate the
+
+00:00:38.190 --> 00:00:40.247
+parameters. In this lecture, we're going
+
+00:00:40.247 --> 00:00:43.421
+to talk more about how exactly we're
+
+00:00:43.421 --> 00:00:44.960
+going to compute the maximum likelihood
+
+00:00:44.960 --> 00:00:45.480
+estimator.
+
+00:00:46.340 --> 00:00:49.680
+Now, as in most cases, the EM algorithm
+
+00:00:49.680 --> 00:00:53.760
+can be used to solve this problem for
+
+00:00:53.760 --> 00:00:55.080
+mixture models.
+
+00:00:55.080 --> 00:00:58.476
+So here's the detail of this EM
+
+00:00:58.476 --> 00:01:00.100
+algorithm for document clustering.
+
+00:01:00.750 --> 00:01:03.545
+Now, if you have understood how EML
+
+00:01:03.545 --> 00:01:06.820
+works for topic models, PLSA and I
+
+00:01:06.820 --> 00:01:09.386
+think here it will be very similar and
+
+00:01:09.386 --> 00:01:13.523
+you just need to adapt a little bit to
+
+00:01:13.523 --> 00:01:15.510
+ this new mixture model.
+
+00:01:15.510 --> 00:01:19.250
+So as you may recall, EM algorithm
+
+00:01:19.250 --> 00:01:21.590
+starts with initialization of all the
+
+00:01:21.590 --> 00:01:22.270
+parameters.
+
+00:01:22.930 --> 00:01:25.720
+So this is the same as what happened
+
+00:01:25.720 --> 00:01:27.370
+before for topic models.
+
+00:01:28.350 --> 00:01:30.290
+And then we're going to repeat until
+
+00:01:30.290 --> 00:01:32.340
+their likelihood converges.
+
+00:01:32.340 --> 00:01:37.110
+An in each step will do E step and M step.
+
+00:01:37.110 --> 00:01:37.800
+in M step.
+
+00:01:37.800 --> 00:01:40.540
+we're going to infer which distribution
+
+00:01:40.540 --> 00:01:42.690
+has been used to generate each
+
+00:01:42.690 --> 00:01:43.280
+document.
+
+00:01:43.880 --> 00:01:45.530
+And so we have to introduce a hidden
+
+00:01:45.530 --> 00:01:50.190
+variable ZD for each document and this
+
+00:01:50.190 --> 00:01:53.070
+value variable could take a value from
+
+00:01:53.070 --> 00:01:55.230
+the range of one through K representing
+
+00:01:55.230 --> 00:01:56.980
+K different distributions.
+
+00:01:59.340 --> 00:02:01.550
+And more specifically, basically we're
+
+00:02:01.550 --> 00:02:04.140
+going to apply Bayes rule to infer, or
+
+00:02:04.140 --> 00:02:07.080
+which distribution is more likely to
+
+00:02:07.080 --> 00:02:09.250
+have generated this document or
+
+00:02:09.250 --> 00:02:12.490
+computing the posterior probability of
+
+00:02:12.490 --> 00:02:14.530
+the distribution.
+
+00:02:15.320 --> 00:02:16.510
+Given the document.
+
+00:02:17.290 --> 00:02:20.636
+An we know it's proportional to the
+
+00:02:20.636 --> 00:02:23.550
+probability of selecting this
+
+00:02:23.550 --> 00:02:28.056
+distribution P of Theta I and the
+
+00:02:28.056 --> 00:02:30.040
+probability of generating this whole
+
+00:02:30.040 --> 00:02:32.060
+document from that distribution, which
+
+00:02:32.060 --> 00:02:35.840
+is a product of all the probabilities
+
+00:02:35.840 --> 00:02:38.840
+of words for this document, as you see
+
+00:02:38.840 --> 00:02:39.230
+here.
+
+00:02:39.880 --> 00:02:42.900
+Now, as in all cases, it's useful to
+
+00:02:42.900 --> 00:02:47.188
+kind of remember the normalizer or the
+
+00:02:47.188 --> 00:02:49.702
+OR the constraint on this probability.
+
+00:02:49.702 --> 00:02:52.878
+So in this case we know the constraint
+
+00:02:52.878 --> 00:02:56.090
+on this probability in the E step is
+
+00:02:56.090 --> 00:03:00.300
+that all the probabilities of Z equals
+
+00:03:00.300 --> 00:03:03.870
+I must sum to one 'cause the document
+
+00:03:03.870 --> 00:03:05.850
+must have been generated from precise
+
+00:03:05.850 --> 00:03:07.360
+or one of these K topics.
+
+00:03:07.360 --> 00:03:09.710
+So the probability of the generator
+
+00:03:09.710 --> 00:03:11.630
+from each of them should sum to one.
+
+00:03:12.130 --> 00:03:15.800
+And if this constraint then you can
+
+00:03:15.800 --> 00:03:18.570
+easy to compute this distribution as
+
+00:03:18.570 --> 00:03:20.400
+long as.
+
+00:03:21.880 --> 00:03:24.370
+what it is proportional to, right?
+
+00:03:24.370 --> 00:03:27.315
+So once you compute this product that
+
+00:03:27.315 --> 00:03:29.955
+you see here, then you simply normalize
+
+00:03:29.955 --> 00:03:32.680
+this these probabilities to make them
+
+00:03:32.680 --> 00:03:35.120
+some to 1 what over all the topics.
+
+00:03:35.820 --> 00:03:38.665
+So that's E step after E Step we would know 
+
+00:03:38.665 --> 00:03:40.770
+which distribution is more likely to
+
+00:03:40.770 --> 00:03:43.063
+have generated this document D, which
+
+00:03:43.063 --> 00:03:44.180
+is unlikely.
+
+00:03:45.180 --> 00:03:46.900
+And then in the M step, we're going to
+
+00:03:46.900 --> 00:03:49.230
+relist, made all the parameters based
+
+00:03:49.230 --> 00:03:52.120
+on the, infer the Z values, or in
+
+00:03:52.120 --> 00:03:53.830
+further knowledge about which district
+
+00:03:53.830 --> 00:03:55.660
+has been used to generate which
+
+00:03:55.660 --> 00:03:56.290
+document.
+
+00:03:56.290 --> 00:04:00.930
+So there estimation involves two kinds
+
+00:04:00.930 --> 00:04:01.680
+of parameters.
+
+00:04:01.680 --> 00:04:04.330
+One is P of Theta and this is the
+
+00:04:04.330 --> 00:04:06.810
+probability of selecting a particular
+
+00:04:06.810 --> 00:04:07.590
+distribution.
+
+00:04:08.320 --> 00:04:10.340
+Before we observe anything, we don't
+
+00:04:10.340 --> 00:04:12.040
+have any knowledge about which cluster
+
+00:04:12.040 --> 00:04:14.219
+is more likely, but after we have
+
+00:04:14.220 --> 00:04:16.830
+observed these documents, then we can
+
+00:04:16.830 --> 00:04:18.570
+collect the evidence.
+
+00:04:20.480 --> 00:04:23.660
+To infer which cluster is more likely,
+
+00:04:23.660 --> 00:04:26.080
+and so this is proportional to the sum
+
+00:04:26.080 --> 00:04:32.140
+of the probability of Z sub DJ is equal
+
+00:04:32.140 --> 00:04:33.080
+to I.
+
+00:04:34.570 --> 00:04:37.780
+And so this gives us all the evidence
+
+00:04:37.780 --> 00:04:39.735
+about using topic.
+
+00:04:39.735 --> 00:04:43.369
+I said I to generate a document and we
+
+00:04:43.370 --> 00:04:45.490
+put them together and again we
+
+00:04:45.490 --> 00:04:48.670
+normalize them into probabilities.
+
+00:04:49.890 --> 00:04:53.590
+And then so this is for P of Theta sub I.
+
+00:04:54.440 --> 00:04:56.470
+Now the other kind of parameters are
+
+00:04:56.470 --> 00:04:58.720
+the probabilities of words in each
+
+00:04:58.720 --> 00:05:01.980
+distribution, each cluster, and this is
+
+00:05:01.980 --> 00:05:04.990
+very similar to the case of PLSA.
+
+00:05:05.660 --> 00:05:08.970
+And here we just pulled the counts of
+
+00:05:08.970 --> 00:05:14.169
+words that are in documents that are
+
+00:05:14.170 --> 00:05:17.530
+inverted to have been generated from a
+
+00:05:17.530 --> 00:05:18.480
+particular topic Theta I here 
+
+00:05:18.480 --> 00:05:22.330
+ and this would allow us to
+
+00:05:22.330 --> 00:05:25.140
+then estimate how many words have
+
+00:05:25.140 --> 00:05:27.910
+actually been generated from Theta I.
+
+00:05:28.780 --> 00:05:30.530
+And then we normalize again.
+
+00:05:30.530 --> 00:05:33.273
+These counts into probabilities so that
+
+00:05:33.273 --> 00:05:35.260
+the probabilities on all the words 
+
+00:05:35.260 --> 00:05:35.890
+some to one.
+
+00:05:35.890 --> 00:05:38.400
+Note that it's very important to
+
+00:05:38.400 --> 00:05:40.730
+understand these constraints as they
+
+00:05:40.730 --> 00:05:43.786
+are precisely the normalizers in all
+
+00:05:43.786 --> 00:05:47.795
+these formulas, and it's also important
+
+00:05:47.795 --> 00:05:53.610
+to know that distribution is over what?
+
+00:05:54.370 --> 00:05:57.152
+For example, the probability of Theta
+
+00:05:57.152 --> 00:05:59.960
+is overall the key topics and that's
+
+00:05:59.960 --> 00:06:02.000
+why these K probabilities sum to 1.
+
+00:06:02.000 --> 00:06:04.440
+well, whereas the probability of a word
+
+00:06:04.440 --> 00:06:06.630
+given Theta is a probability
+
+00:06:06.630 --> 00:06:08.500
+distribution over all the words.
+
+00:06:08.500 --> 00:06:10.740
+So there are many probabilities and
+
+00:06:10.740 --> 00:06:11.650
+they have to send one.
+
+00:06:12.620 --> 00:06:14.295
+So now let's take a look like this.
+
+00:06:14.295 --> 00:06:16.290
+Take a look at the simple example of
+
+00:06:16.290 --> 00:06:17.340
+two clusters.
+
+00:06:17.340 --> 00:06:18.619
+I have two clusters.
+
+00:06:18.620 --> 00:06:21.060
+I've shown some initializer values for
+
+00:06:21.060 --> 00:06:22.640
+the two distributions.
+
+00:06:23.320 --> 00:06:25.500
+And let's assume we randomly
+
+00:06:25.500 --> 00:06:28.320
+initialized to probabilities of
+
+00:06:28.320 --> 00:06:30.770
+selecting each cluster as .5.
+
+00:06:30.770 --> 00:06:32.030
+So equally likely.
+
+00:06:33.000 --> 00:06:35.630
+And then let's consider one document
+
+00:06:35.630 --> 00:06:36.576
+that you have seen here.
+
+00:06:36.576 --> 00:06:38.813
+There are two words, sorry, two
+
+00:06:38.813 --> 00:06:40.627
+occurrences of text and two occurrences
+
+00:06:40.627 --> 00:06:41.330
+of mining.
+
+00:06:41.330 --> 00:06:43.010
+So there are four words together.
+
+00:06:44.010 --> 00:06:46.060
+Medical and health did not occur in
+
+00:06:46.060 --> 00:06:48.430
+this document, so this first thing
+
+00:06:48.430 --> 00:06:49.560
+about the hidden variables.
+
+00:06:50.240 --> 00:06:53.270
+Now for each document we must use a
+
+00:06:53.270 --> 00:06:57.360
+hidden variable and before in PLSA we
+
+00:06:57.360 --> 00:06:59.500
+used 1 hidden variable for each word.
+
+00:07:00.350 --> 00:07:03.160
+Because that's the output from what
+
+00:07:03.160 --> 00:07:03.700
+mixture model.
+
+00:07:03.700 --> 00:07:06.200
+So in our case the output from a
+
+00:07:06.200 --> 00:07:08.056
+mixture model or the observation from
+
+00:07:08.056 --> 00:07:09.820
+mixture model is a document not a
+
+00:07:09.820 --> 00:07:10.425
+word.
+
+00:07:10.425 --> 00:07:12.760
+So now we have 1 hidden variable
+
+00:07:12.760 --> 00:07:14.219
+attached to the document.
+
+00:07:14.810 --> 00:07:16.850
+That hidden variable must tell us which
+
+00:07:16.850 --> 00:07:18.620
+distribution has been used to generate
+
+00:07:18.620 --> 00:07:20.950
+the document, so it's going to take two
+
+00:07:20.950 --> 00:07:23.410
+values, one and two to indicate the two
+
+00:07:23.410 --> 00:07:24.270
+topics.
+
+00:07:25.230 --> 00:07:27.670
+So now how do we infer which
+
+00:07:27.670 --> 00:07:29.365
+distribution has been used to generate
+
+00:07:29.365 --> 00:07:29.890
+the D?
+
+00:07:29.890 --> 00:07:32.450
+It's to use Bayes rule so it looks like
+
+00:07:32.450 --> 00:07:36.130
+this in order for the first topic is
+
+00:07:36.130 --> 00:07:38.000
+setup, want to generate the document.
+
+00:07:38.570 --> 00:07:41.460
+Two things must happen.
+
+00:07:41.460 --> 00:07:44.030
+First theater subway must have been
+
+00:07:44.030 --> 00:07:47.749
+selected, so it's given by P of 01
+
+00:07:47.750 --> 00:07:48.580
+second.
+
+00:07:48.580 --> 00:07:52.259
+It must have also been generating the
+
+00:07:52.260 --> 00:07:55.503
+four words in the document, namely two
+
+00:07:55.503 --> 00:07:57.937
+occurrences of text and two occurrences
+
+00:07:57.937 --> 00:07:58.770
+of mining.
+
+00:07:58.770 --> 00:08:02.470
+That's why you see the numerator has
+
+00:08:02.470 --> 00:08:04.370
+the product of the probability of
+
+00:08:04.370 --> 00:08:06.775
+selecting Theta one and the
+
+00:08:06.775 --> 00:08:09.069
+probability of generating the document
+
+00:08:09.070 --> 00:08:09.870
+from Theta 1.
+
+00:08:10.280 --> 00:08:13.335
+So the denominator is just the sum of
+
+00:08:13.335 --> 00:08:15.525
+two possibilities of generating this
+
+00:08:15.525 --> 00:08:17.060
+document, and you can plug in the
+
+00:08:17.060 --> 00:08:18.970
+numerical values to verify.
+
+00:08:18.970 --> 00:08:21.735
+Indeed in this case the document is
+
+00:08:21.735 --> 00:08:24.930
+more likely to be generated from Theta 1,  much
+
+00:08:24.930 --> 00:08:27.200
+more likely than from than Theta 2.
+
+00:08:27.990 --> 00:08:30.340
+So once we have this problem that we
+
+00:08:30.340 --> 00:08:33.720
+can easily compute the probability of Z
+
+00:08:33.720 --> 00:08:37.130
+= 2 given this document, how we're
+
+00:08:37.130 --> 00:08:38.140
+going to use the constraint?
+
+00:08:38.140 --> 00:08:41.600
+Right now it's going to be 1 - 100 /101
+
+00:08:41.600 --> 00:08:42.720
+1,000,000 one.
+
+00:08:43.450 --> 00:08:46.220
+So now it's important to note that in
+
+00:08:46.220 --> 00:08:48.710
+such a computation there is a potential
+
+00:08:48.710 --> 00:08:51.050
+problem of underflow, and that is
+
+00:08:51.050 --> 00:08:52.646
+because if you look at the numerator,
+
+00:08:52.646 --> 00:08:55.880
+the original numerator and denominator
+
+00:08:55.880 --> 00:08:57.470
+it involves the computation of a
+
+00:08:57.470 --> 00:09:00.230
+product of many small probabilities.
+
+00:09:00.230 --> 00:09:02.830
+Imagine if a document has many words
+
+00:09:02.830 --> 00:09:06.000
+and it's going to be a very small value
+
+00:09:06.000 --> 00:09:08.296
+here, as it can cause the problem of
+
+00:09:08.296 --> 00:09:08.640
+underflow.
+
+00:09:09.280 --> 00:09:10.910
+So to solve the problem.
+
+00:09:11.750 --> 00:09:13.620
+We can use a normalized.
+
+00:09:14.430 --> 00:09:17.620
+So here you see that we take average of
+
+00:09:17.620 --> 00:09:20.640
+all these two solutions to compute
+
+00:09:20.640 --> 00:09:23.040
+another average district called Theater
+
+00:09:23.040 --> 00:09:23.620
+Bar.
+
+00:09:24.410 --> 00:09:26.820
+And this does the average distribution
+
+00:09:26.820 --> 00:09:29.150
+will be comperable to each of these
+
+00:09:29.150 --> 00:09:29.970
+distributions.
+
+00:09:30.590 --> 00:09:32.310
+In terms of the quantities, the
+
+00:09:32.310 --> 00:09:32.930
+magnitude.
+
+00:09:33.550 --> 00:09:38.355
+So we can then divide the numerator and
+
+00:09:38.355 --> 00:09:40.750
+the denominator both by this
+
+00:09:40.750 --> 00:09:41.530
+normalizer.
+
+00:09:41.530 --> 00:09:43.490
+So basically this normalizes the
+
+00:09:43.490 --> 00:09:47.030
+probability of generating this document
+
+00:09:47.030 --> 00:09:50.990
+by using this average word
+
+00:09:50.990 --> 00:09:51.720
+distribution.
+
+00:09:52.880 --> 00:09:55.180
+So you can see the normalizer here.
+
+00:09:56.440 --> 00:09:59.130
+And since we have used exact the same
+
+00:09:59.130 --> 00:10:01.220
+normalizer for the numerator and
+
+00:10:01.220 --> 00:10:03.640
+denominator, the whole value of this
+
+00:10:03.640 --> 00:10:05.640
+expression is not changed.
+
+00:10:06.210 --> 00:10:08.190
+But by doing this normalization you can
+
+00:10:08.190 --> 00:10:11.230
+see we can make the numerators and
+
+00:10:11.230 --> 00:10:15.100
+denominators more manageable in that
+
+00:10:15.100 --> 00:10:17.120
+the overall value is not going to be
+
+00:10:17.120 --> 00:10:21.100
+very small for each, and thus we can
+
+00:10:21.100 --> 00:10:22.870
+avoid underflow problem.
+
+00:10:24.460 --> 00:10:26.390
+In some other times we sometimes also
+
+00:10:26.390 --> 00:10:30.330
+use logarithm of the product to convert
+
+00:10:30.330 --> 00:10:32.410
+this into a sum of log of
+
+00:10:32.410 --> 00:10:33.400
+probabilities.
+
+00:10:33.400 --> 00:10:35.464
+This can help preserve precision as
+
+00:10:35.464 --> 00:10:38.120
+well, but in this case we cannot use
+
+00:10:38.120 --> 00:10:40.970
+logarithms to solve the problem because
+
+00:10:40.970 --> 00:10:43.890
+there's sum in the denominator, But
+
+00:10:43.890 --> 00:10:47.220
+this kind of normalizes can be
+
+00:10:47.220 --> 00:10:49.350
+effective for solving this problem, so
+
+00:10:49.350 --> 00:10:52.280
+it's a technique that's sometimes
+
+00:10:52.280 --> 00:10:54.040
+useful in other situations as well.
+
+00:10:55.140 --> 00:10:56.600
+Now let's look at the M step.
+
+00:10:56.600 --> 00:10:59.320
+So from the E step we can see our
+
+00:10:59.320 --> 00:11:01.256
+estimate of which distribution is more
+
+00:11:01.256 --> 00:11:03.140
+likely to have generated a document,
+
+00:11:03.140 --> 00:11:06.210
+and you can see D1 is more likely
+
+00:11:06.210 --> 00:11:07.980
+from the first topic.
+
+00:11:07.980 --> 00:11:09.780
+Where is D2 is more like from the
+
+00:11:09.780 --> 00:11:11.200
+second topic, etc.
+
+00:11:11.960 --> 00:11:14.139
+Now let's think about what we need to
+
+00:11:14.140 --> 00:11:15.760
+compute in the M step.
+
+00:11:15.760 --> 00:11:17.410
+Basically we need to re estimate all
+
+00:11:17.410 --> 00:11:18.160
+the parameters.
+
+00:11:18.160 --> 00:11:20.280
+Let's first look at the P of Theta 1
+
+00:11:20.280 --> 00:11:21.540
+and P of Theta 2.
+
+00:11:22.350 --> 00:11:23.902
+How do we estimate that?
+
+00:11:23.902 --> 00:11:26.507
+Intuitively, you can just pull together
+
+00:11:26.507 --> 00:11:30.749
+the Z probability Z probabilities from
+
+00:11:30.750 --> 00:11:31.735
+E Steps, right?
+
+00:11:31.735 --> 00:11:33.860
+So if all these documents say they're
+
+00:11:33.860 --> 00:11:37.076
+more likely from silouan, then we
+
+00:11:37.076 --> 00:11:39.240
+intuitively would give a high
+
+00:11:39.240 --> 00:11:41.910
+probability to see that one right?
+
+00:11:41.910 --> 00:11:44.680
+So in this case, so we can just take
+
+00:11:44.680 --> 00:11:46.653
+the average of these probabilities that
+
+00:11:46.653 --> 00:11:50.320
+you see here, and we obtain the .6 for Theta 1
+
+00:11:50.320 --> 00:11:52.319
+so Theta 1 is more likely 
+
+00:11:52.430 --> 00:11:53.220
+than Theta 2.
+
+00:11:54.030 --> 00:11:57.320
+So you can see the probability of Theta 2
+
+00:11:57.320 --> 00:11:58.800
+would be naturally .4.
+
+00:11:59.640 --> 00:12:01.345
+What about these world probabilities?
+
+00:12:01.345 --> 00:12:02.717
+What we do the same?
+
+00:12:02.717 --> 00:12:04.806
+And intuition is the same, so we're
+
+00:12:04.806 --> 00:12:06.860
+going to see in order to estimate the
+
+00:12:06.860 --> 00:12:09.757
+probabilities of words in Theta one,
+
+00:12:09.757 --> 00:12:11.640
+we're going to look at which documents
+
+00:12:11.640 --> 00:12:13.435
+have been generated from Scylla and
+
+00:12:13.435 --> 00:12:14.795
+we're going to pull together the words
+
+00:12:14.795 --> 00:12:16.710
+in those documents and normalize them.
+
+00:12:17.430 --> 00:12:19.700
+So this is basically what I just said.
+
+00:12:19.700 --> 00:12:22.330
+Most specifically, we're going to for
+
+00:12:22.330 --> 00:12:23.160
+example.
+
+00:12:24.570 --> 00:12:26.950
+Use all the counts of text in these
+
+00:12:26.950 --> 00:12:29.106
+documents to estimate the probability
+
+00:12:29.106 --> 00:12:31.590
+of tax given still awhile, but we're
+
+00:12:31.590 --> 00:12:33.690
+not to use their raw counts or total
+
+00:12:33.690 --> 00:12:34.210
+account.
+
+00:12:34.210 --> 00:12:35.690
+Instead, we can do that.
+
+00:12:35.690 --> 00:12:38.820
+Discount them by the probabilities that
+
+00:12:38.820 --> 00:12:41.780
+each document is likely be generated
+
+00:12:41.780 --> 00:12:42.960
+from Theta 1.
+
+00:12:42.960 --> 00:12:46.320
+So this gives us some fractional
+
+00:12:46.320 --> 00:12:48.996
+counts, and then these Council would be
+
+00:12:48.996 --> 00:12:51.775
+then normalized in order to get the
+
+00:12:51.775 --> 00:12:52.430
+probability.
+
+00:12:52.430 --> 00:12:53.874
+Now how do we normalize them?
+
+00:12:53.874 --> 00:12:56.580
+These probabilities of these words must
+
+00:12:56.580 --> 00:12:57.250
+sum to one.
+
+00:12:57.780 --> 00:13:00.130
+So to summarize, our discussion of
+
+00:13:00.130 --> 00:13:02.050
+generating models for clustering.
+
+00:13:02.710 --> 00:13:05.510
+We showed that a slight variation of
+
+00:13:05.510 --> 00:13:07.930
+Top Model can be used for clustering
+
+00:13:07.930 --> 00:13:10.490
+documents and this also shows the power
+
+00:13:10.490 --> 00:13:12.973
+of generating models in general by
+
+00:13:12.973 --> 00:13:15.592
+changing the generation assumption and
+
+00:13:15.592 --> 00:13:17.830
+changing the model slightly we can
+
+00:13:17.830 --> 00:13:19.510
+achieve different goals and we can
+
+00:13:19.510 --> 00:13:21.840
+capture different patterns in text
+
+00:13:21.840 --> 00:13:22.250
+data.
+
+00:13:22.890 --> 00:13:25.230
+So in this case, each class is
+
+00:13:25.230 --> 00:13:27.350
+represented by unigram language model
+
+00:13:27.350 --> 00:13:30.730
+or word distribution, and that's similar to
+
+00:13:30.730 --> 00:13:31.620
+topic model.
+
+00:13:31.620 --> 00:13:33.325
+So here you can see the word
+
+00:13:33.325 --> 00:13:35.150
+distribution actually generates a term
+
+00:13:35.150 --> 00:13:36.660
+cluster as a byproduct.
+
+00:13:37.660 --> 00:13:39.600
+A document that is generated by first
+
+00:13:39.600 --> 00:13:41.220
+choosing a unigram language model and
+
+00:13:41.220 --> 00:13:43.435
+then generating all the words in the
+
+00:13:43.435 --> 00:13:45.070
+document that using this single
+
+00:13:45.070 --> 00:13:46.720
+language model and this is very
+
+00:13:46.720 --> 00:13:48.940
+different from again topic model
+
+00:13:48.940 --> 00:13:51.396
+where we can generate the words in the
+
+00:13:51.396 --> 00:13:54.070
+document by using multiple unigram
+
+00:13:54.070 --> 00:13:54.990
+language models.
+
+00:13:56.600 --> 00:13:58.650
+And then the estimated model pamateter
+
+00:13:58.650 --> 00:14:00.628
+will give both a topic capitalization
+
+00:14:00.628 --> 00:14:03.590
+of each cluster and the probabilistic
+
+00:14:03.590 --> 00:14:05.940
+assignment of each document into a
+
+00:14:05.940 --> 00:14:06.340
+cluster.
+
+00:14:07.170 --> 00:14:09.010
+And this probabilistic assignment that
+
+00:14:09.010 --> 00:14:11.540
+sometimes is useful for some
+
+00:14:11.540 --> 00:14:12.130
+applications.
+
+00:14:12.130 --> 00:14:14.300
+But if we want to achieve a harder
+
+00:14:14.300 --> 00:14:17.540
+clusters mainly to partition
+
+00:14:17.540 --> 00:14:20.010
+documents into disjoint clusters.
+
+00:14:20.010 --> 00:14:21.580
+Then we can just force the document
+
+00:14:21.580 --> 00:14:24.129
+into the cluster corresponding to the
+
+00:14:24.130 --> 00:14:24.930
+water distribution.
+
+00:14:24.930 --> 00:14:26.610
+That's most likely to have generated
+
+00:14:26.610 --> 00:14:27.510
+the document.
+
+00:14:29.530 --> 00:14:31.770
+We've also shown that the EM algorithm
+
+00:14:31.770 --> 00:14:32.840
+can be used with computer.
+
+00:14:32.840 --> 00:14:35.610
+The maximum lag or is made up an.
+
+00:14:35.610 --> 00:14:37.640
+In this case we need to use a special
+
+00:14:37.640 --> 00:14:40.050
+normalization technique to avoid
+
+00:14:40.050 --> 00:14:41.080
+underflow.
+
+

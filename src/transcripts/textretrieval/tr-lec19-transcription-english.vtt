@@ -1,0 +1,951 @@
+WEBVTT Kind: captions; Language: en-US
+
+NOTE
+Created on 2021-02-27T00:07:10.5012867Z by ClassTranscribe
+
+00:00:00.280 --> 00:00:02.180
+This lecture is about a probabilistic
+
+00:00:02.180 --> 00:00:03.090
+retrieval model.
+
+00:00:12.510 --> 00:00:13.920
+In this lecture, we're going to
+
+00:00:13.920 --> 00:00:16.430
+continue the discussion of tax
+
+00:00:16.430 --> 00:00:17.400
+retrieval methods.
+
+00:00:18.770 --> 00:00:21.200
+We can do look at the another kind of
+
+00:00:21.200 --> 00:00:24.220
+very different way to design ranking
+
+00:00:24.220 --> 00:00:26.580
+functions than the vector space model
+
+00:00:26.580 --> 00:00:27.930
+that we discussed before.
+
+00:00:32.310 --> 00:00:34.720
+Being probabilistic models, we define
+
+00:00:34.720 --> 00:00:36.890
+the ranking function based on the
+
+00:00:36.890 --> 00:00:39.990
+probability that this document is
+
+00:00:39.990 --> 00:00:41.650
+relevant to this query.
+
+00:00:42.210 --> 00:00:44.280
+In other words, we introduce a
+
+00:00:44.280 --> 00:00:46.740
+binary random variable here.
+
+00:00:47.880 --> 00:00:50.380
+This is the variable R here.
+
+00:00:53.590 --> 00:00:56.255
+And we also assume that the query and
+
+00:00:56.255 --> 00:00:59.180
+the documents are observations from random
+
+00:00:59.180 --> 00:00:59.920
+variables.
+
+00:01:00.820 --> 00:01:02.590
+Note that in the vector space model we
+
+00:01:02.590 --> 00:01:04.235
+assume they are vectors, but here we
+
+00:01:04.235 --> 00:01:04.910
+are assumed.
+
+00:01:05.510 --> 00:01:08.580
+We assume they are the data observed
+
+00:01:08.580 --> 00:01:10.220
+from random variables.
+
+00:01:11.030 --> 00:01:13.570
+And so the problem of retrieval now
+
+00:01:13.570 --> 00:01:15.840
+becomes two estimated.
+
+00:01:15.840 --> 00:01:18.090
+probability of relevance.
+
+00:01:18.960 --> 00:01:20.840
+In this category of models there are
+
+00:01:20.840 --> 00:01:21.850
+different variants.
+
+00:01:22.890 --> 00:01:24.970
+The classical problem is model has led
+
+00:01:24.970 --> 00:01:27.840
+to the BM 25 retrieval function which
+
+00:01:27.840 --> 00:01:30.100
+we discussed in the vector space model.
+
+00:01:30.100 --> 00:01:31.930
+Because it's a form is actually similar
+
+00:01:31.930 --> 00:01:33.690
+to objectives space model.
+
+00:01:35.140 --> 00:01:38.760
+In this lecture, we will discuss another
+
+00:01:38.760 --> 00:01:40.210
+subclass in this.
+
+00:01:41.000 --> 00:01:41.710
+Big class.
+
+00:01:42.460 --> 00:01:44.303
+Called a language modeling approaches
+
+00:01:44.303 --> 00:01:45.449
+to retrieval.
+
+00:01:45.450 --> 00:01:47.340
+In particular, we're going to discuss
+
+00:01:47.340 --> 00:01:50.350
+the query likelihood retrieval model.
+
+00:01:51.260 --> 00:01:53.165
+Which is one of the most effective
+
+00:01:53.165 --> 00:01:55.420
+models in probabilistic models.
+
+00:01:56.980 --> 00:01:58.960
+There is also another line called a
+
+00:01:58.960 --> 00:02:02.010
+divergent from randomness model which
+
+00:02:02.010 --> 00:02:03.010
+has led to.
+
+00:02:03.760 --> 00:02:05.030
+The PL-2 function.
+
+00:02:06.330 --> 00:02:08.500
+It's also one of the most effective
+
+00:02:08.500 --> 00:02:10.560
+state of the other travel functions.
+
+00:02:10.560 --> 00:02:12.380
+Inquiry likelihood
+
+00:02:12.380 --> 00:02:15.018
+Our assumption is that this probability
+
+00:02:15.018 --> 00:02:19.150
+of relevance can be approximated by the
+
+00:02:19.150 --> 00:02:22.470
+probability of query given a document
+
+00:02:22.470 --> 00:02:23.740
+and relevance.
+
+00:02:23.740 --> 00:02:26.230
+So intuitively this probability.
+
+00:02:26.830 --> 00:02:29.960
+Just captures the following probability
+
+00:02:29.960 --> 00:02:32.690
+and that is if a user likes document D.
+
+00:02:33.370 --> 00:02:36.770
+How likely would the user enter query Q
+
+00:02:36.770 --> 00:02:39.360
+in order to retrieve documenting?
+
+00:02:40.130 --> 00:02:43.050
+So assume that the user likes D.
+
+00:02:44.100 --> 00:02:47.130
+Because we have a relevance value here
+
+00:02:47.130 --> 00:02:49.170
+and then we asked the question about
+
+00:02:49.170 --> 00:02:51.820
+the how likely will see this particular
+
+00:02:51.820 --> 00:02:53.350
+query from this user.
+
+00:02:53.910 --> 00:02:55.330
+So this is the basic idea.
+
+00:02:56.920 --> 00:02:59.700
+Not to understand this idea, let's take
+
+00:02:59.700 --> 00:03:01.650
+a look at the general idea or the basic
+
+00:03:01.650 --> 00:03:03.730
+idea of probabilistic retrieval models.
+
+00:03:04.780 --> 00:03:07.030
+So here are listed at some.
+
+00:03:07.030 --> 00:03:09.910
+Imagine the relevance of status values
+
+00:03:09.910 --> 00:03:11.300
+or relevance judgments.
+
+00:03:11.300 --> 00:03:13.520
+Often queries and documents.
+
+00:03:14.940 --> 00:03:17.490
+For example, in this line it shows that
+
+00:03:17.490 --> 00:03:19.370
+query one.
+
+00:03:21.030 --> 00:03:22.260
+is
+
+00:03:23.030 --> 00:03:25.550
+A query that the user tightly and the
+
+00:03:25.550 --> 00:03:28.963
+D1 is a document the user has seen and
+
+00:03:28.963 --> 00:03:31.409
+one means the user thinks the one is
+
+00:03:31.410 --> 00:03:33.350
+relevant to Q1.
+
+00:03:33.350 --> 00:03:37.390
+So this R here can be also
+
+00:03:37.390 --> 00:03:39.630
+approximated by the click through data
+
+00:03:39.630 --> 00:03:41.950
+that a search engine can collect by
+
+00:03:41.950 --> 00:03:43.635
+watching how you interact with the
+
+00:03:43.635 --> 00:03:44.450
+search results.
+
+00:03:44.450 --> 00:03:46.470
+So in this case, let's say the user
+
+00:03:46.470 --> 00:03:48.480
+clicked on this document, so there's
+
+00:03:48.480 --> 00:03:49.150
+one here.
+
+00:03:49.980 --> 00:03:50.860
+Similarly.
+
+00:03:51.930 --> 00:03:55.130
+The user clicked on D2 also, so
+
+00:03:55.130 --> 00:03:56.230
+there is 1 here.
+
+00:03:56.230 --> 00:03:58.380
+In other words, D2 is assumed to be
+
+00:03:58.380 --> 00:04:00.019
+relevant to Q1.
+
+00:04:00.580 --> 00:04:03.020
+On the other hand, D3  is non 
+
+00:04:03.020 --> 00:04:03.960
+relevant.
+
+00:04:03.960 --> 00:04:05.290
+There's a 0 here.
+
+00:04:06.460 --> 00:04:08.700
+At the voice down relevant and then 
+
+00:04:08.700 --> 00:04:10.150
+D5 is again relevant.
+
+00:04:11.920 --> 00:04:13.050
+And so on so forth.
+
+00:04:13.050 --> 00:04:14.170
+And this part.
+
+00:04:14.170 --> 00:04:16.670
+Maybe data collected from a different
+
+00:04:16.670 --> 00:04:17.197
+user.
+
+00:04:17.197 --> 00:04:21.340
+So this user typing Q1 and then found
+
+00:04:21.340 --> 00:04:23.585
+that D1 is actually not useful.
+
+00:04:23.585 --> 00:04:26.080
+So divine is actually non relevant.
+
+00:04:26.080 --> 00:04:29.140
+In contrast here we see it's relevant.
+
+00:04:30.550 --> 00:04:33.200
+And all this could be the same query
+
+00:04:33.200 --> 00:04:34.430
+typing by.
+
+00:04:35.980 --> 00:04:38.460
+The same user at different times.
+
+00:04:40.270 --> 00:04:42.390
+But D2  is also relevant, ET
+
+00:04:42.390 --> 00:04:42.840
+cetera.
+
+00:04:42.840 --> 00:04:44.980
+And here we can see more data.
+
+00:04:45.580 --> 00:04:47.230
+Then what about other queries?
+
+00:04:48.270 --> 00:04:50.410
+Now we can imagine we have a lot of
+
+00:04:50.410 --> 00:04:51.090
+such data.
+
+00:04:52.800 --> 00:04:55.219
+We can ask the question, how can we
+
+00:04:55.220 --> 00:04:58.040
+then estimate the probability of
+
+00:04:58.040 --> 00:04:58.620
+relevance?
+
+00:04:59.940 --> 00:05:01.940
+Right, so how can we compute this
+
+00:05:01.940 --> 00:05:03.220
+probability of relevance?
+
+00:05:03.220 --> 00:05:05.390
+Or intuitively that just means?
+
+00:05:06.120 --> 00:05:08.836
+If we look at the all the entries where
+
+00:05:08.836 --> 00:05:11.490
+we see this particular D and this
+
+00:05:11.490 --> 00:05:14.460
+particular Q, how likely will see a one
+
+00:05:14.460 --> 00:05:15.930
+on the third column?
+
+00:05:15.930 --> 00:05:17.410
+So basically that just means we can
+
+00:05:17.410 --> 00:05:18.550
+just collect those accounts.
+
+00:05:19.660 --> 00:05:21.250
+We can first count the how many times
+
+00:05:21.250 --> 00:05:24.210
+we have seen Q&amp;D as a pair.
+
+00:05:24.890 --> 00:05:28.330
+in this table and then count how many
+
+00:05:28.330 --> 00:05:32.730
+times we actually have also seen one in
+
+00:05:32.730 --> 00:05:33.590
+the third column.
+
+00:05:34.610 --> 00:05:35.860
+So and then we just.
+
+00:05:36.580 --> 00:05:37.620
+Compute the ratio.
+
+00:05:39.610 --> 00:05:41.290
+So let's take a look at some specific
+
+00:05:41.290 --> 00:05:42.520
+examples.
+
+00:05:42.520 --> 00:05:45.330
+Suppose we're trying to compute this
+
+00:05:45.330 --> 00:05:48.580
+probability for D1D2 and D3 for Q1.
+
+00:05:50.600 --> 00:05:52.230
+What is the estimated probability?
+
+00:05:53.830 --> 00:05:54.860
+Now think about that.
+
+00:05:56.120 --> 00:05:58.740
+You can pause the video if needed.
+
+00:05:58.740 --> 00:06:00.800
+Try to take a look at the table.
+
+00:06:01.460 --> 00:06:03.990
+And try to give your estimate of the
+
+00:06:03.990 --> 00:06:04.640
+probability.
+
+00:06:06.990 --> 00:06:09.640
+Have you seen that if we are interested
+
+00:06:09.640 --> 00:06:12.820
+in Q1 and D1 will be looking at
+
+00:06:12.820 --> 00:06:14.080
+these two pairs?
+
+00:06:14.930 --> 00:06:16.850
+And in both cases.
+
+00:06:17.590 --> 00:06:19.900
+Actually, in one of the cases.
+
+00:06:20.500 --> 00:06:22.740
+The user has said This is why this is
+
+00:06:22.740 --> 00:06:25.170
+relevant, so R is equal to 1 in only
+
+00:06:25.170 --> 00:06:26.286
+one of the two cases.
+
+00:06:26.286 --> 00:06:28.470
+In the other case it's 0.
+
+00:06:29.030 --> 00:06:30.900
+So that's one out of two.
+
+00:06:32.230 --> 00:06:34.430
+What about the D1 and D2?
+
+00:06:35.340 --> 00:06:35.960
+
+
+00:06:36.590 --> 00:06:38.550
+They are here.
+
+00:06:39.290 --> 00:06:41.120
+ in both cases.
+
+00:06:41.120 --> 00:06:43.355
+In this case R  is equal to 1, so it's
+
+00:06:43.355 --> 00:06:44.210
+two out of two.
+
+00:06:45.060 --> 00:06:46.100
+And so on, so forth.
+
+00:06:46.100 --> 00:06:48.550
+So you can see with this approach, we
+
+00:06:48.550 --> 00:06:51.490
+can actually score these documents for
+
+00:06:51.490 --> 00:06:53.110
+the query, right?
+
+00:06:53.110 --> 00:06:55.811
+We now have a score for D1D2 and D3.
+
+00:06:55.811 --> 00:06:58.430
+For this query we can simply rank them
+
+00:06:58.430 --> 00:07:01.000
+based on these probabilities, and so
+
+00:07:01.000 --> 00:07:03.170
+that's the basic idea of probabilistic
+
+00:07:03.170 --> 00:07:05.270
+retrieval model, and you can see it
+
+00:07:05.270 --> 00:07:06.300
+makes a lot of sense.
+
+00:07:06.300 --> 00:07:08.650
+In this case it's going to rank D2
+
+00:07:08.650 --> 00:07:10.570
+above all the other documents, because
+
+00:07:10.570 --> 00:07:13.950
+in all the cases when you have seen D1
+
+00:07:13.950 --> 00:07:14.950
+and D2.
+
+00:07:15.110 --> 00:07:17.420
+Eyes equals one the user clicked on
+
+00:07:17.420 --> 00:07:18.110
+this document.
+
+00:07:19.560 --> 00:07:21.020
+So this also.
+
+00:07:22.240 --> 00:07:22.730
+Should.
+
+00:07:23.980 --> 00:07:26.458
+Show that with a lot of click through
+
+00:07:26.458 --> 00:07:28.400
+data, a search engine can learn a lot
+
+00:07:28.400 --> 00:07:30.515
+from the data to improve their search
+
+00:07:30.515 --> 00:07:30.777
+engine.
+
+00:07:30.777 --> 00:07:32.520
+This is a simple example that shows
+
+00:07:32.520 --> 00:07:35.030
+that with even a small number of
+
+00:07:35.030 --> 00:07:37.250
+entries here we can already estimate
+
+00:07:37.250 --> 00:07:38.690
+some probabilities.
+
+00:07:38.690 --> 00:07:40.420
+These probabilities would give us some
+
+00:07:40.420 --> 00:07:42.585
+sense about which document might be
+
+00:07:42.585 --> 00:07:44.510
+more relevant or more useful to a user
+
+00:07:44.510 --> 00:07:46.370
+who typing this query.
+
+00:07:46.370 --> 00:07:49.280
+Now of course the problems that we
+
+00:07:49.280 --> 00:07:51.256
+don't observe all the queries and all
+
+00:07:51.256 --> 00:07:53.490
+the documents and all the relevance
+
+00:07:53.490 --> 00:07:54.280
+values.
+
+00:07:54.750 --> 00:07:56.250
+There will be a lot of unseen
+
+00:07:56.250 --> 00:07:56.660
+documents.
+
+00:07:56.660 --> 00:07:59.256
+In general we only collected data from
+
+00:07:59.256 --> 00:08:01.914
+the documents that we have shown to the
+
+00:08:01.914 --> 00:08:02.352
+users.
+
+00:08:02.352 --> 00:08:05.270
+There are even more unseen queries
+
+00:08:05.270 --> 00:08:07.550
+because you cannot predict what queries
+
+00:08:07.550 --> 00:08:09.400
+would be typing by users.
+
+00:08:09.400 --> 00:08:12.480
+So obviously this approach won't work
+
+00:08:12.480 --> 00:08:16.280
+if we apply it to unseen queries or
+
+00:08:16.280 --> 00:08:17.000
+unseen documents.
+
+00:08:18.500 --> 00:08:20.890
+Nevertheless, this shows the basic idea
+
+00:08:20.890 --> 00:08:22.870
+of problems control model and it makes
+
+00:08:22.870 --> 00:08:23.930
+sense intuitively.
+
+00:08:24.490 --> 00:08:26.816
+So what do we do in such a case when we
+
+00:08:26.816 --> 00:08:28.970
+have a lot of unseen documents and then
+
+00:08:28.970 --> 00:08:31.103
+some queries where the solutions that
+
+00:08:31.103 --> 00:08:33.010
+we have to approximate in somewhere,
+
+00:08:33.010 --> 00:08:33.235
+right?
+
+00:08:33.235 --> 00:08:35.730
+So in this particular case code query
+
+00:08:35.730 --> 00:08:37.220
+like whole retrieval model, we just
+
+00:08:37.220 --> 00:08:40.100
+approximate this by another conditional
+
+00:08:40.100 --> 00:08:40.840
+probability.
+
+00:08:41.670 --> 00:08:46.000
+P of Q given D an R is equal to 1.
+
+00:08:47.680 --> 00:08:48.830
+So the condition part.
+
+00:08:48.830 --> 00:08:51.270
+We assume that the user likes the
+
+00:08:51.270 --> 00:08:53.287
+document because we have seen that the
+
+00:08:53.287 --> 00:08:54.740
+user clicked on this document.
+
+00:08:56.090 --> 00:08:57.770
+And this part shows that we're
+
+00:08:57.770 --> 00:08:59.940
+interested in how likely the user would
+
+00:08:59.940 --> 00:09:01.445
+actually enter this query.
+
+00:09:01.445 --> 00:09:03.610
+How likely will see this query in the
+
+00:09:03.610 --> 00:09:04.880
+same role?
+
+00:09:04.880 --> 00:09:05.880
+So no data here.
+
+00:09:05.880 --> 00:09:08.110
+We have made an interesting assumption
+
+00:09:08.110 --> 00:09:08.680
+here.
+
+00:09:08.680 --> 00:09:11.232
+Basically, we can do assume that
+
+00:09:11.232 --> 00:09:13.760
+whether the user types in this query
+
+00:09:13.760 --> 00:09:16.290
+has something to do with whether user
+
+00:09:16.290 --> 00:09:17.240
+likes the document.
+
+00:09:17.860 --> 00:09:19.740
+In other words, we actually make the
+
+00:09:19.740 --> 00:09:20.920
+following assumption.
+
+00:09:21.880 --> 00:09:24.970
+And that is a user formula to query
+
+00:09:24.970 --> 00:09:27.330
+based on an imaginary relevant
+
+00:09:27.330 --> 00:09:27.900
+document.
+
+00:09:27.900 --> 00:09:29.770
+If you just look at this is conditional
+
+00:09:29.770 --> 00:09:30.400
+probability.
+
+00:09:30.400 --> 00:09:31.960
+It's not obvious we're making this
+
+00:09:31.960 --> 00:09:32.580
+assumption.
+
+00:09:32.580 --> 00:09:35.879
+So what I really meant is that.
+
+00:09:37.310 --> 00:09:40.510
+To use this new conditional probability
+
+00:09:40.510 --> 00:09:45.450
+to help us score, then this knew
+
+00:09:45.450 --> 00:09:48.850
+conditional probability will have to
+
+00:09:48.850 --> 00:09:51.903
+somehow be able to estimate this
+
+00:09:51.903 --> 00:09:53.820
+conditional probability without relying
+
+00:09:53.820 --> 00:09:55.480
+on this big table.
+
+00:09:55.480 --> 00:09:58.020
+Otherwise we would be having similar
+
+00:09:58.020 --> 00:10:01.150
+problems as before an by making this
+
+00:10:01.150 --> 00:10:04.640
+assumption, we have some way to bypass
+
+00:10:04.640 --> 00:10:06.710
+this big table and try to just model
+
+00:10:06.710 --> 00:10:08.530
+how the user formulates the query.
+
+00:10:08.910 --> 00:10:13.940
+OK, so this is how you can simplify the
+
+00:10:13.940 --> 00:10:16.570
+general model so that we can derive a
+
+00:10:16.570 --> 00:10:18.255
+specific Iranian function later.
+
+00:10:18.255 --> 00:10:20.540
+So let's look at how this model work
+
+00:10:20.540 --> 00:10:23.330
+for our example, and basically what we
+
+00:10:23.330 --> 00:10:26.002
+are going to do in this case is to ask
+
+00:10:26.002 --> 00:10:28.000
+the following question which of these
+
+00:10:28.000 --> 00:10:30.420
+documents is most likely the imaginary
+
+00:10:30.420 --> 00:10:32.270
+relevant document in the user's mind
+
+00:10:32.270 --> 00:10:34.080
+when the user formulates this query.
+
+00:10:34.080 --> 00:10:36.620
+So we ask this question and we quantify
+
+00:10:36.620 --> 00:10:38.720
+the probability and this probability is
+
+00:10:38.720 --> 00:10:40.200
+conditional probability of.
+
+00:10:40.250 --> 00:10:42.610
+Observing this query if a particular
+
+00:10:42.610 --> 00:10:44.460
+document is infected, imaginary
+
+00:10:44.460 --> 00:10:46.770
+relevant document in the user's mind.
+
+00:10:46.770 --> 00:10:49.670
+Here you can see we compute all these
+
+00:10:49.670 --> 00:10:51.790
+query likelihood probabilities.
+
+00:10:51.790 --> 00:10:54.540
+The likelihood of queries given each
+
+00:10:54.540 --> 00:10:55.060
+document.
+
+00:10:55.060 --> 00:10:57.360
+Once we have these values, we can then
+
+00:10:57.360 --> 00:10:59.330
+rank these documents based on these
+
+00:10:59.330 --> 00:10:59.730
+values.
+
+00:11:00.280 --> 00:11:03.750
+So to summarize, the general idea of
+
+00:11:03.750 --> 00:11:05.730
+modern relevance in the probabilistic
+
+00:11:05.730 --> 00:11:08.920
+model is to assume that we introduce a
+
+00:11:08.920 --> 00:11:11.880
+binary random variable R here, and
+
+00:11:11.880 --> 00:11:14.040
+then let's a scoring function be
+
+00:11:14.040 --> 00:11:15.570
+defined based on this conditional
+
+00:11:15.570 --> 00:11:16.200
+probability.
+
+00:11:16.200 --> 00:11:18.750
+We also talked about the approximate in
+
+00:11:18.750 --> 00:11:21.180
+this by using the query likelihood.
+
+00:11:22.370 --> 00:11:25.100
+And in this case we have a ranking
+
+00:11:25.100 --> 00:11:28.096
+function that's basically based on the
+
+00:11:28.096 --> 00:11:30.626
+probability of a query given the
+
+00:11:30.626 --> 00:11:32.480
+document, and this probability should
+
+00:11:32.480 --> 00:11:35.300
+be interpreted as the probability that
+
+00:11:35.300 --> 00:11:38.550
+a user who likes document D would pose
+
+00:11:38.550 --> 00:11:39.530
+queria Q.
+
+00:11:39.530 --> 00:11:41.685
+Now the question of course, is how do
+
+00:11:41.685 --> 00:11:43.120
+we compute this conditional
+
+00:11:43.120 --> 00:11:43.790
+probability?
+
+00:11:44.560 --> 00:11:46.870
+At this, in general has to do with how
+
+00:11:46.870 --> 00:11:49.070
+to compute the probability of text,
+
+00:11:49.070 --> 00:11:50.990
+because Q is attached.
+
+00:11:51.890 --> 00:11:53.390
+And this has to do with.
+
+00:11:54.570 --> 00:11:56.700
+Model called the Language model and
+
+00:11:56.700 --> 00:11:59.600
+this kind of models are proposed to
+
+00:11:59.600 --> 00:12:00.680
+model text.
+
+00:12:02.110 --> 00:12:04.880
+So more specifically, we would be very
+
+00:12:04.880 --> 00:12:08.080
+interested in the following conditional
+
+00:12:08.080 --> 00:12:12.430
+probability as issuing this here if the
+
+00:12:12.430 --> 00:12:13.160
+user.
+
+00:12:14.100 --> 00:12:17.250
+This document how likely the user would
+
+00:12:17.250 --> 00:12:18.640
+oppose this query.
+
+00:12:19.290 --> 00:12:19.880
+Ann
+
+00:12:20.520 --> 00:12:22.630
+In the next lecture working through,
+
+00:12:22.630 --> 00:12:24.660
+give an introduction to language models
+
+00:12:24.660 --> 00:12:29.110
+that we can see how we can model text
+
+00:12:29.110 --> 00:12:30.800
+with the probabilistic model in
+
+00:12:30.800 --> 00:12:31.270
+general.
+
+

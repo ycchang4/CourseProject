@@ -1,0 +1,951 @@
+WEBVTT Kind: captions; Language: en-US
+
+NOTE
+Created on 2021-02-27T00:03:28.9898624Z by ClassTranscribe
+
+00:00:00.300 --> 00:00:02.590
+This lecture is about a mixture of
+
+00:00:02.590 --> 00:00:03.990
+unigram language models.
+
+00:00:11.790 --> 00:00:13.640
+In this lecture we will continue
+
+00:00:13.640 --> 00:00:15.866
+discussing probabilistic topic models.
+
+00:00:15.866 --> 00:00:17.780
+In particular, we're going to introduce
+
+00:00:17.780 --> 00:00:20.140
+a mixture of unigram language models.
+
+00:00:20.880 --> 00:00:23.330
+This is a slide that you have seen
+
+00:00:23.330 --> 00:00:26.450
+earlier where we talked about how to
+
+00:00:26.450 --> 00:00:29.440
+get rid of the background words that
+
+00:00:29.440 --> 00:00:32.640
+we have on top of estimated language
+
+00:00:32.640 --> 00:00:34.420
+model for one document.
+
+00:00:36.440 --> 00:00:38.740
+So if you want to solve the problem.
+
+00:00:39.290 --> 00:00:42.250
+It will be useful to think about why we
+
+00:00:42.250 --> 00:00:43.580
+end up having this problem.
+
+00:00:43.580 --> 00:00:46.436
+Well, this is obviously because these
+
+00:00:46.436 --> 00:00:49.205
+words are very frequent in our data and
+
+00:00:49.205 --> 00:00:51.650
+we are using a maximum likelihood
+
+00:00:51.650 --> 00:00:53.700
+estimate and then the estimator
+
+00:00:53.700 --> 00:00:55.250
+obviously would have to assign high
+
+00:00:55.250 --> 00:00:57.170
+probabilities for these words in order
+
+00:00:57.170 --> 00:00:58.750
+to maximize the likelihood.
+
+00:00:59.550 --> 00:01:01.800
+So in order to get rid of them, that
+
+00:01:01.800 --> 00:01:03.390
+would mean we have to do something
+
+00:01:03.390 --> 00:01:04.170
+different here.
+
+00:01:04.990 --> 00:01:07.855
+In particular, we have to say that this
+
+00:01:07.855 --> 00:01:09.920
+distribution doesn't have to explain
+
+00:01:09.920 --> 00:01:12.300
+all the words in the text data, or
+
+00:01:12.300 --> 00:01:14.470
+we're going to say these common words
+
+00:01:14.470 --> 00:01:17.950
+should not be explained by this
+
+00:01:17.950 --> 00:01:18.420
+distribution.
+
+00:01:19.690 --> 00:01:21.830
+So one natural way to solve the problem
+
+00:01:21.830 --> 00:01:24.240
+is to think about using another
+
+00:01:24.240 --> 00:01:27.830
+distribution to account for just these
+
+00:01:27.830 --> 00:01:28.640
+common words.
+
+00:01:29.270 --> 00:01:31.230
+This way the two distributions can be
+
+00:01:31.230 --> 00:01:33.100
+mixed together to generate the text
+
+00:01:33.100 --> 00:01:35.840
+data and will let the other model which
+
+00:01:35.840 --> 00:01:38.516
+we called background topic model to
+
+00:01:38.516 --> 00:01:40.330
+generate the common words.
+
+00:01:40.330 --> 00:01:45.060
+This way our target is the topic theta
+
+00:01:45.060 --> 00:01:48.499
+here would be only generating the content words
+
+00:01:48.500 --> 00:01:50.950
+that characterize the content of the
+
+00:01:50.950 --> 00:01:51.560
+document.
+
+00:01:52.810 --> 00:01:54.810
+So how does this work?
+
+00:01:54.810 --> 00:01:56.960
+It's just a small modification of the
+
+00:01:56.960 --> 00:01:59.630
+previous set up where we have just one
+
+00:01:59.630 --> 00:02:00.290
+distribution.
+
+00:02:00.940 --> 00:02:03.125
+Since we now have two distributions, we
+
+00:02:03.125 --> 00:02:05.687
+have to decide which distribution to
+
+00:02:05.687 --> 00:02:07.990
+use when we generate the word, but
+
+00:02:07.990 --> 00:02:11.098
+each word will still be sampled from one
+
+00:02:11.098 --> 00:02:13.330
+of the two distributions, right?
+
+00:02:13.330 --> 00:02:15.800
+So text data is still generating the
+
+00:02:15.800 --> 00:02:16.830
+same way.
+
+00:02:16.830 --> 00:02:19.164
+Namely, we're going to generate a one
+
+00:02:19.164 --> 00:02:20.180
+word at each time.
+
+00:02:20.180 --> 00:02:22.400
+An eventually we generated a lot of
+
+00:02:22.400 --> 00:02:22.860
+words.
+
+00:02:22.860 --> 00:02:25.490
+When we generate the word, however,
+
+00:02:25.490 --> 00:02:28.376
+we're going to 1st decide which of the
+
+00:02:28.376 --> 00:02:30.760
+two distributions to use, and this is
+
+00:02:30.760 --> 00:02:31.710
+controlled by
+
+00:02:31.870 --> 00:02:34.542
+another probability: probability of
+
+00:02:34.542 --> 00:02:37.953
+theta sub D and probability of
+
+00:02:37.953 --> 00:02:39.830
+theta sub B here.
+
+00:02:41.770 --> 00:02:44.605
+So this is the probability of selecting
+
+00:02:44.605 --> 00:02:46.735
+the topic word distribution.
+
+00:02:46.735 --> 00:02:49.902
+This is the probability of selecting
+
+00:02:49.902 --> 00:02:53.010
+the background word distribution
+
+00:02:53.010 --> 00:02:54.690
+denoted by Theta sub B.
+
+00:02:55.370 --> 00:02:57.930
+Now in this case I just give example
+
+00:02:57.930 --> 00:02:59.443
+where we can set both to .5.
+
+00:02:59.443 --> 00:03:02.780
+So if you can do basically flip a coin
+
+00:03:02.780 --> 00:03:05.450
+a fair coin to decide which one to use.
+
+00:03:05.450 --> 00:03:07.490
+But in general these probabilities
+
+00:03:07.490 --> 00:03:10.720
+don't have to be equal, so you might
+
+00:03:10.720 --> 00:03:13.920
+bias towards using one topic more than
+
+00:03:13.920 --> 00:03:14.830
+the other.
+
+00:03:14.830 --> 00:03:17.530
+So now the process of generating a
+
+00:03:17.530 --> 00:03:19.900
+word would be the first to flip a coin
+
+00:03:19.900 --> 00:03:22.000
+based on these probabilities of
+
+00:03:22.000 --> 00:03:25.330
+choosing each model and if.
+
+00:03:25.380 --> 00:03:28.330
+Let's say the coin shows up as head,
+
+00:03:28.330 --> 00:03:29.720
+which means we're going to use the
+
+00:03:29.720 --> 00:03:31.700
+topic word distribution.
+
+00:03:31.700 --> 00:03:34.590
+Then we're going to use this word
+
+00:03:34.590 --> 00:03:37.470
+distribution to generate a word.
+
+00:03:37.470 --> 00:03:39.880
+Otherwise we might be going through
+
+00:03:39.880 --> 00:03:40.800
+this path.
+
+00:03:41.550 --> 00:03:43.590
+And we're going to use the background
+
+00:03:43.590 --> 00:03:45.690
+word distribution to generate the word.
+
+00:03:46.780 --> 00:03:49.870
+So in such a case we have a model that
+
+00:03:49.870 --> 00:03:51.980
+has some uncertainty associated with
+
+00:03:51.980 --> 00:03:54.410
+the use of a word distribution.
+
+00:03:54.410 --> 00:03:57.123
+But we can still think of this as a
+
+00:03:57.123 --> 00:03:59.880
+model for generating text data and such
+
+00:03:59.880 --> 00:04:01.380
+a model is called a mixture model.
+
+00:04:02.640 --> 00:04:03.785
+So now let's see.
+
+00:04:03.785 --> 00:04:06.355
+In this case, what's the probability of
+
+00:04:06.355 --> 00:04:07.618
+observing the word w?
+
+00:04:07.618 --> 00:04:11.040
+Now here I showed some words like "the"
+
+00:04:11.040 --> 00:04:14.350
+and "text", so as in all cases, once we
+
+00:04:14.350 --> 00:04:15.860
+set up the model, we're interested in
+
+00:04:15.860 --> 00:04:17.520
+computing the likelihood function.
+
+00:04:17.520 --> 00:04:20.230
+The basic question is, so what's the
+
+00:04:20.230 --> 00:04:21.910
+probability of observing a specific
+
+00:04:21.910 --> 00:04:22.530
+word here?
+
+00:04:22.530 --> 00:04:24.520
+Now we know that the word can be
+
+00:04:24.520 --> 00:04:27.020
+observed from each of the two
+
+00:04:27.020 --> 00:04:29.150
+distributions, so we have to consider 2
+
+00:04:29.150 --> 00:04:29.750
+cases.
+
+00:04:29.750 --> 00:04:32.350
+Therefore it's a sum over these two
+
+00:04:32.350 --> 00:04:32.770
+cases.
+
+00:04:34.350 --> 00:04:37.500
+The first case is to use the topic
+
+00:04:37.500 --> 00:04:39.297
+word distribution to generate the
+
+00:04:39.297 --> 00:04:41.932
+word, and in such a case, then the
+
+00:04:41.932 --> 00:04:44.370
+probability would be the probability of
+
+00:04:44.370 --> 00:04:46.802
+Theta sub D, which is the probability
+
+00:04:46.802 --> 00:04:49.924
+of choosing the model multiplied by the
+
+00:04:49.924 --> 00:04:51.865
+probability of actually observing the
+
+00:04:51.865 --> 00:04:53.510
+word from that model.
+
+00:04:53.510 --> 00:04:55.870
+Both events must happen in order to
+
+00:04:55.870 --> 00:04:56.676
+observe "the".
+
+00:04:56.676 --> 00:05:00.081
+We first must have chosen the topic of
+
+00:05:00.081 --> 00:05:04.269
+ and then we also have to actually
+
+00:05:04.410 --> 00:05:06.510
+have sampled the word "the" from the
+
+00:05:06.510 --> 00:05:09.030
+distribution and similarly the second
+
+00:05:09.030 --> 00:05:11.890
+part accounts for a different way of
+
+00:05:11.890 --> 00:05:13.430
+generating the word from the
+
+00:05:13.430 --> 00:05:14.080
+background.
+
+00:05:15.090 --> 00:05:18.368
+Now obviously the probability of text
+
+00:05:18.368 --> 00:05:21.020
+the same is all similar, right?
+
+00:05:21.020 --> 00:05:23.770
+So we also consider two ways of
+
+00:05:23.770 --> 00:05:26.330
+generating text, and each case is a
+
+00:05:26.330 --> 00:05:28.920
+product of the probability of choosing
+
+00:05:28.920 --> 00:05:30.460
+a particular word distribution
+
+00:05:30.460 --> 00:05:32.170
+multiplied by the probability of
+
+00:05:32.170 --> 00:05:34.090
+observing the word from that
+
+00:05:34.090 --> 00:05:34.790
+distribution.
+
+00:05:35.440 --> 00:05:37.260
+Now later you will see this is actually
+
+00:05:37.260 --> 00:05:39.980
+general form, so you might want to make
+
+00:05:39.980 --> 00:05:42.110
+sure that you have really understood
+
+00:05:42.110 --> 00:05:43.150
+this expression here.
+
+00:05:43.740 --> 00:05:46.110
+And you should convince yourself that
+
+00:05:46.110 --> 00:05:48.100
+this is indeed the probability of
+
+00:05:48.100 --> 00:05:49.050
+observing text.
+
+00:05:49.840 --> 00:05:52.155
+So to summarize, what we observe here,
+
+00:05:52.155 --> 00:05:54.800
+the probability of a word from a
+
+00:05:54.800 --> 00:05:57.220
+mixture model is in general a sum over
+
+00:05:57.220 --> 00:05:59.320
+all different ways of generating the
+
+00:05:59.320 --> 00:05:59.590
+word.
+
+00:06:00.480 --> 00:06:03.990
+And in each case it's a product of the
+
+00:06:03.990 --> 00:06:06.660
+probability of selecting that component
+
+00:06:06.660 --> 00:06:07.180
+model.
+
+00:06:07.770 --> 00:06:10.400
+multiplied by the probability of
+
+00:06:10.400 --> 00:06:12.580
+actually observing the data point from
+
+00:06:12.580 --> 00:06:14.480
+that component model, and this is
+
+00:06:14.480 --> 00:06:15.890
+something quite general and you will
+
+00:06:15.890 --> 00:06:18.870
+see this occurring often later.
+
+00:06:20.870 --> 00:06:23.030
+So the basic idea of a mixture model is
+
+00:06:23.030 --> 00:06:26.790
+just to treated these two distributions
+
+00:06:26.790 --> 00:06:28.586
+together as one model.
+
+00:06:28.586 --> 00:06:31.130
+So I use the box to bring all these
+
+00:06:31.130 --> 00:06:32.210
+components together.
+
+00:06:32.760 --> 00:06:35.480
+So if you view this whole box as one
+
+00:06:35.480 --> 00:06:37.670
+model, it's just like any other
+
+00:06:37.670 --> 00:06:38.580
+generative model.
+
+00:06:38.580 --> 00:06:40.710
+It would just give us the probability
+
+00:06:40.710 --> 00:06:41.440
+of a word.
+
+00:06:42.760 --> 00:06:44.890
+But the way that determines this
+
+00:06:44.890 --> 00:06:47.230
+probability is quite different from
+
+00:06:47.230 --> 00:06:48.970
+when we have just one distribution.
+
+00:06:49.940 --> 00:06:52.870
+And this is basically a more
+
+00:06:52.870 --> 00:06:54.610
+complicated mixture model.
+
+00:06:54.610 --> 00:06:56.420
+Sorry, more complicated model than just
+
+00:06:56.420 --> 00:06:58.410
+one distribution, and it's called a
+
+00:06:58.410 --> 00:06:58.930
+mixture model.
+
+00:07:00.370 --> 00:07:03.100
+So as I just said, we can treat this as
+
+00:07:03.100 --> 00:07:05.100
+just a generative model and it's often
+
+00:07:05.100 --> 00:07:07.340
+useful to think of just the likelihood
+
+00:07:07.340 --> 00:07:07.956
+function.
+
+00:07:07.956 --> 00:07:09.790
+The illustration that you have seen
+
+00:07:09.790 --> 00:07:12.267
+before, which is dimmer now is just the
+
+00:07:12.267 --> 00:07:14.125
+illustration of this generation model.
+
+00:07:14.125 --> 00:07:16.645
+So mathematically, this model.
+
+00:07:16.645 --> 00:07:20.130
+This is nothing but to just define the
+
+00:07:20.130 --> 00:07:22.010
+following generative model where the
+
+00:07:22.010 --> 00:07:23.990
+probability of word is assumed to be a
+
+00:07:23.990 --> 00:07:28.327
+sum over 2 cases of generating the
+
+00:07:28.327 --> 00:07:29.035
+word.
+
+00:07:29.035 --> 00:07:31.440
+The form you're seeing now is more
+
+00:07:31.440 --> 00:07:32.540
+general form than.
+
+00:07:32.620 --> 00:07:34.840
+what you have seen in the calculation earlier.
+
+00:07:34.840 --> 00:07:40.080
+I just used a simple w to denote any
+
+00:07:40.080 --> 00:07:42.460
+word, but you can still see.
+
+00:07:42.460 --> 00:07:45.490
+This is basically the first sum.
+
+00:07:45.610 --> 00:07:46.140
+Like
+
+00:07:47.450 --> 00:07:50.035
+And this sum is due to the fact that
+
+00:07:50.035 --> 00:07:51.880
+the word can be generating multiple
+
+00:07:51.880 --> 00:07:52.310
+ways.
+
+00:07:52.970 --> 00:07:54.160
+Two ways in this case.
+
+00:07:54.940 --> 00:07:57.880
+At inside sum, each term is a product
+
+00:07:57.880 --> 00:07:59.460
+again of two terms.
+
+00:08:00.220 --> 00:08:02.865
+And the two terms are ,first, the
+
+00:08:02.865 --> 00:08:05.420
+probability of selecting a component
+
+00:08:05.420 --> 00:08:07.890
+like Theta sub D. Second, the
+
+00:08:07.890 --> 00:08:10.040
+probability of actually observing the
+
+00:08:10.040 --> 00:08:12.270
+word from this component model.
+
+00:08:12.270 --> 00:08:16.455
+And so this is a very general description
+
+00:08:16.455 --> 00:08:19.420
+of, in fact, all the mixture models.
+
+00:08:20.080 --> 00:08:22.260
+And I just want to make sure that you
+
+00:08:22.260 --> 00:08:24.480
+understand this, because this is really
+
+00:08:24.480 --> 00:08:26.240
+the basis for understanding all kinds
+
+00:08:26.240 --> 00:08:27.220
+of topic models.
+
+00:08:28.400 --> 00:08:31.488
+So now once we set up the model and we
+
+00:08:31.488 --> 00:08:33.470
+can write down the likelihood function
+
+00:08:33.470 --> 00:08:35.930
+as we see here, the next question is
+
+00:08:35.930 --> 00:08:38.140
+how can we estimate the parameter or
+
+00:08:38.140 --> 00:08:40.370
+what to do with the parameters given
+
+00:08:40.370 --> 00:08:41.350
+the data?
+
+00:08:41.350 --> 00:08:44.190
+Well, in general we can use some
+
+00:08:44.190 --> 00:08:46.462
+observed text data to estimate the
+
+00:08:46.462 --> 00:08:48.560
+model parameters and this mission
+
+00:08:48.560 --> 00:08:51.290
+would allow us to discover
+
+00:08:52.040 --> 00:08:54.940
+the interesting knowledge about the
+
+00:08:54.940 --> 00:08:57.770
+text, so in this case, what do we
+
+00:08:57.770 --> 00:08:58.360
+discover?
+
+00:08:58.360 --> 00:09:00.470
+Well, these are represented by our
+
+00:09:00.470 --> 00:09:02.555
+parameters, and we have two kinds of
+
+00:09:02.555 --> 00:09:02.970
+parameters.
+
+00:09:02.970 --> 00:09:05.840
+One is the two word distributions.
+
+00:09:05.840 --> 00:09:07.845
+Those are two topics and the other is
+
+00:09:07.845 --> 00:09:10.600
+the coverage of each topic in each.
+
+00:09:12.480 --> 00:09:14.800
+The coverage of each topic and this is
+
+00:09:14.800 --> 00:09:17.220
+determined by probability of Theta
+
+00:09:17.220 --> 00:09:17.610
+sub D.
+
+00:09:17.610 --> 00:09:20.230
+and probability of Theta sub B.
+
+00:09:20.230 --> 00:09:22.129
+Note that they sum to one.
+
+00:09:22.130 --> 00:09:24.360
+Now what's interesting is also to think
+
+00:09:24.360 --> 00:09:26.010
+about the special cases, like when we
+
+00:09:26.010 --> 00:09:28.530
+set one of them to one.
+
+00:09:28.530 --> 00:09:31.120
+What would happen? Well, the other would
+
+00:09:31.120 --> 00:09:32.110
+be 0, right?
+
+00:09:32.660 --> 00:09:34.790
+And if you look at the likelihood
+
+00:09:34.790 --> 00:09:35.410
+function.
+
+00:09:36.210 --> 00:09:38.780
+It will then degenerate to the special
+
+00:09:38.780 --> 00:09:41.370
+case of just one distribution right so
+
+00:09:41.370 --> 00:09:43.960
+you can easily verify that by assuming
+
+00:09:43.960 --> 00:09:47.000
+one of these two is 1.0 and the other
+
+00:09:47.000 --> 00:09:48.110
+is 0.
+
+00:09:49.040 --> 00:09:51.480
+So in this sense, the mixture model is
+
+00:09:51.480 --> 00:09:54.390
+more general than the previous model
+
+00:09:54.390 --> 00:09:56.630
+where we have just one distribution and
+
+00:09:56.630 --> 00:09:58.810
+it can cover that as a special case.
+
+00:09:59.880 --> 00:10:02.440
+So to summarize, and we talked about
+
+00:10:02.440 --> 00:10:04.010
+the mixture of two unigram language
+
+00:10:04.010 --> 00:10:04.490
+models.
+
+00:10:05.040 --> 00:10:06.890
+And the data we consider here is
+
+00:10:06.890 --> 00:10:08.400
+just still 1 document.
+
+00:10:09.020 --> 00:10:12.350
+And the model is a mixture model with
+
+00:10:12.350 --> 00:10:14.500
+two components: two unigram language
+
+00:10:14.500 --> 00:10:14.990
+models.
+
+00:10:14.990 --> 00:10:17.140
+Specifically, Theta sub D which is
+
+00:10:17.140 --> 00:10:19.330
+intended to denote the topic of
+
+00:10:19.330 --> 00:10:22.530
+document D and Theta sub B which is
+
+00:10:22.530 --> 00:10:24.430
+representing a background topic
+
+00:10:25.210 --> 00:10:28.480
+that we can set to attract the common
+
+00:10:28.480 --> 00:10:28.950
+words.
+
+00:10:29.540 --> 00:10:31.040
+Because common words would be assigned
+
+00:10:31.040 --> 00:10:32.980
+high probabilities in this model.
+
+00:10:33.890 --> 00:10:36.110
+So the parameters can be collectively
+
+00:10:36.110 --> 00:10:38.760
+called a Lambda, which I show here
+
+00:10:38.760 --> 00:10:40.609
+again, and you can again
+
+00:10:41.320 --> 00:10:43.160
+think about the question about how many
+
+00:10:43.160 --> 00:10:44.580
+parameters are we talking about
+
+00:10:44.580 --> 00:10:45.240
+exactly.
+
+00:10:45.240 --> 00:10:47.520
+This is usually good exercise to do
+
+00:10:47.520 --> 00:10:50.750
+because it allows you to see the model
+
+00:10:50.750 --> 00:10:52.970
+index and to have a complete
+
+00:10:52.970 --> 00:10:55.455
+understanding of what's going on in
+
+00:10:55.455 --> 00:10:57.545
+this model and we have mixing weights
+
+00:10:57.545 --> 00:10:58.860
+of course also.
+
+00:10:59.700 --> 00:11:01.830
+So what is the likelihood function look
+
+00:11:01.830 --> 00:11:03.000
+like?
+
+00:11:03.000 --> 00:11:06.904
+It looks very similar to what we had
+
+00:11:06.904 --> 00:11:09.565
+before, so for the document, first, it's
+
+00:11:09.565 --> 00:11:12.136
+a product of all the words in the
+
+00:11:12.136 --> 00:11:14.003
+document exactly the same as before.
+
+00:11:14.003 --> 00:11:17.120
+The only difference is that inside here
+
+00:11:17.120 --> 00:11:19.956
+now it's a sum instead of just one,
+
+00:11:19.956 --> 00:11:22.790
+so you might recall before we just had
+
+00:11:22.790 --> 00:11:23.710
+this one.
+
+00:11:25.350 --> 00:11:29.489
+But now we had this sum because of the
+
+00:11:29.490 --> 00:11:32.200
+mixture model and because of the mixed
+
+00:11:32.200 --> 00:11:32.415
+model
+
+00:11:32.415 --> 00:11:33.690
+We also have to introduce the
+
+00:11:33.690 --> 00:11:36.190
+probability of choosing that particular
+
+00:11:36.190 --> 00:11:37.810
+component distribution.
+
+00:11:39.449 --> 00:11:42.069
+And so this is just another way of
+
+00:11:42.069 --> 00:11:45.609
+writing it again by using a product
+
+00:11:45.609 --> 00:11:47.779
+over all the unique words in our
+
+00:11:47.779 --> 00:11:50.583
+vocabulary, instead of having a product
+
+00:11:50.583 --> 00:11:52.969
+of all the positions in the document
+
+00:11:52.969 --> 00:11:56.989
+and this form where we look at
+
+00:11:56.989 --> 00:11:59.859
+different unique words is a convenient
+
+00:11:59.859 --> 00:12:02.459
+form for computing the maximum
+
+00:12:02.459 --> 00:12:04.039
+likelihood estimator later.
+
+00:12:04.599 --> 00:12:07.799
+And the maximum likelihood estimator 
+
+00:12:07.799 --> 00:12:11.539
+is, as usual, just to find the parameters
+
+00:12:12.139 --> 00:12:13.909
+that would maximize this likelihood
+
+00:12:13.909 --> 00:12:15.959
+function and the constraints
+
+00:12:15.959 --> 00:12:18.779
+here, of course, are two kinds.
+
+00:12:18.779 --> 00:12:21.354
+One is the word probabilities in each
+
+00:12:21.354 --> 00:12:23.729
+topic must sum to one, the other is the
+
+00:12:23.729 --> 00:12:25.948
+choice of each topic must sum to one.
+
+

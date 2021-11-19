@@ -1,0 +1,873 @@
+WEBVTT Kind: captions; Language: en-US
+
+NOTE
+Created on 2021-02-27T00:00:43.5789078Z by ClassTranscribe
+
+00:00:00.300 --> 00:00:02.030
+So now let's talk about the problem
+
+00:00:02.030 --> 00:00:04.346
+a little bit more and specifically, let's
+
+00:00:04.346 --> 00:00:07.240
+talk about the two different ways of
+
+00:00:07.240 --> 00:00:08.920
+estimating parameters.
+
+00:00:08.920 --> 00:00:10.550
+One is called maximum likelihood
+
+00:00:10.550 --> 00:00:12.960
+estimate that I already just mentioned.
+
+00:00:12.960 --> 00:00:14.690
+The other is Bayesian estimation.
+
+00:00:22.080 --> 00:00:24.080
+So in Maximum likelihood estimation, we
+
+00:00:24.080 --> 00:00:28.580
+define best as meaning the data likelihood
+
+00:00:28.580 --> 00:00:31.799
+has reached the maximum, so
+
+00:00:31.800 --> 00:00:33.700
+formally it's given by this expression
+
+00:00:33.700 --> 00:00:34.000
+here.
+
+00:00:34.630 --> 00:00:39.290
+Where we define the estimate as 
+
+00:00:39.290 --> 00:00:40.060
+arg max
+
+00:00:41.390 --> 00:00:45.360
+of the probability of X given Theta.
+
+00:00:46.000 --> 00:00:50.590
+And so arg max here just means it's
+
+00:00:50.590 --> 00:00:52.780
+actually a function that would return
+
+00:00:53.470 --> 00:00:56.190
+the argument that gives the function
+
+00:00:56.190 --> 00:00:58.860
+maximum value as the value, so the
+
+00:00:58.860 --> 00:01:01.482
+value of arg max is not the value of this
+
+00:01:01.482 --> 00:01:03.830
+function, but rather the argument that
+
+00:01:03.830 --> 00:01:05.865
+has made the function reach maximum.
+
+00:01:05.865 --> 00:01:08.880
+So in this case the value of argmax is
+
+00:01:08.880 --> 00:01:09.410
+Theta.
+
+00:01:09.410 --> 00:01:12.280
+It's the Theta that makes the
+
+00:01:12.900 --> 00:01:15.310
+probability of X given Theta reach its
+
+00:01:15.310 --> 00:01:17.935
+maximum, so this estimate intuitively
+
+00:01:17.935 --> 00:01:19.960
+also makes sense, and
+
+00:01:19.960 --> 00:01:23.035
+it's often very useful, and it seeks
+
+00:01:23.035 --> 00:01:25.840
+the parameters that best explain the
+
+00:01:25.840 --> 00:01:26.270
+data.
+
+00:01:27.000 --> 00:01:29.380
+But it has a problem when the data is
+
+00:01:29.380 --> 00:01:32.071
+too small, because when the data points
+
+00:01:32.071 --> 00:01:33.099
+are too small,
+
+00:01:33.100 --> 00:01:34.957
+there are very few data points.
+
+00:01:34.957 --> 00:01:36.513
+The sample is small,
+
+00:01:36.513 --> 00:01:39.220
+then if we trust data entirely and try
+
+00:01:39.220 --> 00:01:41.020
+to fit the data and then we will be
+
+00:01:41.020 --> 00:01:41.830
+biased.
+
+00:01:41.830 --> 00:01:45.890
+So in the case of text data, let's say
+
+00:01:45.890 --> 00:01:49.980
+our observed 100 words did not contain
+
+00:01:49.980 --> 00:01:52.700
+another word related to text mining,
+
+00:01:52.700 --> 00:01:55.230
+then our maximum likelihood estimator
+
+00:01:55.230 --> 00:01:57.740
+would give that word zero probability.
+
+00:01:57.890 --> 00:02:00.060
+Because giving a non zero
+
+00:02:00.060 --> 00:02:01.665
+probability would take away probability
+
+00:02:01.665 --> 00:02:04.550
+mass from some observed words which
+
+00:02:04.550 --> 00:02:06.890
+obviously is not optimal in terms of
+
+00:02:06.890 --> 00:02:09.426
+maximizing the likelihood of the
+
+00:02:09.426 --> 00:02:10.110
+observed data.
+
+00:02:10.930 --> 00:02:15.980
+But this zero probability for all the
+
+00:02:17.120 --> 00:02:19.250
+unseen words may not be reasonable
+
+00:02:19.250 --> 00:02:21.840
+sometimes, especially if we want the
+
+00:02:21.840 --> 00:02:23.950
+distribution to characterize the topic
+
+00:02:23.950 --> 00:02:25.135
+of text mining.
+
+00:02:25.135 --> 00:02:27.933
+So one way to address this problem is
+
+00:02:27.933 --> 00:02:29.660
+actually to use Bayesian estimation,
+
+00:02:29.660 --> 00:02:31.510
+where we actually would look at
+
+00:02:31.510 --> 00:02:34.540
+both the data and all our prior
+
+00:02:34.540 --> 00:02:36.580
+knowledge about the parameters.
+
+00:02:36.580 --> 00:02:39.500
+We assume that we have some prior
+
+00:02:39.500 --> 00:02:42.089
+belief about the parameters.
+
+00:02:42.090 --> 00:02:46.860
+Now in this case, of course, so we are
+
+00:02:47.130 --> 00:02:50.870
+not going to look at just the data, but
+
+00:02:50.870 --> 00:02:55.030
+also look at the prior so the prior
+
+00:02:55.030 --> 00:02:57.950
+here is defined by P of Theta.
+
+00:02:59.230 --> 00:03:02.930
+And this means we will impose some
+
+00:03:02.930 --> 00:03:05.330
+preference on certain Thetas over
+
+00:03:05.330 --> 00:03:05.900
+others.
+
+00:03:06.750 --> 00:03:09.880
+And by using Bayes rule that I have
+
+00:03:09.880 --> 00:03:10.860
+shown here,
+
+00:03:12.510 --> 00:03:15.620
+we can then combine the
+
+00:03:16.690 --> 00:03:19.630
+likelihood function with the prior
+
+00:03:20.200 --> 00:03:22.330
+to give us this
+
+00:03:23.380 --> 00:03:24.410
+posterior
+
+00:03:26.340 --> 00:03:28.340
+probability of the parameter.
+
+00:03:29.020 --> 00:03:31.299
+Now a full explanation of Bayes Rule
+
+00:03:31.300 --> 00:03:34.640
+and some of these things related to
+
+00:03:34.640 --> 00:03:37.990
+Bayesian reasoning would be outside
+
+00:03:37.990 --> 00:03:39.940
+the scope of this course, but I just
+
+00:03:39.940 --> 00:03:41.633
+give a brief introduction because this
+
+00:03:41.633 --> 00:03:43.360
+is a general knowledge that might be
+
+00:03:43.360 --> 00:03:46.160
+useful for you, so the Bayes rule is
+
+00:03:46.160 --> 00:03:47.760
+basically defined here.
+
+00:03:48.680 --> 00:03:52.522
+And allows us to write down one
+
+00:03:52.522 --> 00:03:55.760
+conditional probability of X given Y in
+
+00:03:55.760 --> 00:03:58.580
+terms of the conditional probability of
+
+00:03:58.580 --> 00:04:00.020
+Y given X.
+
+00:04:00.020 --> 00:04:02.808
+And you can see the two probabilities
+
+00:04:02.808 --> 00:04:05.840
+are two conditional probabilities are
+
+00:04:05.840 --> 00:04:07.869
+different in the order of the two
+
+00:04:07.870 --> 00:04:13.010
+variables, but often the rule is used
+
+00:04:13.010 --> 00:04:16.120
+for making inferences of
+
+00:04:17.370 --> 00:04:18.750
+a variable.
+
+00:04:18.750 --> 00:04:22.080
+So let's take a look at it
+
+00:04:22.080 --> 00:04:26.650
+again, we can assume that P of X
+
+00:04:26.650 --> 00:04:29.930
+encodes our prior belief about the X.
+
+00:04:30.610 --> 00:04:32.660
+That means before we observe any other
+
+00:04:32.660 --> 00:04:35.720
+data, that's our belief about X, what
+
+00:04:35.720 --> 00:04:38.000
+we believe some X values have higher
+
+00:04:38.000 --> 00:04:39.380
+probability than others.
+
+00:04:40.630 --> 00:04:45.720
+And this probability of X given Y is a
+
+00:04:45.720 --> 00:04:47.578
+conditional probability, and this is
+
+00:04:47.578 --> 00:04:51.500
+our posterior belief about X, because
+
+00:04:51.500 --> 00:04:55.370
+this is our belief about X values after
+
+00:04:55.370 --> 00:04:57.000
+we have observed Y.
+
+00:04:57.570 --> 00:04:59.990
+Given that we have observed Y, now
+
+00:04:59.990 --> 00:05:03.938
+what do we believe about X now, do we
+
+00:05:03.938 --> 00:05:04.500
+believe
+
+00:05:05.150 --> 00:05:07.850
+some values have high probabilities
+
+00:05:07.850 --> 00:05:08.560
+than others?
+
+00:05:09.850 --> 00:05:12.600
+Now, the two probabilities are related
+
+00:05:12.600 --> 00:05:17.190
+through this can be regarded as the
+
+00:05:17.190 --> 00:05:19.200
+probability of
+
+00:05:19.750 --> 00:05:22.770
+the observed evidence Y
+
+00:05:22.770 --> 00:05:25.850
+here given a particular X.
+
+00:05:26.600 --> 00:05:28.370
+So you can think about X as our
+
+00:05:28.370 --> 00:05:29.280
+hypothesis.
+
+00:05:30.310 --> 00:05:33.190
+And we have some prior belief about
+
+00:05:33.190 --> 00:05:35.970
+which hypothesis to choose and after we have
+
+00:05:35.970 --> 00:05:39.860
+observed Y, we will update our belief
+
+00:05:39.860 --> 00:05:43.110
+and this updating formula is based on
+
+00:05:43.980 --> 00:05:48.840
+the combination of our prior here and
+
+00:05:48.840 --> 00:05:54.570
+the likelihood of observing this Y if X
+
+00:05:54.570 --> 00:05:56.180
+is indeed true.
+
+00:05:56.830 --> 00:06:00.790
+So much for a detour about Bayes Rule.
+
+00:06:02.040 --> 00:06:04.390
+So in our case, what we're interested
+
+00:06:04.390 --> 00:06:07.920
+in is inferring the theta values so
+
+00:06:07.920 --> 00:06:09.660
+we have a prior here.
+
+00:06:10.870 --> 00:06:13.760
+That includes our prior knowledge about
+
+00:06:13.760 --> 00:06:14.690
+the parameters.
+
+00:06:15.520 --> 00:06:17.710
+And then we have the data likelihood
+
+00:06:17.710 --> 00:06:21.200
+here that would tell us which parameter
+
+00:06:21.200 --> 00:06:23.110
+value can explain the data well.
+
+00:06:23.680 --> 00:06:28.240
+The posterior probability combines both
+
+00:06:28.240 --> 00:06:29.110
+of them.
+
+00:06:30.140 --> 00:06:32.460
+So it represents a compromise of the
+
+00:06:32.460 --> 00:06:33.650
+two preferences.
+
+00:06:34.280 --> 00:06:38.610
+And in such a case, we can maximize
+
+00:06:38.610 --> 00:06:41.900
+this posterior probability to find a
+
+00:06:41.900 --> 00:06:44.570
+theta that would maximize
+
+00:06:45.160 --> 00:06:47.100
+this posterior probability.
+
+00:06:47.700 --> 00:06:50.600
+And this estimator is called the Maximum
+
+00:06:50.600 --> 00:06:54.440
+a Posteriori or MAP estimate.
+
+00:06:55.380 --> 00:07:00.030
+And this estimate is a more
+
+00:07:00.030 --> 00:07:01.690
+general estimate than the maximum
+
+00:07:01.690 --> 00:07:02.860
+likelihood estimate.
+
+00:07:02.860 --> 00:07:07.280
+Because once if we define our prior as a
+
+00:07:07.280 --> 00:07:09.480
+noninformative prior meaning that it's
+
+00:07:09.480 --> 00:07:11.830
+uniform over all the theta values,
+
+00:07:11.830 --> 00:07:13.150
+no preference, then,
+
+00:07:13.150 --> 00:07:15.648
+we basically would go back to the
+
+00:07:15.648 --> 00:07:17.410
+maximum likelihood estimator because in
+
+00:07:17.410 --> 00:07:20.100
+such a case it's mainly going to be
+
+00:07:20.100 --> 00:07:22.840
+determined by this likelihood value
+
+00:07:22.840 --> 00:07:23.680
+here.
+
+00:07:24.340 --> 00:07:25.610
+The same as here.
+
+00:07:27.450 --> 00:07:31.820
+OK, but if we have some informative
+
+00:07:31.820 --> 00:07:35.100
+prior, some bias towards certain values,
+
+00:07:35.100 --> 00:07:36.500
+then MAP estimate
+
+00:07:36.500 --> 00:07:39.170
+can allow us to incorporate that,
+
+00:07:39.170 --> 00:07:42.080
+but the problem here of course is how
+
+00:07:42.080 --> 00:07:43.480
+to define the prior.
+
+00:07:44.060 --> 00:07:46.470
+There's no free lunch, and if you want
+
+00:07:46.470 --> 00:07:48.900
+to solve the problem with more
+
+00:07:48.900 --> 00:07:50.785
+knowledge, we have to have that
+
+00:07:50.785 --> 00:07:52.670
+knowledge and that knowledge ideally
+
+00:07:52.670 --> 00:07:53.780
+should be reliable.
+
+00:07:53.780 --> 00:07:56.760
+Otherwise your estimate may not
+
+00:07:56.760 --> 00:07:58.320
+necessarily be more accurate than
+
+00:07:58.320 --> 00:07:59.600
+maximum likelihood estimate.
+
+00:08:00.510 --> 00:08:04.860
+Now let's look at the Bayesian
+
+00:08:04.860 --> 00:08:07.060
+estimation in more detail.
+
+00:08:07.860 --> 00:08:11.680
+OK, so I show the theta values as
+
+00:08:11.680 --> 00:08:15.880
+just one dimension value and that's a
+
+00:08:15.880 --> 00:08:17.350
+simplification of course.
+
+00:08:17.910 --> 00:08:22.220
+So we're interested in which value of
+
+00:08:22.220 --> 00:08:23.240
+data is optimal.
+
+00:08:24.500 --> 00:08:27.345
+So now first we have the prior.
+
+00:08:27.345 --> 00:08:30.100
+The prior tells us some theta values are
+
+00:08:30.100 --> 00:08:31.195
+more likely than others.
+
+00:08:31.195 --> 00:08:33.500
+We believe, for example,
+
+00:08:34.280 --> 00:08:36.990
+these values are more likely than the
+
+00:08:36.990 --> 00:08:40.310
+values like here or here or other
+
+00:08:40.310 --> 00:08:41.020
+places.
+
+00:08:42.010 --> 00:08:44.980
+So this is our prior.
+
+00:08:46.040 --> 00:08:50.390
+And then we have our data likelihood.
+
+00:08:51.350 --> 00:08:54.130
+In this case, the data also tells us
+
+00:08:54.130 --> 00:08:56.430
+which values of theta are more likely
+
+00:08:56.430 --> 00:08:58.410
+and that just means those theta values
+
+00:08:58.410 --> 00:08:59.940
+can best explain our data.
+
+00:09:01.750 --> 00:09:03.689
+And then when we combine the two, we
+
+00:09:03.690 --> 00:09:06.290
+get the posterior distribution and
+
+00:09:06.290 --> 00:09:08.410
+that's just a compromise of the two.
+
+00:09:08.410 --> 00:09:10.920
+It would say that it's somewhere in
+
+00:09:10.920 --> 00:09:13.520
+between, so we can now look at some
+
+00:09:13.520 --> 00:09:15.570
+interesting point estimates of theta.
+
+00:09:15.570 --> 00:09:19.243
+Now this point represents the mode of
+
+00:09:19.243 --> 00:09:19.566
+prior.
+
+00:09:19.566 --> 00:09:21.270
+That means the most likely parameter
+
+00:09:21.270 --> 00:09:23.240
+value according to our prior before we
+
+00:09:23.240 --> 00:09:24.310
+observe any data.
+
+00:09:25.110 --> 00:09:27.010
+This point is the maximum likelihood
+
+00:09:27.010 --> 00:09:28.990
+estimate that represents the theta that
+
+00:09:28.990 --> 00:09:31.650
+gives the data the maximum probability.
+
+00:09:32.250 --> 00:09:33.843
+Now this point is interesting.
+
+00:09:33.843 --> 00:09:36.540
+It's the posterior mode, it's the.
+
+00:09:37.090 --> 00:09:39.540
+It's the most likely value of theta
+
+00:09:39.540 --> 00:09:41.375
+given by the posterior distribution,
+
+00:09:41.375 --> 00:09:44.495
+and it represents a good compromise of
+
+00:09:44.495 --> 00:09:47.830
+the prior mode and the maximum likehood
+
+00:09:47.830 --> 00:09:48.190
+estimate.
+
+00:09:51.370 --> 00:09:54.920
+In general, in Bayesian inference we
+
+00:09:54.920 --> 00:09:57.110
+are interested in the distribution of
+
+00:09:57.110 --> 00:09:58.370
+all these parameter values.
+
+00:09:58.370 --> 00:09:59.720
+As you see, here is there's a
+
+00:09:59.720 --> 00:10:03.650
+distribution over Theta values that you
+
+00:10:03.650 --> 00:10:07.910
+can see here P of theta given X.
+
+00:10:09.030 --> 00:10:13.150
+So the problem of Bayesian inference is
+
+00:10:13.150 --> 00:10:18.190
+to infer this posterior distribution
+
+00:10:18.190 --> 00:10:22.070
+and also to infer other interesting
+
+00:10:22.070 --> 00:10:24.565
+quantities that might depend on Theta.
+
+00:10:24.565 --> 00:10:28.250
+So I showed F of Theta here as an
+
+00:10:28.250 --> 00:10:30.215
+interesting variable that we want to
+
+00:10:30.215 --> 00:10:30.700
+compute.
+
+00:10:30.700 --> 00:10:32.550
+But in order to compute this value, we
+
+00:10:32.550 --> 00:10:34.695
+need to know the value of Theta.
+
+00:10:34.695 --> 00:10:36.925
+In Bayesian inference, we treat data
+
+00:10:36.925 --> 00:10:39.290
+as uncertain variable.
+
+00:10:39.580 --> 00:10:41.490
+So we think about all the possible
+
+00:10:41.490 --> 00:10:42.490
+values of Theta.
+
+00:10:42.490 --> 00:10:44.820
+Therefore we can estimate the value of
+
+00:10:44.820 --> 00:10:48.396
+this function F as the expected value
+
+00:10:48.396 --> 00:10:51.750
+of F according to the posterior
+
+00:10:51.750 --> 00:10:53.020
+distribution of data
+
+00:10:53.750 --> 00:10:57.130
+given the observed evidence X.
+
+00:10:57.840 --> 00:11:01.490
+As a special case, we can assume F
+
+00:11:01.490 --> 00:11:04.510
+of Theta is just equal to Theta.
+
+00:11:04.510 --> 00:11:06.623
+In this case we get the expected value
+
+00:11:06.623 --> 00:11:08.010
+of Theta.
+
+00:11:08.010 --> 00:11:10.890
+That's basically the posterior mean
+
+00:11:10.890 --> 00:11:14.350
+that gives us also one point of Theta. 
+
+00:11:14.350 --> 00:11:14.890
+And
+
+00:11:14.890 --> 00:11:17.900
+it's sometimes the same as posterior
+
+00:11:17.900 --> 00:11:20.070
+mode, but it's not always the same, so
+
+00:11:20.070 --> 00:11:22.520
+it gives us another way to estimate the
+
+00:11:22.520 --> 00:11:23.170
+parameters.
+
+00:11:24.340 --> 00:11:26.270
+So this is a general illustration of
+
+00:11:26.270 --> 00:11:27.910
+Bayesian estimation and Bayesian inference.
+
+00:11:27.910 --> 00:11:28.500
+inference.
+
+00:11:29.110 --> 00:11:32.310
+And later you will see this can be
+
+00:11:32.310 --> 00:11:35.730
+useful for topic mining where we want
+
+00:11:35.730 --> 00:11:38.150
+to inject some prior knowledge about
+
+00:11:38.150 --> 00:11:38.740
+the topics.
+
+00:11:39.410 --> 00:11:41.780
+So to summarize, we introduced the
+
+00:11:41.780 --> 00:11:42.800
+language model
+
+00:11:43.350 --> 00:11:44.980
+which is basically probability
+
+00:11:44.980 --> 00:11:46.125
+distribution over text.
+
+00:11:46.125 --> 00:11:48.040
+It's also called a generative model for
+
+00:11:48.040 --> 00:11:48.930
+text data.
+
+00:11:48.930 --> 00:11:51.260
+The simplest language model is unigram
+
+00:11:51.260 --> 00:11:51.776
+language model.
+
+00:11:51.776 --> 00:11:53.520
+It's basically a word distribution.
+
+00:11:54.620 --> 00:11:57.290
+We introduced the concept of likelihood
+
+00:11:57.290 --> 00:11:59.340
+function which is the probability of
+
+00:11:59.340 --> 00:12:01.030
+data given some model.
+
+00:12:02.160 --> 00:12:03.960
+And this function is very important.
+
+00:12:05.220 --> 00:12:07.510
+Given a particular set of parameter
+
+00:12:07.510 --> 00:12:09.400
+values, this function can tell us which
+
+00:12:09.400 --> 00:12:11.460
+X, which data point has a higher
+
+00:12:11.460 --> 00:12:13.230
+likelihood, higher probability.
+
+00:12:14.200 --> 00:12:17.260
+Given a data point, sorry, given a data
+
+00:12:17.260 --> 00:12:21.720
+sample X, we can use this function to
+
+00:12:21.720 --> 00:12:24.670
+determine which parameter values would
+
+00:12:24.670 --> 00:12:27.030
+maximize the probability of the
+
+00:12:27.030 --> 00:12:28.750
+observed data, and this is the maximum
+
+00:12:28.750 --> 00:12:29.800
+likelihood estimate.
+
+00:12:30.930 --> 00:12:32.420
+We also talked about the Bayesian
+
+00:12:32.420 --> 00:12:33.785
+estimation or influence.
+
+00:12:33.785 --> 00:12:36.600
+In this case we must define a prior on
+
+00:12:36.600 --> 00:12:39.370
+the parameters P of Theta, and then
+
+00:12:39.370 --> 00:12:40.590
+we're interested in computing the
+
+00:12:40.590 --> 00:12:42.610
+posterior distribution of the
+
+00:12:42.610 --> 00:12:44.100
+parameters which is
+
+00:12:44.100 --> 00:12:47.310
+proportional to the prior and the
+
+00:12:47.310 --> 00:12:48.020
+likelihood.
+
+00:12:48.790 --> 00:12:50.510
+And this kind of
+
+00:12:51.890 --> 00:12:53.920
+distribution would allow us, then, to
+
+00:12:53.920 --> 00:12:57.440
+infer any derived values from Theta.
+
+

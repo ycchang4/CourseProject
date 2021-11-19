@@ -1,0 +1,633 @@
+WEBVTT Kind: captions; Language: en-US
+
+NOTE
+Created on 2021-02-26T23:59:32.5466358Z by ClassTranscribe
+
+00:00:00.300 --> 00:00:02.545
+Now let's look at the another behavior
+
+00:00:02.545 --> 00:00:05.387
+of mixture model and in this case let's
+
+00:00:05.387 --> 00:00:07.260
+look at their response to the data
+
+00:00:07.260 --> 00:00:08.260
+frequencies.
+
+00:00:08.260 --> 00:00:11.110
+OK, So what you're seeing now is
+
+00:00:11.110 --> 00:00:12.720
+basically the likelihood function for
+
+00:00:12.720 --> 00:00:15.190
+the two word document, and we know in
+
+00:00:15.190 --> 00:00:17.620
+this case the solution is to give text
+
+00:00:17.620 --> 00:00:20.420
+a probability of 0.9 and the probability
+
+00:00:20.420 --> 00:00:21.300
+of 0.1.
+
+00:00:29.140 --> 00:00:32.010
+Now it's interesting to think about a
+
+00:00:32.010 --> 00:00:34.390
+scenario where we start adding more
+
+00:00:34.390 --> 00:00:35.680
+words to the document.
+
+00:00:35.680 --> 00:00:38.440
+So what would happen if we add many
+
+00:00:38.440 --> 00:00:39.530
+the's to the document?
+
+00:00:41.230 --> 00:00:43.600
+Now this will change the game, right?
+
+00:00:44.270 --> 00:00:46.690
+So how? Well, picture
+
+00:00:46.690 --> 00:00:49.150
+what would the likelihood function look
+
+00:00:49.150 --> 00:00:49.650
+like now?
+
+00:00:50.330 --> 00:00:52.570
+It started with the likelihood function
+
+00:00:52.570 --> 00:00:53.410
+for the two words.
+
+00:00:54.190 --> 00:00:56.460
+As we add more words, we know that, 
+
+00:00:56.460 --> 00:00:58.440
+we have to just multiply the likelihood
+
+00:00:58.440 --> 00:01:00.680
+function by additional terms to account
+
+00:01:00.680 --> 00:01:03.340
+for the additional occurrences of the.
+
+00:01:03.340 --> 00:01:05.250
+Since in this case all the additional
+
+00:01:05.250 --> 00:01:07.355
+terms are the, we're going to just
+
+00:01:07.355 --> 00:01:09.710
+multiply by this term for the
+
+00:01:09.710 --> 00:01:10.800
+probability of the.
+
+00:01:12.330 --> 00:01:14.503
+An if we have another occurrence of
+
+00:01:14.503 --> 00:01:16.900
+the, we multiply again by the same
+
+00:01:16.900 --> 00:01:20.510
+term and so on, so forth until we add
+
+00:01:20.510 --> 00:01:23.540
+as many terms as the number of the's
+
+00:01:23.540 --> 00:01:26.030
+that we added to the document D prime.
+
+00:01:28.270 --> 00:01:29.730
+Now this obviously changes the
+
+00:01:29.730 --> 00:01:31.129
+likelihood function, so what's
+
+00:01:31.130 --> 00:01:33.510
+interesting is now to think about how
+
+00:01:33.510 --> 00:01:35.192
+would that change our solution.
+
+00:01:35.192 --> 00:01:37.770
+So what's the optimal solution now?
+
+00:01:38.590 --> 00:01:41.740
+Intuitively, you would know the
+
+00:01:41.740 --> 00:01:42.700
+original solution.
+
+00:01:42.700 --> 00:01:45.500
+0.9 and  0.1 will no longer be optimal
+
+00:01:45.500 --> 00:01:46.950
+for this new function, right?
+
+00:01:48.190 --> 00:01:50.310
+But the question is how should we
+
+00:01:50.310 --> 00:01:50.740
+change it?
+
+00:01:50.740 --> 00:01:52.510
+Well in general they sum to one.
+
+00:01:52.510 --> 00:01:54.990
+So in order to change it, we must take
+
+00:01:54.990 --> 00:01:57.105
+away some probability mess from one
+
+00:01:57.105 --> 00:01:57.430
+word.
+
+00:01:57.430 --> 00:01:59.630
+An added the probability mass to the
+
+00:01:59.630 --> 00:02:00.231
+other word.
+
+00:02:00.231 --> 00:02:03.110
+The question is which word to have a
+
+00:02:03.110 --> 00:02:05.015
+reduced the probability and which word to
+
+00:02:05.015 --> 00:02:06.360
+have a larger probability?
+
+00:02:06.360 --> 00:02:08.650
+And in particular, let's think about
+
+00:02:08.650 --> 00:02:09.862
+the probability of the.
+
+00:02:09.862 --> 00:02:12.562
+Should it be increased to be more than
+
+00:02:12.562 --> 00:02:15.580
+0.1 or should we decrease it to less
+
+00:02:15.580 --> 00:02:16.580
+than  0.1?
+
+00:02:16.580 --> 00:02:17.530
+What do you think?
+
+00:02:19.740 --> 00:02:21.730
+Now you might want to pause the video
+
+00:02:21.730 --> 00:02:24.220
+a moment to think more about this
+
+00:02:24.220 --> 00:02:26.570
+question, because this has to do with
+
+00:02:26.570 --> 00:02:29.336
+understanding of important behavior of
+
+00:02:29.336 --> 00:02:32.830
+a mixture model and indeed all the
+
+00:02:32.830 --> 00:02:34.370
+maximum likelihood estimator.
+
+00:02:35.600 --> 00:02:37.210
+Now if you look at the formula for a
+
+00:02:37.210 --> 00:02:39.240
+moment then you will see.
+
+00:02:39.240 --> 00:02:41.290
+It seems that now the objective
+
+00:02:41.290 --> 00:02:44.239
+function is more influenced by the than
+
+00:02:44.240 --> 00:02:47.430
+text before each contributed one turn.
+
+00:02:48.400 --> 00:02:50.650
+So now, as you can imagine, it would
+
+00:02:50.650 --> 00:02:54.610
+make sense to actually assign a smaller
+
+00:02:54.610 --> 00:02:58.570
+probability for text and to make room
+
+00:02:58.570 --> 00:03:01.490
+for a larger probability for the. Why?
+
+00:03:01.490 --> 00:03:04.500
+Because the is repeated many times if we
+
+00:03:04.500 --> 00:03:06.480
+increase it a little bit, it will have
+
+00:03:06.480 --> 00:03:09.810
+more positive impact, whereas a slight
+
+00:03:09.810 --> 00:03:10.860
+decrease of text.
+
+00:03:10.860 --> 00:03:13.730
+We have relatively small impact because
+
+00:03:13.730 --> 00:03:15.110
+it occurs just once.
+
+00:03:16.710 --> 00:03:20.960
+Right, so this means there is another
+
+00:03:20.960 --> 00:03:24.437
+behavior that we observe here that is
+
+00:03:24.437 --> 00:03:27.710
+high frequency words generally will have high
+
+00:03:27.710 --> 00:03:30.129
+probabilities from all the
+
+00:03:30.130 --> 00:03:31.070
+distributions.
+
+00:03:31.070 --> 00:03:33.850
+And this is no surprise at all, because
+
+00:03:33.850 --> 00:03:35.910
+after all we are maximizing the
+
+00:03:35.910 --> 00:03:37.290
+likelihood of the data.
+
+00:03:37.290 --> 00:03:42.100
+So all the more word occurs, then it's
+
+00:03:42.100 --> 00:03:44.346
+it makes more sense to give such a word
+
+00:03:44.346 --> 00:03:46.300
+a high probability because the impact
+
+00:03:46.300 --> 00:03:46.770
+would be
+
+00:03:46.820 --> 00:03:48.200
+more on the likelihood function.
+
+00:03:48.200 --> 00:03:50.420
+This is in fact a very general
+
+00:03:50.420 --> 00:03:51.840
+phenomenon of all the maximum
+
+00:03:51.840 --> 00:03:54.150
+likelihood estimator, but in this case
+
+00:03:54.150 --> 00:03:57.130
+we can see as we see more occurrences
+
+00:03:57.130 --> 00:03:57.770
+of term.
+
+00:03:57.770 --> 00:04:00.390
+It also encourages the unknown
+
+00:04:00.390 --> 00:04:02.950
+distribution theta sub d to assign
+
+00:04:02.950 --> 00:04:04.779
+somewhat higher probability to this
+
+00:04:04.780 --> 00:04:05.170
+word.
+
+00:04:07.000 --> 00:04:08.930
+Now it's also interesting to think
+
+00:04:08.930 --> 00:04:10.920
+about the impact of probability of
+
+00:04:10.920 --> 00:04:12.090
+theta sub B.
+
+00:04:12.090 --> 00:04:14.199
+The probability of choosing one of the
+
+00:04:14.200 --> 00:04:15.600
+two component models.
+
+00:04:16.160 --> 00:04:18.890
+Now, we've being so far, assuming that
+
+00:04:18.890 --> 00:04:20.840
+each model is equally likely and that
+
+00:04:20.840 --> 00:04:23.420
+gives us 0.5, but you can again look at
+
+00:04:23.420 --> 00:04:25.400
+this like your function and try to
+
+00:04:25.400 --> 00:04:26.840
+picture what would happen if we
+
+00:04:26.840 --> 00:04:29.158
+increase the probability of choosing a
+
+00:04:29.158 --> 00:04:29.854
+background model.
+
+00:04:29.854 --> 00:04:33.420
+Now you will see these terms for
+
+00:04:33.420 --> 00:04:36.716
+the will have a different form where the
+
+00:04:36.716 --> 00:04:40.220
+probability of 'the' would be even
+
+00:04:40.220 --> 00:04:43.390
+larger because the background that has a
+
+00:04:43.390 --> 00:04:45.400
+high probability for the word and the
+
+00:04:45.400 --> 00:04:46.340
+coefficient
+
+00:04:46.680 --> 00:04:49.443
+in front of 0.9 which is now 0.5
+
+00:04:49.443 --> 00:04:51.860
+would be even larger. When this is
+
+00:04:51.860 --> 00:04:54.090
+larger the overall result would be
+
+00:04:54.090 --> 00:04:56.868
+larger and that also makes them less
+
+00:04:56.868 --> 00:04:59.870
+important for theta sub D to increase
+
+00:04:59.870 --> 00:05:01.610
+the probability for the because
+
+00:05:01.610 --> 00:05:04.170
+it's already very large so the impact
+
+00:05:04.170 --> 00:05:07.004
+here of increasing the probability of
+
+00:05:07.004 --> 00:05:09.900
+the is somewhat regulated by this
+
+00:05:09.900 --> 00:05:11.610
+coefficient 0.5.
+
+00:05:11.610 --> 00:05:13.740
+If it's a larger on the background then
+
+00:05:13.740 --> 00:05:15.576
+it becomes less important to increase
+
+00:05:15.576 --> 00:05:16.910
+the value so.
+
+00:05:16.960 --> 00:05:17.815
+So.
+
+00:05:17.815 --> 00:05:20.720
+This means the behavior here, which is
+
+00:05:20.720 --> 00:05:22.740
+high frequency words tend to get
+
+00:05:22.740 --> 00:05:25.350
+higher probabilities are affected or
+
+00:05:25.350 --> 00:05:27.595
+regularised somewhat by the
+
+00:05:27.595 --> 00:05:29.705
+probability of choosing each component.
+
+00:05:29.705 --> 00:05:32.473
+The more likely a component that is
+
+00:05:32.473 --> 00:05:34.507
+being chosen, it's more important than
+
+00:05:34.507 --> 00:05:36.450
+to have higher values for these
+
+00:05:36.450 --> 00:05:37.820
+frequent words.
+
+00:05:37.820 --> 00:05:40.220
+If you have a very small probability of
+
+00:05:40.220 --> 00:05:42.860
+being chosen, than the incentive is
+
+00:05:42.860 --> 00:05:43.300
+less.
+
+00:05:44.000 --> 00:05:47.863
+So to summarize, we have just discussed
+
+00:05:47.863 --> 00:05:52.879
+the mixture model and we discussed the
+
+00:05:52.880 --> 00:05:55.633
+estimation problem of mixture model and
+
+00:05:55.633 --> 00:05:57.920
+in particular we discussed some general
+
+00:05:57.920 --> 00:06:02.395
+behavior of the estimate an that means
+
+00:06:02.395 --> 00:06:05.500
+we can expect the our estimator to
+
+00:06:05.500 --> 00:06:06.920
+capture these intuitions.
+
+00:06:06.920 --> 00:06:10.040
+1st Every component component model
+
+00:06:10.040 --> 00:06:12.030
+attempts to assign high probabilities
+
+00:06:12.030 --> 00:06:14.080
+to high frequency words in the data.
+
+00:06:14.270 --> 00:06:15.830
+And this is to collaboratively
+
+00:06:15.830 --> 00:06:17.840
+maximize likelihood.
+
+00:06:17.840 --> 00:06:20.120
+Second, different component models tend
+
+00:06:20.120 --> 00:06:22.895
+to bet high probabilities on
+
+00:06:22.895 --> 00:06:24.510
+different words, and this is to avoid
+
+00:06:24.510 --> 00:06:27.416
+competition or waste of probability,
+
+00:06:27.416 --> 00:06:29.330
+and this would allow them to
+
+00:06:29.330 --> 00:06:30.910
+collaborate more efficiently to
+
+00:06:30.910 --> 00:06:32.250
+maximize the likelihood.
+
+00:06:33.530 --> 00:06:35.520
+3rd, the probability of choosing each
+
+00:06:35.520 --> 00:06:36.320
+component
+
+00:06:36.960 --> 00:06:38.970
+regulates the collaboration and
+
+00:06:38.970 --> 00:06:41.037
+competition between the component
+
+00:06:41.037 --> 00:06:41.490
+models.
+
+00:06:41.490 --> 00:06:44.680
+It would allow some component models to
+
+00:06:44.680 --> 00:06:47.460
+respond more to the change, for example
+
+00:06:47.460 --> 00:06:50.710
+of frequency of data point in the data.
+
+00:06:53.040 --> 00:06:54.780
+We also talk about the special case of
+
+00:06:54.780 --> 00:06:57.240
+fixing one component to a background word
+
+00:06:57.240 --> 00:06:58.970
+distribution, and this distribution can
+
+00:06:58.970 --> 00:07:02.047
+be estimated by using a collection of
+
+00:07:02.047 --> 00:07:02.440
+documents.
+
+00:07:02.440 --> 00:07:04.215
+A large collection of English
+
+00:07:04.215 --> 00:07:04.730
+documents,
+
+00:07:05.360 --> 00:07:07.860
+by using just one distribution and then
+
+00:07:07.860 --> 00:07:09.930
+we'll just have normalized frequencies
+
+00:07:09.930 --> 00:07:13.230
+of terms to give us the probabilities
+
+00:07:13.230 --> 00:07:14.460
+of all these words.
+
+00:07:14.460 --> 00:07:16.640
+Now when we use such a specialized
+
+00:07:16.640 --> 00:07:19.110
+mixture model, we show that we can
+
+00:07:19.110 --> 00:07:21.430
+effectively get rid of background words
+
+00:07:21.430 --> 00:07:22.780
+in the other component.
+
+00:07:23.840 --> 00:07:25.620
+And that would make the discovered 
+
+00:07:25.620 --> 00:07:26.880
+topic more discriminative.
+
+00:07:27.680 --> 00:07:30.325
+This is also an example of imposing a
+
+00:07:30.325 --> 00:07:32.613
+prior on the model parameters and the
+
+00:07:32.613 --> 00:07:32.939
+prior
+
+00:07:32.940 --> 00:07:35.620
+here basically means one model must be
+
+00:07:35.620 --> 00:07:37.450
+exactly the same as the background
+
+00:07:37.450 --> 00:07:39.610
+language model, and if you recall what
+
+00:07:39.610 --> 00:07:41.792
+we talked about in Bayesian estimation
+
+00:07:41.792 --> 00:07:45.030
+and this prior would allow us to favor
+
+00:07:45.030 --> 00:07:47.726
+a model that's consistent with our
+
+00:07:47.726 --> 00:07:48.263
+prior.
+
+00:07:48.263 --> 00:07:50.860
+In fact, if it's not consistent,
+
+00:07:50.860 --> 00:07:52.669
+we're going to say the model is
+
+00:07:52.670 --> 00:07:55.040
+impossible, so it has a zero prior
+
+00:07:55.040 --> 00:07:56.920
+probability, and that effectively
+
+00:07:56.920 --> 00:07:57.950
+excludes
+
+00:07:58.000 --> 00:07:59.500
+such a scenario.
+
+00:07:59.500 --> 00:08:01.870
+This is also an issue that we will talk more
+
+00:08:01.870 --> 00:08:02.370
+later.
+
+

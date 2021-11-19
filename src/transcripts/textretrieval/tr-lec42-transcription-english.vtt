@@ -1,0 +1,333 @@
+WEBVTT Kind: captions; Language: en-US
+
+NOTE
+Created on 2021-02-27T00:03:49.5897361Z by ClassTranscribe
+
+00:00:00.280 --> 00:00:02.505
+So to summarize, our discussion of
+
+00:00:02.505 --> 00:00:05.330
+recommender systems in some sense, the
+
+00:00:05.330 --> 00:00:08.230
+filtering task or recommending task is
+
+00:00:08.230 --> 00:00:11.402
+easy and in some other senses, and the
+
+00:00:11.402 --> 00:00:13.730
+task is actually difficult, so it's
+
+00:00:13.730 --> 00:00:16.150
+easy because the users expectations,
+
+00:00:16.150 --> 00:00:18.340
+though in this case the system it takes
+
+00:00:18.340 --> 00:00:21.308
+initiative to push the information to
+
+00:00:21.308 --> 00:00:23.890
+the user so the user doesn't really
+
+00:00:23.890 --> 00:00:24.390
+make.
+
+00:00:32.060 --> 00:00:34.820
+An effort, so any recommendation is
+
+00:00:34.820 --> 00:00:36.635
+better than nothing, right?
+
+00:00:36.635 --> 00:00:40.110
+So unless you recommend the order,
+
+00:00:40.110 --> 00:00:44.490
+noisy items or useless documents, if
+
+00:00:44.490 --> 00:00:46.340
+you can recommend some useful
+
+00:00:46.340 --> 00:00:48.400
+information, users general would
+
+00:00:48.400 --> 00:00:51.410
+appreciate it, so that's in that sense
+
+00:00:51.410 --> 00:00:52.270
+that's easy.
+
+00:00:52.270 --> 00:00:54.100
+However, filtering is actually much
+
+00:00:54.100 --> 00:00:56.120
+harder task than retrieval because it
+
+00:00:56.120 --> 00:00:58.262
+has you have to make a binary decision
+
+00:00:58.262 --> 00:01:00.950
+and you can't afford waiting for a lot
+
+00:01:00.950 --> 00:01:01.563
+of items.
+
+00:01:01.563 --> 00:01:03.230
+And then you're going to see.
+
+00:01:03.280 --> 00:01:06.280
+whether 1 item is better than others.
+
+00:01:06.280 --> 00:01:08.010
+You have to make a decision when you
+
+00:01:08.010 --> 00:01:09.430
+see this item.
+
+00:01:09.430 --> 00:01:11.650
+The thing about the news filtering as
+
+00:01:11.650 --> 00:01:13.403
+soon as you see the news and you have
+
+00:01:13.403 --> 00:01:15.070
+to decide whether the news would be
+
+00:01:15.070 --> 00:01:16.520
+interesting to a user.
+
+00:01:16.520 --> 00:01:18.400
+If you wait for a few days.
+
+00:01:18.400 --> 00:01:19.780
+Even if you can make accurate
+
+00:01:19.780 --> 00:01:22.066
+recommendation of the most relevant
+
+00:01:22.066 --> 00:01:25.290
+news, the utility is going to be
+
+00:01:25.290 --> 00:01:26.760
+significantly decreased.
+
+00:01:27.930 --> 00:01:29.980
+Another reason why it's hard, it's
+
+00:01:29.980 --> 00:01:31.486
+because the data sparseness.
+
+00:01:31.486 --> 00:01:33.900
+If you think of this as a learning
+
+00:01:33.900 --> 00:01:35.980
+problem in collaborative filtering, for
+
+00:01:35.980 --> 00:01:38.210
+example, it's purely based on learning
+
+00:01:38.210 --> 00:01:41.630
+from the past ratings, so if you
+
+00:01:41.630 --> 00:01:43.740
+don't have many ratings, this really
+
+00:01:43.740 --> 00:01:45.100
+not that much you can do.
+
+00:01:47.210 --> 00:01:50.580
+And yeah, just mentioned this cold
+
+00:01:50.580 --> 00:01:51.306
+start problem.
+
+00:01:51.306 --> 00:01:53.837
+This is actually a very serious serious
+
+00:01:53.837 --> 00:01:56.125
+problem, but of course there are
+
+00:01:56.125 --> 00:01:58.370
+strategies that have been proposed to
+
+00:01:58.370 --> 00:02:01.210
+solve the problem and there are
+
+00:02:01.210 --> 00:02:03.456
+different strategies that you can use
+
+00:02:03.456 --> 00:02:04.880
+to alleviate the problem.
+
+00:02:04.880 --> 00:02:07.263
+You can use for example, more user
+
+00:02:07.263 --> 00:02:09.540
+information to assess their similarity
+
+00:02:09.540 --> 00:02:12.655
+instead of using the preferences of
+
+00:02:12.655 --> 00:02:15.520
+these users on these items, there may
+
+00:02:15.520 --> 00:02:17.090
+be additional information available
+
+00:02:17.090 --> 00:02:18.170
+about the user.
+
+00:02:18.410 --> 00:02:20.010
+etc and.
+
+00:02:21.010 --> 00:02:23.540
+And we also talked about the two
+
+00:02:23.540 --> 00:02:27.170
+strategies for filtering task one is
+
+00:02:27.170 --> 00:02:29.160
+content based, where we look at item
+
+00:02:29.160 --> 00:02:30.060
+similarity.
+
+00:02:30.060 --> 00:02:31.953
+The other is collaborative filtering where
+
+00:02:31.953 --> 00:02:35.120
+we look at the user similarity and they
+
+00:02:35.120 --> 00:02:37.070
+obviously can be combined in a
+
+00:02:37.070 --> 00:02:37.970
+practical system.
+
+00:02:37.970 --> 00:02:40.040
+You can imagine the general would have
+
+00:02:40.040 --> 00:02:42.260
+to be combined so that will give us a
+
+00:02:42.260 --> 00:02:44.689
+hybrid strategy for filtering.
+
+00:02:46.180 --> 00:02:52.640
+And we also could recall that we talked
+
+00:02:52.640 --> 00:02:54.930
+about push versus pull as two
+
+00:02:54.930 --> 00:02:57.369
+strategies for getting access to the
+
+00:02:57.370 --> 00:03:00.290
+text data and recommended system is to
+
+00:03:00.290 --> 00:03:03.340
+help users in the push mode and search
+
+00:03:03.340 --> 00:03:05.860
+engines are certain users in the pull
+
+00:03:05.860 --> 00:03:06.550
+mode.
+
+00:03:06.550 --> 00:03:08.337
+Obviously the tool should be combined
+
+00:03:08.337 --> 00:03:11.142
+and they can be combined to have a
+
+00:03:11.142 --> 00:03:13.270
+system that can support the user
+
+00:03:13.270 --> 00:03:16.130
+with multiple mode information access.
+
+00:03:16.590 --> 00:03:18.470
+So in future we could anticipate the
+
+00:03:18.470 --> 00:03:21.400
+such a system to be more useful to
+
+00:03:21.400 --> 00:03:22.090
+user.
+
+00:03:22.760 --> 00:03:26.000
+An either this is the active research
+
+00:03:26.000 --> 00:03:29.872
+area, so there are a lot of new
+
+00:03:29.872 --> 00:03:32.940
+algorithms being proposed all the
+
+00:03:32.940 --> 00:03:33.570
+time.
+
+00:03:33.570 --> 00:03:36.010
+In particular, those new algorithms
+
+00:03:36.010 --> 00:03:38.180
+tend to use a lot of context
+
+00:03:38.180 --> 00:03:38.970
+information.
+
+00:03:38.970 --> 00:03:41.230
+Now the context here could be the
+
+00:03:41.230 --> 00:03:43.056
+context of the user and that it could
+
+00:03:43.056 --> 00:03:45.370
+be also context of documents or items.
+
+00:03:45.370 --> 00:03:47.780
+The items are not isolated and they are
+
+00:03:47.780 --> 00:03:49.440
+connected in many ways.
+
+00:03:51.610 --> 00:03:54.050
+The users might form social network
+
+00:03:54.050 --> 00:03:56.490
+as well, so there's a rich context
+
+00:03:56.490 --> 00:03:59.430
+there that we can leverage in order to
+
+00:03:59.430 --> 00:04:02.560
+really solve the problem well and then
+
+00:04:02.560 --> 00:04:06.090
+that's an active research area where also
+
+00:04:06.090 --> 00:04:07.640
+machine learning algorithms that have
+
+00:04:07.640 --> 00:04:09.250
+been applied.
+
+00:04:09.250 --> 00:04:13.090
+Here are some additional readings in
+
+00:04:13.090 --> 00:04:17.485
+the Handbook called Recommender Systems
+
+00:04:17.485 --> 00:04:21.490
+and has a collection of a lot of good.
+
+00:04:21.660 --> 00:04:24.985
+Articles that can give you an overview
+
+00:04:24.985 --> 00:04:29.410
+of a number of specific approaches to
+
+00:04:29.410 --> 00:04:31.090
+recommended systems.
+
+

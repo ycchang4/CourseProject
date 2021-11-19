@@ -1,0 +1,753 @@
+WEBVTT Kind: captions; Language: en-US
+
+NOTE
+Created on 2021-02-27T00:00:45.4493213Z by ClassTranscribe
+
+00:00:00.300 --> 00:00:02.370
+We can compute this maximum regular
+
+00:00:02.370 --> 00:00:04.190
+estimated by using the EM algorithm.
+
+00:00:12.920 --> 00:00:15.320
+So in the E-step, we now have to
+
+00:00:15.320 --> 00:00:18.171
+introduce more hidden variables because
+
+00:00:18.171 --> 00:00:19.378
+we have more topics.
+
+00:00:19.378 --> 00:00:22.130
+So our hidden variable Z now, which is
+
+00:00:22.130 --> 00:00:25.060
+a topic indicator, can take more than
+
+00:00:25.060 --> 00:00:26.090
+two values.
+
+00:00:26.090 --> 00:00:28.605
+Specifically, will take a K plus one
+
+00:00:28.605 --> 00:00:31.820
+values with B denoting the background
+
+00:00:31.820 --> 00:00:35.851
+and one through K to denote all the K
+
+00:00:35.851 --> 00:00:36.318
+topics.
+
+00:00:36.318 --> 00:00:39.500
+So now the E step as you can recall is
+
+00:00:39.500 --> 00:00:41.910
+augmented data and by predicting the
+
+00:00:41.910 --> 00:00:44.339
+values of the hidden variable.
+
+00:00:44.660 --> 00:00:48.610
+So we're going to predict for word
+
+00:00:48.610 --> 00:00:50.870
+whether the word has come from one of
+
+00:00:50.870 --> 00:00:52.780
+these K+1 distributions.
+
+00:00:52.780 --> 00:00:54.960
+This equation allows us to predict the
+
+00:00:54.960 --> 00:00:58.270
+probability that the word W in Document
+
+00:00:58.270 --> 00:01:00.860
+D is generated from topic theta
+
+
+00:01:00.860 --> 00:01:01.780
+sub j
+
+00:01:02.890 --> 00:01:04.810
+And the bottom one is the predicted
+
+00:01:04.810 --> 00:01:06.620
+probability that this word has been
+
+00:01:06.620 --> 00:01:07.900
+generated from the background.
+
+00:01:08.600 --> 00:01:12.880
+Note that we use Document D here to
+
+00:01:12.880 --> 00:01:14.060
+index the word.
+
+00:01:14.060 --> 00:01:15.530
+Why? Because
+
+00:01:15.530 --> 00:01:18.260
+Whether a word is from a particular
+
+00:01:18.260 --> 00:01:20.272
+topic, actually depends on the
+
+00:01:20.272 --> 00:01:20.606
+document.
+
+00:01:20.606 --> 00:01:23.909
+Can you see why? Well, it's through the pi.
+
+00:01:23.909 --> 00:01:26.644
+The pis are tied to each document.
+
+00:01:26.644 --> 00:01:28.820
+Each document can have a potentially
+
+00:01:28.820 --> 00:01:30.770
+different pis, right?
+
+00:01:30.770 --> 00:01:32.990
+The pis will then affect our
+
+00:01:32.990 --> 00:01:35.310
+prediction, so the pis are here, and
+
+00:01:35.310 --> 00:01:36.940
+this depends on the document.
+
+00:01:38.410 --> 00:01:40.600
+And that might give a different guess
+
+00:01:40.600 --> 00:01:43.220
+of word for word in different
+
+00:01:43.220 --> 00:01:45.000
+documents, and that's desirable.
+
+00:01:46.200 --> 00:01:48.850
+In both cases we are using the bayes rule
+
+00:01:48.850 --> 00:01:51.180
+as I explained, basically assessing the
+
+00:01:51.180 --> 00:01:54.440
+likelihood of generating word in from
+
+00:01:54.440 --> 00:01:56.290
+each distribution and is normalized.
+
+00:01:57.690 --> 00:01:59.880
+What about the M-step?
+
+00:01:59.880 --> 00:02:00.760
+Well, we may recall
+
+00:02:00.760 --> 00:02:02.590
+the M step is to take advantage of the
+
+00:02:02.590 --> 00:02:05.590
+inferred Z values to split the counts
+
+00:02:05.590 --> 00:02:08.040
+and then collect the right counts to re
+
+00:02:08.040 --> 00:02:09.150
+estimate parameters.
+
+00:02:09.790 --> 00:02:12.480
+So in this case we can re estimate our
+
+00:02:12.480 --> 00:02:15.986
+coverage probability and this is re
+
+00:02:15.986 --> 00:02:19.315
+estimated based on collecting all
+
+00:02:19.315 --> 00:02:21.720
+the words in the document.
+
+00:02:22.510 --> 00:02:25.910
+And that's why we have the count of the
+
+00:02:25.910 --> 00:02:27.850
+word in document and sum over all the
+
+00:02:27.850 --> 00:02:28.400
+words.
+
+00:02:29.010 --> 00:02:30.989
+And then we're going to look at the to
+
+00:02:30.990 --> 00:02:34.680
+what extent this word belongs to the
+
+00:02:34.680 --> 00:02:37.630
+topic's theta sub-j, and this part
+
+00:02:37.630 --> 00:02:39.450
+is our guess from E-step.
+
+00:02:40.210 --> 00:02:42.780
+This tells us how likely this word is
+
+00:02:42.780 --> 00:02:45.250
+actually from theta sub-j, and when
+
+00:02:45.250 --> 00:02:47.260
+we multiply them together we get the
+
+00:02:47.260 --> 00:02:50.090
+discounted count that's allocated for
+
+00:02:50.090 --> 00:02:52.970
+topic theta sub-j and we normalize
+
+00:02:52.970 --> 00:02:55.060
+this over all the topics we get the
+
+00:02:55.060 --> 00:02:56.680
+distribution over all the topics to
+
+00:02:56.680 --> 00:02:57.840
+indicate the coverage.
+
+00:02:58.680 --> 00:03:01.170
+And similarly, the bottom one is to
+
+00:03:01.170 --> 00:03:03.410
+re-estimate the probability of word for
+
+00:03:03.410 --> 00:03:04.580
+topic.
+
+00:03:04.580 --> 00:03:07.316
+In this case we're using exactly the
+
+00:03:07.316 --> 00:03:08.189
+same count.
+
+00:03:08.190 --> 00:03:10.830
+You can see this is the same discounted
+
+00:03:10.830 --> 00:03:14.460
+count, it tells us to what extent we
+
+00:03:14.460 --> 00:03:16.820
+should allocate this word to
+
+00:03:16.820 --> 00:03:17.720
+topic theta sub-j.
+
+00:03:17.720 --> 00:03:19.540
+But the normalization is different
+
+00:03:19.540 --> 00:03:21.895
+because in this case we are interested
+
+00:03:21.895 --> 00:03:23.110
+in the word distribution.
+
+00:03:23.110 --> 00:03:25.660
+So we simply normalize this over all
+
+00:03:25.660 --> 00:03:26.400
+the words.
+
+00:03:27.260 --> 00:03:28.310
+This is different.
+
+00:03:29.120 --> 00:03:31.660
+In contrast, here we normalized among
+
+00:03:31.660 --> 00:03:32.580
+all the topics.
+
+00:03:33.340 --> 00:03:35.090
+It would be useful to take a comparison
+
+00:03:35.090 --> 00:03:35.870
+between the two.
+
+00:03:36.900 --> 00:03:39.320
+This gives us different distributions
+
+00:03:39.320 --> 00:03:41.440
+and these tells us
+
+00:03:42.970 --> 00:03:45.010
+how to improve the parameters?
+
+00:03:47.040 --> 00:03:52.070
+And as I just explained in both E step
+
+00:03:52.070 --> 00:03:54.310
+formulas, we have a maximum likelihood
+
+00:03:54.310 --> 00:03:56.410
+estimator based on the allocated word
+
+00:03:56.410 --> 00:03:57.030
+counts to
+
+
+00:03:57.030 --> 00:03:59.250
+topic theta sub-j.
+
+
+00:03:59.250 --> 00:04:01.430
+Now this phenomena is actually general
+
+00:04:01.430 --> 00:04:03.540
+phenomenon in all the EM algorithms in
+
+00:04:03.540 --> 00:04:05.930
+the M step, you generate computed
+
+00:04:05.930 --> 00:04:09.023
+expected count of event based on the
+
+00:04:09.023 --> 00:04:11.940
+E step result and then you just collect
+
+00:04:11.940 --> 00:04:13.680
+the relevant counts for a particular
+
+00:04:13.680 --> 00:04:14.170
+parameter.
+
+00:04:14.170 --> 00:04:16.150
+and re-estimate with normalizing.
+
+00:04:17.610 --> 00:04:18.140
+Typically.
+
+00:04:20.160 --> 00:04:22.900
+So in terms of computation of the EM
+
+00:04:22.900 --> 00:04:25.360
+algorithm, we can.
+
+00:04:26.900 --> 00:04:30.220
+Actually, just keep counting various
+
+00:04:30.220 --> 00:04:32.000
+events and then normalize them.
+
+00:04:32.000 --> 00:04:34.800
+And when we think in this way, we also
+
+00:04:34.800 --> 00:04:36.535
+have a more concise way of presenting
+
+00:04:36.535 --> 00:04:38.200
+the EM algorithm.
+
+00:04:38.200 --> 00:04:40.680
+It actually helps us better understand
+
+00:04:40.680 --> 00:04:42.120
+the formulas.
+
+00:04:42.120 --> 00:04:44.010
+So I'm going to go over this in some
+
+00:04:44.010 --> 00:04:44.515
+detail.
+
+00:04:44.515 --> 00:04:46.210
+So as the algorithm, we first
+
+00:04:46.210 --> 00:04:48.200
+initialize all the unknown parameters
+
+00:04:48.200 --> 00:04:48.840
+randomly.
+
+00:04:49.540 --> 00:04:52.140
+In our case we are interested in
+
+00:04:52.140 --> 00:04:54.000
+all those coverage parameters--
+
+00:04:54.000 --> 00:04:56.610
+pis--and word distributions, thetas.
+
+00:04:57.580 --> 00:04:59.820
+And we just randomly normalize them.
+
+00:04:59.820 --> 00:05:02.280
+This is the initialization step, and
+
+00:05:02.280 --> 00:05:05.076
+then we will repeat until likelihood
+
+00:05:05.076 --> 00:05:05.679
+converges.
+
+00:05:05.680 --> 00:05:07.570
+Now how do we know whether likelihood
+
+00:05:07.570 --> 00:05:09.670
+converges we're going to compute
+
+00:05:09.670 --> 00:05:12.370
+likelihood at each step and compare the
+
+00:05:12.370 --> 00:05:14.240
+current likelihood with the previous likelihood
+
+00:05:14.240 --> 00:05:16.335
+if it doesn't change much and
+
+00:05:16.335 --> 00:05:18.140
+we're going to say stop right?
+
+00:05:19.360 --> 00:05:22.840
+So in each step we can do E step and
+
+00:05:22.840 --> 00:05:25.770
+M step in the E step we're going to
+
+00:05:25.770 --> 00:05:28.086
+augment the data by predicting the
+
+00:05:28.086 --> 00:05:29.920
+hidden variable values.
+
+00:05:29.920 --> 00:05:33.520
+In this case the hidden variable Z sub
+
+00:05:33.520 --> 00:05:38.120
+DW indicates whether word in W in D
+
+00:05:38.120 --> 00:05:41.270
+is from topic or background, an if
+
+00:05:41.270 --> 00:05:42.740
+it's from a topic which topic?
+
+00:05:43.680 --> 00:05:46.960
+So if you look at the E step formulas
+
+00:05:46.960 --> 00:05:49.430
+essentially we're actually normalizing
+
+00:05:49.430 --> 00:05:51.180
+these counts.
+
+00:05:51.730 --> 00:05:54.980
+At all, sorry, these are probabilities
+
+00:05:54.980 --> 00:05:57.460
+of observing the word from each
+
+00:05:57.460 --> 00:06:00.390
+distribution, so you can see basically
+
+00:06:00.390 --> 00:06:04.580
+the prediction of word from topic
+
+00:06:04.580 --> 00:06:07.156
+theta sub-j is based on the
+
+00:06:07.156 --> 00:06:09.160
+probability of selecting that theta
+
+00:06:09.160 --> 00:06:11.320
+sub-j as a word distribution to begin to generate
+
+00:06:11.320 --> 00:06:13.667
+the world multiplied by the probability
+
+00:06:13.667 --> 00:06:15.761
+of observing the word from that
+
+00:06:15.761 --> 00:06:16.110
+distribution.
+
+00:06:16.910 --> 00:06:19.650
+And I said it's proportional to this
+
+00:06:19.650 --> 00:06:21.270
+because in completing the
+
+00:06:21.270 --> 00:06:23.430
+implementation of EM algorithm you can just
+
+00:06:23.430 --> 00:06:26.890
+keep count counter for this quantity
+
+00:06:26.890 --> 00:06:28.570
+and then in the end you just normalize
+
+00:06:28.570 --> 00:06:28.800
+it.
+
+00:06:28.800 --> 00:06:30.580
+So the normalization here is over all
+
+00:06:30.580 --> 00:06:33.640
+the topics and then you will get a
+
+00:06:33.640 --> 00:06:34.440
+probability.
+
+00:06:36.250 --> 00:06:40.350
+Now in the M step we do the same and we
+
+00:06:40.350 --> 00:06:42.060
+are going to collect these.
+
+00:06:43.930 --> 00:06:46.510
+Allocated counts for each topic.
+
+00:06:47.640 --> 00:06:49.730
+And we split words among the topics.
+
+00:06:50.830 --> 00:06:52.400
+And then we're going to normalize them
+
+00:06:52.400 --> 00:06:54.446
+in different ways to obtain the
+
+00:06:54.446 --> 00:06:54.799
+re-estimate.
+
+00:06:54.800 --> 00:06:57.670
+So, for example, we can normalize among
+
+00:06:57.670 --> 00:07:00.415
+all the topics to get re estimate of Pi
+
+00:07:00.415 --> 00:07:01.350
+the coverage.
+
+00:07:01.350 --> 00:07:06.200
+Or we can renormalize based on the.
+
+00:07:06.930 --> 00:07:08.840
+For all the words and that would give
+
+00:07:08.840 --> 00:07:10.040
+us a word distribution.
+
+00:07:10.830 --> 00:07:12.420
+So it's useful to think of the
+
+00:07:12.420 --> 00:07:13.950
+algorithm in this way, because when you
+
+00:07:13.950 --> 00:07:16.100
+implement, you can just use.
+
+00:07:16.100 --> 00:07:20.070
+Variables to keep track of these
+
+00:07:20.070 --> 00:07:22.490
+quantities in each case.
+
+00:07:23.680 --> 00:07:26.810
+And then you just normalize these
+
+00:07:26.810 --> 00:07:31.410
+variables to make them a distribution.
+
+00:07:32.080 --> 00:07:34.368
+Now I did not put the constraint for
+
+00:07:34.368 --> 00:07:36.696
+this one and I intentionally leave this
+
+00:07:36.696 --> 00:07:39.540
+as exercise for you and you can see
+
+00:07:39.540 --> 00:07:42.057
+what's the normalizer for this one.
+
+00:07:42.057 --> 00:07:44.780
+It's of a slightly different form, but
+
+00:07:44.780 --> 00:07:47.939
+it's essentially the same as the one
+
+00:07:47.940 --> 00:07:49.050
+that you have seen here.
+
+00:07:49.050 --> 00:07:49.980
+Namely this one.
+
+00:07:50.600 --> 00:07:52.760
+So in general, in the implementation of
+
+00:07:52.760 --> 00:07:54.810
+EM algorithm you will see you accumulated
+
+00:07:54.810 --> 00:07:58.660
+counts various counts and then you
+
+00:07:58.660 --> 00:07:59.630
+normalize them.
+
+00:08:01.580 --> 00:08:05.760
+So to summarize, we introduced the PLSA
+
+00:08:05.760 --> 00:08:08.100
+model, which is a mixture model with K
+
+00:08:08.100 --> 00:08:10.180
+unigram language models representing K
+
+00:08:10.180 --> 00:08:10.770
+topics.
+
+00:08:11.700 --> 00:08:15.710
+And we also added a predetermined
+
+00:08:15.710 --> 00:08:17.200
+background language model to help
+
+00:08:17.200 --> 00:08:19.040
+discover discriminating topics.
+
+00:08:19.040 --> 00:08:20.859
+Because this background language model
+
+00:08:20.860 --> 00:08:22.500
+can help attract the common terms.
+
+00:08:23.660 --> 00:08:24.350
+And,
+
+00:08:24.350 --> 00:08:27.350
+We show that with maximum likelihood estimator
+
+00:08:27.350 --> 00:08:29.690
+we can discover topical knowledge from
+
+00:08:29.690 --> 00:08:30.380
+text data.
+
+00:08:30.380 --> 00:08:33.670
+In this case PLSA allows us to discover
+
+00:08:33.670 --> 00:08:34.420
+two things.
+
+00:08:34.420 --> 00:08:36.400
+One is k-word distributions, each
+
+00:08:36.400 --> 00:08:38.755
+representing a topic and the other is
+
+00:08:38.755 --> 00:08:40.420
+the proportion of each topic in each
+
+00:08:40.420 --> 00:08:41.040
+document.
+
+00:08:41.860 --> 00:08:44.728
+And such detailed characterization of
+
+00:08:44.728 --> 00:08:46.639
+coverage of topics in documents can
+
+00:08:46.640 --> 00:08:48.810
+enable a lot of further analysis.
+
+00:08:48.810 --> 00:08:51.213
+For example, we can aggregate the
+
+00:08:51.213 --> 00:08:54.716
+documents in the particular time period
+
+00:08:54.716 --> 00:08:57.340
+to assess the coverage of a particular
+
+00:08:57.340 --> 00:08:59.470
+topic in a time period that would allow
+
+00:08:59.470 --> 00:09:01.450
+us to generate the temporal chains of
+
+00:09:01.450 --> 00:09:01.850
+topics.
+
+00:09:02.450 --> 00:09:05.830
+We can also aggregate topics covered in
+
+00:09:05.830 --> 00:09:07.500
+documents associated with a particular
+
+00:09:07.500 --> 00:09:09.590
+author, and then we can characterize
+
+00:09:09.590 --> 00:09:13.370
+the topics written by this author, etc.
+
+00:09:14.320 --> 00:09:18.190
+And in addition to this, we can also
+
+00:09:18.190 --> 00:09:19.980
+cluster terms and cluster documents.
+
+00:09:19.980 --> 00:09:22.180
+In fact, each topic can be regarded as
+
+00:09:22.180 --> 00:09:24.410
+a cluster, so we already have term
+
+00:09:24.410 --> 00:09:25.060
+clusters.
+
+00:09:25.710 --> 00:09:27.280
+And the higher probability words can
+
+00:09:27.280 --> 00:09:30.800
+be regarded as in belonging to one
+
+00:09:30.800 --> 00:09:31.410
+cluster.
+
+00:09:32.620 --> 00:09:34.430
+Represented by the topic.
+
+00:09:34.430 --> 00:09:36.236
+Similarly documents can be clustered in
+
+00:09:36.236 --> 00:09:37.147
+the same way.
+
+00:09:37.147 --> 00:09:41.938
+We can assign a document to the topic
+
+00:09:41.938 --> 00:09:45.463
+cluster that's covered most in the
+
+00:09:45.463 --> 00:09:45.849
+document.
+
+00:09:45.850 --> 00:09:48.290
+So remember pis indicate to what
+
+00:09:48.290 --> 00:09:50.387
+extent each topic is covered in the
+
+00:09:50.387 --> 00:09:50.746
+document.
+
+00:09:50.746 --> 00:09:53.620
+We can assign the document to the topic
+
+00:09:53.620 --> 00:09:55.700
+cluster that has the highest pi.
+
+00:09:56.520 --> 00:09:58.590
+And in general, there are many useful
+
+00:09:58.590 --> 00:10:00.380
+applications of this technique.
+
+

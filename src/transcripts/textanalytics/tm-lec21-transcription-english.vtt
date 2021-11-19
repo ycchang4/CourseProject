@@ -1,0 +1,747 @@
+WEBVTT Kind: captions; Language: en-US
+
+NOTE
+Created on 2021-02-27T00:04:25.4418703Z by ClassTranscribe
+
+00:00:00.300 --> 00:00:02.570
+This lecture is about mixture model
+
+00:00:02.570 --> 00:00:03.330
+estimation.
+
+00:00:12.130 --> 00:00:13.460
+In this lecture, we're going to
+
+00:00:13.460 --> 00:00:15.290
+continue discussing probabilistic topic
+
+00:00:15.290 --> 00:00:15.980
+models.
+
+00:00:15.980 --> 00:00:17.440
+In particular, we're going to talk
+
+00:00:17.440 --> 00:00:19.770
+about how to estimate the parameters of
+
+00:00:19.770 --> 00:00:20.560
+a mixture model.
+
+00:00:22.910 --> 00:00:24.830
+So let's first look at our motivation
+
+00:00:24.830 --> 00:00:27.770
+for using a mixture model and we hope
+
+00:00:27.770 --> 00:00:30.580
+to factor out the background words from
+
+00:00:30.580 --> 00:00:32.100
+the topic word distribution.
+
+00:00:33.280 --> 00:00:36.470
+So the idea is to assume that the text
+
+00:00:36.470 --> 00:00:38.670
+data actually contain two kinds of
+
+00:00:38.670 --> 00:00:39.740
+words.
+
+00:00:39.740 --> 00:00:44.390
+One kind is from the background here.
+
+00:00:45.700 --> 00:00:49.835
+So the is away etc and the other kind
+
+00:00:49.835 --> 00:00:52.740
+is from our topic word distribution
+
+00:00:52.740 --> 00:00:54.010
+that we're interested in.
+
+00:00:56.230 --> 00:00:58.650
+So in order to solve this problem of
+
+00:00:58.650 --> 00:01:01.740
+factoring out background words, we can
+
+00:01:01.740 --> 00:01:05.730
+set up our mixture model as follows.
+
+00:01:05.730 --> 00:01:07.840
+We're going to assume that we already
+
+00:01:07.840 --> 00:01:09.960
+know the parameters of all the
+
+00:01:11.270 --> 00:01:13.230
+values for all the parameters in the
+
+00:01:13.230 --> 00:01:15.600
+mixture model except for the word
+
+00:01:15.600 --> 00:01:18.450
+distribution of theta sub D, which
+
+00:01:18.450 --> 00:01:19.300
+is our target. So this is the case of customizing a probalistic model so that we embed the unknown variables that we are interested in. But we are going to simplify other things. We are going to assume we have knowledge about others.
+
+00:01:34.060 --> 00:01:35.850
+And this is a powerful way of
+
+00:01:35.850 --> 00:01:38.420
+customizing a model for a particular
+
+00:01:38.420 --> 00:01:39.390
+need.
+
+00:01:39.390 --> 00:01:40.890
+Now you can imagine we could have
+
+00:01:40.890 --> 00:01:44.040
+assumed that we also don't know the
+
+00:01:44.040 --> 00:01:46.380
+background word distribution, but in this case our
+
+00:01:46.380 --> 00:01:49.710
+goal is factor out precisely those
+
+00:01:49.710 --> 00:01:51.709
+high probability background words.
+
+00:01:51.710 --> 00:01:54.860
+So we assume the background model is
+
+00:01:54.860 --> 00:01:55.590
+already fixed.
+
+00:01:55.970 --> 00:01:58.850
+And the problem here is how can we
+
+00:01:58.850 --> 00:02:01.530
+adjust theta sub D in order to
+
+00:02:01.530 --> 00:02:03.660
+maximize the probability of the
+
+00:02:03.660 --> 00:02:06.050
+observed document here and we assume
+
+00:02:06.050 --> 00:02:07.480
+all the other parameters are known.
+
+00:02:09.340 --> 00:02:11.810
+Now, although we designed the model
+
+00:02:11.810 --> 00:02:13.810
+heuristically to try to factor out this
+
+00:02:13.810 --> 00:02:14.720
+background words.
+
+00:02:16.620 --> 00:02:19.700
+It's unclear whether if we use maximum
+
+00:02:19.700 --> 00:02:22.270
+likelihood estimator we will actually
+
+00:02:22.270 --> 00:02:24.600
+end up having order distribution where
+
+00:02:24.600 --> 00:02:27.590
+the common words like the will be
+
+00:02:27.590 --> 00:02:29.480
+indeed having smaller probabilities
+
+00:02:29.480 --> 00:02:30.140
+than before.
+
+00:02:30.890 --> 00:02:31.860
+So now.
+
+00:02:32.540 --> 00:02:35.030
+In this case, it turns out that the
+
+00:02:35.030 --> 00:02:36.750
+answer is yes, and
+
+00:02:38.040 --> 00:02:40.270
+when we set up the probalistic model in 
+
+00:02:40.270 --> 00:02:42.380
+this way when we use maximum likelihood
+
+00:02:42.380 --> 00:02:45.230
+estimator we will end up having a word
+
+00:02:45.230 --> 00:02:47.910
+distribution that where the common
+
+00:02:47.910 --> 00:02:50.579
+words will be factored out via the use
+
+00:02:50.580 --> 00:02:52.740
+of the background distribution.
+
+00:02:53.480 --> 00:02:56.880
+So to understand why this is so, it's
+
+00:02:56.880 --> 00:02:59.730
+useful to examine the behavior of a
+
+00:02:59.730 --> 00:03:00.380
+mixture model.
+
+00:03:00.380 --> 00:03:02.892
+So we're going to look at a very, very
+
+00:03:02.892 --> 00:03:05.620
+simple case in order to understand some
+
+00:03:05.620 --> 00:03:07.900
+interesting behaviors of a mixture
+
+00:03:07.900 --> 00:03:10.850
+model the observed patterns here
+
+00:03:10.850 --> 00:03:13.470
+actually are generalizable to mixture
+
+00:03:13.470 --> 00:03:16.062
+model in general, but it's much easier
+
+00:03:16.062 --> 00:03:18.450
+to understand this behavior when we use
+
+00:03:18.450 --> 00:03:20.720
+a very simple case like what we're
+
+00:03:20.720 --> 00:03:21.445
+seeing here.
+
+00:03:21.445 --> 00:03:23.759
+So specifically in this case.
+
+00:03:24.100 --> 00:03:26.140
+Let's assume that the probability of
+
+00:03:26.140 --> 00:03:28.330
+choosing each of the two models is
+
+00:03:28.330 --> 00:03:30.280
+exactly the same, so we're going to
+
+00:03:30.280 --> 00:03:33.020
+flip fair coin to decide which model to
+
+00:03:33.020 --> 00:03:33.470
+use.
+
+00:03:34.350 --> 00:03:36.220
+Furthermore, we are going to assume
+
+00:03:36.220 --> 00:03:38.440
+there are precisely two words: the and
+
+00:03:38.440 --> 00:03:39.370
+text.
+
+00:03:39.370 --> 00:03:42.340
+Obviously this is a very naive
+
+00:03:42.340 --> 00:03:46.060
+oversimplification of the actual text,
+
+00:03:46.060 --> 00:03:48.480
+but again it is useful to examine
+
+00:03:49.980 --> 00:03:51.780
+the behavior in such a special
+
+00:03:51.780 --> 00:03:52.170
+case.
+
+00:03:53.600 --> 00:03:55.920
+So we further assume that the
+
+00:03:55.920 --> 00:03:57.590
+background model gives probability of
+
+00:03:57.590 --> 00:03:59.110
+point nine to the word
+
+00:03:59.110 --> 00:04:02.150
+the and text point one.
+
+00:04:03.030 --> 00:04:05.360
+Now, let's also assume that our data is
+
+00:04:05.360 --> 00:04:06.510
+extremely simple.
+
+00:04:06.510 --> 00:04:08.370
+The document has just the two words
+
+00:04:08.370 --> 00:04:09.210
+text and the.
+
+00:04:10.340 --> 00:04:12.210
+So now let's write down the likelihood
+
+00:04:12.210 --> 00:04:14.250
+function in such a case. First,
+
+00:04:15.310 --> 00:04:17.156
+what's the probability of text and
+
+00:04:17.156 --> 00:04:18.600
+what's the probability of the?
+
+00:04:19.450 --> 00:04:21.490
+I hope by this point and you will be
+
+00:04:21.490 --> 00:04:22.550
+able to write it down.
+
+00:04:23.650 --> 00:04:27.040
+So the probability of text is basically
+
+00:04:27.040 --> 00:04:30.240
+the sum over 2 cases, where each case
+
+00:04:30.240 --> 00:04:32.920
+corresponds to each of the word
+
+00:04:32.920 --> 00:04:33.620
+distribution.
+
+00:04:34.370 --> 00:04:37.030
+And it accounts for the two ways of
+
+00:04:37.030 --> 00:04:38.150
+generating text.
+
+00:04:39.390 --> 00:04:41.876
+An inside each case we have the
+
+00:04:41.876 --> 00:04:43.740
+probability of choosing the model which
+
+00:04:43.740 --> 00:04:47.220
+is .5 multiplied by the probability of
+
+00:04:47.220 --> 00:04:49.620
+observing text from that model.
+
+00:04:50.260 --> 00:04:53.300
+Similarly, the would have a probability
+
+00:04:53.300 --> 00:04:56.010
+of the same form, just with different
+
+00:04:56.010 --> 00:04:57.560
+exact probabilities.
+
+00:04:58.300 --> 00:05:01.090
+So naturally our likelihood function is
+
+00:05:01.090 --> 00:05:04.190
+just the product of the two, so it's
+
+00:05:04.190 --> 00:05:06.930
+very easy to see that.
+
+00:05:08.010 --> 00:05:09.507
+Once you understand what's the
+
+00:05:09.507 --> 00:05:11.550
+probability of each word, which is also
+
+00:05:11.550 --> 00:05:14.440
+why it's so important to understand
+
+00:05:14.440 --> 00:05:16.580
+what exactly the probability of
+
+00:05:16.580 --> 00:05:18.110
+observing each word from such a
+
+00:05:18.110 --> 00:05:18.880
+mixture model.
+
+00:05:19.550 --> 00:05:21.620
+Now the interesting question now is,
+
+00:05:21.620 --> 00:05:24.460
+how can we then optimize this
+
+00:05:24.460 --> 00:05:25.120
+likelihood?
+
+00:05:25.120 --> 00:05:28.020
+Well, you will notice that there were
+
+00:05:28.020 --> 00:05:29.110
+only two variables.
+
+00:05:29.110 --> 00:05:30.609
+They are precisely the two
+
+00:05:30.610 --> 00:05:32.820
+probabilities of the two words text and
+
+00:05:32.820 --> 00:05:35.170
+the given by theta sub D.
+
+00:05:35.880 --> 00:05:37.010
+And this is because
+
+00:05:37.010 --> 00:05:38.890
+we have assumed all the other
+
+00:05:38.890 --> 00:05:39.800
+parameters are known.
+
+00:05:41.140 --> 00:05:44.140
+So now the question is a very simple
+
+00:05:44.140 --> 00:05:45.500
+algebra question, right?
+
+00:05:45.500 --> 00:05:47.703
+So we have a simple expression with two
+
+00:05:47.703 --> 00:05:50.130
+variables and we hope to choose the
+
+00:05:50.130 --> 00:05:52.470
+values of these two variables to maximize
+
+00:05:52.470 --> 00:05:53.370
+this function.
+
+00:05:54.170 --> 00:05:57.210
+And the exercise that we have seen some
+
+00:05:57.210 --> 00:06:00.860
+simple algebra problems and note that
+
+00:06:00.860 --> 00:06:03.270
+the two probabilities must sum to one.
+
+00:06:03.270 --> 00:06:04.900
+So there's some constraint.
+
+00:06:06.230 --> 00:06:08.000
+If there were no constraint, of course
+
+00:06:08.000 --> 00:06:09.990
+we would set both probabilities to
+
+00:06:09.990 --> 00:06:11.845
+their maximum value, which would be one
+
+00:06:11.845 --> 00:06:13.400
+to maximize this.
+
+00:06:13.400 --> 00:06:16.480
+But we can't do that because text and
+
+00:06:16.480 --> 00:06:18.046
+the must sum to one.
+
+00:06:18.046 --> 00:06:20.450
+We can't give both a probability of 1.
+
+00:06:21.730 --> 00:06:23.850
+So now the question is how should we
+
+00:06:23.850 --> 00:06:25.860
+allocate the probability mass between
+
+00:06:25.860 --> 00:06:26.560
+the two words?
+
+00:06:26.560 --> 00:06:28.740
+What do you think?
+
+00:06:28.740 --> 00:06:30.390
+Now it would be useful to look at this
+
+00:06:30.390 --> 00:06:33.610
+formula for moment and to see what
+
+00:06:33.610 --> 00:06:37.530
+intuitively what we do in order to set these
+
+00:06:37.530 --> 00:06:39.455
+probabilities to maximize the value of
+
+00:06:39.455 --> 00:06:40.050
+this function.
+
+00:06:42.250 --> 00:06:44.480
+OK, if we look into this further then
+
+00:06:44.480 --> 00:06:46.766
+we'll see some interesting behavior of
+
+00:06:46.766 --> 00:06:50.130
+the two component models in that they
+
+00:06:50.130 --> 00:06:53.190
+will be collaborating to maximize the
+
+00:06:53.190 --> 00:06:55.100
+probability of the observed data which
+
+00:06:55.100 --> 00:06:56.790
+is dictated by the maximum likelihood
+
+00:06:56.790 --> 00:06:57.250
+estimator.
+
+00:06:57.250 --> 00:07:00.430
+But there are also competing in someway
+
+00:07:00.430 --> 00:07:03.207
+an in particular they will be
+
+00:07:03.207 --> 00:07:04.680
+competing on the words.
+
+00:07:05.240 --> 00:07:06.960
+And they will tend to bet high
+
+00:07:06.960 --> 00:07:09.180
+probabilities on different words to
+
+00:07:09.180 --> 00:07:11.240
+avoid this competition in some sense.
+
+00:07:11.900 --> 00:07:13.390
+Or to gain advantage in this
+
+00:07:13.390 --> 00:07:14.020
+competition.
+
+00:07:14.020 --> 00:07:16.420
+So again, looking at this objective
+
+00:07:16.420 --> 00:07:18.020
+function and we have a constraint.
+
+00:07:18.630 --> 00:07:20.300
+On the two probabilities.
+
+00:07:21.250 --> 00:07:21.920
+Now.
+
+00:07:23.290 --> 00:07:25.245
+If you look at the formula intuitively,
+
+00:07:25.245 --> 00:07:28.010
+you might feel that you want to set the
+
+00:07:28.010 --> 00:07:30.130
+probability of text to be somewhat
+
+00:07:30.130 --> 00:07:31.220
+larger than the.
+
+00:07:32.030 --> 00:07:34.080
+And this intuition can be well
+
+00:07:34.080 --> 00:07:36.765
+supported by a mathematical fact, which
+
+00:07:36.765 --> 00:07:40.600
+is when the sum of two variables is a
+
+00:07:40.600 --> 00:07:41.260
+constant.
+
+00:07:41.810 --> 00:07:43.810
+Then the product of them, which is
+
+00:07:43.810 --> 00:07:45.810
+maximum when they are equal and this is
+
+00:07:45.810 --> 00:07:47.470
+a fact that we know from algebra.
+
+00:07:47.470 --> 00:07:50.344
+Now if we plug that in, it will 
+
+00:07:50.344 --> 00:07:52.750
+mean that we have to make the two
+
+00:07:52.750 --> 00:07:55.270
+probabilities equal.
+
+00:07:56.080 --> 00:07:58.460
+And when we make them equal an, if we
+
+00:07:58.460 --> 00:07:59.679
+consider the constraint that we can
+
+00:07:59.680 --> 00:08:02.320
+easy to solve this problem and the
+
+00:08:02.320 --> 00:08:04.800
+solution is the probability of text
+
+00:08:04.800 --> 00:08:06.344
+would be point nine and probability
+
+00:08:06.344 --> 00:08:07.532
+of the is point one.
+
+00:08:07.532 --> 00:08:09.153
+And as you can see, indeed the
+
+00:08:09.153 --> 00:08:11.690
+probability of text is now much larger
+
+00:08:11.690 --> 00:08:13.516
+than probability of the.
+
+00:08:13.516 --> 00:08:15.755
+This is not the case when we have just
+
+00:08:15.755 --> 00:08:18.380
+one distribution and this is clearly
+
+00:08:18.380 --> 00:08:20.280
+because of the use of the background
+
+00:08:20.280 --> 00:08:22.710
+model which assigns a very high
+
+00:08:22.710 --> 00:08:25.676
+probability to the and low probability to
+
+00:08:25.676 --> 00:08:26.159
+text.
+
+00:08:26.410 --> 00:08:28.450
+And if you look at the equation, you
+
+00:08:28.450 --> 00:08:31.575
+will see obviously some interaction of
+
+00:08:31.575 --> 00:08:33.440
+the two distributions here.
+
+00:08:34.450 --> 00:08:37.070
+In particular, you will see in order to
+
+00:08:37.070 --> 00:08:39.970
+make them equal and then the
+
+00:08:39.970 --> 00:08:44.170
+probability assigned by theta sub D
+
+00:08:44.170 --> 00:08:47.030
+must be higher for a word that has a
+
+00:08:47.030 --> 00:08:49.870
+smaller probability given by the
+
+00:08:49.870 --> 00:08:50.620
+background.
+
+00:08:51.830 --> 00:08:55.620
+And, this is obvious from examining
+
+00:08:55.620 --> 00:08:57.700
+this equation because the background
+
+00:08:57.700 --> 00:09:00.450
+part is weak for text it's small.
+
+00:09:00.450 --> 00:09:03.080
+So in order to compensate for that we
+
+00:09:03.080 --> 00:09:05.480
+must make the probability of text given
+
+00:09:05.480 --> 00:09:08.690
+by theta sub D somewhat larger so that
+
+00:09:08.690 --> 00:09:10.760
+the two sides can be balanced.
+
+00:09:10.760 --> 00:09:13.270
+So this is in fact a very general
+
+00:09:13.270 --> 00:09:17.340
+behavior of this mixture model, and
+
+00:09:17.340 --> 00:09:19.510
+that is if one distribution assigns a
+
+00:09:19.510 --> 00:09:21.010
+high probability to one word than
+
+00:09:21.010 --> 00:09:23.220
+another, then the other distribution.
+
+00:09:23.300 --> 00:09:25.140
+Would tend to do the opposite.
+
+00:09:25.140 --> 00:09:26.850
+Basically it would discourage
+
+00:09:26.850 --> 00:09:28.620
+other distributions to do the same,
+
+00:09:28.620 --> 00:09:31.710
+and this is to balance them out so that
+
+00:09:31.710 --> 00:09:33.980
+we can account for all kinds of words.
+
+00:09:34.560 --> 00:09:37.330
+And this also means that by using a
+
+00:09:37.330 --> 00:09:39.430
+background model that is fixed to
+
+00:09:39.430 --> 00:09:41.150
+assign high probabilities to background
+
+00:09:41.150 --> 00:09:44.060
+words, we can indeed encourage the
+
+00:09:44.060 --> 00:09:46.510
+unknown topic world distribution to
+
+00:09:46.510 --> 00:09:49.170
+assign smaller probabilities for such
+
+00:09:49.170 --> 00:09:51.990
+common words, instead put more
+
+00:09:51.990 --> 00:09:54.175
+probability mass on the content words
+
+00:09:54.175 --> 00:09:56.884
+that cannot be explained well by the
+
+00:09:56.884 --> 00:09:57.520
+background model.
+
+00:09:58.270 --> 00:09:59.860
+Meaning that they have a very small
+
+00:09:59.860 --> 00:10:02.160
+probability from the background model,
+
+00:10:02.160 --> 00:10:03.230
+like a text here.
+
+

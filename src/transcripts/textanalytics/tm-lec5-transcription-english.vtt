@@ -1,0 +1,687 @@
+WEBVTT Kind: captions; Language: en-US
+
+NOTE
+Created on 2021-02-27T00:03:25.0336212Z by ClassTranscribe
+
+00:00:00.290 --> 00:00:02.150
+This lecture is about the text
+
+00:00:02.150 --> 00:00:03.250
+representation.
+
+00:00:12.980 --> 00:00:14.970
+In this lecture we're going to discuss
+
+00:00:14.970 --> 00:00:16.250
+text representation.
+
+00:00:17.240 --> 00:00:19.530
+And discuss how natural language
+
+00:00:19.530 --> 00:00:22.100
+processing can allow us to represent
+
+00:00:22.100 --> 00:00:23.890
+text in many different ways.
+
+00:00:25.050 --> 00:00:26.790
+Let's take a look at this example
+
+00:00:26.790 --> 00:00:27.730
+sentence again.
+
+00:00:29.550 --> 00:00:32.290
+We can represent this sentence in many
+
+00:00:32.290 --> 00:00:33.100
+different ways.
+
+00:00:34.380 --> 00:00:35.240
+1st.
+
+00:00:36.400 --> 00:00:38.700
+We can always represent such a
+
+00:00:38.700 --> 00:00:41.380
+sentence as a string of characters.
+
+00:00:42.580 --> 00:00:45.560
+This is true for all the languages when
+
+00:00:45.560 --> 00:00:48.280
+we store them in the computer.
+
+00:00:50.300 --> 00:00:52.680
+When we store a natural language
+
+00:00:52.680 --> 00:00:55.520
+sentence as a string of characters,
+
+00:00:56.080 --> 00:00:59.150
+we have perhaps the most general way of
+
+00:00:59.150 --> 00:01:02.300
+representing text, since we can always use
+
+00:01:02.300 --> 00:01:04.520
+this approach to represent any text
+
+00:01:04.520 --> 00:01:04.940
+data.
+
+00:01:05.910 --> 00:01:08.090
+But unfortunately, using such a
+
+00:01:08.090 --> 00:01:11.710
+representation would not help us do
+
+00:01:11.710 --> 00:01:13.620
+semantic analysis, which is often
+
+00:01:13.620 --> 00:01:16.720
+needed for many applications of text
+
+00:01:16.720 --> 00:01:17.190
+mining.
+
+00:01:18.070 --> 00:01:20.190
+The reason is because we're not even
+
+00:01:20.190 --> 00:01:21.880
+recognizing words.
+
+00:01:21.880 --> 00:01:23.860
+So as a string we're going to keep all
+
+00:01:23.860 --> 00:01:28.750
+the spaces and these ASCII symbols.
+
+00:01:28.750 --> 00:01:32.230
+We can perhaps count how... what's the
+
+00:01:32.230 --> 00:01:34.400
+most frequent character in English
+
+00:01:34.400 --> 00:01:37.780
+text, or the correlation between those
+
+00:01:37.780 --> 00:01:41.800
+characters, but we can't really analyze
+
+00:01:41.800 --> 00:01:42.540
+semantics.
+
+00:01:43.530 --> 00:01:46.560
+Yet this is the most general way of
+
+00:01:46.560 --> 00:01:49.450
+representing text, because we can use
+
+00:01:49.450 --> 00:01:52.000
+this to represent any natural language
+
+00:01:52.000 --> 00:01:52.450
+text.
+
+00:01:53.630 --> 00:01:56.210
+If we try to do a little bit more
+
+00:01:56.210 --> 00:01:58.900
+natural language processing by doing
+
+00:01:58.900 --> 00:02:00.110
+word segmentation.
+
+00:02:01.020 --> 00:02:03.855
+Then we can obtain a representation of
+
+00:02:03.855 --> 00:02:06.570
+the same text, but in the form of a
+
+00:02:06.570 --> 00:02:07.770
+sequence of words.
+
+00:02:08.800 --> 00:02:11.830
+So here we see that we can identify
+
+00:02:11.830 --> 00:02:16.190
+words like: a, dog, is, chasing, etc.
+
+00:02:18.210 --> 00:02:20.550
+Now with this level of representation,
+
+00:02:20.550 --> 00:02:23.860
+we certainly can do a lot of things,
+
+00:02:23.860 --> 00:02:26.073
+and this is mainly because words are
+
+00:02:26.073 --> 00:02:28.715
+the basic units of human communication
+
+00:02:28.715 --> 00:02:31.840
+in natural language, so they are very
+
+00:02:31.840 --> 00:02:33.500
+powerful.
+
+00:02:33.500 --> 00:02:36.100
+By identifying words we can, for
+
+00:02:36.100 --> 00:02:39.700
+example, easily count what are the most
+
+00:02:39.700 --> 00:02:42.620
+frequent words in this document or in
+
+00:02:42.620 --> 00:02:44.720
+the whole collection, etc.
+
+00:02:45.630 --> 00:02:48.260
+And these words can be used to form
+
+00:02:48.260 --> 00:02:48.970
+topics.
+
+00:02:49.610 --> 00:02:51.940
+When we combine related words together
+
+00:02:51.940 --> 00:02:54.740
+and some words are positive, some words are
+
+00:02:54.740 --> 00:02:56.590
+negative, so we can also do sentiment
+
+00:02:56.590 --> 00:02:57.360
+analysis.
+
+00:02:59.650 --> 00:03:02.150
+So representing text data as a sequence of
+
+00:03:02.150 --> 00:03:04.480
+words opens up a lot of interesting
+
+00:03:04.480 --> 00:03:06.010
+analysis possibilities.
+
+00:03:07.510 --> 00:03:09.900
+However, this level of representation
+
+00:03:09.900 --> 00:03:12.330
+is slightly less general than string of
+
+00:03:12.330 --> 00:03:14.850
+characters, because in some languages
+
+00:03:14.850 --> 00:03:16.810
+such as Chinese,
+
+00:03:17.800 --> 00:03:20.280
+it's actually not that easy to
+
+00:03:20.280 --> 00:03:23.020
+identify all the word boundaries,
+
+00:03:23.020 --> 00:03:26.980
+because in such a language you see text
+
+00:03:26.980 --> 00:03:29.780
+as a sequence of characters with no
+
+00:03:29.780 --> 00:03:30.950
+space in between.
+
+00:03:31.830 --> 00:03:33.830
+So you have to rely on some special
+
+00:03:33.830 --> 00:03:35.910
+techniques to identify words.
+
+00:03:37.850 --> 00:03:40.400
+In such a language, of course, then we
+
+00:03:40.400 --> 00:03:42.960
+might make mistakes in segmenting
+
+00:03:42.960 --> 00:03:43.760
+words.
+
+00:03:43.760 --> 00:03:46.100
+So the sequence of words representation
+
+00:03:46.100 --> 00:03:49.130
+is not as robust as string of
+
+00:03:49.130 --> 00:03:49.890
+characters.
+
+00:03:50.570 --> 00:03:54.330
+But in English it's very easy to obtain
+
+00:03:54.330 --> 00:03:56.920
+this level of representation, so we can
+
+00:03:56.920 --> 00:03:58.370
+do that all the time.
+
+00:04:01.850 --> 00:04:03.930
+Now if we go further to do natural
+
+00:04:03.930 --> 00:04:06.350
+language processing, we can add a part
+
+00:04:06.350 --> 00:04:07.410
+of speech tags.
+
+00:04:08.820 --> 00:04:11.420
+Now, once we do that, we can count for
+
+00:04:11.420 --> 00:04:13.790
+example, the most frequent nouns or
+
+00:04:13.790 --> 00:04:16.150
+what kind of nouns are associated with
+
+00:04:16.150 --> 00:04:18.150
+what kind of verbs, etc.
+
+00:04:18.150 --> 00:04:20.710
+So this opens up a little bit more
+
+00:04:20.710 --> 00:04:23.710
+interesting opportunities for further
+
+00:04:23.710 --> 00:04:24.260
+analysis.
+
+00:04:24.900 --> 00:04:27.160
+Note that I use the plus sign here,
+
+00:04:27.160 --> 00:04:29.950
+because by representing text as a
+
+00:04:29.950 --> 00:04:32.461
+sequence of part of speech tags.
+
+00:04:32.461 --> 00:04:35.620
+We don't necessarily replace the
+
+00:04:35.620 --> 00:04:37.820
+original word sequence representation
+
+00:04:37.820 --> 00:04:42.020
+Instead, we add this as an additional
+
+00:04:42.020 --> 00:04:44.480
+way of representing text data, so that
+
+00:04:44.480 --> 00:04:47.006
+now the data is represented as both a
+
+00:04:47.006 --> 00:04:49.686
+sequence of words, and a sequence of
+
+00:04:49.686 --> 00:04:51.233
+part of speech tags.
+
+00:04:51.233 --> 00:04:53.560
+This enriches the representation of text
+
+00:04:53.560 --> 00:04:54.800
+data and thus, also,
+
+00:04:54.910 --> 00:04:57.350
+ enables a more interesting
+
+00:04:57.350 --> 00:04:58.140
+analysis.
+
+00:05:01.320 --> 00:05:03.420
+If we go further then we'll be parsing
+
+00:05:03.420 --> 00:05:06.170
+the sentence to obtain a
+
+00:05:06.170 --> 00:05:07.500
+syntactic structure.
+
+00:05:08.640 --> 00:05:10.920
+Now this of course further open up
+
+00:05:10.920 --> 00:05:14.220
+more interesting analysis of, for
+
+00:05:14.220 --> 00:05:17.330
+example, the writing styles,
+
+00:05:18.070 --> 00:05:21.860
+or correcting grammar mistakes.
+
+00:05:23.200 --> 00:05:25.430
+If we could go further for
+
+00:05:25.430 --> 00:05:27.420
+semantic analysis, then we might be
+
+00:05:27.420 --> 00:05:32.460
+able to recognize dog as animal and we
+
+00:05:32.460 --> 00:05:35.360
+also can recognize boy as a person
+
+00:05:35.360 --> 00:05:37.570
+and playground as a location.
+
+00:05:38.620 --> 00:05:40.090
+And we can further analyze their
+
+00:05:40.090 --> 00:05:40.670
+relations,
+
+00:05:40.670 --> 00:05:43.624
+for example, dog is chasing the boy and
+
+00:05:43.624 --> 00:05:45.510
+the boy is on the playground.
+
+00:05:45.510 --> 00:05:49.480
+Now this is to add more entities and
+
+00:05:49.480 --> 00:05:51.730
+relations through entity-relation
+
+00:05:51.730 --> 00:05:52.530
+recognition.
+
+00:05:53.460 --> 00:05:56.770
+At this level, then we can do even more
+
+00:05:56.770 --> 00:05:57.650
+interesting things.
+
+00:05:57.650 --> 00:05:59.615
+For example, now we can count easily
+
+00:05:59.615 --> 00:06:02.390
+the most frequent person that's
+
+00:06:02.390 --> 00:06:05.110
+mentioned in this whole collection of
+
+00:06:05.110 --> 00:06:08.302
+news articles, or whenever you mention
+
+00:06:08.302 --> 00:06:10.810
+this person, you also tend to see
+
+00:06:10.810 --> 00:06:13.370
+mention of another person, etc.
+
+00:06:13.370 --> 00:06:19.540
+So this is very useful representation
+
+00:06:19.540 --> 00:06:22.450
+an it's also related to the Knowledge
+
+00:06:22.450 --> 00:06:24.550
+Graph that some of you may have heard
+
+00:06:24.550 --> 00:06:25.140
+of.
+
+00:06:25.490 --> 00:06:29.180
+That Google is doing as a more semantic
+
+00:06:29.180 --> 00:06:31.150
+way of representing text data.
+
+00:06:32.260 --> 00:06:36.030
+However, it's also less robust than
+
+00:06:36.880 --> 00:06:39.800
+sequence of words or even syntactic
+
+00:06:39.800 --> 00:06:43.180
+analysis, because it's not always easy to
+
+00:06:43.180 --> 00:06:45.200
+identify all the entities with the
+
+00:06:45.200 --> 00:06:47.182
+right types, and we might make
+
+00:06:47.182 --> 00:06:49.130
+mistakes, and relations are even harder
+
+00:06:49.130 --> 00:06:52.540
+to find and we might make mistakes.
+
+00:06:52.540 --> 00:06:54.180
+So this makes this level of
+
+00:06:54.180 --> 00:06:56.420
+representation less robust, yet it's
+
+00:06:56.420 --> 00:06:57.200
+very useful.
+
+00:06:58.930 --> 00:07:01.230
+Now if we move further to logical
+
+00:07:01.230 --> 00:07:03.260
+representation then we can have predicates and
+
+00:07:03.260 --> 00:07:04.820
+even inference rules. And with inference rules we can infer interesting, derived facts from the text. So that's very useful, but unfortunately at this level of representation it's even less robust and we can make mistakes,
+
+00:07:24.350 --> 00:07:26.980
+and we can't do that all the time for
+
+00:07:26.980 --> 00:07:28.380
+all kinds of sentences.
+
+00:07:29.200 --> 00:07:32.830
+And finally, speech acts with added yet
+
+00:07:32.830 --> 00:07:35.370
+another level of representation of the
+
+00:07:35.370 --> 00:07:38.320
+intent of saying this sentence.
+
+00:07:38.890 --> 00:07:41.220
+So in this case it might be a request.
+
+00:07:41.780 --> 00:07:44.020
+So knowing that would allow us to
+
+00:07:44.020 --> 00:07:46.280
+analyze more, even more interesting
+
+00:07:46.280 --> 00:07:49.520
+things about the observer order.
+
+00:07:50.070 --> 00:07:52.420
+Author of this sentence, what's the
+
+00:07:52.420 --> 00:07:53.905
+intention of saying that?
+
+00:07:53.905 --> 00:07:56.060
+What scenarios, what kind of actions
+
+00:07:56.060 --> 00:07:57.640
+will be made?
+
+00:07:57.640 --> 00:07:58.790
+So this is...
+
+00:08:01.980 --> 00:08:04.800
+Another level of analysis that would be
+
+00:08:04.800 --> 00:08:05.980
+very interesting.
+
+00:08:05.980 --> 00:08:09.750
+So this picture shows that if we move
+
+00:08:09.750 --> 00:08:11.670
+down, we generally see more
+
+00:08:11.670 --> 00:08:13.220
+sophisticated natural language
+
+00:08:13.220 --> 00:08:14.940
+processing techniques to be used.
+
+00:08:15.820 --> 00:08:17.910
+And unfortunately, such techniques
+
+00:08:17.910 --> 00:08:19.900
+would require more human effort.
+
+00:08:20.800 --> 00:08:22.710
+And they are less accurate.
+
+00:08:23.450 --> 00:08:26.180
+That means there are mistakes.
+
+00:08:26.900 --> 00:08:30.240
+So if we analyze text data at the
+
+00:08:30.240 --> 00:08:33.340
+levels that are represented, deeper
+
+00:08:33.340 --> 00:08:35.840
+analysis of language, then we have to
+
+00:08:35.840 --> 00:08:37.370
+tolerate the errors.
+
+00:08:38.190 --> 00:08:41.730
+So that also means it's still necessary
+
+00:08:41.730 --> 00:08:44.510
+to combine such deep analysis with
+
+00:08:44.510 --> 00:08:47.490
+shallow analysis based on, for example
+
+00:08:47.490 --> 00:08:50.920
+sequence of words. On the right side you
+
+00:08:50.920 --> 00:08:53.270
+see the arrow points down,
+
+00:08:53.880 --> 00:08:57.690
+to indicate that as we go down with our
+
+00:08:57.690 --> 00:08:59.960
+representation of text, it's closer to
+
+00:08:59.960 --> 00:09:02.660
+knowledge representation in our mind,
+
+00:09:02.660 --> 00:09:07.610
+and need for solving a lot of problems.
+
+00:09:08.440 --> 00:09:11.845
+Now, this is desirable because as we
+
+00:09:11.845 --> 00:09:14.220
+can represent text at the level of
+
+00:09:14.220 --> 00:09:16.770
+knowledge, we can easily extract the
+
+00:09:16.770 --> 00:09:17.270
+knowledge.
+
+00:09:17.270 --> 00:09:19.010
+That's the purpose of text mining.
+
+00:09:19.010 --> 00:09:23.130
+So there is a trade off here between
+
+00:09:23.130 --> 00:09:25.280
+doing deeper analysis that might have
+
+00:09:25.280 --> 00:09:28.240
+errors, but would give us direct
+
+00:09:28.240 --> 00:09:30.130
+knowledge that can be extracted from
+
+00:09:30.130 --> 00:09:33.700
+text and doing shallow analysis, which
+
+00:09:33.700 --> 00:09:35.080
+is more robust.
+
+00:09:35.080 --> 00:09:38.379
+But wouldn't actually give us the
+
+00:09:38.670 --> 00:09:41.650
+necessary deeper representation of
+
+00:09:41.650 --> 00:09:44.523
+knowledge. I should also say that text
+
+00:09:44.523 --> 00:09:46.350
+data are generated by humans
+
+00:09:46.350 --> 00:09:49.340
+and are meant to be consumed by humans,
+
+00:09:49.340 --> 00:09:52.380
+so as a result in a text data analysis
+
+00:09:52.380 --> 00:09:55.150
+text mining, humans play a very
+
+00:09:55.150 --> 00:09:56.120
+important role.
+
+00:09:56.120 --> 00:09:57.700
+They are always in the loop.
+
+00:09:58.360 --> 00:10:00.790
+Meaning that we should optimize the
+
+00:10:00.790 --> 00:10:03.260
+collaboration of humans and computers.
+
+00:10:04.080 --> 00:10:07.185
+So in that sense, it's OK that
+
+00:10:07.185 --> 00:10:10.350
+computers may not be able to have
+
+00:10:10.350 --> 00:10:12.500
+completely accurate representation of
+
+00:10:12.500 --> 00:10:14.740
+text data and patterns that are
+
+00:10:14.740 --> 00:10:16.460
+extracted from text data can be
+
+00:10:16.460 --> 00:10:19.408
+interpreted by humans, and humans can
+
+00:10:19.408 --> 00:10:22.280
+guide the computers to do more accurate
+
+00:10:22.280 --> 00:10:25.729
+analysis by annotating more data by
+
+00:10:25.730 --> 00:10:28.680
+providing features to guide the machine
+
+00:10:28.680 --> 00:10:31.950
+learning programs to make them work
+
+00:10:31.950 --> 00:10:33.000
+more effectively.
+
+

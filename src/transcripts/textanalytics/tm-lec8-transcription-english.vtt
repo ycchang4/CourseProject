@@ -1,0 +1,994 @@
+WEBVTT Kind: captions; Language: en-US
+
+NOTE
+Created on 2021-02-27T00:00:27.5241213Z by ClassTranscribe
+
+00:00:00.290 --> 00:00:02.310
+This lecture is about the paradigmatic
+
+00:00:02.310 --> 00:00:03.940
+relation discovery.
+
+00:00:14.290 --> 00:00:16.240
+In this lecture we're going to talk
+
+00:00:16.240 --> 00:00:19.250
+about how to discover a particular kind
+
+00:00:19.250 --> 00:00:21.530
+of word Association called paradigmatic
+
+00:00:21.530 --> 00:00:22.580
+relations.
+
+00:00:25.070 --> 00:00:28.380
+By definition, 2 words are
+
+00:00:28.380 --> 00:00:32.450
+paradigmatically related if they share
+
+00:00:32.450 --> 00:00:33.540
+similar contexts.
+
+00:00:34.370 --> 00:00:37.545
+Namely, they occur in similar positions
+
+00:00:37.545 --> 00:00:38.520
+in text.
+
+00:00:39.110 --> 00:00:41.580
+So naturally, our idea for discovering
+
+00:00:41.580 --> 00:00:44.540
+such relation is to look at the context
+
+00:00:44.540 --> 00:00:46.820
+of each word and then try to compute
+
+00:00:46.820 --> 00:00:49.070
+the similarity of those contexts.
+
+00:00:50.070 --> 00:00:53.090
+So here's an example of context of
+
+00:00:53.090 --> 00:00:54.620
+word Cat.
+
+00:00:55.670 --> 00:00:59.255
+Here I have taken the word cat out of
+
+00:00:59.255 --> 00:01:00.340
+the context.
+
+00:01:01.490 --> 00:01:04.130
+And you can see we are seeing some
+
+00:01:04.130 --> 00:01:07.110
+remaining words in the sentences that
+
+00:01:07.110 --> 00:01:08.130
+contain cat.
+
+00:01:09.480 --> 00:01:11.410
+Now we can do the same thing for
+
+00:01:11.410 --> 00:01:12.670
+another word like a dog.
+
+00:01:13.540 --> 00:01:15.440
+So in general we would like to capture
+
+00:01:15.440 --> 00:01:18.130
+such a context and then try to assess
+
+00:01:18.130 --> 00:01:20.660
+the similarity of the context of cat
+
+00:01:20.660 --> 00:01:23.450
+and the context of a word like dog.
+
+00:01:24.690 --> 00:01:27.090
+So now the question is, how can we
+
+00:01:27.090 --> 00:01:30.150
+formally represent the context and then
+
+00:01:30.150 --> 00:01:31.900
+define the similarity function?
+
+00:01:33.210 --> 00:01:35.910
+So first we note that the context
+
+00:01:35.910 --> 00:01:37.850
+actually contains a lot of words.
+
+00:01:38.430 --> 00:01:41.410
+So they can be regarded as a pseudo
+
+00:01:41.410 --> 00:01:42.120
+document.
+
+00:01:42.860 --> 00:01:44.200
+An imaginary document.
+
+00:01:45.020 --> 00:01:47.210
+But there are also different ways of
+
+00:01:47.210 --> 00:01:48.640
+looking at the context.
+
+00:01:48.640 --> 00:01:52.210
+For example, we can look at the word
+
+00:01:52.210 --> 00:01:55.011
+that occurs before the word cat.
+
+00:01:55.011 --> 00:01:56.287
+We can call.
+
+00:01:56.287 --> 00:01:59.070
+We can call this context left1
+
+00:01:59.070 --> 00:02:00.015
+context.
+
+00:02:00.015 --> 00:02:02.440
+So in this case you will see words
+
+00:02:02.440 --> 00:02:07.080
+like my, his or big, a, the, etc.
+
+00:02:07.080 --> 00:02:10.825
+These are the words that can occur to
+
+00:02:10.825 --> 00:02:12.238
+the left of the world cat.
+
+00:02:12.238 --> 00:02:15.319
+So we say my cat, his cat big cat.
+
+00:02:15.850 --> 00:02:17.600
+a cat etc.
+
+00:02:18.200 --> 00:02:20.440
+Similarly, we can also collect the
+
+00:02:20.440 --> 00:02:22.650
+words that occur right after the word
+
+00:02:22.650 --> 00:02:22.953
+cat.
+
+00:02:22.953 --> 00:02:25.810
+We can call this context right1.
+
+00:02:27.910 --> 00:02:32.270
+And here we see words eats, ate, is, has,
+
+00:02:32.270 --> 00:02:32.920
+etc.
+
+00:02:33.670 --> 00:02:35.820
+Or more generally, we can look at the
+
+00:02:35.820 --> 00:02:39.130
+all the words in the window of text
+
+00:02:39.130 --> 00:02:41.600
+around the word cat. Here
+
+00:02:41.600 --> 00:02:43.850
+let's say we can take a window of eight
+
+00:02:43.850 --> 00:02:46.300
+words around the world cat.
+
+00:02:46.300 --> 00:02:47.930
+We call this context
+
+00:02:47.930 --> 00:02:48.810
+Window8
+
+00:02:49.710 --> 00:02:51.996
+Now of course, you can see all the
+
+00:02:51.996 --> 00:02:55.320
+words from left or from right, and so
+
+00:02:55.320 --> 00:02:57.740
+we have a bag of words in general to
+
+00:02:57.740 --> 00:02:59.140
+represent the context.
+
+00:03:01.140 --> 00:03:04.700
+Now, such a word based representation
+
+00:03:04.700 --> 00:03:07.635
+would actually give us interesting way
+
+00:03:07.635 --> 00:03:10.790
+to define the perspective of measuring
+
+00:03:10.790 --> 00:03:12.080
+the similarity.
+
+00:03:12.080 --> 00:03:14.620
+ 
+Because if you look at just the
+
+00:03:14.620 --> 00:03:17.170
+similarity of left1, then we'll see
+
+00:03:17.170 --> 00:03:20.744
+words that share just the words in the
+
+00:03:20.744 --> 00:03:23.320
+left context and we kind of ignore the
+
+00:03:23.320 --> 00:03:26.490
+other words that are also in the general
+
+00:03:26.490 --> 00:03:27.500
+context.
+
+00:03:27.500 --> 00:03:29.739
+So that gives us one perspective to
+
+00:03:29.740 --> 00:03:30.970
+measure the similarity.
+
+00:03:31.710 --> 00:03:33.620
+And similarly, if we only use the right1
+
+00:03:33.620 --> 00:03:35.670
+context will capture the
+
+00:03:35.670 --> 00:03:37.560
+similarity from another perspective.
+
+00:03:38.250 --> 00:03:40.840
+Using both left1 and right1,
+
+00:03:40.840 --> 00:03:43.760
+ofcourse would allow us to capture the
+
+00:03:43.760 --> 00:03:47.020
+similarity with even more strict
+
+00:03:47.020 --> 00:03:47.840
+criteria.
+
+00:03:49.810 --> 00:03:52.630
+So in general, context may contain
+
+00:03:52.630 --> 00:03:55.990
+adjacent words like eats and my that you
+
+00:03:55.990 --> 00:03:59.169
+see here or non-adjacent words like
+
+00:03:59.170 --> 00:04:01.656
+Saturday, Tuesday or some other words
+
+00:04:01.656 --> 00:04:02.850
+in the context.
+
+00:04:05.480 --> 00:04:07.960
+And this flexibility also allows us to
+
+00:04:07.960 --> 00:04:10.200
+measure the similarity similarity in
+
+00:04:10.200 --> 00:04:11.590
+some other different ways.
+
+00:04:11.590 --> 00:04:14.970
+Sometimes this is useful as we might
+
+00:04:14.970 --> 00:04:17.500
+want to capture similarity based on
+
+00:04:17.500 --> 00:04:20.640
+general content that would give us
+
+00:04:20.640 --> 00:04:25.090
+loosely related paradigmatic relations,
+
+00:04:25.090 --> 00:04:27.360
+whereas if you use only the words
+
+00:04:27.360 --> 00:04:29.559
+immediately to the left and to the
+
+00:04:29.560 --> 00:04:31.870
+right of the world, then you likely
+
+00:04:31.870 --> 00:04:35.770
+will capture words that are very much
+
+00:04:35.770 --> 00:04:37.110
+related by
+
+00:04:37.160 --> 00:04:39.200
+their syntactical categories and
+
+00:04:39.200 --> 00:04:40.010
+semantics.
+
+00:04:41.050 --> 00:04:44.020
+So the general idea of discovering
+
+00:04:44.020 --> 00:04:46.585
+paradigmatic relations is to compute
+
+00:04:46.585 --> 00:04:49.900
+the similarity of context of two words.
+
+00:04:50.710 --> 00:04:54.096
+So here for example, we can measure the
+
+00:04:54.096 --> 00:04:57.136
+similarity of cat and dog based on the
+
+00:04:57.136 --> 00:04:58.350
+similarity of their contexts.
+
+00:04:58.350 --> 00:05:00.930
+In general, we can combine all kinds of
+
+00:05:00.930 --> 00:05:04.282
+views of the context and so the
+
+00:05:04.282 --> 00:05:06.320
+similarity function is in general
+
+00:05:06.320 --> 00:05:08.625
+combination of similarities on
+
+00:05:08.625 --> 00:05:10.010
+different contexts.
+
+00:05:10.010 --> 00:05:11.810
+And of course we can also assign
+
+00:05:11.810 --> 00:05:15.073
+weights to these different similarities
+
+00:05:15.073 --> 00:05:18.830
+to allow us to focus more on particular
+
+00:05:18.830 --> 00:05:21.100
+kind of context, and this would be
+
+00:05:21.500 --> 00:05:24.380
+naturally application specific, but again
+
+00:05:24.380 --> 00:05:24.590
+here
+
+00:05:24.590 --> 00:05:27.530
+that main idea for discovering
+
+00:05:27.530 --> 00:05:29.825
+paradigmatically related words is to
+
+00:05:29.825 --> 00:05:31.430
+compute the similarity of their
+
+00:05:31.430 --> 00:05:32.190
+context.
+
+00:05:32.190 --> 00:05:34.890
+So next, let's see how we exactly
+
+00:05:34.890 --> 00:05:37.280
+compute these similarity functions.
+
+00:05:37.280 --> 00:05:40.370
+Now to answer this question it's useful
+
+00:05:40.370 --> 00:05:43.200
+to think of bag of words representation
+
+00:05:43.200 --> 00:05:46.720
+as vectors in the vector space model.
+
+00:05:48.220 --> 00:05:50.690
+Now those of you who have been familiar
+
+00:05:50.690 --> 00:05:52.490
+with information retrieval or text
+
+00:05:52.490 --> 00:05:55.380
+retrieval techniques would realize that
+
+00:05:55.380 --> 00:05:58.220
+vector space model has been used
+
+00:05:58.220 --> 00:06:00.640
+frequently for modeling documents and
+
+00:06:00.640 --> 00:06:02.140
+queries for search.
+
+00:06:02.140 --> 00:06:05.730
+But here we also find it convenient to
+
+00:06:05.730 --> 00:06:08.290
+model the context of a word for
+
+00:06:08.290 --> 00:06:10.070
+paradigmatically relation discovery.
+
+00:06:10.990 --> 00:06:14.950
+So the idea of this approach is to view
+
+00:06:14.950 --> 00:06:17.520
+each word in our vocabulary as defining
+
+00:06:17.520 --> 00:06:19.820
+one dimension in high dimensional space
+
+00:06:19.820 --> 00:06:22.813
+so we have N words in total in the
+
+00:06:22.813 --> 00:06:23.129
+vocabulary.
+
+00:06:23.130 --> 00:06:25.210
+Then we have N dimensions as
+
+00:06:25.210 --> 00:06:26.250
+illustrated here.
+
+00:06:27.510 --> 00:06:30.070
+And on the bottom you can see
+
+00:06:30.070 --> 00:06:32.570
+frequency vector representing a
+
+00:06:32.570 --> 00:06:33.290
+context.
+
+00:06:34.480 --> 00:06:38.620
+And here we see when eats occured five
+
+00:06:38.620 --> 00:06:39.790
+times in this context,
+
+00:06:40.360 --> 00:06:42.880
+ate occurred three times etc.
+
+00:06:42.880 --> 00:06:46.150
+So this vector can then be placed in
+
+00:06:46.150 --> 00:06:47.430
+this vector space model.
+
+00:06:48.020 --> 00:06:50.220
+So in general, we can represent a
+
+00:06:50.220 --> 00:06:54.680
+pseudo document or context of cat as
+
+00:06:54.680 --> 00:06:55.560
+one vector.
+
+00:06:56.150 --> 00:06:56.800
+d1.
+
+00:06:57.440 --> 00:07:00.250
+An another word dog might give us a
+
+00:07:00.250 --> 00:07:02.450
+different context, so d2.
+
+00:07:04.120 --> 00:07:05.955
+And then we can measure the similarity
+
+00:07:05.955 --> 00:07:07.740
+of these two vectors.
+
+00:07:07.740 --> 00:07:09.930
+So by viewing context in the vector
+
+00:07:09.930 --> 00:07:13.070
+space model, we convert the problem of
+
+00:07:13.070 --> 00:07:15.310
+paradigmatic relations discovery into
+
+00:07:15.310 --> 00:07:17.710
+the problem of computing the vectors
+
+00:07:17.710 --> 00:07:19.040
+and their similarity.
+
+00:07:20.170 --> 00:07:21.870
+So the two questions that we have to
+
+00:07:21.870 --> 00:07:23.930
+address is first
+
+00:07:23.930 --> 00:07:26.591
+how to compute each vector, that is,
+
+00:07:26.591 --> 00:07:29.210
+how to compute the xi or yi?
+
+00:07:30.920 --> 00:07:32.680
+And the other question is, how do you
+
+00:07:32.680 --> 00:07:33.730
+compute the similarity?
+
+00:07:35.440 --> 00:07:36.690
+Now in general there are many
+
+00:07:36.690 --> 00:07:38.980
+approaches that can be used to solve
+
+00:07:38.980 --> 00:07:40.540
+the problem, and most of them are
+
+00:07:40.540 --> 00:07:42.660
+developed for information retrieval.
+
+00:07:43.840 --> 00:07:44.590
+And
+
+00:07:46.170 --> 00:07:49.510
+they have been shown to work well for
+
+00:07:49.510 --> 00:07:52.060
+matching a query vector and a document
+
+00:07:52.060 --> 00:07:54.415
+vector, but we can adapt the many of
+
+00:07:54.415 --> 00:07:57.180
+the ideas to compute the similarity of
+
+00:07:57.180 --> 00:08:00.890
+context documents for our purpose here.
+
+00:08:00.890 --> 00:08:03.220
+So let's first look at the one possible
+
+00:08:03.220 --> 00:08:03.850
+approach,
+
+00:08:04.440 --> 00:08:07.030
+where we try to measure the similarity
+
+00:08:07.030 --> 00:08:10.110
+of context based on the expected
+
+00:08:10.110 --> 00:08:15.510
+overlap of words and we call this EOWC.
+
+00:08:16.910 --> 00:08:19.200
+So the idea here is represent
+
+00:08:20.260 --> 00:08:23.900
+a context by award vector where each
+
+00:08:23.900 --> 00:08:26.240
+word has a weight that is equal to the
+
+00:08:26.240 --> 00:08:29.826
+probability that a randomly picked
+
+00:08:29.826 --> 00:08:34.327
+word from this document vector is this
+
+00:08:34.327 --> 00:08:35.270
+word.
+
+00:08:35.270 --> 00:08:37.120
+So in other words.
+
+00:08:37.820 --> 00:08:42.460
+xi is defined as the normalized count
+
+00:08:42.460 --> 00:08:45.500
+of word wi in the context.
+
+00:08:46.190 --> 00:08:47.720
+And this can be interpreted as a
+
+00:08:47.720 --> 00:08:49.712
+probability that you would actually
+
+00:08:49.712 --> 00:08:53.250
+pick this word from d1 if you
+
+00:08:53.250 --> 00:08:54.740
+randomly pick the word.
+
+00:08:56.630 --> 00:08:59.050
+Now of course these xi's will sum to 1
+
+00:08:59.050 --> 00:09:00.930
+because they are normalized
+
+00:09:00.930 --> 00:09:01.690
+frequencies.
+
+00:09:02.810 --> 00:09:03.500
+And
+
+00:09:04.120 --> 00:09:06.090
+this means the vector is actually
+
+00:09:06.090 --> 00:09:08.250
+probability distribution over words.
+
+00:09:10.370 --> 00:09:11.240
+So,
+
+00:09:12.820 --> 00:09:16.830
+the vector d2 can be also computed in
+
+00:09:16.830 --> 00:09:17.610
+the same way.
+
+00:09:18.300 --> 00:09:20.470
+And this would give us then two
+
+00:09:20.470 --> 00:09:22.710
+probability distributions representing
+
+00:09:22.710 --> 00:09:23.560
+two contexts.
+
+00:09:24.710 --> 00:09:26.510
+So that addresses the problem how to
+
+00:09:26.510 --> 00:09:27.939
+compute the vectors?
+
+00:09:27.940 --> 00:09:29.935
+Next, let's see how we can define
+
+00:09:29.935 --> 00:09:31.380
+similarity in this approach.
+
+00:09:31.380 --> 00:09:33.255
+Well, here we simply define the
+
+00:09:33.255 --> 00:09:35.785
+similarity as a dot product of two
+
+00:09:35.785 --> 00:09:38.410
+vectors and this is defined as the sum
+
+00:09:38.410 --> 00:09:41.650
+of the products of all the
+
+00:09:41.650 --> 00:09:43.708
+corresponding elements of the two
+
+00:09:43.708 --> 00:09:44.040
+vectors.
+
+00:09:46.490 --> 00:09:49.840
+Now it's interesting to see that this
+
+00:09:49.840 --> 00:09:51.970
+similarity function actually has a nice
+
+00:09:51.970 --> 00:09:52.980
+interpretation.
+
+00:09:55.210 --> 00:09:58.500
+And there is this dot product 
+
+00:09:58.500 --> 00:10:01.600
+infact gives us the probability that two
+
+00:10:01.600 --> 00:10:04.670
+randomly picked words from the two
+
+00:10:04.670 --> 00:10:05.550
+contexts
+
+00:10:06.480 --> 00:10:09.902
+are identical that means if we try to
+
+00:10:09.902 --> 00:10:12.366
+pick a word from one context and try to
+
+00:10:12.366 --> 00:10:14.006
+pick another word from another context,
+
+00:10:14.006 --> 00:10:16.320
+we can then ask the question, are they
+
+00:10:16.320 --> 00:10:17.100
+identical?
+
+00:10:17.720 --> 00:10:19.850
+If the two contexts are very similar,
+
+00:10:19.850 --> 00:10:22.470
+then we should expect that we frequently
+
+00:10:22.470 --> 00:10:25.190
+will see the two words picked from the
+
+00:10:25.190 --> 00:10:26.830
+two contexts are identical.
+
+00:10:26.830 --> 00:10:28.960
+If they are very different then the
+
+00:10:28.960 --> 00:10:31.910
+chance of seeing identical words being
+
+00:10:31.910 --> 00:10:33.720
+picked from the two contexts would be
+
+00:10:33.720 --> 00:10:34.400
+small.
+
+00:10:34.400 --> 00:10:37.660
+So this intuitively makes sense for
+
+00:10:37.660 --> 00:10:39.920
+measuring similarity of contexts.
+
+00:10:41.360 --> 00:10:43.260
+Now you might want to also take a look
+
+00:10:43.260 --> 00:10:47.840
+at the exact formulas and see why this
+
+00:10:47.840 --> 00:10:51.500
+can be interpreted as the probability
+
+00:10:51.500 --> 00:10:54.850
+that two randomly picked words are
+
+00:10:54.850 --> 00:10:55.590
+identical.
+
+00:10:56.190 --> 00:11:01.250
+So if you just stay at the formula 
+
+00:11:02.110 --> 00:11:07.870
+to check what's inside this sum then
+
+00:11:07.870 --> 00:11:08.460
+you will see,
+
+00:11:08.460 --> 00:11:11.690
+basically in each case it gives us the
+
+00:11:11.690 --> 00:11:14.220
+probability that we'll see overlap on a
+
+00:11:14.220 --> 00:11:18.104
+particular word, wi and where xi gives us
+
+00:11:18.104 --> 00:11:20.886
+the probability that will pick this
+
+00:11:20.886 --> 00:11:23.760
+particular word from d1 and 
+
+00:11:23.760 --> 00:11:24.078
+yi
+
+00:11:24.078 --> 00:11:26.485
+gives us the probability of picking
+
+00:11:26.485 --> 00:11:29.009
+this word from d2 and when we pick the
+
+00:11:29.010 --> 00:11:31.530
+same word from the two contexts then we
+
+00:11:31.530 --> 00:11:32.500
+have identical 
+
+00:11:33.090 --> 00:11:33.530
+pick.
+
+00:11:34.130 --> 00:11:37.180
+Alright, so that's one possible
+
+00:11:37.180 --> 00:11:37.840
+approach.
+
+00:11:37.840 --> 00:11:41.420
+EOWC expected overlap of words in
+
+00:11:41.420 --> 00:11:42.045
+context.
+
+00:11:42.045 --> 00:11:47.460
+Now, as always, we would like to assess
+
+00:11:47.460 --> 00:11:48.720
+whether this approach it would work well.
+
+00:11:48.720 --> 00:11:50.950
+Now, of course, ultimately we have to
+
+00:11:50.950 --> 00:11:52.910
+test the approach with real data and
+
+00:11:52.910 --> 00:11:55.540
+see if it gives us really semantically
+
+00:11:55.540 --> 00:11:58.480
+related words really give us a
+
+00:11:58.480 --> 00:12:00.110
+paradigmatic relations.
+
+00:12:00.110 --> 00:12:03.270
+But analytically, we can also analyze
+
+00:12:03.270 --> 00:12:05.100
+this formula little bit.
+
+00:12:05.240 --> 00:12:09.410
+So first, as I said, it does make sense
+
+00:12:09.410 --> 00:12:09.860
+right?
+
+00:12:09.860 --> 00:12:12.020
+because this formula will give a higher
+
+00:12:12.020 --> 00:12:14.473
+score if there is more overlap between
+
+00:12:14.473 --> 00:12:16.020
+the two contexts.
+
+00:12:16.020 --> 00:12:18.230
+So that's exactly what we want.
+
+00:12:18.230 --> 00:12:20.459
+But if you analyze the formula more
+
+00:12:20.460 --> 00:12:22.540
+carefully, then you also see there
+
+00:12:22.540 --> 00:12:24.670
+might be some potential problems.
+
+00:12:24.670 --> 00:12:26.407
+And specifically there are two
+
+00:12:26.407 --> 00:12:28.200
+potential problems. First it
+
+00:12:29.610 --> 00:12:31.990
+might favor matching one frequent
+
+00:12:31.990 --> 00:12:34.550
+term very well over matching more
+
+00:12:34.550 --> 00:12:37.735
+distinct terms, and that is because in
+
+00:12:37.735 --> 00:12:41.280
+the dot product, if one element has a
+
+00:12:41.280 --> 00:12:44.990
+high value and this element is shared
+
+00:12:44.990 --> 00:12:48.280
+by both context and it contributes a
+
+00:12:48.280 --> 00:12:50.190
+lot to the overall sum.
+
+00:12:51.070 --> 00:12:54.240
+And it might indeed make the score
+
+00:12:54.240 --> 00:12:56.930
+higher than in another case where the
+
+00:12:56.930 --> 00:12:58.720
+two vectors actually have a lot of
+
+00:12:58.720 --> 00:13:01.570
+overlap in different terms, but each
+
+00:13:01.570 --> 00:13:03.860
+term has a relatively low frequency.
+
+00:13:04.750 --> 00:13:06.739
+So this may not be desirable.
+
+00:13:06.740 --> 00:13:08.329
+Of course, this might be desirable in
+
+00:13:08.330 --> 00:13:10.990
+some other cases, but in our case we
+
+00:13:10.990 --> 00:13:13.680
+should intuitively prefer a case where
+
+00:13:13.680 --> 00:13:17.137
+we match more different terms in the
+
+00:13:17.137 --> 00:13:19.380
+context so that we have more confidence
+
+00:13:19.380 --> 00:13:21.570
+in saying that the two words indeed
+
+00:13:21.570 --> 00:13:23.340
+occur in similar context.
+
+00:13:24.170 --> 00:13:26.840
+If you only rely on one term and that's
+
+00:13:26.840 --> 00:13:27.620
+a little bit
+
+00:13:29.130 --> 00:13:30.160
+questionable.
+
+00:13:31.370 --> 00:13:32.530
+It may not be robust.
+
+00:13:34.590 --> 00:13:36.610
+The second problem is that it treats
+
+00:13:36.610 --> 00:13:40.010
+every word equally, so 
+
+00:13:40.860 --> 00:13:44.030
+if you match a word like the, and
+
+00:13:44.030 --> 00:13:47.112
+match was, it would be the same as
+
+00:13:47.112 --> 00:13:51.360
+matching on the word like eats.
+
+00:13:51.360 --> 00:13:54.419
+But intuitively we know matching the
+
+00:13:54.420 --> 00:13:56.220
+isn't really surprising because the
+
+00:13:56.220 --> 00:14:00.270
+occurs everywhere, so matching the is
+
+00:14:00.270 --> 00:14:02.290
+not as such 
+
+00:14:02.290 --> 00:14:04.210
+a strong evidence as matching a word
+
+00:14:04.210 --> 00:14:04.990
+like eats 
+
+00:14:05.610 --> 00:14:07.150
+which doesn't occur frequently.
+
+00:14:07.820 --> 00:14:10.860
+So this is another problem of this
+
+00:14:10.860 --> 00:14:11.450
+approach.
+
+00:14:13.300 --> 00:14:15.540
+In the next lecture, we're going to
+
+00:14:15.540 --> 00:14:16.980
+talk about how to address these
+
+00:14:16.980 --> 00:14:17.700
+problems.
+
+

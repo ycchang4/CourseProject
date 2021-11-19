@@ -1,0 +1,2346 @@
+WEBVTT Kind: captions; Language: en-US
+
+NOTE
+Created on 2021-02-26T23:59:25.1029212Z by ClassTranscribe
+
+00:00:00.300 --> 00:00:02.940
+This lecture is about how to use
+
+00:00:02.940 --> 00:00:04.900
+generative probabilistic models for
+
+00:00:04.900 --> 00:00:06.130
+text categorization.
+
+00:00:14.260 --> 00:00:16.500
+There are in general are two kinds of
+
+00:00:16.500 --> 00:00:19.610
+approaches to text categorization by
+
+00:00:19.610 --> 00:00:20.420
+using machine learning.
+
+00:00:20.420 --> 00:00:22.525
+One is generative probabilistic models,
+
+00:00:22.525 --> 00:00:25.020
+the other is discriminative approaches.
+
+00:00:25.020 --> 00:00:26.760
+In this lecture, we're going to talk
+
+00:00:26.760 --> 00:00:28.930
+about the generative models.
+
+00:00:29.580 --> 00:00:31.600
+In the next lecture, we're going to
+
+00:00:31.600 --> 00:00:34.350
+talk about discriminative approaches.
+
+00:00:34.350 --> 00:00:36.860
+So the problem of text categorization
+
+00:00:36.860 --> 00:00:38.946
+is actually very similar to document
+
+00:00:38.946 --> 00:00:41.670
+clustering in that we assume that each
+
+00:00:41.670 --> 00:00:44.080
+document belongs to one category or one
+
+00:00:44.080 --> 00:00:44.620
+cluster.
+
+00:00:44.620 --> 00:00:46.970
+Main difference is that in clustering
+
+00:00:46.970 --> 00:00:48.990
+we don't really know what are the
+
+00:00:48.990 --> 00:00:51.006
+predefined categories or what are the
+
+00:00:51.006 --> 00:00:51.443
+clusters.
+
+00:00:51.443 --> 00:00:54.440
+In fact, that's the goal of text
+
+00:00:54.440 --> 00:00:55.170
+clustering.
+
+00:00:55.170 --> 00:00:58.000
+We want to find such clusters in the
+
+00:00:58.000 --> 00:00:58.380
+data.
+
+00:00:59.180 --> 00:01:00.920
+But in the case of categorization, we are
+
+00:01:00.920 --> 00:01:02.270
+given the categories.
+
+00:01:02.270 --> 00:01:05.200
+So we kind of have predefined
+
+00:01:05.200 --> 00:01:06.640
+categories and.
+
+00:01:07.220 --> 00:01:09.359
+then based on these categories and
+
+00:01:09.360 --> 00:01:10.980
+training data, we would like to
+
+00:01:10.980 --> 00:01:15.490
+allocate a document to one of these
+
+00:01:15.490 --> 00:01:17.050
+categories, or sometimes multiple
+
+00:01:17.050 --> 00:01:17.800
+categories.
+
+00:01:18.580 --> 00:01:20.400
+But because of the similarity of the
+
+00:01:20.400 --> 00:01:22.960
+two problems, we can actually adapt
+
+00:01:22.960 --> 00:01:26.330
+document clustering models for text
+
+00:01:26.330 --> 00:01:26.890
+categorization.
+
+00:01:26.890 --> 00:01:29.310
+Or we can understand how we can use
+
+00:01:29.310 --> 00:01:31.230
+generative models to do text
+
+00:01:31.230 --> 00:01:34.515
+categorization from the perspective of
+
+00:01:34.515 --> 00:01:35.820
+clustering.
+
+00:01:35.820 --> 00:01:39.100
+And so this is a slide that we've
+
+00:01:39.100 --> 00:01:41.013
+talked about before about text
+
+00:01:41.013 --> 00:01:42.630
+clustering, where we assume there are
+
+00:01:42.630 --> 00:01:46.530
+multiple topics represented by word
+
+00:01:46.530 --> 00:01:47.390
+distributions.
+
+00:01:47.390 --> 00:01:49.040
+Each topic is 1 cluster.
+
+00:01:49.520 --> 00:01:52.220
+So once we estimate such model, we
+
+00:01:52.220 --> 00:01:55.320
+faced the problem of deciding which
+
+00:01:55.320 --> 00:01:58.430
+cluster document d should belong to and
+
+00:01:58.430 --> 00:02:00.690
+this question boils down to decide
+
+00:02:00.690 --> 00:02:04.130
+which theta i has been used to generate
+
+00:02:04.130 --> 00:02:04.470
+D.
+
+00:02:06.190 --> 00:02:11.163
+Suppose D has L words represent
+
+00:02:11.163 --> 00:02:13.750
+represent as Xi here.
+
+00:02:14.320 --> 00:02:16.670
+Now, how can you compute the
+
+00:02:16.670 --> 00:02:21.770
+probability that particular topic word
+
+00:02:21.770 --> 00:02:23.680
+distributions theta i has been used to
+
+00:02:23.680 --> 00:02:26.120
+generate this document?
+
+00:02:26.860 --> 00:02:30.320
+In general, we use bayes rule to make
+
+00:02:30.320 --> 00:02:31.200
+this inference.
+
+00:02:32.010 --> 00:02:34.590
+And you can see this
+
+00:02:35.840 --> 00:02:38.270
+Prior information here.
+
+00:02:38.980 --> 00:02:43.037
+That we need to consider if a topic or
+
+00:02:43.037 --> 00:02:46.040
+cluster has a higher prior then it's
+
+00:02:46.040 --> 00:02:48.290
+more likely that the document has been
+
+00:02:48.290 --> 00:02:51.000
+from this cluster, so we should favor
+
+00:02:51.000 --> 00:02:51.770
+such a cluster.
+
+00:02:52.320 --> 00:02:54.795
+The other is a likelihood part, that is this
+
+00:02:54.795 --> 00:02:55.130
+part.
+
+00:02:55.730 --> 00:02:57.590
+And this has to do with whether the
+
+00:02:57.590 --> 00:02:59.760
+topic word distribution can explain
+
+00:02:59.760 --> 00:03:01.620
+the content of this document well.
+
+00:03:02.220 --> 00:03:06.140
+And we want to pick a topic that's high
+
+00:03:06.140 --> 00:03:07.500
+by both values.
+
+00:03:07.500 --> 00:03:09.480
+So more specifically, we just multiply
+
+00:03:09.480 --> 00:03:11.610
+them together and then choose which
+
+00:03:11.610 --> 00:03:14.100
+topic has the highest product.
+
+00:03:14.100 --> 00:03:17.040
+So more rigorously, this is what we
+
+00:03:17.040 --> 00:03:19.833
+would be doing, so we're going to
+
+00:03:19.833 --> 00:03:21.420
+choose the topic that will
+
+00:03:21.420 --> 00:03:24.205
+maximize this posterior probability of
+
+00:03:24.205 --> 00:03:25.990
+the topic given the document.
+
+00:03:26.720 --> 00:03:31.120
+Get posterior becausw this one P of
+
+00:03:31.120 --> 00:03:34.220
+Theta i is the prior, that's our belief
+
+00:03:34.220 --> 00:03:36.150
+about which topic is more likely.
+
+00:03:36.700 --> 00:03:38.810
+Before we observe any document.
+
+00:03:39.370 --> 00:03:41.730
+But this conditional probability here
+
+00:03:42.350 --> 00:03:44.890
+Is the posterior probability of the
+
+00:03:44.890 --> 00:03:47.110
+topic after we have observed the
+
+00:03:47.110 --> 00:03:47.990
+document d.
+
+00:03:49.220 --> 00:03:52.410
+And Bayes rule allows us to update this
+
+00:03:52.410 --> 00:03:54.500
+probability based on the prior and
+
+00:03:54.500 --> 00:03:55.810
+I shown the details.
+
+00:03:56.460 --> 00:04:00.190
+Below here you can see how the prior
+
+00:04:00.190 --> 00:04:04.100
+here is related to the posterior on the
+
+00:04:04.100 --> 00:04:05.060
+left hand side.
+
+00:04:05.810 --> 00:04:09.930
+And this is related to how well this
+
+00:04:09.930 --> 00:04:12.600
+word distribution explains the
+
+00:04:12.600 --> 00:04:15.390
+document here, and the two are related
+
+00:04:15.390 --> 00:04:15.950
+in this way.
+
+00:04:15.950 --> 00:04:20.940
+So to find the topic that has the
+
+00:04:20.940 --> 00:04:23.310
+highest posterior probability here,
+
+00:04:23.310 --> 00:04:25.910
+it's equivalent to maximize this
+
+00:04:25.910 --> 00:04:28.520
+product as we have seen also multiple
+
+00:04:28.520 --> 00:04:29.070
+times
+
+00:04:29.690 --> 00:04:30.480
+in this course.
+
+00:04:32.160 --> 00:04:35.004
+An we can then change the probability
+
+00:04:35.004 --> 00:04:38.292
+of document in your product of the
+
+00:04:38.292 --> 00:04:40.425
+probability of each word and that's
+
+00:04:40.425 --> 00:04:42.380
+just because we've made the assumption
+
+00:04:42.380 --> 00:04:45.210
+about the independence in generating each word
+
+00:04:45.210 --> 00:04:46.510
+OK.
+
+00:04:46.510 --> 00:04:48.540
+So this is just something that you have
+
+00:04:48.540 --> 00:04:49.740
+seen in document clustering.
+
+00:04:50.530 --> 00:04:54.410
+An we now can see clearly how we can
+
+00:04:54.410 --> 00:04:57.500
+assign a documentary to a category based on
+
+00:04:57.500 --> 00:04:57.980
+the
+
+00:04:58.560 --> 00:05:01.640
+information about word distributions
+
+00:05:01.640 --> 00:05:04.858
+for these categories and the prior on
+
+00:05:04.858 --> 00:05:05.694
+these categories.
+
+00:05:05.694 --> 00:05:09.330
+So this idea can be directly adapted to do
+
+00:05:09.330 --> 00:05:10.843
+categorization and
+
+00:05:10.843 --> 00:05:13.950
+This is precisely what Naive Bayes
+
+00:05:13.950 --> 00:05:17.330
+classifier is doing, so here it's
+
+00:05:17.330 --> 00:05:19.260
+mostly the same information, except
+
+00:05:19.260 --> 00:05:20.170
+that we're looking at the
+
+00:05:20.170 --> 00:05:22.440
+categorization problem now, so we
+
+00:05:22.440 --> 00:05:24.280
+assume that if
+
+00:05:25.500 --> 00:05:28.785
+Theta i represents category I
+
+00:05:28.785 --> 00:05:31.070
+accurately that means the word
+
+00:05:31.070 --> 00:05:33.070
+distribution characterizes the content
+
+00:05:33.070 --> 00:05:36.840
+of documents in category i accurately.
+
+00:05:36.840 --> 00:05:39.350
+Then what we can do is precisely
+
+00:05:39.350 --> 00:05:41.190
+like what we did for text clustering.
+
+00:05:41.190 --> 00:05:44.220
+Namely, we are going to assign document D
+
+00:05:44.220 --> 00:05:46.570
+to the category that has the highest
+
+00:05:46.570 --> 00:05:49.600
+probability of generating this
+
+00:05:49.600 --> 00:05:49.990
+document.
+
+00:05:49.990 --> 00:05:52.540
+In other words, we're going to maximize
+
+00:05:52.540 --> 00:05:55.150
+this posterior probability as well.
+
+00:05:56.460 --> 00:05:59.535
+And this is related to the prior and
+
+00:05:59.535 --> 00:06:02.590
+the likelihood an as you have seen on
+
+00:06:02.590 --> 00:06:03.520
+the previous slide.
+
+00:06:04.120 --> 00:06:06.700
+And so naturally, we can then decompose
+
+00:06:06.700 --> 00:06:09.660
+this likelihood into a product.
+
+00:06:10.280 --> 00:06:12.900
+As you see here now here I changed the
+
+00:06:12.900 --> 00:06:15.777
+notation so that we will write down the
+
+00:06:15.777 --> 00:06:17.984
+product as product over all the words
+
+00:06:17.984 --> 00:06:23.020
+in the vocabulary and even if even
+
+00:06:23.020 --> 00:06:25.040
+though the document doesn't contain all
+
+00:06:25.040 --> 00:06:28.810
+the words and the product is there
+
+00:06:28.810 --> 00:06:31.159
+accurately representing the product of
+
+00:06:31.159 --> 00:06:33.602
+all the words in the document.
+
+00:06:33.602 --> 00:06:35.680
+because of this count here.
+
+00:06:36.720 --> 00:06:38.744
+when a word doesn't occur in the
+
+00:06:38.744 --> 00:06:38.942
+document.
+
+00:06:38.942 --> 00:06:41.130
+The count would be 0, so this count
+
+00:06:41.130 --> 00:06:42.400
+would just disappear.
+
+00:06:42.400 --> 00:06:45.180
+So effectively we're just have the
+
+00:06:45.180 --> 00:06:47.845
+product over all the words in the
+
+00:06:47.845 --> 00:06:48.222
+document.
+
+00:06:48.222 --> 00:06:50.300
+So basically with naive Bayes
+
+00:06:50.300 --> 00:06:52.840
+classifier, we're going to score each
+
+00:06:52.840 --> 00:06:55.260
+category for a document by this
+
+00:06:55.260 --> 00:06:55.770
+function.
+
+00:06:56.710 --> 00:06:58.390
+Now you may notice that here
+
+00:06:58.390 --> 00:07:00.690
+It involves the product of a lot of
+
+00:07:00.690 --> 00:07:05.140
+small probabilities and this can cause
+
+00:07:05.140 --> 00:07:06.110
+underflow problem.
+
+00:07:06.110 --> 00:07:08.660
+So one way to solve the problem is to
+
+00:07:08.660 --> 00:07:10.900
+take logarithm of this function, which
+
+00:07:10.900 --> 00:07:12.740
+doesn't change the order of these
+
+00:07:12.740 --> 00:07:15.020
+categories, but would help us preserve
+
+00:07:15.020 --> 00:07:17.545
+precision and so this is often the.
+
+00:07:17.545 --> 00:07:19.840
+This is often the function that we
+
+00:07:19.840 --> 00:07:23.070
+actually use to score each category,
+
+00:07:23.070 --> 00:07:24.770
+and then we're going to choose the
+
+00:07:24.770 --> 00:07:26.980
+category that has the highest
+
+00:07:27.370 --> 00:07:29.440
+score by this function.
+
+00:07:29.440 --> 00:07:31.750
+So this is called a Naiyes Bayes
+
+00:07:31.750 --> 00:07:32.510
+classifier.
+
+00:07:32.510 --> 00:07:35.280
+Now the keyword Bayes is understandable
+
+00:07:35.280 --> 00:07:37.050
+because we are applying a Bayes rule
+
+00:07:37.050 --> 00:07:37.540
+here.
+
+00:07:37.540 --> 00:07:40.490
+When we go from the posterior
+
+00:07:40.490 --> 00:07:44.100
+probability of the topic to a product
+
+00:07:44.100 --> 00:07:46.380
+of the likelihood and the prior.
+
+00:07:47.410 --> 00:07:49.810
+Now it's also called a Naive because
+
+00:07:49.810 --> 00:07:51.760
+We've made an assumption that every
+
+00:07:51.760 --> 00:07:53.640
+word in the document is generated
+
+00:07:53.640 --> 00:07:56.685
+independently, and this is indeed a naive
+
+00:07:56.685 --> 00:07:59.030
+assumption, because in reality they are
+
+00:07:59.030 --> 00:08:00.670
+not generated independently.
+
+00:08:00.670 --> 00:08:03.660
+Once you see some word and other words
+
+00:08:03.660 --> 00:08:05.030
+will more likely occur.
+
+00:08:05.030 --> 00:08:07.881
+For example, if you have seen a word like a
+
+00:08:07.881 --> 00:08:10.050
+text, and then it makes categorization or
+
+00:08:10.050 --> 00:08:11.670
+clustering more likely to appear
+
+00:08:11.670 --> 00:08:13.980
+And if you have not seen text.
+
+00:08:15.370 --> 00:08:16.840
+But this assumption allows us to
+
+00:08:16.840 --> 00:08:19.610
+simplify the problem, and it's actually
+
+00:08:19.610 --> 00:08:21.070
+quite effective for many text
+
+00:08:21.070 --> 00:08:22.160
+categorization tasks.
+
+00:08:23.040 --> 00:08:26.580
+But you should know that this kind of
+
+00:08:26.580 --> 00:08:28.040
+model doesn't have to make this
+
+00:08:28.040 --> 00:08:28.660
+assumption.
+
+00:08:28.660 --> 00:08:31.970
+We could, for example, assume the words
+
+00:08:31.970 --> 00:08:34.070
+may be dependent on each other, so that
+
+00:08:34.070 --> 00:08:36.620
+would make it a bigram language model
+
+00:08:36.620 --> 00:08:38.650
+or trigram language model.
+
+00:08:38.650 --> 00:08:40.340
+And of course you can even use a
+
+00:08:40.340 --> 00:08:42.370
+mixture model to model what the
+
+00:08:42.370 --> 00:08:45.044
+document looks like in each category.
+
+00:08:45.044 --> 00:08:48.070
+So in nature they will be all using
+
+00:08:48.070 --> 00:08:50.170
+Bayes rule to do classification, but
+
+00:08:50.170 --> 00:08:52.160
+the actual generative model for
+
+00:08:52.160 --> 00:08:53.639
+documents in each category.
+
+00:08:53.690 --> 00:08:56.830
+Can vary, and here we just talk about a
+
+00:08:56.830 --> 00:08:58.150
+very simple case.
+
+00:08:58.150 --> 00:08:59.710
+Perhaps the simplest case.
+
+00:09:00.500 --> 00:09:03.080
+So now the question is, how can we make
+
+00:09:03.080 --> 00:09:06.020
+sure each theta i actually represents
+
+00:09:06.020 --> 00:09:07.690
+category i accurate?
+
+00:09:09.300 --> 00:09:11.906
+Now, in clustering we learned this
+
+00:09:11.906 --> 00:09:14.820
+category i or the word distributions
+
+00:09:14.820 --> 00:09:16.850
+for category i from the data.
+
+00:09:16.850 --> 00:09:19.990
+But in our case what can we do to make
+
+00:09:19.990 --> 00:09:23.756
+sure this theta i represents indeed
+
+00:09:23.756 --> 00:09:25.109
+category i?
+
+00:09:25.830 --> 00:09:27.510
+If you think about the question and
+
+00:09:27.510 --> 00:09:31.430
+you're likely to come up with the idea of
+
+00:09:31.430 --> 00:09:34.130
+using the training data right.
+
+00:09:34.130 --> 00:09:36.500
+Indeed, in text categorization, we
+
+00:09:36.500 --> 00:09:38.116
+typically assume that there are
+
+00:09:38.116 --> 00:09:41.165
+training data available and those are
+
+00:09:41.165 --> 00:09:45.010
+the documents that are known to have
+
+00:09:45.010 --> 00:09:47.340
+been generated from which category.
+
+00:09:47.340 --> 00:09:49.406
+In other words, these are the documents
+
+00:09:49.406 --> 00:09:51.769
+with known categories assigned, and of
+
+00:09:51.770 --> 00:09:53.580
+course human experts must do that.
+
+00:09:54.200 --> 00:09:57.500
+And here you see that T1 represents the
+
+00:09:57.500 --> 00:10:00.442
+set of documents that are known to have
+
+00:10:00.442 --> 00:10:02.715
+been generated from category one, and
+
+00:10:02.715 --> 00:10:04.988
+T2 represents the documents that are
+
+00:10:04.988 --> 00:10:07.262
+known to have been generated from
+
+00:10:07.262 --> 00:10:08.660
+category two, etc.
+
+00:10:10.560 --> 00:10:12.540
+Now if you look at this picture, you
+
+00:10:12.540 --> 00:10:15.650
+see that the model here is really a
+
+00:10:15.650 --> 00:10:18.270
+simplified unigram language model.
+
+00:10:18.270 --> 00:10:20.180
+It is no longer mixture model.
+
+00:10:20.180 --> 00:10:21.070
+Why?
+
+00:10:21.070 --> 00:10:23.160
+Because already know which distribution has
+
+00:10:23.160 --> 00:10:25.210
+been used to generate which documents.
+
+00:10:25.210 --> 00:10:26.706
+There's no uncertainty here.
+
+00:10:26.706 --> 00:10:28.750
+There's no mixing of different
+
+00:10:28.750 --> 00:10:29.960
+categories here.
+
+00:10:30.870 --> 00:10:33.110
+So the estimation problem of course
+
+00:10:33.110 --> 00:10:36.090
+would be simplified, but in general you
+
+00:10:36.090 --> 00:10:38.795
+can imagine what we want to do is to
+
+00:10:38.795 --> 00:10:40.660
+estimate these probabilities that I
+
+00:10:40.660 --> 00:10:43.050
+marked here and what are the
+
+00:10:43.050 --> 00:10:44.873
+probabilities that we have to estimate
+
+00:10:44.873 --> 00:10:47.010
+in order to do categorization where
+
+00:10:47.010 --> 00:10:47.950
+there are two kinds.
+
+00:10:48.630 --> 00:10:51.280
+So one is the prior.
+
+00:10:51.280 --> 00:10:53.720
+The probability of theta i and this
+
+00:10:53.720 --> 00:10:57.829
+indicates how popular each category is
+
+00:10:57.830 --> 00:11:00.060
+or how likely we would have observed the
+
+00:11:00.060 --> 00:11:01.750
+document in that category.
+
+00:11:03.170 --> 00:11:04.520
+The other kind is word
+
+00:11:04.520 --> 00:11:07.390
+distributions and we want to know what
+
+00:11:07.390 --> 00:11:09.850
+words have high probabilities for each
+
+00:11:09.850 --> 00:11:10.390
+category.
+
+00:11:11.560 --> 00:11:13.660
+So the idea then is to just use the
+
+00:11:13.660 --> 00:11:16.170
+observed training data to estimate
+
+00:11:16.170 --> 00:11:17.800
+these two probabilities.
+
+00:11:18.690 --> 00:11:20.860
+And in general we can do this
+
+00:11:20.860 --> 00:11:23.370
+separately for different categories.
+
+00:11:23.370 --> 00:11:25.300
+That's just because
+
+00:11:25.300 --> 00:11:27.190
+these documents are known to be
+
+00:11:27.190 --> 00:11:30.080
+generated from a specific category, so
+
+00:11:30.080 --> 00:11:32.790
+once we know that it's in some sense
+
+00:11:32.790 --> 00:11:34.670
+irrelevant what other categories we
+
+00:11:34.670 --> 00:11:35.690
+are also dealing with.
+
+00:11:37.340 --> 00:11:40.210
+So now this is statistical estimation
+
+00:11:40.210 --> 00:11:41.035
+problem.
+
+00:11:41.035 --> 00:11:43.616
+We have observed some data from some
+
+00:11:43.616 --> 00:11:45.525
+model and we want to guess the
+
+00:11:45.525 --> 00:11:46.722
+parameters of this model.
+
+00:11:46.722 --> 00:11:49.325
+We want to take our best guess of the
+
+00:11:49.325 --> 00:11:49.640
+parameters.
+
+00:11:50.930 --> 00:11:52.310
+And this is the problem that you have
+
+00:11:52.310 --> 00:11:52.800
+seen.
+
+00:11:52.800 --> 00:11:55.140
+Also several times in this course.
+
+00:11:56.120 --> 00:11:58.192
+Now, if you haven't thought about that
+
+00:11:58.192 --> 00:11:59.820
+this problem, haven't seen  naive
+
+00:11:59.820 --> 00:12:01.980
+Bayes classifier, it would be very
+
+00:12:01.980 --> 00:12:04.260
+useful for you to pause the video for a
+
+00:12:04.260 --> 00:12:06.660
+moment and to think about how to solve
+
+00:12:06.660 --> 00:12:07.406
+this problem.
+
+00:12:07.406 --> 00:12:11.000
+So let me state the problem again, so
+
+00:12:11.000 --> 00:12:13.070
+let's just think about category One.
+
+00:12:13.070 --> 00:12:15.145
+We know there is one word distribution
+
+00:12:15.145 --> 00:12:17.350
+that has been used to generate
+
+00:12:17.350 --> 00:12:18.060
+documents.
+
+00:12:18.610 --> 00:12:19.909
+And we generated each word in the
+
+00:12:19.910 --> 00:12:22.370
+document independently and we know that
+
+00:12:22.370 --> 00:12:26.612
+we have observed the set of N sub one
+
+00:12:26.612 --> 00:12:29.230
+documents in the set of T1.
+
+00:12:29.230 --> 00:12:31.590
+These documents have been all generated
+
+00:12:31.590 --> 00:12:34.409
+from category one, namely have been all
+
+00:12:34.410 --> 00:12:36.635
+generated using this same word
+
+00:12:36.635 --> 00:12:37.290
+distribution.
+
+00:12:37.290 --> 00:12:39.706
+Now the question is what will be your
+
+00:12:39.706 --> 00:12:42.310
+guess or estimate of the probability of
+
+00:12:42.310 --> 00:12:45.305
+each word in this distribution and what
+
+00:12:45.305 --> 00:12:48.040
+will be your guess of the prior
+
+00:12:48.040 --> 00:12:49.440
+probability of this category?
+
+00:12:49.640 --> 00:12:51.180
+Of course, this second probability
+
+00:12:51.180 --> 00:12:53.240
+depends on how likely that you will see
+
+00:12:53.240 --> 00:12:54.850
+documents in other categories.
+
+00:12:55.490 --> 00:12:57.540
+Right, so think for a moment that how
+
+00:12:57.540 --> 00:12:59.950
+do you use all these training data,
+
+00:12:59.950 --> 00:13:03.260
+including all these documents that are
+
+00:13:03.260 --> 00:13:05.560
+known to be in these K categories.
+
+00:13:06.310 --> 00:13:08.820
+To estimate all these parameters.
+
+00:13:08.820 --> 00:13:10.450
+Now if you spend some time to think
+
+00:13:10.450 --> 00:13:12.930
+about this and it would help you
+
+00:13:12.930 --> 00:13:15.010
+understand the following few slides.
+
+00:13:15.640 --> 00:13:18.030
+So do spend some time to make sure that
+
+00:13:18.030 --> 00:13:20.500
+you can try to solve this problem or do
+
+00:13:20.500 --> 00:13:21.860
+your best to solve the problem
+
+00:13:21.860 --> 00:13:22.440
+yourself.
+
+00:13:23.160 --> 00:13:25.070
+Now, if you have thought about it and then
+
+00:13:25.070 --> 00:13:28.400
+you will realize the following intuition.
+
+00:13:28.960 --> 00:13:31.810
+First, what's the basis for estimating
+
+00:13:31.810 --> 00:13:34.830
+the prior or the probability of each
+
+00:13:34.830 --> 00:13:35.540
+category?
+
+00:13:35.540 --> 00:13:38.075
+Well, this has to do with whether you
+
+00:13:38.075 --> 00:13:40.370
+have observed a lot of documents from
+
+00:13:40.370 --> 00:13:41.460
+that category.
+
+00:13:41.460 --> 00:13:43.610
+Intuitively, if you have seen a lot of
+
+00:13:43.610 --> 00:13:45.560
+documents in sports and very few in
+
+00:13:45.560 --> 00:13:47.945
+medical science, then your guess is
+
+00:13:47.945 --> 00:13:50.675
+that the probability of sports category
+
+00:13:50.675 --> 00:13:52.950
+is larger or your prior on
+
+00:13:52.950 --> 00:13:55.910
+the category would be larger.
+
+00:13:56.990 --> 00:13:59.070
+And what about the basis for estimating
+
+00:13:59.070 --> 00:14:01.186
+the probability of word in each
+
+00:14:01.186 --> 00:14:01.469
+category?
+
+00:14:01.470 --> 00:14:03.990
+Well, the same and you'll be just
+
+00:14:03.990 --> 00:14:07.340
+assuming that words that are observed
+
+00:14:07.340 --> 00:14:08.970
+frequently in the documents that are
+
+00:14:08.970 --> 00:14:10.565
+known to be generated from a category.
+
+00:14:10.565 --> 00:14:13.180
+will likely have higher probability, and
+
+00:14:13.180 --> 00:14:14.910
+that's just the maximum likelihood estimator
+
+00:14:14.910 --> 00:14:17.150
+indeed, and that's what we could do.
+
+00:14:17.150 --> 00:14:19.804
+So to estimate the probability of each
+
+00:14:19.804 --> 00:14:20.170
+category.
+
+00:14:20.720 --> 00:14:23.080
+And to answer the question which
+
+00:14:23.080 --> 00:14:25.430
+category is most popular, then we can
+
+00:14:25.430 --> 00:14:29.820
+simply normalize the count of documents
+
+00:14:29.820 --> 00:14:31.080
+in each category.
+
+00:14:31.080 --> 00:14:34.720
+So here you see n sub I denotes the
+
+00:14:34.720 --> 00:14:36.580
+number of documents in each category.
+
+00:14:37.810 --> 00:14:40.270
+And we simply just normalize this count
+
+00:14:40.270 --> 00:14:41.495
+to make this a probability.
+
+00:14:41.495 --> 00:14:43.620
+In other words, we make this
+
+00:14:43.620 --> 00:14:46.760
+probability proportional to the size of
+
+00:14:46.760 --> 00:14:49.380
+training dataset in each category.
+
+00:14:50.040 --> 00:14:53.070
+That's the size of the set T sub i.
+
+00:14:55.110 --> 00:14:57.740
+Now, what about the word distribution?
+
+00:14:57.740 --> 00:14:59.615
+Well, we do the same again.
+
+00:14:59.615 --> 00:15:03.386
+This time we can do this for each
+
+00:15:03.386 --> 00:15:03.853
+category.
+
+00:15:03.853 --> 00:15:07.260
+So let's say we are considering category I or
+
+00:15:07.260 --> 00:15:07.850
+Theta
+
+00:15:07.850 --> 00:15:08.440
+I.
+
+00:15:08.440 --> 00:15:12.030
+So which word has higher probability?
+
+00:15:12.030 --> 00:15:14.660
+Well, we simply count the word
+
+00:15:14.660 --> 00:15:17.340
+occurrences in the documents that are
+
+00:15:17.340 --> 00:15:19.370
+known to be generated from theta i.
+
+00:15:20.130 --> 00:15:21.740
+And then we put together all the
+
+00:15:21.740 --> 00:15:24.740
+all the counts of the same word in this set.
+
+00:15:25.530 --> 00:15:29.260
+And then we just normalize these counts
+
+00:15:29.260 --> 00:15:31.245
+to make this distribution of all the
+
+00:15:31.245 --> 00:15:33.595
+words make all the probabilities of all
+
+00:15:33.595 --> 00:15:34.740
+these words sum to one.
+
+00:15:35.530 --> 00:15:37.150
+So in this case you can see this is a
+
+00:15:37.150 --> 00:15:39.860
+proportional to the count of the word
+
+00:15:39.860 --> 00:15:41.620
+in the collection of training
+
+00:15:41.620 --> 00:15:42.066
+documents.
+
+00:15:42.066 --> 00:15:47.052
+T sub I and that's denoted by C of w and T
+
+00:15:47.052 --> 00:15:48.500
+sub I.
+
+00:15:49.560 --> 00:15:54.250
+Now you may notice that we often write
+
+00:15:54.250 --> 00:15:55.050
+down
+
+00:15:56.200 --> 00:15:59.060
+a probability estimate in the form of
+
+00:15:59.060 --> 00:16:01.550
+being proportional to certain number,
+
+00:16:01.550 --> 00:16:03.670
+and this is often sufficient.
+
+00:16:03.670 --> 00:16:05.540
+Becausw we have some constraints on
+
+00:16:05.540 --> 00:16:08.200
+these distributions and so the
+
+00:16:08.200 --> 00:16:10.100
+normalizer is dictated by the
+
+00:16:10.100 --> 00:16:10.730
+constraint.
+
+00:16:11.350 --> 00:16:13.290
+So in this case it will be useful for
+
+00:16:13.290 --> 00:16:14.960
+you to think about what are the
+
+00:16:14.960 --> 00:16:16.700
+constraints on these two kinds of
+
+00:16:16.700 --> 00:16:17.630
+probabilities.
+
+00:16:19.810 --> 00:16:22.080
+So once you figure out the answer to
+
+00:16:22.080 --> 00:16:23.850
+this question and you will know how to
+
+00:16:23.850 --> 00:16:26.330
+normalize, this counts and so this is a
+
+00:16:26.330 --> 00:16:27.880
+good exercise to
+
+00:16:28.850 --> 00:16:32.130
+work on it if it's not obvious to you.
+
+00:16:32.810 --> 00:16:34.870
+There is another issue in Naive Bayes
+
+00:16:34.870 --> 00:16:35.762
+which is a smoothing.
+
+00:16:35.762 --> 00:16:37.840
+In fact the smoothing is a general
+
+00:16:37.840 --> 00:16:40.440
+problem in all the estimate of language
+
+00:16:40.440 --> 00:16:44.080
+models and this has to do with what
+
+00:16:44.080 --> 00:16:45.930
+would happen if you have observed a
+
+00:16:45.930 --> 00:16:47.330
+small amount of data.
+
+00:16:47.330 --> 00:16:49.650
+So smoothing is the important technique to
+
+00:16:49.650 --> 00:16:51.430
+address data sparseness.
+
+00:16:51.430 --> 00:16:53.780
+In our case the training data set can
+
+00:16:53.780 --> 00:16:56.430
+be small and one data set is small.
+
+00:16:56.430 --> 00:16:57.680
+When we use maximum likelihood
+
+00:16:57.680 --> 00:16:59.730
+estimator we often face the problem of
+
+00:16:59.730 --> 00:17:01.060
+zero probability.
+
+00:17:01.060 --> 00:17:02.720
+That means if the event is not
+
+00:17:02.720 --> 00:17:03.430
+observed.
+
+00:17:03.650 --> 00:17:05.676
+Then the estimated probability would be
+
+00:17:05.676 --> 00:17:08.370
+0 in this case if we have not seen a
+
+00:17:08.370 --> 00:17:11.430
+word in the training documents for,
+
+00:17:11.430 --> 00:17:14.290
+let's say, category I, then our
+
+00:17:14.290 --> 00:17:16.330
+estimate would be 0 for the
+
+00:17:16.330 --> 00:17:18.133
+probability of this word in this
+
+00:17:18.133 --> 00:17:18.569
+category.
+
+00:17:18.570 --> 00:17:20.500
+And this is generally not accurate.
+
+00:17:20.500 --> 00:17:23.110
+So we have to do smoothing to make sure
+
+00:17:23.110 --> 00:17:24.680
+it's not zero probability.
+
+00:17:25.260 --> 00:17:28.190
+The other reason for smoothing is that
+
+00:17:28.190 --> 00:17:30.840
+this is a way to bring prior knowledge,
+
+00:17:30.840 --> 00:17:33.100
+and this is also generally true for a
+
+00:17:33.100 --> 00:17:35.070
+lot of situations of smoothing.
+
+00:17:35.070 --> 00:17:37.200
+When the data set is small, we tend to
+
+00:17:37.200 --> 00:17:39.379
+rely on some prior knowledge to
+
+00:17:40.780 --> 00:17:41.740
+to solve the problem.
+
+00:17:41.740 --> 00:17:43.500
+So in this case our prior knowledge 
+
+00:17:43.500 --> 00:17:45.407
+says that no words should have
+
+00:17:45.407 --> 00:17:47.740
+zero probability, so smoothing allows
+
+00:17:47.740 --> 00:17:50.540
+us to inject this prior to make sure
+
+00:17:50.540 --> 00:17:53.859
+that no word has a zero probability.
+
+00:17:54.860 --> 00:17:57.520
+There is also a third reason, which is
+
+00:17:57.520 --> 00:17:59.360
+sometimes not very obvious, but we'll
+
+00:17:59.360 --> 00:18:01.550
+explain that in a moment and that is to
+
+00:18:01.550 --> 00:18:04.070
+help achieve discriminative weighting of
+
+00:18:04.070 --> 00:18:04.915
+terms.
+
+00:18:04.915 --> 00:18:08.030
+And this is also called IDF weighting
+
+00:18:08.030 --> 00:18:09.260
+inverse document frequency weighting
+
+00:18:09.260 --> 00:18:12.070
+that you have seen in mining
+
+00:18:12.070 --> 00:18:13.700
+word relations.
+
+00:18:14.600 --> 00:18:15.790
+So how do we do smoothing?
+
+00:18:15.790 --> 00:18:18.310
+Well in general we added pseudo counts
+
+00:18:18.310 --> 00:18:19.210
+to these events.
+
+00:18:19.210 --> 00:18:21.230
+We'll make sure that no event has zero
+
+00:18:21.230 --> 00:18:21.690
+count.
+
+00:18:22.540 --> 00:18:25.010
+So one possible way of smoothing the
+
+00:18:25.010 --> 00:18:27.890
+probability of category is to simply
+
+00:18:27.890 --> 00:18:31.536
+add small nonnegative constant Delta to
+
+00:18:31.536 --> 00:18:32.340
+the count.
+
+00:18:32.340 --> 00:18:35.390
+We pretend that every category has
+
+00:18:35.390 --> 00:18:38.180
+actually some extra number of documents
+
+00:18:38.180 --> 00:18:40.080
+represented by Delta.
+
+00:18:40.850 --> 00:18:41.980
+And in the denominator
+
+00:18:41.980 --> 00:18:44.349
+we also add K multiplied by Delta
+
+00:18:44.350 --> 00:18:48.120
+because we want the probability to sum
+
+00:18:48.120 --> 00:18:48.590
+to one.
+
+00:18:48.590 --> 00:18:52.880
+So in total we've added Delta K Times
+
+00:18:52.880 --> 00:18:54.400
+because we have K categories.
+
+00:18:54.400 --> 00:18:57.590
+Therefore in the sum we have to also
+
+00:18:57.590 --> 00:19:00.580
+add K multiplied by Delta as a total
+
+00:19:00.580 --> 00:19:03.870
+pseudo counts that we add to the
+
+00:19:03.870 --> 00:19:04.570
+estimate.
+
+00:19:06.280 --> 00:19:08.420
+Now it's interesting to think about the
+
+00:19:08.420 --> 00:19:09.360
+influence of delta.
+
+00:19:09.360 --> 00:19:11.070
+Obvious Delta is a smoothing parameter
+
+00:19:11.070 --> 00:19:13.925
+here, meaning that the larger delta is
+
+00:19:13.925 --> 00:19:16.835
+and the more we will do smoothing and
+
+00:19:16.835 --> 00:19:18.937
+that means we'll more rely on pseudo
+
+00:19:18.937 --> 00:19:21.900
+counts and we might indeed ignore the
+
+00:19:21.900 --> 00:19:24.880
+actual counts if delta is set to
+
+00:19:24.880 --> 00:19:25.610
+Infinity.
+
+00:19:25.610 --> 00:19:27.340
+Imagine what would happen if delta
+
+00:19:27.340 --> 00:19:29.820
+approaches positive Infinity?
+
+00:19:29.820 --> 00:19:32.749
+Well, we're going to say every word has
+
+00:19:32.750 --> 00:19:34.845
+infinity amount of sorry, not every
+
+00:19:34.845 --> 00:19:36.360
+word every category has.
+
+00:19:36.410 --> 00:19:39.300
+infinity amount of documents, and
+
+00:19:39.300 --> 00:19:41.250
+then there's no distinction between
+
+00:19:41.250 --> 00:19:43.400
+them, so it becomes just a uniform.
+
+00:19:44.090 --> 00:19:45.590
+What if Delta is zero?
+
+00:19:45.590 --> 00:19:47.400
+Well we just go back to the original
+
+00:19:47.400 --> 00:19:50.450
+estimate based on the observed training
+
+00:19:50.450 --> 00:19:53.103
+data to estimate the probability of
+
+00:19:53.103 --> 00:19:54.070
+each category.
+
+00:19:54.070 --> 00:19:56.209
+Now we can do the same for the word
+
+00:19:56.210 --> 00:19:58.590
+distribution, but in this case we
+
+00:19:58.590 --> 00:20:01.630
+sometimes we find it useful to use a
+
+00:20:01.630 --> 00:20:04.469
+non-uniform pseudo counts for the
+
+00:20:04.470 --> 00:20:04.920
+words.
+
+00:20:04.920 --> 00:20:07.380
+So here you see we'll add pseudocounts to
+
+00:20:07.380 --> 00:20:09.490
+each word and that's mu multiplied by
+
+00:20:09.490 --> 00:20:11.890
+the probability of the world given by a
+
+00:20:11.890 --> 00:20:13.280
+background language model.
+
+00:20:14.120 --> 00:20:14.850
+Theta sub b
+
+00:20:15.920 --> 00:20:18.810
+Now that background model in general
+
+00:20:18.810 --> 00:20:20.460
+can be estimated by using a large
+
+00:20:20.460 --> 00:20:23.240
+collection of text, or in this case we
+
+00:20:23.240 --> 00:20:25.760
+can use the whole set of all the
+
+00:20:25.760 --> 00:20:28.250
+training data to estimate this
+
+00:20:28.250 --> 00:20:29.870
+background language model.
+
+00:20:29.870 --> 00:20:31.570
+But if we don't have to use this one,
+
+00:20:31.570 --> 00:20:33.560
+we can use larger text data that are
+
+00:20:33.560 --> 00:20:35.100
+available from somewhere else.
+
+00:20:36.020 --> 00:20:38.766
+Now if we use such a background
+
+00:20:38.766 --> 00:20:40.519
+language model to add pseudocounts, we
+
+00:20:40.520 --> 00:20:43.160
+find that some words will receive more
+
+00:20:43.160 --> 00:20:43.750
+pseudocounts.
+
+00:20:43.750 --> 00:20:45.676
+So what are those words? Well those are
+
+00:20:45.676 --> 00:20:46.680
+the common words.
+
+00:20:46.680 --> 00:20:48.636
+Because they get higher probability by
+
+00:20:48.636 --> 00:20:49.930
+the background language model so
+
+00:20:49.930 --> 00:20:51.949
+the pseudocounts added for such words
+
+00:20:51.950 --> 00:20:54.240
+would be higher, rare words on the other
+
+00:20:54.240 --> 00:20:56.580
+hand will have smaller pseudocounts.
+
+00:20:58.570 --> 00:21:02.469
+Now, this addition of background model
+
+00:21:02.470 --> 00:21:05.060
+would cause nonuniform smoothing of
+
+00:21:05.060 --> 00:21:05.570
+this word
+
+00:21:05.570 --> 00:21:07.070
+distributions we are going to bring the
+
+00:21:07.070 --> 00:21:09.435
+probability of those common words, or
+
+00:21:09.435 --> 00:21:11.834
+to a higher level because of the
+
+00:21:11.834 --> 00:21:12.697
+background model.
+
+00:21:12.697 --> 00:21:16.110
+Now this helps make the difference
+
+00:21:16.760 --> 00:21:18.750
+of the probability of such words
+
+00:21:18.750 --> 00:21:20.480
+smaller across categories.
+
+00:21:21.400 --> 00:21:23.900
+Because every category has some help
+
+00:21:23.900 --> 00:21:27.150
+from their background for words, like the, a
+
+00:21:27.150 --> 00:21:28.840
+which have high probabilities.
+
+00:21:28.840 --> 00:21:31.760
+Therefore it's no longer so important
+
+00:21:31.760 --> 00:21:34.900
+that each category has documents that
+
+00:21:34.900 --> 00:21:37.055
+contain such a lot of occurrences of
+
+00:21:37.055 --> 00:21:39.270
+such word, or the estimate is more
+
+00:21:39.270 --> 00:21:41.415
+influenced by the background model and
+
+00:21:41.415 --> 00:21:43.150
+the consequences that when we do
+
+00:21:43.150 --> 00:21:45.810
+categorization, such words tend not to
+
+00:21:45.810 --> 00:21:48.722
+influence the decision that much as
+
+00:21:48.722 --> 00:21:51.240
+words that have small probabilities.
+
+00:21:51.530 --> 00:21:53.430
+From the background language model,
+
+00:21:53.430 --> 00:21:55.663
+those words don't get some help from
+
+00:21:55.663 --> 00:21:57.310
+the background language model, so the
+
+00:21:57.310 --> 00:21:59.780
+difference would be primarily because
+
+00:21:59.780 --> 00:22:01.750
+of the differences of the occurrences
+
+00:22:01.750 --> 00:22:03.760
+in the training documents in different
+
+00:22:03.760 --> 00:22:04.490
+categories.
+
+00:22:05.280 --> 00:22:06.600
+You also see another smoothing
+
+00:22:06.600 --> 00:22:09.500
+parameter mu here, which controls the
+
+00:22:09.500 --> 00:22:11.570
+amount of smoothing, just like delta
+
+00:22:11.570 --> 00:22:13.660
+does for the other probability.
+
+00:22:14.260 --> 00:22:16.976
+And you can easily understand why we
+
+00:22:16.976 --> 00:22:18.980
+add mu to the denominator because that
+
+00:22:18.980 --> 00:22:21.570
+represents the sum of all the pseudo
+
+00:22:21.570 --> 00:22:23.380
+counts that we add for all the words.
+
+00:22:26.080 --> 00:22:29.420
+So mu is also non-negative constant and it's 
+
+00:22:29.420 --> 00:22:32.270
+empirically set to control smoothing.
+
+00:22:32.830 --> 00:22:34.380
+There are some interesting special
+
+00:22:34.380 --> 00:22:35.650
+cases to think about as well.
+
+00:22:35.650 --> 00:22:37.240
+First, let's think about when mu
+
+00:22:37.240 --> 00:22:38.270
+approaches Infinity.
+
+00:22:38.270 --> 00:22:38.970
+What would happen?
+
+00:22:38.970 --> 00:22:41.210
+Or in this case, the estimate will
+
+00:22:41.210 --> 00:22:44.363
+approach to the background language
+
+00:22:44.363 --> 00:22:46.780
+model will tend to the background
+
+00:22:46.780 --> 00:22:49.320
+language model, so we would bring every
+
+00:22:49.320 --> 00:22:51.280
+word distribution to the same
+
+00:22:51.280 --> 00:22:52.450
+background language model.
+
+00:22:53.160 --> 00:22:55.010
+And that essentially removes the
+
+00:22:55.010 --> 00:22:56.510
+difference between these categories.
+
+00:22:56.510 --> 00:22:57.960
+Obviously we don't want to do that.
+
+00:22:58.560 --> 00:23:00.190
+The other special cases we think about
+
+00:23:00.190 --> 00:23:02.190
+the background model an suppose we
+
+00:23:02.190 --> 00:23:04.230
+actually set the two uniform
+
+00:23:04.230 --> 00:23:07.170
+distribution and let's say one over the
+
+00:23:07.170 --> 00:23:08.650
+size of the vocabulary.
+
+00:23:08.650 --> 00:23:11.690
+So each word has the same probability.
+
+00:23:14.220 --> 00:23:17.100
+Then this smoothing formula is going to
+
+00:23:17.100 --> 00:23:20.350
+be very similar to the one on the top.
+
+00:23:20.350 --> 00:23:22.813
+When we add Delta because we're going
+
+00:23:22.813 --> 00:23:24.580
+to add a constant pseudo count to
+
+00:23:24.580 --> 00:23:25.270
+every word.
+
+00:23:29.430 --> 00:23:31.700
+So in general, in naiyes bayes
+
+00:23:31.700 --> 00:23:34.130
+categorization we have to do such
+
+00:23:34.130 --> 00:23:36.090
+smoothing and  
+
+00:23:36.760 --> 00:23:38.930
+once we have these probabilities, then
+
+00:23:38.930 --> 00:23:41.910
+we can compute the score for each
+
+00:23:41.910 --> 00:23:44.590
+category for a document and then choose
+
+00:23:44.590 --> 00:23:46.260
+the category with the highest score
+
+00:23:46.260 --> 00:23:47.310
+as we discussed earlier.
+
+00:23:49.100 --> 00:23:52.670
+Now it's useful to further understand
+
+00:23:53.760 --> 00:23:55.740
+whether the naive Bayes scoring
+
+00:23:55.740 --> 00:23:58.400
+function actually makes sense, so to
+
+00:23:58.400 --> 00:23:59.380
+understand that.
+
+00:24:00.090 --> 00:24:02.630
+And also to understand why adding a
+
+00:24:02.630 --> 00:24:05.660
+background language model will actually achieve
+
+00:24:05.660 --> 00:24:07.710
+the effect of idea of IDF weighting and to
+
+00:24:07.710 --> 00:24:09.060
+penalize common words.
+
+00:24:10.640 --> 00:24:12.030
+Right, so it's suppose we have just two
+
+00:24:12.030 --> 00:24:13.730
+categories and we're going to score
+
+00:24:13.730 --> 00:24:15.040
+based on their
+
+00:24:16.470 --> 00:24:21.570
+Ratio of probability, so this is
+
+00:24:23.290 --> 00:24:23.850
+Ann
+
+00:24:24.570 --> 00:24:29.470
+let's say this is our scoring function
+
+00:24:29.470 --> 00:24:30.840
+for two categories.
+
+00:24:32.460 --> 00:24:35.980
+So this is a score of a document for
+
+00:24:37.070 --> 00:24:38.580
+these two categories.
+
+00:24:39.960 --> 00:24:42.670
+And we're going to score based on this
+
+00:24:42.670 --> 00:24:44.410
+probability ratio.
+
+00:24:44.410 --> 00:24:46.640
+So if the ratio is larger
+
+00:24:47.210 --> 00:24:49.960
+ then it means it's more
+
+00:24:49.960 --> 00:24:53.703
+likely to be in category one, so the
+
+00:24:53.703 --> 00:24:56.520
+larger the score is, the more likely
+
+00:24:56.520 --> 00:24:58.370
+the document is in category One.
+
+00:25:00.300 --> 00:25:03.860
+So by using bayes rule we
+
+00:25:03.860 --> 00:25:07.220
+can write down this ratio as follows and
+
+00:25:07.220 --> 00:25:08.350
+you have seen this before.
+
+00:25:09.040 --> 00:25:11.650
+Now, we generally take logarithm of
+
+00:25:11.650 --> 00:25:14.560
+this ratio and to avoid small
+
+00:25:14.560 --> 00:25:17.090
+probabilities, and this would then give
+
+00:25:17.090 --> 00:25:20.740
+us this formula in the second line.
+
+00:25:21.300 --> 00:25:22.870
+And here we see something really
+
+00:25:22.870 --> 00:25:24.260
+interesting, because this is our
+
+00:25:24.260 --> 00:25:27.350
+scoring function for deciding between
+
+00:25:27.350 --> 00:25:28.360
+the two categories.
+
+00:25:29.710 --> 00:25:31.400
+And if you look at this function, we'll
+
+00:25:31.400 --> 00:25:33.490
+see it has several parts.
+
+00:25:34.700 --> 00:25:37.450
+The first part here is actually log of
+
+00:25:37.450 --> 00:25:39.480
+prior probability ratio and so this is
+
+00:25:39.480 --> 00:25:40.670
+the category bias.
+
+00:25:41.270 --> 00:25:43.220
+So it doesn't really depend on the
+
+00:25:43.220 --> 00:25:46.070
+document, it just says which category
+
+00:25:46.070 --> 00:25:47.719
+is more likely and then would.
+
+00:25:47.720 --> 00:25:49.600
+We would then favor this category
+
+00:25:49.600 --> 00:25:50.510
+slightly.
+
+00:25:53.110 --> 00:25:57.050
+So the second part has a sum of all the
+
+00:25:57.050 --> 00:25:57.620
+words.
+
+00:25:58.650 --> 00:26:01.720
+Right, so these are the words that are
+
+00:26:01.720 --> 00:26:03.710
+observed in the document, but in
+
+00:26:03.710 --> 00:26:04.995
+general we can consider all the words
+
+00:26:04.995 --> 00:26:05.930
+in the vocabulary.
+
+00:26:05.930 --> 00:26:07.770
+So here we're going to collect
+
+00:26:07.770 --> 00:26:10.430
+evidence about which category is more
+
+00:26:10.430 --> 00:26:10.940
+likely.
+
+00:26:11.560 --> 00:26:14.620
+So inside the sum you can see there is
+
+00:26:14.620 --> 00:26:16.055
+product of two things.
+
+00:26:16.055 --> 00:26:18.660
+The first is count of the word.
+
+00:26:20.200 --> 00:26:22.620
+And this count of the word serves as a
+
+00:26:22.620 --> 00:26:25.740
+feature and to represent the document.
+
+00:26:26.950 --> 00:26:29.080
+And this is what we can collect from
+
+00:26:29.080 --> 00:26:29.700
+document.
+
+00:26:30.260 --> 00:26:33.380
+The second part is the weight of this
+
+00:26:33.380 --> 00:26:33.780
+feature.
+
+00:26:33.780 --> 00:26:36.810
+Here it's the weight on each word and
+
+00:26:36.810 --> 00:26:38.350
+this weight.
+
+00:26:39.670 --> 00:26:40.560
+Tells us.
+
+00:26:42.280 --> 00:26:44.620
+To what extent observing this word
+
+00:26:44.620 --> 00:26:45.270
+helps
+
+00:26:45.920 --> 00:26:49.910
+contributing to our decision to put this
+
+00:26:49.910 --> 00:26:51.120
+document in Category One.
+
+00:26:51.840 --> 00:26:53.550
+I remember the higher the scoring
+
+00:26:53.550 --> 00:26:55.330
+function is more likely it's in
+
+00:26:55.330 --> 00:26:56.490
+category one.
+
+00:26:56.490 --> 00:26:59.099
+Now if you look at this ratio basically
+
+00:26:59.100 --> 00:27:00.410
+or sorry this weight
+
+00:27:00.410 --> 00:27:03.041
+It's basically based on the ratio of
+
+00:27:03.041 --> 00:27:05.161
+the probability of the word from of
+
+00:27:05.161 --> 00:27:06.069
+the two distributions.
+
+00:27:06.070 --> 00:27:08.093
+Essentially we are comparing the
+
+00:27:08.093 --> 00:27:10.706
+probability of the word from the two
+
+00:27:10.706 --> 00:27:12.573
+distributions and if it's higher
+
+00:27:12.573 --> 00:27:15.505
+according to theta one, then according
+
+00:27:15.505 --> 00:27:19.160
+to theta 2 then this weight would be
+
+00:27:19.160 --> 00:27:22.110
+positive and therefore it means when we
+
+00:27:22.110 --> 00:27:23.560
+observe such a word.
+
+00:27:23.610 --> 00:27:26.050
+We'll say that it's more likely to be
+
+00:27:26.050 --> 00:27:29.180
+from category One, and the more we
+
+00:27:29.180 --> 00:27:31.240
+observe such a word, the more likely
+
+00:27:31.240 --> 00:27:33.520
+the document will be classified as theta
+
+00:27:33.520 --> 00:27:34.330
+one.
+
+00:27:35.060 --> 00:27:37.087
+If, on the other hand, the probability
+
+00:27:37.087 --> 00:27:39.480
+of the word from theta one is
+
+00:27:39.480 --> 00:27:41.270
+smaller than the probability of the
+
+00:27:41.270 --> 00:27:43.375
+word from theta 2, then you can see
+
+00:27:43.375 --> 00:27:45.100
+this weight is negative.
+
+00:27:45.100 --> 00:27:47.020
+Therefore this is the negative
+
+00:27:47.020 --> 00:27:51.270
+evidence for supporting category one.
+
+00:27:51.270 --> 00:27:53.540
+That means the more we observe such a
+
+00:27:53.540 --> 00:27:55.430
+word, the more likely the document is
+
+00:27:55.430 --> 00:27:56.970
+actually from theta 2.
+
+00:27:58.130 --> 00:28:00.510
+So this formula now makes a lot of
+
+00:28:00.510 --> 00:28:02.643
+sense, so we're going to aggregate all
+
+00:28:02.643 --> 00:28:04.620
+the evidence from the document.
+
+00:28:04.620 --> 00:28:07.220
+We take a sum over all the words we can
+
+00:28:07.220 --> 00:28:08.930
+call this the features.
+
+00:28:09.680 --> 00:28:12.230
+That we collect from the document that
+
+00:28:12.230 --> 00:28:13.985
+would help us make the decision and
+
+00:28:13.985 --> 00:28:16.580
+that each feature has a weight that
+
+00:28:16.580 --> 00:28:18.800
+tells us how
+
+00:28:19.720 --> 00:28:22.220
+does this feature support category
+
+00:28:22.220 --> 00:28:24.390
+one or support that support the
+
+00:28:24.390 --> 00:28:27.570
+category two, and this is estimated as
+
+00:28:27.570 --> 00:28:29.300
+the log of probability ratio.
+
+00:28:29.300 --> 00:28:30.490
+Here in naive Bayes.
+
+00:28:31.760 --> 00:28:34.090
+And then finally we have this constant
+
+00:28:34.090 --> 00:28:39.000
+of bias here, so that formula actually
+
+00:28:39.000 --> 00:28:43.850
+is a formula that can be generalized to
+
+00:28:43.850 --> 00:28:45.315
+accommodate more features.
+
+00:28:45.315 --> 00:28:47.290
+And that's why I've introduced some
+
+00:28:47.290 --> 00:28:48.425
+other symbols here.
+
+00:28:48.425 --> 00:28:51.090
+So introduce the beta zero to denote
+
+00:28:51.090 --> 00:28:54.247
+the bias and Fi to denote each feature,
+
+00:28:54.247 --> 00:28:56.480
+and then beta sub i, to denote
+
+00:28:56.480 --> 00:28:57.640
+the weight on which feature.
+
+00:28:58.330 --> 00:29:00.975
+Now if we do this generalization, what
+
+00:29:00.975 --> 00:29:04.289
+we see is that in general we can
+
+00:29:04.290 --> 00:29:06.390
+represent the document by feature
+
+00:29:06.390 --> 00:29:09.880
+vector F, FI here.
+
+00:29:09.880 --> 00:29:13.040
+Of course in this case FI is the count
+
+00:29:13.040 --> 00:29:15.340
+of a word, but in general we can put
+
+00:29:15.340 --> 00:29:17.440
+any features that we think are relevant
+
+00:29:17.440 --> 00:29:18.470
+for categorization.
+
+00:29:18.470 --> 00:29:21.080
+For example document length or the font size
+
+00:29:21.080 --> 00:29:25.355
+or counts of other patterns in the
+
+00:29:25.355 --> 00:29:25.800
+document.
+
+00:29:26.550 --> 00:29:28.340
+And then our scoring function can be
+
+00:29:28.340 --> 00:29:31.960
+defined as a sum of constant beta zero
+
+00:29:31.960 --> 00:29:39.060
+and sum of the feature weights over
+
+00:29:39.060 --> 00:29:39.940
+all the features.
+
+00:29:41.990 --> 00:29:45.640
+So if HF sub I is a feature value then
+
+00:29:45.640 --> 00:29:47.570
+we multiply value by the
+
+00:29:47.570 --> 00:29:49.970
+corresponding weight beta sub i and we
+
+00:29:49.970 --> 00:29:51.640
+just take sum and this is to
+
+00:29:51.640 --> 00:29:52.240
+aggregate.
+
+00:29:52.240 --> 00:29:54.580
+All evidence that we can collect from
+
+00:29:54.580 --> 00:29:55.490
+all these features. And of course there are parameters here. So what are the parameters? Well
+
+00:30:02.560 --> 00:30:04.360
+These betas are the weights, and with appropriate settings of
+
+00:30:04.360 --> 00:30:06.280
+weights then we can expect the such a
+
+00:30:06.280 --> 00:30:08.040
+scoring function to work well to
+
+00:30:08.040 --> 00:30:10.970
+classify documents.
+
+00:30:10.970 --> 00:30:13.197
+Just like in the case of Naive Bayes
+
+00:30:13.197 --> 00:30:14.940
+we can clearly see naive Bayes
+
+00:30:14.940 --> 00:30:16.970
+classifier is a special case of this
+
+00:30:16.970 --> 00:30:18.030
+general classifier.
+
+00:30:18.610 --> 00:30:21.140
+Actually, this general form is very
+
+00:30:21.140 --> 00:30:23.850
+close to a classifier called logistical
+
+00:30:23.850 --> 00:30:26.070
+regression, and this is actually one of
+
+00:30:26.070 --> 00:30:28.740
+those conditional approaches or
+
+00:30:28.740 --> 00:30:30.429
+discriminative approaches to
+
+00:30:30.430 --> 00:30:31.270
+classification.
+
+00:30:32.180 --> 00:30:33.610
+And we are going to talk
+
+00:30:33.610 --> 00:30:36.940
+more about such approaches later, but
+
+00:30:36.940 --> 00:30:39.020
+here I want you to know that there's a
+
+00:30:39.020 --> 00:30:41.880
+strong connection close connection
+
+00:30:41.880 --> 00:30:43.765
+between the two kinds of approaches,
+
+00:30:43.765 --> 00:30:47.140
+and this slide shows how naive Bayes
+
+00:30:47.140 --> 00:30:49.199
+classifier can be connected to a
+
+00:30:49.200 --> 00:30:50.077
+logistic regression.
+
+00:30:50.077 --> 00:30:52.590
+And you can also see that in
+
+00:30:52.590 --> 00:30:54.900
+discriminative classifiers that tend to
+
+00:30:54.900 --> 00:30:57.080
+use a more general form on the bottom,
+
+00:30:57.080 --> 00:31:01.090
+we can accommodate more features
+
+00:31:02.040 --> 00:31:03.970
+to solve the problem.
+
+

@@ -1,0 +1,756 @@
+WEBVTT Kind: captions; Language: en-US
+
+NOTE
+Created on 2021-04-16T03:50:23.1289083Z by ClassTranscribe
+
+00:00:00.300 --> 00:00:02.710
+This lecture is about the syntagmatic
+
+00:00:02.710 --> 00:00:03.840
+relation discovery.
+
+00:00:10.680 --> 00:00:11.620
+An entropy.
+
+00:00:13.260 --> 00:00:14.720
+In this lecture, we're going to
+
+00:00:14.720 --> 00:00:16.860
+continue talking about word Association
+
+00:00:16.860 --> 00:00:17.630
+mining.
+
+00:00:17.630 --> 00:00:19.380
+In particular, we can talk about how to
+
+00:00:19.380 --> 00:00:21.650
+discover syntagmatic relations.
+
+00:00:22.300 --> 00:00:23.820
+And we're going to start with the
+
+00:00:23.820 --> 00:00:26.260
+introduction of entropy, which is the
+
+00:00:26.260 --> 00:00:28.380
+basis for designing some measures for
+
+00:00:28.380 --> 00:00:30.210
+discovering such relations.
+
+00:00:32.360 --> 00:00:34.930
+By definition, Syntagmatic relations
+
+00:00:34.930 --> 00:00:38.110
+hold between words that have correlated
+
+00:00:38.110 --> 00:00:39.250
+Co occurrences.
+
+00:00:39.810 --> 00:00:42.360
+That means when we see one word occurs
+
+00:00:42.360 --> 00:00:45.620
+in the context, we tend to see the
+
+00:00:45.620 --> 00:00:47.660
+occurrence of the other word.
+
+00:00:47.660 --> 00:00:52.550
+So take a more specific example, here
+
+00:00:52.550 --> 00:00:56.380
+we can ask the question whenever eats
+
+00:00:56.380 --> 00:00:59.519
+occurs, but other words also tend to
+
+00:00:59.520 --> 00:00:59.970
+occur.
+
+00:01:01.020 --> 00:01:03.320
+Now looking at the sentence is on the
+
+00:01:03.320 --> 00:01:03.730
+left.
+
+00:01:03.730 --> 00:01:06.030
+We see some words that might occur
+
+00:01:06.030 --> 00:01:09.210
+together with eats like a cat, dog or
+
+00:01:09.210 --> 00:01:09.820
+fish
+
+00:01:09.820 --> 00:01:11.070
+is right.
+
+00:01:11.070 --> 00:01:13.380
+But if I take them out and if you look
+
+00:01:13.380 --> 00:01:16.830
+at the right side where we only show
+
+00:01:16.830 --> 00:01:18.970
+eats and some other words.
+
+00:01:19.680 --> 00:01:22.320
+The question that is, can you predict
+
+00:01:22.320 --> 00:01:24.280
+what other words occur?
+
+00:01:24.840 --> 00:01:27.200
+To the left or to the right.
+
+00:01:28.170 --> 00:01:30.420
+Right, so this would force us to think
+
+00:01:30.420 --> 00:01:32.385
+about what other words are associated
+
+00:01:32.385 --> 00:01:33.210
+with eats.
+
+00:01:33.210 --> 00:01:35.370
+If they are associated with eats, they
+
+00:01:35.370 --> 00:01:37.640
+tend to occur in the context of eats.
+
+00:01:38.320 --> 00:01:41.470
+So more specifically, our prediction
+
+00:01:41.470 --> 00:01:44.360
+problem is to take any text segment,
+
+00:01:44.360 --> 00:01:46.860
+which can be a sentence, paragraph or a
+
+00:01:46.860 --> 00:01:49.390
+document, and then I asked the question
+
+00:01:49.390 --> 00:01:51.950
+is a particular word present or absent
+
+00:01:51.950 --> 00:01:53.070
+in this segment.
+
+00:01:54.420 --> 00:01:55.700
+Right here we can ask the question
+
+00:01:55.700 --> 00:01:59.560
+about the world W is present or absent
+
+00:01:59.560 --> 00:02:00.430
+in this segment.
+
+00:02:02.280 --> 00:02:05.370
+Now, what's interesting is that some
+
+00:02:05.370 --> 00:02:07.640
+words are actually easier for it, in
+
+00:02:07.640 --> 00:02:08.410
+other words.
+
+00:02:09.710 --> 00:02:11.760
+If you take a look at the three words
+
+00:02:11.760 --> 00:02:14.980
+shown here, meet, the and Unicorn.
+
+00:02:16.080 --> 00:02:17.710
+Which one do you think it is easier to
+
+00:02:17.710 --> 00:02:18.350
+predict?
+
+00:02:20.510 --> 00:02:21.860
+Now, if you think about it for a
+
+00:02:21.860 --> 00:02:23.770
+moment, you might conclude that.
+
+00:02:24.360 --> 00:02:26.770
+The is easier to predict because it
+
+00:02:26.770 --> 00:02:28.450
+tends to occur everywhere, so I can
+
+00:02:28.450 --> 00:02:30.940
+just say with the in the semtence.
+
+00:02:31.790 --> 00:02:34.130
+Unicorn is also relatively easy.
+
+00:02:34.130 --> 00:02:38.300
+Because Unicorn is rare, is very rare.
+
+00:02:38.920 --> 00:02:40.780
+And I can bet that it doesn't occur in
+
+00:02:40.780 --> 00:02:41.660
+this sentence.
+
+00:02:42.440 --> 00:02:44.940
+But meat is somewhere in between in
+
+00:02:44.940 --> 00:02:46.500
+terms of frequency, and it makes it
+
+00:02:46.500 --> 00:02:48.420
+hard to predict because it's possible
+
+00:02:48.420 --> 00:02:51.010
+that it occurs in the sentence or the
+
+00:02:51.010 --> 00:02:52.650
+segment more accurately.
+
+00:02:53.710 --> 00:02:56.060
+But it may also not occur in the
+
+00:02:56.060 --> 00:02:56.710
+segment.
+
+00:02:57.880 --> 00:03:00.460
+So now let's start this problem more
+
+00:03:00.460 --> 00:03:01.130
+formally.
+
+00:03:02.410 --> 00:03:05.510
+Alright, so the problem can be formally
+
+00:03:05.510 --> 00:03:07.940
+defined as predicting the value of a
+
+00:03:07.940 --> 00:03:09.749
+binary random variable.
+
+00:03:09.750 --> 00:03:13.330
+Here we denoted by X sub w, w denotes
+
+00:03:13.330 --> 00:03:13.700
+a word.
+
+00:03:13.700 --> 00:03:15.870
+So this random variable is associated
+
+00:03:15.870 --> 00:03:17.520
+with precisely one word.
+
+00:03:18.260 --> 00:03:20.907
+When the value of the variable is 1, it
+
+00:03:20.907 --> 00:03:22.697
+means this word is present.
+
+00:03:22.697 --> 00:03:25.460
+When it's zero, it means the word is
+
+00:03:25.460 --> 00:03:28.220
+absent, and naturally the probabilities
+
+00:03:28.220 --> 00:03:30.870
+for one and zero should sum to 1.
+
+00:03:30.870 --> 00:03:33.170
+Because a word is either present or
+
+00:03:33.170 --> 00:03:34.540
+absent in the segment.
+
+00:03:34.540 --> 00:03:36.370
+There's no other choice.
+
+00:03:38.180 --> 00:03:40.120
+So the intuition we discussed earlier
+
+00:03:40.120 --> 00:03:43.480
+can be formally stated as follows.
+
+00:03:43.480 --> 00:03:46.150
+The more random this random variable
+
+00:03:46.150 --> 00:03:47.560
+is, the more difficult the
+
+00:03:47.560 --> 00:03:48.640
+prediction would be.
+
+00:03:49.600 --> 00:03:51.440
+Now the question is, how does one
+
+00:03:51.440 --> 00:03:53.104
+quantitatively measure the randomness
+
+00:03:53.104 --> 00:03:57.870
+of a random variable like X sub w, how in
+
+00:03:57.870 --> 00:04:00.026
+general, can we quantify the randomness
+
+00:04:00.026 --> 00:04:00.980
+of a variable?
+
+00:04:01.580 --> 00:04:04.130
+And that's why we need a measure called
+
+00:04:04.130 --> 00:04:04.665
+entropy.
+
+00:04:04.665 --> 00:04:06.300
+And this is a measure introduced in
+
+00:04:06.300 --> 00:04:08.210
+information theory to measure the
+
+00:04:08.210 --> 00:04:09.890
+randomness of X.
+
+00:04:10.460 --> 00:04:12.630
+There is also some connection with the
+
+00:04:12.630 --> 00:04:14.540
+information here, but that's beyond the
+
+00:04:14.540 --> 00:04:15.650
+scope of this course.
+
+00:04:17.350 --> 00:04:19.670
+So for our purpose we just treat the
+
+00:04:19.670 --> 00:04:21.660
+entropy function as a function defined 
+
+00:04:21.660 --> 00:04:23.300
+on a random variable.
+
+00:04:23.300 --> 00:04:25.230
+In this case it's a binary random
+
+00:04:25.230 --> 00:04:26.980
+variable, although the definition can
+
+00:04:26.980 --> 00:04:29.517
+be easily generalized for a random
+
+00:04:29.517 --> 00:04:31.190
+variable with multiple values.
+
+00:04:31.920 --> 00:04:34.890
+Now the function form looks like this.
+
+00:04:34.890 --> 00:04:36.770
+There's a sum over all the possible
+
+00:04:36.770 --> 00:04:39.820
+values for this random variable inside
+
+00:04:39.820 --> 00:04:40.660
+the sum, 
+
+00:04:40.660 --> 00:04:44.260
+for each value we have a product of the
+
+00:04:44.260 --> 00:04:46.399
+probability that the random variable
+
+00:04:46.400 --> 00:04:51.487
+equals this value and log of this
+
+00:04:51.487 --> 00:04:52.240
+probability.
+
+00:04:53.250 --> 00:04:54.800
+And note that there is also an negative
+
+00:04:54.800 --> 00:04:55.460
+sign there.
+
+00:04:56.100 --> 00:04:59.760
+Now, entropy in general is not negative
+
+00:04:59.760 --> 00:05:01.630
+and that can be mathematically proved.
+
+00:05:02.430 --> 00:05:07.520
+So if we expand this sum will see the
+
+00:05:07.520 --> 00:05:11.000
+equation looks like a second one I
+
+00:05:11.000 --> 00:05:13.610
+explicitly plugged in the two values
+
+00:05:13.610 --> 00:05:14.790
+zero and one.
+
+00:05:15.990 --> 00:05:19.620
+And sometimes when we have 0 log of 0, 
+
+00:05:20.440 --> 00:05:24.150
+we would generally find that as zero
+
+00:05:24.150 --> 00:05:26.150
+because log of 0 is undefined.
+
+00:05:28.350 --> 00:05:30.540
+So this is the entropy function and
+
+00:05:30.540 --> 00:05:32.450
+this function will give a different
+
+00:05:32.450 --> 00:05:34.675
+value for different distributions of
+
+00:05:34.675 --> 00:05:35.850
+this random variable.
+
+00:05:37.120 --> 00:05:39.435
+And this clear it clearly depends on
+
+00:05:39.435 --> 00:05:41.370
+the probability that the random
+
+00:05:41.370 --> 00:05:44.030
+variable taking a value of one or zero.
+
+00:05:44.650 --> 00:05:46.480
+If we plotted his function
+
+00:05:47.880 --> 00:05:52.060
+against the probability that the random
+
+00:05:52.060 --> 00:05:54.560
+variable is equal to 1
+
+00:05:56.690 --> 00:05:59.210
+and then the function looks like this.
+
+00:06:00.470 --> 00:06:02.850
+At the two ends, 
+
+00:06:03.490 --> 00:06:08.200
+That means when the probability of X =
+
+00:06:08.200 --> 00:06:11.440
+1 is very small or very large, then the
+
+00:06:11.440 --> 00:06:14.680
+entropy function has a lower value when
+
+00:06:14.680 --> 00:06:17.490
+it's .5 in the middle that it reaches
+
+00:06:17.490 --> 00:06:18.550
+the maximum.
+
+00:06:20.040 --> 00:06:22.435
+Now, if we plot the function against
+
+00:06:22.435 --> 00:06:24.690
+the probability that the X 
+
+00:06:25.830 --> 00:06:29.950
+is taking a value of 0 and the
+
+00:06:29.950 --> 00:06:32.950
+function would show exactly the same
+
+00:06:32.950 --> 00:06:34.600
+curve here.
+
+00:06:35.270 --> 00:06:38.180
+And you can imagine why and so
+
+00:06:39.110 --> 00:06:40.760
+that's because
+
+00:06:41.640 --> 00:06:44.430
+the two probabilities are symmetric 
+
+00:06:45.450 --> 00:06:46.970
+and completely symmetric.
+
+00:06:48.620 --> 00:06:50.040
+So an interesting question.
+
+00:06:50.040 --> 00:06:51.670
+You could think about in general 
+
+00:06:51.670 --> 00:06:55.120
+here is for what kind of X?
+
+00:06:55.810 --> 00:06:58.500
+Does the entropy reached maximum or
+
+00:06:58.500 --> 00:07:01.010
+minimum and we can in particular think
+
+00:07:01.010 --> 00:07:02.820
+about some special cases.
+
+00:07:02.820 --> 00:07:06.000
+For example, in one case we might have
+
+00:07:06.000 --> 00:07:07.890
+a random variable that
+
+00:07:08.660 --> 00:07:10.760
+always takes the value of one, 
+
+00:07:10.760 --> 00:07:12.360
+the probability is
+
+00:07:12.360 --> 00:07:14.220
+one 
+
+00:07:15.940 --> 00:07:18.900
+or there is a random variable that
+
+00:07:19.770 --> 00:07:23.210
+Is equally likely taking a value of 1
+
+00:07:23.210 --> 00:07:24.470
+or 0.
+
+00:07:24.470 --> 00:07:27.602
+In this case, the probability that X =
+
+00:07:27.602 --> 00:07:28.960
+1 is .5.
+
+00:07:30.540 --> 00:07:32.470
+Now, which one has a higher entropy?
+
+00:07:34.490 --> 00:07:36.720
+It's easier to look at the problem by
+
+00:07:36.720 --> 00:07:38.970
+thinking of simple example.
+
+00:07:40.190 --> 00:07:41.980
+Using coin tossing, 
+
+00:07:43.290 --> 00:07:45.890
+so when we think about the random
+
+00:07:45.890 --> 00:07:48.030
+experiment like a tossing a coin,
+
+00:07:48.650 --> 00:07:51.180
+it gives us a random variable that 
+
+00:07:52.400 --> 00:07:54.970
+can represent the result.
+
+00:07:55.620 --> 00:07:58.360
+It can be head or tail, so we can
+
+00:07:58.360 --> 00:08:01.600
+define a random variable X sub coin so
+
+00:08:01.600 --> 00:08:05.160
+that it's one when the coin shows up as
+
+00:08:05.160 --> 00:08:07.918
+head, it's zero when the coin shows up
+
+00:08:07.918 --> 00:08:08.750
+as tail.
+
+00:08:09.630 --> 00:08:13.248
+So now we can compute the entropy of
+
+00:08:13.248 --> 00:08:16.310
+this random variable, and this entropy
+
+00:08:16.310 --> 00:08:18.920
+indicates how difficult it is to
+
+00:08:18.920 --> 00:08:22.590
+predict the outcome of a coin for coin
+
+00:08:22.590 --> 00:08:23.110
+tossing.
+
+00:08:25.320 --> 00:08:27.270
+So we can think about the two cases.
+
+00:08:27.270 --> 00:08:29.155
+One is a fair coin, it's completely
+
+00:08:29.155 --> 00:08:29.580
+fair.
+
+00:08:29.580 --> 00:08:32.900
+The coin shows up as head hotel equally
+
+00:08:32.900 --> 00:08:35.740
+likely, so the two probabilities would
+
+00:08:35.740 --> 00:08:36.410
+be, 
+
+00:08:37.910 --> 00:08:41.930
+1/2 right so both will have both equal
+
+00:08:41.930 --> 00:08:42.980
+to 1/2.
+
+00:08:44.550 --> 00:08:46.316
+Another extreme case is completely
+
+00:08:46.316 --> 00:08:48.870
+biased coin, where the coin always
+
+00:08:48.870 --> 00:08:51.785
+shows up as head, so it's a completely
+
+00:08:51.785 --> 00:08:52.940
+biased coin.
+
+00:08:54.500 --> 00:08:56.497
+Now let's think about the entropies in
+
+00:08:56.497 --> 00:08:58.800
+the two cases, and if you plug in these
+
+00:08:58.800 --> 00:09:01.290
+values you can see the entropies, 
+
+00:09:02.470 --> 00:09:06.110
+would be as follows for a fair coin we
+
+00:09:06.110 --> 00:09:09.010
+see the entropy reaches its maximum,
+
+00:09:09.010 --> 00:09:09.690
+that's one.
+
+00:09:11.120 --> 00:09:13.910
+For the completely biased coin we see
+
+00:09:13.910 --> 00:09:16.830
+is 0 and that intuitively makes a lot
+
+00:09:16.830 --> 00:09:19.530
+of sense because a fair coin is most
+
+00:09:19.530 --> 00:09:20.620
+difficult to predict 
+
+00:09:21.950 --> 00:09:23.883
+whereas a completely biased coin is
+
+00:09:23.883 --> 00:09:25.480
+very easy to predict that we can always
+
+00:09:25.480 --> 00:09:28.200
+say it's a head because it is a head all
+
+00:09:28.200 --> 00:09:32.010
+the time so they can be shown on the
+
+00:09:32.010 --> 00:09:33.710
+curve as follows.
+
+00:09:33.710 --> 00:09:37.130
+So the fair coin corresponds to the
+
+00:09:37.130 --> 00:09:39.570
+middle point, or it's very uncertain.
+
+00:09:40.120 --> 00:09:42.360
+The completely biased coin corresponds
+
+00:09:42.360 --> 00:09:44.260
+to the end point.
+
+00:09:44.860 --> 00:09:47.240
+We have a probability of 1.0 and the
+
+00:09:47.240 --> 00:09:48.270
+entropy is 0.
+
+00:09:50.010 --> 00:09:53.510
+So now let's see how we can use entropy
+
+00:09:53.510 --> 00:09:54.710
+for word prediction.
+
+00:09:54.710 --> 00:09:56.700
+Now the problem, let's think about our
+
+00:09:56.700 --> 00:09:58.680
+problem right, still predicted whether
+
+00:09:58.680 --> 00:10:00.480
+W is present or absolutely in this
+
+00:10:00.480 --> 00:10:01.520
+segment.
+
+00:10:01.520 --> 00:10:03.560
+Again, think about the three words.
+
+00:10:03.560 --> 00:10:04.750
+Particularly, think about their
+
+00:10:04.750 --> 00:10:05.550
+entropies.
+
+00:10:06.410 --> 00:10:09.080
+Now we can assume high entropy words
+
+00:10:09.080 --> 00:10:10.380
+are harder to predict.
+
+00:10:11.260 --> 00:10:14.280
+And so we will now have quantitative
+
+00:10:14.280 --> 00:10:17.910
+way to tell us which word is harder to
+
+00:10:17.910 --> 00:10:18.400
+predict.
+
+00:10:20.730 --> 00:10:22.440
+Now if you look at the three words,
+
+00:10:22.440 --> 00:10:24.260
+meat, the and Unicorn again.
+
+00:10:25.240 --> 00:10:28.930
+An we clearly would expect the meat to
+
+00:10:28.930 --> 00:10:32.000
+have a high entropy, then the OR
+
+00:10:32.000 --> 00:10:33.170
+Unicorn.
+
+00:10:33.170 --> 00:10:35.470
+In fact, if you look at the entropy of
+
+00:10:35.470 --> 00:10:36.130
+the, 
+
+00:10:37.210 --> 00:10:40.190
+It's close to 0,  because
+
+00:10:40.190 --> 00:10:40.960
+it occurs everywhere.
+
+00:10:40.960 --> 00:10:43.610
+So, it's like a completed biased coin, 
+
+00:10:44.520 --> 00:10:46.340
+therefore the entropy is 0.
+
+

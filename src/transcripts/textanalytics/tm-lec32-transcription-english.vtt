@@ -1,0 +1,586 @@
+WEBVTT Kind: captions; Language: en-US
+
+NOTE
+Created on 2021-02-27T00:01:46.8949710Z by ClassTranscribe
+
+00:00:00.300 --> 00:00:02.250
+This lecture is a continued discussion
+
+00:00:02.250 --> 00:00:04.490
+of generative probabilistic models for
+
+00:00:04.490 --> 00:00:05.310
+text clustering.
+
+00:00:13.330 --> 00:00:14.490
+In this lecture, we're going to
+
+00:00:14.490 --> 00:00:16.440
+continue talking about the tax capture
+
+00:00:16.440 --> 00:00:19.070
+text clustering, particularly
+
+00:00:19.070 --> 00:00:21.000
+generative
+ probabilistic models.
+
+00:00:23.870 --> 00:00:25.660
+So this is a slide that you have seen
+
+00:00:25.660 --> 00:00:28.460
+earlier where we have written down the
+
+00:00:28.460 --> 00:00:31.450
+likelihood function for a document.
+
+00:00:32.040 --> 00:00:36.550
+With two distributions in two component
+
+00:00:36.550 --> 00:00:38.400
+mixture model for document clustering.
+
+00:00:39.500 --> 00:00:41.940
+Now in this lecture, we're going to
+
+00:00:41.940 --> 00:00:45.890
+generalize this to include the K
+
+00:00:45.890 --> 00:00:46.580
+clusters.
+
+00:00:47.230 --> 00:00:48.870
+Now if you look at the formula and
+
+00:00:48.870 --> 00:00:50.630
+think about the question how to
+
+00:00:50.630 --> 00:00:52.740
+generalize it, you will realize that
+
+00:00:52.740 --> 00:00:55.880
+all we need is to add more terms like
+
+00:00:55.880 --> 00:00:57.000
+what you have seen here.
+
+00:00:57.620 --> 00:01:01.316
+So you can just add more thetas and
+
+00:01:01.316 --> 00:01:04.634
+the probabilities of thetas and the
+
+00:01:04.634 --> 00:01:07.070
+probabilities of generating D from
+
+00:01:07.070 --> 00:01:08.030
+those thetas.
+
+00:01:08.030 --> 00:01:11.180
+So this is precisely what we're going
+
+00:01:11.180 --> 00:01:11.883
+to use.
+
+00:01:11.883 --> 00:01:15.050
+This is general presentation of the
+
+00:01:15.050 --> 00:01:17.890
+mixture model for document clustering.
+
+00:01:19.170 --> 00:01:21.730
+So as more cases we follow these steps
+
+00:01:21.730 --> 00:01:23.310
+using a generated model.
+
+00:01:23.310 --> 00:01:27.120
+First think about our data, right?
+
+00:01:27.120 --> 00:01:28.410
+So in this case our data is a
+
+00:01:28.410 --> 00:01:30.840
+collection of documents N documents
+
+00:01:30.840 --> 00:01:32.490
+denoted by the sub I.
+
+00:01:33.620 --> 00:01:36.229
+And then we talk about the model.
+
+00:01:36.230 --> 00:01:37.269
+Think about the model.
+
+00:01:37.270 --> 00:01:39.730
+In this case, we design a mixture of K
+
+00:01:39.730 --> 00:01:41.370
+unigram language models.
+
+00:01:41.370 --> 00:01:43.740
+It's a little bit different from the
+
+00:01:43.740 --> 00:01:44.960
+topic model.
+
+00:01:45.630 --> 00:01:47.676
+But we have similar parameters.
+
+00:01:47.676 --> 00:01:51.140
+We have a set of theta i's denote the
+
+00:01:51.140 --> 00:01:53.360
+word distributions corresponding to the
+
+00:01:53.360 --> 00:01:55.060
+K unigram language models.
+
+00:01:55.060 --> 00:01:58.930
+We have P of each theta I as the
+
+00:01:58.930 --> 00:02:02.231
+probability of selecting each of the K
+
+00:02:02.231 --> 00:02:03.950
+distributions to generate the document.
+
+00:02:05.770 --> 00:02:09.110
+Now note that, although our goal is to
+
+00:02:09.110 --> 00:02:12.530
+find the clusters and we actually have
+
+00:02:12.530 --> 00:02:14.430
+used a more general notion of a
+
+00:02:14.430 --> 00:02:17.000
+probability of each cluster.
+
+00:02:17.560 --> 00:02:19.910
+And this, as you see later, would allow
+
+00:02:19.910 --> 00:02:24.540
+us to assign a document to the.
+
+00:02:25.110 --> 00:02:26.790
+Cluster that has the highest probability
+
+00:02:26.790 --> 00:02:29.460
+of being able to generate the
+
+00:02:29.460 --> 00:02:30.070
+document.
+
+00:02:30.960 --> 00:02:33.690
+So as a result, we can also recover
+
+00:02:33.690 --> 00:02:35.740
+some other interesting.
+
+00:02:36.550 --> 00:02:37.410
+Properties.
+
+00:02:38.560 --> 00:02:40.750
+As you will see later.
+
+00:02:42.260 --> 00:02:44.900
+So the model basically would make the
+
+00:02:44.900 --> 00:02:46.020
+following assumption about the
+
+00:02:46.020 --> 00:02:47.257
+generation of the document.
+
+00:02:47.257 --> 00:02:49.660
+We first choose a theta I according to
+
+00:02:49.660 --> 00:02:52.070
+probability of theta I and then generate
+
+00:02:52.070 --> 00:02:54.570
+all the words in the document using
+
+00:02:54.570 --> 00:02:55.610
+this distribution.
+
+00:02:55.610 --> 00:02:58.690
+Note that it's important that we use
+
+00:02:58.690 --> 00:02:59.997
+this distributed generator.
+
+00:02:59.997 --> 00:03:01.902
+All the words in the document.
+
+00:03:01.902 --> 00:03:03.950
+This is very different from topic
+
+00:03:03.950 --> 00:03:06.160
+model, so the likelihood function would
+
+00:03:06.160 --> 00:03:08.210
+be like what you are seeing here.
+
+00:03:09.700 --> 00:03:11.510
+So the.
+
+00:03:13.810 --> 00:03:16.210
+You can take a look at the formula
+
+00:03:16.210 --> 00:03:16.560
+here.
+
+00:03:16.560 --> 00:03:19.720
+We have used the different.
+
+00:03:20.420 --> 00:03:25.130
+Notation here in the second line of
+
+00:03:25.130 --> 00:03:25.890
+this.
+
+00:03:27.880 --> 00:03:29.040
+Of this equation.
+
+00:03:30.310 --> 00:03:33.430
+But you can see now the.
+
+00:03:34.580 --> 00:03:37.940
+notation has been changed to use unique
+
+00:03:37.940 --> 00:03:40.390
+word in the vocabulary in the product
+
+00:03:40.390 --> 00:03:43.660
+instead of particular position in the
+
+00:03:43.660 --> 00:03:44.390
+document.
+
+00:03:45.040 --> 00:03:50.810
+So from X sub J to W is a change of
+
+00:03:50.810 --> 00:03:55.940
+notation, and this change allows us to
+
+00:03:55.940 --> 00:03:58.210
+show the estimation formulas more
+
+00:03:58.210 --> 00:04:00.610
+easily and you have seen this change
+
+00:04:00.610 --> 00:04:03.550
+also in the topic model presentation,
+
+00:04:03.550 --> 00:04:06.410
+but it's basically still just a product
+
+00:04:06.410 --> 00:04:08.580
+of the probabilities of all the words.
+
+00:04:09.880 --> 00:04:12.090
+I and so with the lack of functioning.
+
+00:04:12.090 --> 00:04:13.970
+Now we can talk about how to do
+
+00:04:13.970 --> 00:04:15.010
+parameter estimation.
+
+00:04:15.010 --> 00:04:16.890
+Here we can simply use the maximum
+
+00:04:16.890 --> 00:04:21.140
+likelihood estimator, so that's just a
+
+00:04:21.140 --> 00:04:23.960
+standard way of doing things, so all
+
+00:04:23.960 --> 00:04:26.040
+should be familiar to you now, it's
+
+00:04:26.040 --> 00:04:27.380
+just a different model.
+
+00:04:27.380 --> 00:04:29.642
+So after we have estimate the parameters,
+
+00:04:29.642 --> 00:04:32.665
+how can we then allocate clusters to
+
+00:04:32.665 --> 00:04:33.400
+the documents?
+
+00:04:33.400 --> 00:04:36.680
+Let's take a look at this situation
+
+00:04:36.680 --> 00:04:40.096
+more closely, so we just repeated the
+
+00:04:40.096 --> 00:04:40.809
+parameters here.
+
+00:04:40.860 --> 00:04:42.050
+For this mixture model.
+
+00:04:42.910 --> 00:04:45.830
+Now, if you think about what we can get
+
+00:04:45.830 --> 00:04:47.615
+by estimate such a model, we can
+
+00:04:47.615 --> 00:04:49.760
+actually get more information than what
+
+00:04:49.760 --> 00:04:52.180
+we need for doing clustering, right?
+
+00:04:52.180 --> 00:04:54.170
+So theta.
+
+00:04:54.170 --> 00:04:56.200
+I, for example, represents the content
+
+00:04:56.200 --> 00:04:57.134
+of class I.
+
+00:04:57.134 --> 00:04:59.680
+This is actually a byproduct.
+
+00:04:59.680 --> 00:05:02.798
+It helps summarize what the cluster is
+
+00:05:02.798 --> 00:05:05.442
+about to look at the top terms in this
+
+00:05:05.442 --> 00:05:07.350
+cluster or in this word distribution.
+
+00:05:07.350 --> 00:05:09.652
+And they will tell us what the cluster
+
+00:05:09.652 --> 00:05:10.660
+is about.
+
+00:05:10.660 --> 00:05:13.930
+An P of theta i can be interpreted as.
+
+00:05:13.980 --> 00:05:16.290
+Indicating the size of cluster because
+
+00:05:16.290 --> 00:05:19.782
+it tells us how likely cluster would be
+
+00:05:19.782 --> 00:05:21.147
+used to generate the document.
+
+00:05:21.147 --> 00:05:23.850
+The more likely a cluster is used to
+
+00:05:23.850 --> 00:05:26.050
+generate the document, we can assume
+
+00:05:26.050 --> 00:05:28.640
+the larger the cluster size is.
+
+00:05:29.670 --> 00:05:32.640
+Note that unlike in PLSA and this
+
+00:05:32.640 --> 00:05:35.910
+probability of theta I is not dependent
+
+00:05:35.910 --> 00:05:37.090
+on D.
+
+00:05:37.090 --> 00:05:37.300
+Now.
+
+00:05:37.300 --> 00:05:40.035
+You may recall that the topic choice in
+
+00:05:40.035 --> 00:05:42.235
+each document actually depends on D.
+
+00:05:42.235 --> 00:05:44.190
+That means each document can have a
+
+00:05:44.190 --> 00:05:47.850
+potentially different choice of topics,
+
+00:05:47.850 --> 00:05:50.300
+but here we have a generic choice
+
+00:05:50.300 --> 00:05:53.390
+probability for all the documents.
+
+00:05:53.390 --> 00:05:55.370
+But of course, given a particular
+
+00:05:55.370 --> 00:05:57.230
+document that we still have to infer
+
+00:05:57.230 --> 00:05:59.810
+which topic is more likely.
+
+00:06:00.320 --> 00:06:02.430
+To generate the document so in that
+
+00:06:02.430 --> 00:06:03.970
+sense, we can still have a document
+
+00:06:03.970 --> 00:06:04.820
+dependent probability of clusters.
+
+00:06:17.850 --> 00:06:19.300
+So lets look at a key problem of assigning document to clusters or assigning clusters to documents
+
+00:06:19.300 --> 00:06:22.433
+Lets to compute the C sub D here and this will take one
+
+00:06:22.433 --> 00:06:25.290
+of the values in the range of one to k to
+
+00:06:25.290 --> 00:06:26.840
+indicate which cluster should be
+
+00:06:26.840 --> 00:06:27.759
+assigned to D.
+
+00:06:28.570 --> 00:06:31.820
+Let's first you might think about a way
+
+00:06:31.820 --> 00:06:33.840
+to use likelihood only, and that is
+
+00:06:33.840 --> 00:06:35.480
+to assign D to the cluster
+
+00:06:35.480 --> 00:06:37.570
+corresponding to the topic Theta I.
+
+00:06:37.570 --> 00:06:40.490
+That most likely has been used to
+
+00:06:40.490 --> 00:06:41.290
+generate D.
+
+00:06:42.320 --> 00:06:44.520
+So that means we're going to choose one
+
+00:06:44.520 --> 00:06:47.220
+of those distributions that gives D
+
+00:06:47.220 --> 00:06:48.770
+highest probability.
+
+00:06:49.380 --> 00:06:51.290
+In other words, we see which
+
+00:06:51.290 --> 00:06:53.990
+distribution has a content that matches
+
+00:06:53.990 --> 00:06:55.350
+our D best.
+
+00:06:56.270 --> 00:06:58.290
+Intuitively, that makes sense.
+
+00:06:59.070 --> 00:07:02.250
+However, this approach does not
+
+00:07:02.250 --> 00:07:04.780
+consider the size of clusters, which is
+
+00:07:04.780 --> 00:07:06.000
+also available to us.
+
+00:07:06.740 --> 00:07:09.430
+And so a better way is to use the likelihood
+
+00:07:09.430 --> 00:07:12.070
+together with the prior.
+
+00:07:12.070 --> 00:07:15.020
+In this case the prior is P of Theta I.
+
+00:07:15.890 --> 00:07:18.800
+And together, that is, we're going to
+
+00:07:18.800 --> 00:07:20.550
+use the base formula to compute the
+
+00:07:20.550 --> 00:07:24.480
+posterior probability of Theta given D.
+
+00:07:25.550 --> 00:07:28.310
+And if we choose theta based on this
+
+00:07:28.310 --> 00:07:31.090
+posterior probability and we would have
+
+00:07:31.090 --> 00:07:32.810
+the following formula that you see
+
+00:07:32.810 --> 00:07:33.240
+here.
+
+00:07:33.870 --> 00:07:36.180
+On the bottom of this slide, and in
+
+00:07:36.180 --> 00:07:37.690
+this case, we're going to choose the
+
+00:07:37.690 --> 00:07:42.360
+theta that has a large P of Theta I.
+
+00:07:42.360 --> 00:07:45.370
+That means a large cluster and also a
+
+00:07:45.370 --> 00:07:47.550
+high probability of generating D.
+
+00:07:47.550 --> 00:07:50.490
+So we're going to favor a cluster that's
+
+00:07:50.490 --> 00:07:54.730
+large and also consistent with the
+
+00:07:54.730 --> 00:07:55.350
+document.
+
+00:07:56.040 --> 00:07:58.400
+And that intuitively makes sense
+
+00:07:58.400 --> 00:08:01.875
+because the chance of a document being
+
+00:08:01.875 --> 00:08:04.210
+a large cluster is generally higher
+
+00:08:04.210 --> 00:08:05.880
+than in a small cluster.
+
+00:08:07.530 --> 00:08:09.730
+So this means once we can estimate the
+
+00:08:09.730 --> 00:08:13.829
+parameters of the model, then we can
+
+00:08:13.830 --> 00:08:15.590
+easily solve the problem of document
+
+00:08:15.590 --> 00:08:16.050
+clustering.
+
+00:08:16.860 --> 00:08:19.300
+So next we have to discuss how to
+
+00:08:19.300 --> 00:08:23.060
+actually compute the estimate of the
+
+00:08:23.060 --> 00:08:23.560
+model.
+
+
