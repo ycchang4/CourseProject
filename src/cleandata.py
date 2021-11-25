@@ -1,7 +1,7 @@
 if __name__ == '__main__':
-    with open('textanalytics.txt', 'w') as fout:
-        for i in range(1, 54):
-            with open('transcripts/textanalytics/tm-lec'+str(i)+'-transcription-english.vtt', 'r') as fin:
+    with open('textretrieval.txt', 'w') as fout:
+        for i in range(1, 44):
+            with open('transcripts/textretrieval/tr-lec'+str(i)+'-transcription-english.vtt', 'r') as fin:
                 j = 0
                 for line in fin:
                     j+=1

@@ -8,4 +8,4 @@ with open('textanalytics.txt', 'r') as fin:
         print('lecture {}'.format(i))
         s = line.strip()
         r.extract_keywords_from_text(s)
-        print(r.get_ranked_phrases()[0:10])
+        print(r.get_ranked_phrases()[0:])
