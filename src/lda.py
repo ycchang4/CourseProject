@@ -8,7 +8,7 @@ import numpy as np
 
 docs = [] # corpus, where each string is a document
 
-with open('textretrieval.txt', 'r') as fin:
+with open('textretrieval.txt', 'r',encoding='utf-8') as fin:
     for line in fin:
         docs.append(line.strip())
         
@@ -48,6 +48,7 @@ for idx in range(len(docs)):
 
 # Remove rare and common tokens.
 from gensim.corpora import Dictionary
+print(docs)
 
 # Create a dictionary representation of the documents.
 dictionary = Dictionary(docs)
@@ -88,7 +89,7 @@ model = LdaModel(
 )
 
 #top_topics = model.top_topics(corpus) #, num_words=20)
-top_topics = model.get_document_topics(corpus[0]) # [(topic_id, prob)]
+top_topics = model.get_document_topics(corpus[10]) # [(topic_id, prob)]
 
 # Average topic coherence is the sum of topic coherences of all topics, divided by the number of topics.
 # avg_topic_coherence = sum([t[1] for t in top_topics]) / num_topics
@@ -97,7 +98,7 @@ top_topics = model.get_document_topics(corpus[0]) # [(topic_id, prob)]
 from pprint import pprint
 pprint(top_topics)
 
-i = 1
+i = 10
 for topic in top_topics:
     print('topic {}'.format(i))
     i+=1
