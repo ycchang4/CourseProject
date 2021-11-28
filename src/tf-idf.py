@@ -39,8 +39,22 @@ from sklearn.cluster import KMeans
 from sklearn.metrics import adjusted_rand_score
 import string
 from nltk.corpus import stopwords
-import json
 import glob
 import re
 
+
+docs = [] # corpus, where each string is a document
+
+with open('textretrieval.txt', 'r') as fin:
+    for line in fin:
+        docs.append(line.strip())
+
+def remove_stop(text, stops):
+    #remove all the numbers#
+    pattern = r'[0-9]'
+    text = re.sub(pattern, '', text)
+    
+
+def clean_docs():
+    stops = stopwords.words("english")
 
