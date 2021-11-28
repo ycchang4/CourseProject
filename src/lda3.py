@@ -1,10 +1,12 @@
-# credit: https://radimrehurek.com/gensim/auto_examples/tutorials/run_lda.html#sphx-glr-download-auto-examples-tutorials-run-lda-py
-# ldamodel: https://radimrehurek.com/gensim/models/ldamodel.html
-
 import logging
 import numpy as np
+import pandas as pd
+import os
+from gensim.models import LdaModel
 
-#logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
+from gensim.test.utils import common_texts
+from gensim.corpora.dictionary import Dictionary
+
 
 docs = [] # corpus, where each string is a document
 
@@ -13,7 +15,6 @@ with open('textretrieval.txt', 'r') as fin:
         docs.append(line.strip())
 
 print(len(docs))
-#print(docs[0])
 
 doc_num = 2
 
@@ -52,7 +53,24 @@ for idx in range(len(docs)):
 
 print(docs[0])
 
-# Remove rare and common tokens.
+# Create a corpus from a list of texts
+common_dictionary = Dictionary(common_texts)
+common_corpus = [common_dictionary.doc2bow(text) for text in common_texts]
+
+# Train the model on the corpus.
+lda = LdaModel(common_corpus, num_topics=10)
+
+
+from gensim.test.utils import datapath
+
+# Save model to disk.
+temp_file = datapath("model")
+lda.save(temp_file)
+
+# Load a potentially pretrained model from disk.
+lda = LdaModel.load(temp_file)
+
+#Remove rare and common tokens.
 from gensim.corpora import Dictionary
 
 # Create a dictionary representation of the documents.
@@ -75,56 +93,13 @@ del_ids = [k for k,v in dictionary.items() if v in my_stop_words or len(v) == 1]
 # remove unwanted word ids from the dictionary in place
 dictionary.filter_tokens(bad_ids=del_ids)
 
-# Bag-of-words representation of the documents.
-corpus = [dictionary.doc2bow(doc) for doc in docs]
+other_corpus = [dictionary.doc2bow(doc) for doc in docs]
 
-print('Number of unique tokens: %d' % len(dictionary))
-print('Number of documents: %d' % len(corpus))
+unseen_doc = other_corpus[0]
+vector = lda[unseen_doc]  # get topic probability distribution for a document
 
-# Train LDA model.
-from gensim.models import LdaModel
+lda.update(other_corpus)
+vector = lda[unseen_doc]
 
-# Set training parameters.
-num_topics = 1 * 7
-chunksize = 1 # how many documents to process at a time
-passes = 100 # epochs
-iterations = 400
-eval_every = 1  # Don't evaluate model perplexity, takes too much time.
 
-# Make a index to word dictionary.
-temp = dictionary[0]  # This is only to "load" the dictionary.
-id2word = dictionary.id2token
-
-model = LdaModel(
-    corpus=corpus,
-    id2word=id2word,
-    chunksize=chunksize,
-    alpha='auto',
-    eta='auto',
-    iterations=iterations,
-    num_topics=num_topics,
-    passes=passes,
-    eval_every=eval_every
-)
-
-# top_topics = model.top_topics(corpus) #, num_words=20)
-top_topics = model.get_document_topics(corpus[0]) # [(topic_id, prob)]
-
-# Average topic coherence is the sum of topic coherences of all topics, divided by the number of topics.
-# avg_topic_coherence = sum([t[1] for t in top_topics]) / num_topics
-# print('Average topic coherence: %.4f.' % avg_topic_coherence)
-
-from pprint import pprint
-pprint(top_topics)
-
-i = 1
-for topic in top_topics:
-    print('topic {}'.format(i))
-    i+=1
-    topic_term_distribution = model.get_topic_terms(topic[0], topn=40)
-    for term in topic_term_distribution:
-        print('{}, {}'.format(dictionary[term[0]], term[1]))
-    print('prob: {}'.format(topic[-1]))
-
-with open('tokens.txt', 'w') as fout:
-    fout.write(str(dictionary.token2id))
+lda = LdaModel(common_corpus, num_topics=50, alpha='auto', eval_every=5)  # learn asymmetric alpha from data
