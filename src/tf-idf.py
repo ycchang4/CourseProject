@@ -49,12 +49,61 @@ with open('textretrieval.txt', 'r') as fin:
     for line in fin:
         docs.append(line.strip())
 
-def remove_stop(text, stops):
+def remove_stops(text, stops):
     #remove all the numbers#
     pattern = r'[0-9]'
     text = re.sub(pattern, '', text)
-    
+    words = text.split()
+    final = []
+    for word in words:
+        if word not in stops:
+            final.append(word)
+    final = " ".join(final)
+    final = final.translate(str.maketrans("", "", string.punctuation))
+    final = "".join([i for i in final if not i.isdigit()])
+    while "  " in final:
+        final = final.replace("  ", " ")
+    return (final)
 
-def clean_docs():
+
+
+def clean_docs(docs):
     stops = stopwords.words("english")
+    final = []
+    for doc in docs:
+        clean_doc = remove_stops(doc, stops)
+        final.append(clean_doc)
+    return (final)
 
+cleaned_docs = clean_docs(docs)
+print(cleaned_docs[0:1])
+
+
+vectorizer = TfidfVectorizer(
+                                lowercase=True,
+                                max_features=100,
+                                max_df=0.8,
+                                min_df=5,
+                                ngram_range = (1,3),
+                                stop_words = "english"
+
+                            )
+
+vectors = vectorizer.fit_transform(cleaned_docs)
+
+feature_names = vectorizer.get_feature_names()
+
+dense = vectors.todense()
+denselist = dense.tolist()
+
+all_keywords = []
+
+for docs in denselist:
+    x = 0
+    keywords = []
+    for word in docs:
+        if word > 0:
+            keywords.append(feature_names[x])
+        x = x + 1
+    all_keywords.append(keywords)
+    print(all_keywords[0])
