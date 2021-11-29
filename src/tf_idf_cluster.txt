@@ -1,0 +1,260 @@
+Cluster 0
+ feedback
+ language
+ word
+ ranked
+ cluster
+ documents
+ engine
+ engines
+ measure
+ model
+
+
+Cluster 1
+ cluster
+ word
+ ranked
+ documents
+ engine
+ engines
+ feedback
+ language
+ measure
+ model
+
+
+Cluster 2
+ term
+ word
+ ranked
+ cluster
+ documents
+ engine
+ engines
+ feedback
+ language
+ measure
+
+
+Cluster 3
+ engines
+ search engines
+ search
+ word
+ rank
+ cluster
+ documents
+ engine
+ feedback
+ language
+
+
+Cluster 4
+ word
+ ranked
+ cluster
+ documents
+ engine
+ engines
+ feedback
+ language
+ measure
+ model
+
+
+Cluster 5
+ relevance
+ ranked
+ cluster
+ documents
+ engine
+ engines
+ feedback
+ language
+ measure
+ model
+
+
+Cluster 6
+ model
+ language
+ word
+ ranked
+ cluster
+ documents
+ engine
+ engines
+ feedback
+ measure
+
+
+Cluster 7
+ score
+ word
+ ranked
+ cluster
+ documents
+ engine
+ engines
+ feedback
+ language
+ measure
+
+
+Cluster 8
+ rank
+ word
+ ranked
+ cluster
+ documents
+ engine
+ engines
+ feedback
+ language
+ measure
+
+
+Cluster 9
+ space
+ space model
+ vector space
+ vector
+ model
+ word
+ queries
+ cluster
+ documents
+ engine
+
+
+Cluster 10
+ values
+ word
+ ranked
+ cluster
+ documents
+ engine
+ engines
+ feedback
+ language
+ measure
+
+
+Cluster 11
+ probability
+ word
+ ranked
+ cluster
+ documents
+ engine
+ engines
+ feedback
+ language
+ measure
+
+
+Cluster 12
+ engine
+ search
+ word
+ ranked
+ cluster
+ documents
+ engines
+ feedback
+ language
+ measure
+
+
+Cluster 13
+ systems
+ word
+ ranked
+ cluster
+ documents
+ engine
+ engines
+ feedback
+ language
+ measure
+
+
+Cluster 14
+ documents
+ relevant documents
+ relevant
+ word
+ rank
+ cluster
+ engine
+ engines
+ feedback
+ language
+
+
+Cluster 15
+ average
+ ranked
+ cluster
+ documents
+ engine
+ engines
+ feedback
+ language
+ measure
+ model
+
+
+Cluster 16
+ measure
+ word
+ ranked
+ cluster
+ documents
+ engine
+ engines
+ feedback
+ language
+ model
+
+
+Cluster 17
+ vector
+ word
+ ranked
+ cluster
+ documents
+ engine
+ engines
+ feedback
+ language
+ measure
+
+
+Cluster 18
+ ranked
+ word
+ cluster
+ documents
+ engine
+ engines
+ feedback
+ language
+ measure
+ model
+
+
+Cluster 19
+ queries
+ word
+ ranked
+ cluster
+ documents
+ engine
+ engines
+ feedback
+ language
+ measure
+
+

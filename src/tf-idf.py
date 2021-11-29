@@ -76,13 +76,13 @@ def clean_docs(docs):
     return (final)
 
 cleaned_docs = clean_docs(docs)
-print(cleaned_docs[0:1])
+# print(cleaned_docs[0:1])
 
 
 vectorizer = TfidfVectorizer(
                                 lowercase=True,
                                 max_features=100,
-                                max_df=0.8,
+                                max_df=0.6,
                                 min_df=5,
                                 ngram_range = (1,3),
                                 stop_words = "english"
@@ -106,4 +106,26 @@ for docs in denselist:
             keywords.append(feature_names[x])
         x = x + 1
     all_keywords.append(keywords)
+
     print(all_keywords[0])
+
+#number of topics expected (30)
+true_k = 20
+
+model = KMeans(n_clusters=true_k, init="k-means++", max_iter=100, n_init=1)
+
+model.fit(vectors)
+
+order_centroids = model.cluster_centers_.argsort()[:, ::-1]
+terms = vectorizer.get_feature_names_out()
+
+
+with open ("tf_idf_cluster.txt", "w", encoding="utf-8") as f:
+    for i in range(true_k):
+        f.write(f"Cluster {i}")
+        f.write("\n")
+        for ind in order_centroids[i, :10]:
+            f.write (' %s' % terms[ind],)
+            f.write("\n")
+        f.write("\n")
+        f.write("\n")
