@@ -2,7 +2,12 @@
 # ldamodel: https://radimrehurek.com/gensim/models/ldamodel.html
 
 import logging
+from os import write
 import numpy as np
+
+def write_to_file(f, lst):
+    with open(f, 'w') as fout:
+        fout.write(str(lst))
 
 #logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 
@@ -13,11 +18,11 @@ with open('textretrieval.txt', 'r') as fin:
         docs.append(line.strip())
 
 print(len(docs))
-#print(docs[0])
 
-doc_num = 2
+doc_idx = 1
+doc_num = 1
 
-docs = docs[doc_num:doc_num+1]
+#docs = docs[doc_idx:doc_idx+doc_num]
 
 from nltk.tokenize import RegexpTokenizer
 
@@ -42,24 +47,32 @@ docs = [[lemmatizer.lemmatize(token) for token in doc] for doc in docs]
 # Compute bigrams.
 from gensim.models import Phrases
 
-# Add bigrams and trigrams to docs (only ones that appear 20 times or more).
 bigram = Phrases(docs, min_count=2)
+trigram = Phrases(bigram[docs], min_count=2) # 4-grams
+write_to_file('trigrams.txt', trigram[bigram[docs[0]]])
+
+docs_without_unigrams = []
+
+# Add bigrams and trigrams to docs (only ones that appear 20 times or more).
 for idx in range(len(docs)):
-    for token in bigram[docs[idx]]:
+    docs_without_unigrams.append([])
+    for token in trigram[bigram[docs[idx]]]:
         if '_' in token:
             # Token is a bigram, add to document.
             docs[idx].append(token)
+            docs_without_unigrams[-1].append(token)
 
 print(docs[0])
+print(docs_without_unigrams)
 
 # Remove rare and common tokens.
 from gensim.corpora import Dictionary
 
 # Create a dictionary representation of the documents.
-dictionary = Dictionary(docs)
+dictionary = Dictionary(docs_without_unigrams)
 
 # Filter out words that occur less than 20 documents, or more than 50% of the documents.
-dictionary.filter_extremes(no_below=1, no_above=1)
+dictionary.filter_extremes(no_below=2, no_above=0.2)
 
 from gensim.parsing.preprocessing import STOPWORDS
 import nltk
@@ -76,7 +89,7 @@ del_ids = [k for k,v in dictionary.items() if v in my_stop_words or len(v) == 1]
 dictionary.filter_tokens(bad_ids=del_ids)
 
 # Bag-of-words representation of the documents.
-corpus = [dictionary.doc2bow(doc) for doc in docs]
+corpus = [dictionary.doc2bow(doc) for doc in docs_without_unigrams]
 
 print('Number of unique tokens: %d' % len(dictionary))
 print('Number of documents: %d' % len(corpus))
@@ -85,8 +98,8 @@ print('Number of documents: %d' % len(corpus))
 from gensim.models import LdaModel
 
 # Set training parameters.
-num_topics = 1 * 7
-chunksize = 1 # how many documents to process at a time
+num_topics = doc_num * 1
+chunksize = doc_num # how many documents to process at a time
 passes = 100 # epochs
 iterations = 400
 eval_every = 1  # Don't evaluate model perplexity, takes too much time.
@@ -96,7 +109,7 @@ temp = dictionary[0]  # This is only to "load" the dictionary.
 id2word = dictionary.id2token
 
 model = LdaModel(
-    corpus=corpus,
+    corpus=corpus[doc_idx:doc_idx+doc_num],
     id2word=id2word,
     chunksize=chunksize,
     alpha='auto',
