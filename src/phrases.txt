@@ -1,18 +1,33 @@
 effective predictors
+high quality
+like hold
+maximum likelihood
 space model
 sub d
-ad hoc
+tf idf
+united nations
+word association
+decision making
+previous lecture
+social media
+active research area
+ad hoc information
+beta sub
 big picture
+categorisation task
 causal relation
 cause overfitting
 cheaper hotels
+clicked documents
 complete understanding
 conditional entropies
-cranfield evaluation
+cranfield evaluation methodology
+deeper analysis
 deeper natural
 detailed understanding
 discovering paradigmatic
 discovering syntagmatic
+eats occurs
 expected overlap
 expensive hotels
 fewer parameters
@@ -20,20 +35,25 @@ generally preferred
 generation process
 geometric mean
 gold standard
-gonna talk
 good authorities
-google file
+google file system
 gradually group
 ground truth
+high dimensional space
+high quality information
 hub scores
 independence assumption
 inference rules
 inferred weights
 iphone 6
+k topical
+key value pair
 keyword queries
 knowledge base
+lambda sub b
 language processing
-latent aspect
+large numbers
+latent aspect rating
 linear separator
 major complaints
 meat occurs
@@ -50,119 +70,155 @@ partial parsing
 pearson correlation
 penalize long
 prepositional phrase
+probability ranking principle
 random surfing
-ranking principle
+recommender system
+reference language model
 relation discovery
+research articles
 sense disambiguation
 social networks
 speech act
 speech recognition
+statistical approaches
+statistical learning
 strongly correlated
-sub b
 subjective sensors
 sublinear transformation
 tentative clustering
+term ids
+tf weighting
 tfidf weighting
+training errors
 uniform code
 updating formula
 user wants
 w1 given
+w sub
 web scale
 works better
-high level
+total number
 01 bit
 absolute relevance
 actual ratings
 advanced algorithms
+aspect weights
 average precisions
+based approaches
 baseline system
-binary random
+binary random variable
 care divergent
 co occurrences
 coin shows
 collaboration network
-completely biased
+completely biased coin
+conditional likelihood
+conditional probabilities
 corresponding elements
+current search engines
 design effective
 dirichlet prior
 discriminative approaches
 email messages
-external time
+external time series
+extreme case
 fast search
 following lectures
 good hubs
+high level strategies
 highest score
 hub score
 human experts
 ideal dcg
+k nearest neighbors
+key value pairs
 knowledge graph
 label given
 linear transformation
+machine learning methods
 map reduce
+mean average precision
+method works
+natural question
 new generation
-new orleans
 nlp techniques
-ordinal logistic
+non zero probabilities
+ordinal logistic regression
+original entropy
 pagerank score
 parse tree
 peoples opinions
-pivoted length
+pivoted length normalization
 predefined categories
 predicted values
 previous lectures
-probabilistic latent
+probabilistic latent semantic analysis
 probabilistic modeling
+pseudo count
 pseudo segments
 push mode
-push versus
+push versus pull
+query like hold
 randomly jump
 relatively easy
 relatively high
 score accumulators
+search tasks
 semantically related
 small numbers
 smoothing method
-statistical significance
+specific examples
+statistical significance test
 subtle differences
 suggested readings
-supervised machine
+supervised machine learning
 syntactic categories
 syntactic structures
+syntagmatic relation discovery
 takeaway messages
 tool kit
 user clicked
+word association mining
+world w
 youre interested
-active research
+average document length
 battery life
 bayesian estimation
 best guess
 binary categorization
 categorisation results
+common sense knowledge
 discussed earlier
-doesnt work
 domain knowledge
-dont necessarily
 dont observe
 empirically defined
 expected count
 f measure
 fair coin
 file system
+filtering system
+function f
+general ideas
 generated independently
+given y
 government response
 hidden variables
-high dimensional
 hurricane katrina
 important role
 improve scoring
 intelligent information
 intuitively makes
+language modeling
 large scale
 length encoding
 local maximum
-modern search
+machine learning techniques
+mixture models
+modern search engines
 multiple levels
 parameter b
+posterior distribution
+program language
 random fluctuation
 ranking functions
 rare term
@@ -170,138 +226,152 @@ raw count
 relatively small
 second line
 sigir papers
+similarity based approaches
+simplest vector space
+sub linear transformation
 task support
 test collection
 unary coding
-united nations
 user likes
+y 1
 1 minus
 aspect rating
 basic measures
 clustering result
 continued discussion
-decision making
+different locations
 doesnt occur
 equally likely
 frequent term
 gamma code
-high quality
+high frequency
 implicit feedback
 information theory
 jm smoothing
-k nearest
+method works better
 opinion target
 presidential election
 r sub
+real world variables
 reciprocal rank
 slide shows
 smoothing parameter
-social media
 speech tags
 stock prices
 tf transformation
 theta subj
 user stops
 users perspective
+x sub
+y given x
 z values
 causal topics
 classification accuracy
-common sense
 cumulative gain
 dimensional space
 dirichlet distribution
-discover syntagmatic
+discover syntagmatic relations
 discriminative classifiers
-generative probabilistic
+generative probabilistic models
 human effort
-inverse document
-like hold
+inverse document frequency
 linear interpolation
+mining paper
 news articles
 probabilistic models
+probabilistic retrieval
 product reviews
 pseudo counts
 score accumulator
 sentiment weights
 smoothing methods
-sub linear
+system says yes
+theta 2
 time t
 transition matrix
-word association
-y given
 anchor text
-assign high
-continue talking
+assign high probabilities
 ive shown
-key value
+naive bayes
+naive bayes classifier
+natural language processing techniques
+non zero
 nontext data
 picture shows
-processing techniques
+prior knowledge
 research papers
 speech tagging
-system says
+theta sub b
 time period
-youre seeing
+utility function
 bayesian inference
 continue discussing
 information access
-multiple times
+mining algorithms
 paradigmatic relations
 presidential campaign
 pull mode
 retrieval functions
+retrieval systems
 seen earlier
 sentiment classification
 simply normalize
-special cases
+unigram language models
 word associations
 additional readings
-based approaches
+alpha sub d
+based prediction
 feature values
 generative models
 linear combination
+non zero probability
 precision recall
 random variables
 recommender systems
 relevance feedback
+semantic analysis
+syntagmatic relation
 unary code
+unigram language model
 clustering bias
 main idea
-method works
 posterior probability
 reduce function
+theta sub
 training examples
 upper bound
-whats interesting
 actionable knowledge
-alpha sub
 aspect ratings
+document length normalization
 high probabilities
 language models
 logistic regression
 overall ratings
 previous slide
+probabilistic topic
 probability mass
 relevance judgments
+average precision
 document id
 logistical regression
+map function
 optimization problem
 original query
 page rank
-previous lecture
 random surfer
+search results
 bm 25
 document ids
+document length
 hidden variable
-weve got
+probabilistic model
 different aspects
 length normalization
-semantic analysis
-syntagmatic relation
 syntagmatic relations
 term frequency
 arithmetic mean
 beta values
+collection language model
 k 1
 lower bound
 m step
@@ -309,46 +379,51 @@ opinion holder
 opinion mining
 overall rating
 paradigmatic relation
-contextual text
+vector space
+contextual text mining
 idf weighting
-naive bayes
-average precision
+tf idf weighting
 bayes rule
 collaborative filtering
 dot product
 random variable
 e step
-parameter values
-tf idf
-unigram language
+maximum likelihood estimate
 objective function
 system b
-background language
+background language model
 sentiment analysis
+topic models
 generative model
-non zero
-total number
 conditional probability
 ranked list
+theta sub d
 basic idea
+word distributions
+background model
+information retrieval
+natural language
+natural language processing
 web search
 non relevant
-document length
+similarity function
+maximum likelihood estimator
+query likelihood
 em algorithm
+non text
+common words
 scoring function
 conditional entropy
+machine learning
 search engines
 mutual information
-theta sub
-machine learning
+text categorization
 likelihood function
 ranking function
 training data
 inverted index
-maximum likelihood
 mixture model
 search engine
-natural language
-relevant documents
 language model
-vector space
+relevant documents
+vector space model
