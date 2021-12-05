@@ -165,6 +165,8 @@ for doc in phrased:
 reduced_corpus = [dictionary.doc2bow(doc) for doc in phrased_doc]
 # phrased_doc
 
+def takelast(x):
+    return x[-1]
 
 with open("results.dat", "w") as out:
     print(len(phrased_doc))
@@ -182,8 +184,7 @@ with open("results.dat", "w") as out:
         out.write("\n")
 
 
-def takelast(x):
-    return x[-1]
+
 
 from gensim.test.utils import datapath
 # Save model to disk.
