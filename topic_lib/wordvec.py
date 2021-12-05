@@ -7,7 +7,8 @@ class MyCorpus:
         p = []
         with open("phrases.txt") as f:
             for line in f:
-                p.append(line.split())
+                if(line.split() == 2):
+                    p.append(line.split())
         self.p = dict(p)
     def __iter__(self):
         corpus_path = datapath('lee_background.cor')
