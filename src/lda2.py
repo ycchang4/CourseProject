@@ -17,10 +17,10 @@ with open('textretrieval.txt', 'r') as fin:
     for line in fin:
         docs.append(line.strip())
 
-print(len(docs))
+#print(len(docs))
 
-doc_idx = 1
-doc_num = 1
+doc_idx = 0
+doc_num = len(docs)
 
 #docs = docs[doc_idx:doc_idx+doc_num]
 
@@ -57,19 +57,21 @@ docs_without_unigrams = []
 for idx in range(len(docs)):
     docs_without_unigrams.append([])
     for token in trigram[bigram[docs[idx]]]:
-        if '_' in token:
+        if '_' in token or token == 'bm25':
             # Token is a bigram, add to document.
             docs[idx].append(token)
             docs_without_unigrams[-1].append(token)
 
-print(docs[0])
-print(docs_without_unigrams)
+# print(docs[0])
+# print(docs_without_unigrams)
+
+docs = docs_without_unigrams
 
 # Remove rare and common tokens.
 from gensim.corpora import Dictionary
 
 # Create a dictionary representation of the documents.
-dictionary = Dictionary(docs_without_unigrams)
+dictionary = Dictionary(docs)
 
 # Filter out words that occur less than 20 documents, or more than 50% of the documents.
 dictionary.filter_extremes(no_below=2, no_above=0.2)
@@ -89,27 +91,27 @@ del_ids = [k for k,v in dictionary.items() if v in my_stop_words or len(v) == 1]
 dictionary.filter_tokens(bad_ids=del_ids)
 
 # Bag-of-words representation of the documents.
-corpus = [dictionary.doc2bow(doc) for doc in docs_without_unigrams]
+corpus = [dictionary.doc2bow(doc) for doc in docs]
 
-print('Number of unique tokens: %d' % len(dictionary))
-print('Number of documents: %d' % len(corpus))
+# print('Number of unique tokens: %d' % len(dictionary))
+# print('Number of documents: %d' % len(corpus))
 
 # Train LDA model.
 from gensim.models import LdaModel
-
-# Set training parameters.
-num_topics = doc_num * 1
-chunksize = doc_num # how many documents to process at a time
-passes = 100 # epochs
-iterations = 400
-eval_every = 1  # Don't evaluate model perplexity, takes too much time.
 
 # Make a index to word dictionary.
 temp = dictionary[0]  # This is only to "load" the dictionary.
 id2word = dictionary.id2token
 
+# Set training parameters.
+num_topics = 5 * len(corpus)
+chunksize = len(corpus) # how many documents to process at a time
+passes = 100 # epochs
+iterations = 400
+eval_every = 1  # Don't evaluate model perplexity, takes too much time.
+
 model = LdaModel(
-    corpus=corpus[doc_idx:doc_idx+doc_num],
+    corpus=corpus,
     id2word=id2word,
     chunksize=chunksize,
     alpha='auto',
@@ -117,27 +119,31 @@ model = LdaModel(
     iterations=iterations,
     num_topics=num_topics,
     passes=passes,
-    eval_every=eval_every
+    eval_every=1
 )
 
-# top_topics = model.top_topics(corpus) #, num_words=20)
-top_topics = model.get_document_topics(corpus[0]) # [(topic_id, prob)]
+with open('lda_results.txt', 'w') as fout:
+    for lecture in range(0, len(corpus)):
+        print('working on lecture {}'.format(lecture+1))
+        fout.write('lecture {}\n'.format(lecture+1))
+        # top_topics = model.top_topics(corpus) #, num_words=20)
+        top_topics = model.get_document_topics(corpus[lecture]) # [(topic_id, prob)]
 
-# Average topic coherence is the sum of topic coherences of all topics, divided by the number of topics.
-# avg_topic_coherence = sum([t[1] for t in top_topics]) / num_topics
-# print('Average topic coherence: %.4f.' % avg_topic_coherence)
+        # Average topic coherence is the sum of topic coherences of all topics, divided by the number of topics.
+        # avg_topic_coherence = sum([t[1] for t in top_topics]) / num_topics
+        # print('Average topic coherence: %.4f.' % avg_topic_coherence)
 
-from pprint import pprint
-pprint(top_topics)
+        # from pprint import pprint
+        # pprint(top_topics)
 
-i = 1
-for topic in top_topics:
-    print('topic {}'.format(i))
-    i+=1
-    topic_term_distribution = model.get_topic_terms(topic[0], topn=40)
-    for term in topic_term_distribution:
-        print('{}, {}'.format(dictionary[term[0]], term[1]))
-    print('prob: {}'.format(topic[-1]))
+        i = 1
+        for topic in top_topics:
+            fout.write('topic {}\n'.format(i))
+            i+=1
+            topic_term_distribution = model.get_topic_terms(topic[0], topn=40)
+            for term in topic_term_distribution:
+                fout.write('{}, {}\n'.format(dictionary[term[0]], term[1]))
+            fout.write('prob: {}\n'.format(topic[-1]))
 
-with open('tokens.txt', 'w') as fout:
-    fout.write(str(dictionary.token2id))
+        # with open('tokens.txt', 'w') as fout:
+        #     fout.write(str(dictionary.token2id))
