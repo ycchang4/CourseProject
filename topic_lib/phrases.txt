@@ -1,464 +1,446 @@
-effective predictors
-high quality
-like hold
-maximum likelihood
-space model
-sub d
-tf idf
-word association
-active research area
-ad hoc information
-beta sub
-big picture
-categorisation task
-causal relation
-cause overfitting
-cheaper hotels
-clicked documents
-complete understanding
-conditional entropies
+map reduce
 cranfield evaluation methodology
-deeper analysis
-deeper natural
-detailed understanding
-discovering paradigmatic
-discovering syntagmatic
-eats occurs
+youre seeing
+theta sub d
+total number
+random variables
+overall rating
+syntactic categories
+mean average precision
+search engines
+youre interested
+unary code
+completely biased coin
+word association
+mining algorithms
+score accumulators
+continue talking
+k 1
+picture shows
+web search
+vector space
+anchor text
+baseline system
+document id
+average document length
+generative models
 expected overlap
-expensive hotels
-fewer parameters
-generally preferred
-generation process
+speech tags
+reciprocal rank
+current search engines
+probabilistic topic
+probabilistic modeling
+bm 25
+modern search engines
+high probabilities
+task support
+w1 given
+predefined categories
+highest score
+bayes rule
+based prediction
+main idea
+transition matrix
+second line
+design effective
+prior knowledge
+aspect ratings
+hub score
+program language
+key value pair
+mixture model
+simplest vector space
+absolute relevance
+feature values
+users perspective
+previous lectures
+discovering syntagmatic
+clustering result
+news stream
+active research area
+semantically related
+best guess
+im going
+generated independently
+tf weighting
+intuitively makes
+paradigmatically related
+sentiment analysis
+clustering bias
+tool kit
+relatively high
+hidden variable
+language processing
+cheaper hotels
+deeper analysis
+original query
 geometric mean
-gold standard
-gonna talk
-good authorities
-google file system
-gradually group
-ground truth
-high dimensional space
-high quality information
+based approaches
+reference language model
+theta 2
+term ids
+statistical approaches
+y given x
+retrieval functions
+knowledge base
+corresponding elements
+optimization problem
+user clicked
+doesnt work
+hidden variables
+randomly jump
+retrieval systems
+search tasks
+web scale
+theta sub b
+topic models
+x sub
+simply normalize
+probabilistic latent semantic analysis
+similarity based approaches
+pivoted length normalization
+dimensional space
+system b
+nlp techniques
+united nations
+cause overfitting
+subtle differences
+doesnt mean
+complete understanding
+training examples
+conditional probabilities
+pearson correlation
+basic idea
+random fluctuation
+word associations
+pull mode
+k topical
+dont necessarily
+additional information
+supervised machine learning
+user wants
 hub scores
-independence assumption
+stock prices
+hurricane katrina
+high quality information
+mining paper
+mutual information
+dirichlet prior
+syntagmatic relation
+gradually group
+length encoding
+actionable knowledge
+keyword queries
+dirichlet distribution
+tfidf weighting
+arithmetic mean
+non relevant
+large scale
+score accumulator
+syntactic structures
+different locations
+local maximum
+real world variables
 inference rules
 inferred weights
-iphone 6
-k topical
-key value pair
-keyword queries
-knowledge base
-lambda sub b
-language processing
-large numbers
-latent aspect rating
-linear separator
-major complaints
-meat occurs
-multiple perspectives
-n dimensions
-natural languages
-new york times
-news stream
-noun phrase
-observed evidence
-optimal utility
-paradigmatically related
-parallel processing
-partial parsing
-pearson correlation
-penalize long
-prepositional phrase
-probability ranking principle
-random surfing
-recommender system
-reference language model
-relation discovery
-research articles
-sense disambiguation
-social networks
-speech act
-speech recognition
-statistical approaches
-statistical learning
-strongly correlated
-subjective sensors
-sublinear transformation
 tentative clustering
-term ids
-tf weighting
-tfidf weighting
-training errors
-uniform code
-updating formula
-user wants
-w1 given
-w sub
-web scale
-weighted average
-whats happening
-works better
-x axis
-01 bit
-absolute relevance
-actual ratings
-advanced algorithms
-aspect weights
-average precisions
-based approaches
-baseline system
-binary random variable
-care divergent
-co occurrences
-coin shows
-collaboration network
-completely biased coin
-conditional likelihood
-conditional probabilities
-corresponding elements
-current search engines
-deep learning
-design effective
-dirichlet prior
-discriminative approaches
-email messages
-external time series
-extreme case
-fast search
-following lectures
-good hubs
-high level strategies
-highest score
-hub score
-human experts
-ideal dcg
-k nearest neighbors
-key value pairs
-knowledge graph
-label given
-linear transformation
-machine learning methods
-map reduce
-mean average precision
-method works
-natural question
-new generation
-new orleans
-nlp techniques
-non zero probabilities
-ordinal logistic regression
-original entropy
-pagerank score
-parse tree
-pay attention
-peoples opinions
-pivoted length normalization
-predefined categories
-predicted values
-previous lectures
-probabilistic latent semantic analysis
-probabilistic modeling
-pseudo count
-pseudo segments
-push mode
-push versus pull
-query like hold
-randomly jump
-relatively easy
-relatively high
-score accumulators
-search tasks
-semantically related
-small numbers
-smoothing method
-specific examples
-starting point
-statistical significance test
-subtle differences
-suggested readings
-supervised machine learning
-syntactic categories
-syntactic structures
-syntagmatic relation discovery
-takeaway messages
-tool kit
-user clicked
-word association mining
-world w
-youre interested
-average document length
-battery life
-bayesian estimation
-best guess
-binary categorization
-categorisation results
-common sense knowledge
-discussed earlier
-doesnt mean
-doesnt work
-domain knowledge
-dont necessarily
-dont observe
-empirically defined
-expected count
-f measure
-fair coin
-file system
-filtering system
-function f
-general ideas
-generated independently
-given y
-government response
-hidden variables
-hurricane katrina
-important role
-improve scoring
-intelligent information
-intuitively makes
-language modeling
-large scale
-length encoding
-local maximum
-long time
-machine learning techniques
-mixture models
-modern search engines
-multiple levels
-parameter b
-posterior distribution
-program language
-random fluctuation
-ranking functions
-rare term
-raw count
-relatively small
-second line
-sigir papers
-similarity based approaches
-simplest vector space
-sub linear transformation
-task support
-test collection
-unary coding
-united nations
-user likes
-weve talked
-y 1
-1 minus
-aspect rating
-basic measures
-clustering result
-continued discussion
-decision making
-different locations
-doesnt occur
-equally likely
-frequent term
-gamma code
-high frequency
-implicit feedback
-information theory
-jm smoothing
-method works better
-opinion target
-presidential election
-r sub
-real world variables
-reciprocal rank
-slide shows
-smoothing parameter
-social media
-speech tags
-stock prices
-tf transformation
-theta subj
-user stops
-users perspective
-x sub
-y given x
-z values
-causal topics
-classification accuracy
-cumulative gain
-dimensional space
-dirichlet distribution
-discover syntagmatic relations
-discriminative classifiers
-generative probabilistic models
-human effort
-inverse document frequency
-linear interpolation
-mining paper
-news articles
 probabilistic models
-probabilistic retrieval
-product reviews
-pseudo counts
-score accumulator
-sentiment weights
-smoothing methods
-system says yes
-theta 2
-time t
-transition matrix
-y axis
-additional information
-anchor text
-assign high probabilities
-continue talking
-ive shown
-naive bayes
-naive bayes classifier
-natural language processing techniques
-non zero
-nontext data
-picture shows
-prior knowledge
-research papers
-speech tagging
-theta sub b
-time period
-utility function
-youre seeing
-bayesian inference
-continue discussing
-im going
-information access
-mining algorithms
-multiple times
-paradigmatic relations
-presidential campaign
-pull mode
-retrieval functions
-retrieval systems
-seen earlier
-sentiment classification
-simply normalize
-social network
-special cases
-unigram language models
-word associations
-additional readings
-alpha sub d
-based prediction
-feature values
-generative models
-linear combination
-non zero probability
-precision recall
-random variables
-recommender systems
-relevance feedback
-semantic analysis
-syntagmatic relation
-unary code
-unigram language model
-web pages
-clustering bias
-main idea
-posterior probability
-reduce function
-theta sub
-training examples
-upper bound
-whats interesting
-actionable knowledge
-aspect ratings
-document length normalization
-high level
-high probabilities
-language models
-logistic regression
-overall ratings
-previous slide
-probabilistic topic
-probability mass
-relevance judgments
+frequent term
 average precision
-document id
-logistical regression
-makes sense
-map function
-optimization problem
-original query
-page rank
-previous lecture
-random surfer
-search results
-bm 25
-document ids
-document length
-hidden variable
-probabilistic model
-weve got
-different aspects
-length normalization
-syntagmatic relations
-term frequency
-arithmetic mean
-beta values
-collection language model
-k 1
-lower bound
-m step
-opinion holder
-opinion mining
-overall rating
-paradigmatic relation
-vector space
-contextual text mining
-idf weighting
-real world
-tf idf weighting
-bayes rule
-collaborative filtering
-special case
-dot product
-random variable
-e step
-maximum likelihood estimate
-parameter values
-objective function
-system b
-background language model
-sentiment analysis
-topic models
-generative model
-total number
+method works
+unigram language models
+method works better
+subjective sensors
 conditional probability
-ranked list
-theta sub d
-basic idea
-word distributions
-background model
-information retrieval
-natural language
-natural language processing
-web search
-non relevant
+good authorities
+presidential election
+major complaints
+research articles
+beta values
+independence assumption
+pseudo counts
+probabilistic model
+relation discovery
+speech recognition
+ideal dcg
+following lectures
 similarity function
-little bit
-maximum likelihood estimator
-query likelihood
+knowledge graph
+optimal utility
+high frequency
+collaboration network
+big picture
 em algorithm
-non text
-common words
-scoring function
-conditional entropy
-machine learning
-search engines
-time series
-looks like
-mutual information
-text categorization
-lets look
-likelihood function
-ranking function
+time period
+classification accuracy
+natural question
+page rank
+good hubs
+random surfing
+system says yes
+sub d
+language models
+battery life
+new generation
+discriminative approaches
+discriminative classifiers
+gonna talk
+probabilistic retrieval
+specific examples
+pseudo segments
+care divergent
+1 minus
+unary coding
+parse tree
 training data
-different ways
-inverted index
-mixture model
-search engine
-language model
-relevant documents
+non text
+relatively easy
+smoothing methods
+co occurrences
+eats occurs
+decision making
+probability mass
+document length normalization
+actual ratings
+non zero probabilities
+high dimensional space
+non zero probability
+idf weighting
+push mode
+time series
+syntagmatic relations
+machine learning techniques
+space model
+natural language processing
+contextual text mining
+sub linear transformation
+government response
+relatively small
+google file system
+sentiment classification
+test collection
+rare term
+ranked list
+sentiment weights
+maximum likelihood
+discussed earlier
+takeaway messages
+query like hold
+conditional entropy
+upper bound
+reduce function
+smoothing parameter
+f measure
+discovering paradigmatic
+expensive hotels
+discover syntagmatic relations
+multiple perspectives
+natural language processing techniques
 vector space model
+conditional likelihood
+word distributions
+filtering system
+penalize long
+ive shown
+small numbers
+causal relation
+high quality
+coin shows
+noun phrase
+meat occurs
+n dimensions
+ordinal logistic regression
+user likes
+random surfer
+large numbers
+ranking functions
+observed evidence
+language modeling
+objective function
+human experts
+language model
+effective predictors
+linear interpolation
+random variable
+jm smoothing
+search engine
+binary random variable
+parameter values
+background language model
+extreme case
+user stops
+news articles
+opinion mining
+strongly correlated
+gold standard
+updating formula
+scoring function
+smoothing method
+pseudo count
+tf idf
+recommender systems
+parameter b
+recommender system
+previous lecture
+pagerank score
+lambda sub b
+gamma code
+syntagmatic relation discovery
+statistical significance test
+previous slide
+given y
+machine learning
+collaborative filtering
+average precisions
+continued discussion
+advanced algorithms
+basic measures
+works better
+world w
+lower bound
+training errors
+time t
+fast search
+logistical regression
+cumulative gain
+causal topics
+assign high probabilities
+sense disambiguation
+empirically defined
+information retrieval
+parallel processing
+high level strategies
+speech tagging
+high level
+naive bayes
+dont observe
+latent aspect rating
+function f
+m step
+naive bayes classifier
+file system
+domain knowledge
+label given
+expected count
+predicted values
+query likelihood
+email messages
+slide shows
+linear separator
+natural languages
+tf transformation
+prepositional phrase
+ground truth
+common words
+probability ranking principle
+aspect weights
+categorisation results
+bayesian inference
+maximum likelihood estimate
+machine learning methods
+multiple levels
+natural language
+binary categorization
+r sub
+iphone 6
+fewer parameters
+logistic regression
+seen earlier
+deeper natural
+generative model
+new york times
+product reviews
+collection language model
+map function
+opinion target
+precision recall
+overall ratings
+likelihood function
+relevant documents
+continue discussing
+dot product
+tf idf weighting
+term frequency
+conditional entropies
+w sub
+social networks
+text categorization
+paradigmatic relation
+equally likely
+speech act
+utility function
+posterior probability
+new orleans
+nontext data
+push versus pull
+detailed understanding
+relevance judgments
+document ids
+bayesian estimation
+generation process
+posterior distribution
+human effort
+research papers
+uniform code
+external time series
+fair coin
+important role
+intelligent information
+inverse document frequency
+y 1
+ranking function
+partial parsing
+lets look
+categorisation task
+sigir papers
+information access
+01 bit
+relevance feedback
+linear combination
+length normalization
+inverted index
+non zero
+different aspects
+suggested readings
+word association mining
+statistical learning
+presidential campaign
+like hold
+beta sub
+paradigmatic relations
+information theory
+semantic analysis
+generally preferred
+theta subj
+k nearest neighbors
+common sense knowledge
+maximum likelihood estimator
+generative probabilistic models
+mixture models
+improve scoring
+theta sub
+sublinear transformation
+key value pairs
+e step
+implicit feedback
+general ideas
+opinion holder
+unigram language model
+weve got
+whats interesting
+additional readings
+linear transformation
+doesnt occur
+alpha sub d
+search results
+social media
+raw count
+clicked documents
+peoples opinions
+ad hoc information
+multiple times
+original entropy
+aspect rating
+document length
+background model
+z values
