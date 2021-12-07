@@ -28,7 +28,6 @@ def omakase():
     ta = y.add_phrased_corpus("textretrieval.txt")
     id8 = y.add_basic_corpus("text8")
     y.train_corpus(lee)
-    
     y.train_corpus(bk)
     y.train_corpus(cs)
     y.train_corpus(non)

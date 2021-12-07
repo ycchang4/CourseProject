@@ -1,11 +1,9 @@
 ### @credit: gensim tutorial on LDA and ensembleLda
-import gensim
 from spacy.lang.en.stop_words import STOP_WORDS
 import re
 from gensim.models.phrases import Phrases
 from gensim.models import LdaModel
 from gensim.corpora import Dictionary
-import random
 
 class ConceptExtract:
     def __init__(self, phrase_path):
