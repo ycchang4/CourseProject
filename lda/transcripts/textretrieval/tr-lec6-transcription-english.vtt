@@ -1,0 +1,1245 @@
+WEBVTT Kind: captions; Language: en-US
+
+NOTE
+Created on 2021-02-27T00:07:09.3922225Z by ClassTranscribe
+
+00:00:00.280 --> 00:00:01.950
+In this lecture we're going to talk
+
+00:00:01.950 --> 00:00:04.970
+about how to instantiate vector space
+
+00:00:04.970 --> 00:00:07.180
+model so that we can get a very
+
+00:00:07.180 --> 00:00:08.910
+In this lecture, we are going to talk about how to instantiate vector space model so that we can get a very specific ranking function.
+
+00:00:23.000 --> 00:00:25.990
+So this is to continue the discussion
+
+00:00:25.990 --> 00:00:29.190
+of the vector space model, which is one
+
+00:00:29.190 --> 00:00:32.460
+particular approach to design ranking
+
+00:00:32.460 --> 00:00:32.990
+function.
+
+00:00:34.310 --> 00:00:36.990
+And we're going to talk about how we
+
+00:00:36.990 --> 00:00:39.160
+use the general framework of the vector
+
+00:00:39.160 --> 00:00:42.720
+space model as a guidance to
+
+00:00:42.720 --> 00:00:46.130
+instantiate the framework to derive a
+
+00:00:46.130 --> 00:00:47.490
+specific ranking function.
+
+00:00:48.150 --> 00:00:50.240
+And we're going to cover the simplest
+
+00:00:50.240 --> 00:00:53.560
+instantiation of the framework.
+
+00:00:55.270 --> 00:00:57.420
+So as we discussed in the previous
+
+00:00:57.420 --> 00:00:59.550
+lecture, the Vector Space model is
+
+00:00:59.550 --> 00:01:00.510
+really a framework.
+
+00:01:00.510 --> 00:01:02.510
+It didn't say.
+
+00:01:05.340 --> 00:01:06.950
+As we discussed in the previous
+
+00:01:06.950 --> 00:01:07.530
+lecture.
+
+00:01:08.080 --> 00:01:09.970
+Vector space model is really a
+
+00:01:09.970 --> 00:01:10.930
+framework.
+
+00:01:10.930 --> 00:01:13.180
+It doesn't say many things.
+
+00:01:14.610 --> 00:01:16.570
+So for example, here it shows that it
+
+00:01:16.570 --> 00:01:18.920
+did not say how we should define the
+
+00:01:18.920 --> 00:01:19.560
+dimension.
+
+00:01:20.650 --> 00:01:24.370
+It also did not say how we place a
+
+00:01:24.370 --> 00:01:26.220
+document vector in this space.
+
+00:01:27.010 --> 00:01:29.480
+It did not say how we place a query
+
+00:01:29.480 --> 00:01:31.510
+vector in this vector space.
+
+00:01:32.370 --> 00:01:34.740
+And finally, it did not say how we
+
+00:01:34.740 --> 00:01:36.770
+should measure the similarity between
+
+00:01:36.770 --> 00:01:38.740
+the query vector and the document
+
+00:01:38.740 --> 00:01:39.120
+vector.
+
+00:01:40.500 --> 00:01:42.100
+So you can imagine in order to
+
+00:01:42.100 --> 00:01:45.040
+implement this model
+
+00:01:45.840 --> 00:01:48.000
+we have to say,
+
+00:01:48.590 --> 00:01:51.410
+specifically, how we compute these
+
+00:01:51.410 --> 00:01:52.020
+vectors?
+
+00:01:52.850 --> 00:01:56.389
+What is exactly Xi and what is exactly
+
+00:01:56.390 --> 00:01:57.140
+Yi?
+
+00:01:58.370 --> 00:02:01.450
+This will determine where we place a
+
+00:02:01.450 --> 00:02:02.990
+document vector, where we place a
+
+00:02:02.990 --> 00:02:03.730
+query vector.
+
+00:02:04.450 --> 00:02:06.430
+And of course, we also need to say
+
+00:02:06.430 --> 00:02:08.670
+exactly what should be the similarity
+
+00:02:08.670 --> 00:02:09.130
+function.
+
+00:02:11.030 --> 00:02:13.353
+So if we can provide a definition of
+
+00:02:13.353 --> 00:02:15.390
+the concepts that would define the
+
+00:02:15.390 --> 00:02:18.710
+dimensions and these Xi's or Yi's,
+
+00:02:18.710 --> 00:02:22.340
+namely weights of terms for query
+
+00:02:22.340 --> 00:02:23.130
+and document,
+
+00:02:24.660 --> 00:02:26.150
+then we will be able to
+
+00:02:27.000 --> 00:02:29.120
+place document vectors and query
+
+00:02:29.120 --> 00:02:31.840
+vector in this well defined
+
+00:02:31.840 --> 00:02:34.900
+space and then if we also specify
+
+00:02:34.900 --> 00:02:37.625
+similarity function then we'll have a
+
+00:02:37.625 --> 00:02:39.430
+well defined the ranking function.
+
+00:02:41.570 --> 00:02:43.990
+So let's see how we can do that and
+
+00:02:43.990 --> 00:02:45.940
+think about the simplest
+
+00:02:45.940 --> 00:02:46.830
+instantiation.
+
+00:02:47.510 --> 00:02:50.450
+Actually, I would suggest you to pause the
+
+00:02:50.450 --> 00:02:53.140
+lecture at this point, spend a couple
+
+00:02:53.140 --> 00:02:54.290
+of minutes to think about.
+
+00:02:54.850 --> 00:02:58.090
+Suppose you are asked to implement this
+
+00:02:58.090 --> 00:02:58.580
+idea.
+
+00:02:59.450 --> 00:03:01.790
+You come up with the idea of vector
+
+00:03:01.790 --> 00:03:02.470
+space model.
+
+00:03:03.730 --> 00:03:06.589
+But you still have to figure out how to
+
+00:03:06.590 --> 00:03:07.720
+compute these vectors.
+
+00:03:07.720 --> 00:03:09.790
+Exactly how to define the similarity
+
+00:03:09.790 --> 00:03:10.260
+function?
+
+00:03:10.260 --> 00:03:11.010
+What would you do?
+
+00:03:12.460 --> 00:03:13.430
+So think for.
+
+00:03:14.060 --> 00:03:15.870
+A couple of minutes and then proceed.
+
+00:03:20.620 --> 00:03:22.200
+So let's think about the some
+
+00:03:22.760 --> 00:03:25.470
+simplest ways of instantiating this
+
+00:03:25.470 --> 00:03:26.390
+vector space model?
+
+00:03:26.390 --> 00:03:27.350
+First,
+
+00:03:27.350 --> 00:03:29.100
+how do we define dimension where the
+
+00:03:29.100 --> 00:03:32.340
+obvious choice is to use each word in
+
+00:03:32.340 --> 00:03:34.730
+our vocabulary to define the dimension?
+
+00:03:35.300 --> 00:03:37.640
+And here we show that there are N
+
+00:03:37.640 --> 00:03:39.380
+words in our vocabulary,
+
+00:03:39.380 --> 00:03:41.100
+therefore there are N dimensions.
+
+00:03:41.100 --> 00:03:43.580
+Each word defines one dimension and
+
+00:03:43.580 --> 00:03:46.010
+this is basically the bag of words
+
+00:03:46.010 --> 00:03:46.710
+representation.
+
+00:03:49.020 --> 00:03:51.400
+Now let's look at how we place vectors
+
+00:03:51.400 --> 00:03:52.640
+in this space.
+
+00:03:54.290 --> 00:03:55.500
+Again here the simplest
+
+00:03:55.500 --> 00:03:57.360
+strategy is to
+
+00:03:58.520 --> 00:04:01.720
+use a bit vector to represent both the
+
+00:04:01.720 --> 00:04:03.720
+query and a document.
+
+00:04:04.590 --> 00:04:08.390
+And that means each element Xi and Yi
+
+00:04:09.030 --> 00:04:11.600
+would be taking a value of either zero
+
+00:04:11.600 --> 00:04:12.230
+or one.
+
+00:04:12.810 --> 00:04:15.350
+When it's one, it means the
+
+00:04:15.350 --> 00:04:18.910
+corresponding word is present in the
+
+00:04:18.910 --> 00:04:22.430
+document or in query. When it's zero it's
+
+00:04:22.430 --> 00:04:25.230
+going to mean that it's absent.
+
+00:04:26.970 --> 00:04:29.615
+So you can imagine if the user types in
+
+00:04:29.615 --> 00:04:31.735
+a few words in the query, then the
+
+00:04:31.735 --> 00:04:33.980
+query vector will only have a few ones,
+
+00:04:33.980 --> 00:04:35.910
+many many zeros.
+
+00:04:37.550 --> 00:04:39.050
+The document vector in general
+
+00:04:39.050 --> 00:04:40.780
+will have more ones of course.
+
+00:04:41.380 --> 00:04:44.280
+But it will also have many zeros, since
+
+00:04:44.280 --> 00:04:46.435
+the vocabulary is generally very large.
+
+00:04:46.435 --> 00:04:49.390
+Many words don't really occur in
+
+00:04:49.980 --> 00:04:50.900
+any document.
+
+00:04:51.950 --> 00:04:54.800
+Many words will only occasionally occur
+
+00:04:54.800 --> 00:04:56.660
+in the document.
+
+00:04:58.570 --> 00:05:01.090
+A lot of words will be absent in a
+
+00:05:01.090 --> 00:05:02.040
+particular document.
+
+00:05:04.280 --> 00:05:06.150
+So now we have placed
+
+00:05:07.040 --> 00:05:09.040
+the documents and the query in the
+
+00:05:09.040 --> 00:05:09.840
+vector space.
+
+00:05:11.300 --> 00:05:12.530
+Let's look at how we
+
+00:05:13.240 --> 00:05:14.390
+measure the similarity.
+
+00:05:15.640 --> 00:05:17.990
+So a commonly used similarity measure
+
+00:05:17.990 --> 00:05:19.570
+here is dot product.
+
+00:05:20.680 --> 00:05:22.660
+The dot product of two vectors
+
+00:05:23.240 --> 00:05:26.620
+is simply defined as the sum of the
+
+00:05:26.620 --> 00:05:28.633
+products of the corresponding elements
+
+00:05:28.633 --> 00:05:29.890
+of the two vectors.
+
+00:05:30.470 --> 00:05:33.080
+So here we see that it's
+
+00:05:33.990 --> 00:05:38.750
+the product of X1 and Y1.
+
+00:05:38.750 --> 00:05:39.790
+So here.
+
+00:05:40.630 --> 00:05:45.390
+And then X2 * Y2 and then finally XN
+
+00:05:45.390 --> 00:05:47.860
+multiplied by YN and then we take a
+
+00:05:47.860 --> 00:05:48.940
+sum here.
+
+00:05:49.800 --> 00:05:51.130
+So that's the dot product.
+
+00:05:52.490 --> 00:05:55.140
+Now we can represent this in a more
+
+00:05:55.140 --> 00:05:57.750
+general way using a sum here.
+
+00:05:58.660 --> 00:06:00.710
+So this is only one of the many
+
+00:06:00.710 --> 00:06:02.700
+different ways of measuring the
+
+00:06:02.700 --> 00:06:03.410
+similarity.
+
+00:06:04.040 --> 00:06:07.940
+So now we see that we have defined the
+
+00:06:09.110 --> 00:06:12.060
+the dimensions we have defined the
+
+00:06:12.060 --> 00:06:13.203
+vectors and
+
+00:06:13.203 --> 00:06:14.980
+we have also defined the similarity
+
+00:06:14.980 --> 00:06:17.505
+function, so now we finally have
+
+00:06:17.505 --> 00:06:19.670
+the simplest of vector space model.
+
+00:06:20.470 --> 00:06:22.370
+Which is based on the bit vector
+
+00:06:22.370 --> 00:06:24.440
+represntation dot product similarity
+
+00:06:24.440 --> 00:06:26.060
+and bag of words representation.
+
+00:06:26.920 --> 00:06:29.300
+And the formula looks like this.
+
+00:06:30.120 --> 00:06:33.110
+So this is our formula, and that's
+
+00:06:33.110 --> 00:06:35.506
+actually particular retrieval function,
+
+00:06:35.506 --> 00:06:36.880
+a ranking function,
+
+00:06:36.880 --> 00:06:39.910
+right? Now we can find the implement
+
+00:06:39.910 --> 00:06:42.595
+this function using a programming language
+
+00:06:42.595 --> 00:06:44.780
+and then rank documents for query.
+
+00:06:44.780 --> 00:06:48.620
+Now at this point you should again
+
+00:06:48.620 --> 00:06:49.700
+pause the lecture.
+
+00:06:49.700 --> 00:06:52.040
+So think about how we can interpret
+
+00:06:52.040 --> 00:06:52.610
+this score.
+
+00:06:53.290 --> 00:06:55.350
+So we have gone through the process of
+
+00:06:55.350 --> 00:06:57.210
+modeling the retrieval problem.
+
+00:06:58.800 --> 00:07:01.430
+Using a vector space model and then we
+
+00:07:01.430 --> 00:07:02.500
+make assumptions
+
+00:07:03.860 --> 00:07:06.480
+about how we place vectors in the
+
+00:07:06.480 --> 00:07:08.620
+vector space and how we define the
+
+00:07:08.620 --> 00:07:09.320
+similarity.
+
+00:07:09.320 --> 00:07:11.950
+So in the end that we've got a specific
+
+00:07:11.950 --> 00:07:12.980
+retrieval function,
+
+00:07:13.670 --> 00:07:14.450
+shown here.
+
+00:07:15.250 --> 00:07:16.970
+Now the next step is to think about
+
+00:07:16.970 --> 00:07:18.380
+whether this retrieval function
+
+00:07:18.380 --> 00:07:19.630
+actually makes sense.
+
+00:07:20.480 --> 00:07:22.780
+Can we expect this function to
+
+00:07:22.780 --> 00:07:25.600
+actually perform well when we used to
+
+00:07:25.600 --> 00:07:27.510
+rank the documents for users' queries?
+
+00:07:28.710 --> 00:07:30.540
+So it's worth thinking about.
+
+00:07:31.970 --> 00:07:35.800
+What is this value that we'll calculate?
+
+00:07:35.800 --> 00:07:38.510
+So in the end we get a number, but what
+
+00:07:38.510 --> 00:07:39.770
+does this number mean?
+
+00:07:39.770 --> 00:07:41.150
+Is it meaningful?
+
+00:07:42.120 --> 00:07:43.970
+So spend a couple of minutes to think
+
+00:07:43.970 --> 00:07:44.500
+about that.
+
+00:07:45.770 --> 00:07:47.490
+And of course the general question here
+
+00:07:47.490 --> 00:07:48.030
+is:
+
+00:07:48.780 --> 00:07:51.650
+Do you believe this is a good ranking
+
+00:07:51.650 --> 00:07:53.570
+function would they actually work?
+
+00:07:53.570 --> 00:07:56.830
+So again, think about how to interpret
+
+00:07:57.470 --> 00:08:00.420
+this value. Is it actually meaningful?
+
+00:08:01.200 --> 00:08:02.420
+Does it mean something?
+
+00:08:03.110 --> 00:08:05.320
+It's related to how well the document
+
+00:08:05.320 --> 00:08:06.740
+matches the query.
+
+00:08:08.160 --> 00:08:10.270
+So in order to assess whether this
+
+00:08:10.270 --> 00:08:13.170
+simplest vector space model actually
+
+00:08:13.170 --> 00:08:15.620
+works well, let's look at the example.
+
+00:08:17.060 --> 00:08:20.590
+So here I show some sample documents
+
+00:08:21.510 --> 00:08:22.580
+and a simple query.
+
+00:08:22.580 --> 00:08:24.830
+The query is news about the
+
+00:08:24.830 --> 00:08:27.380
+presidential campaign and we have 5
+
+00:08:27.380 --> 00:08:28.510
+documents here.
+
+00:08:28.510 --> 00:08:32.085
+They cover different terms in the
+
+00:08:32.085 --> 00:08:32.410
+query.
+
+00:08:34.590 --> 00:08:37.080
+And if you look at the these documents
+
+00:08:37.080 --> 00:08:37.890
+for a moment,
+
+00:08:38.700 --> 00:08:40.120
+you may realize that
+
+00:08:41.670 --> 00:08:44.200
+some documents are probably relevant
+
+00:08:44.200 --> 00:08:46.390
+and some others are probably non
+
+00:08:46.390 --> 00:08:47.040
+relevant.
+
+00:08:48.160 --> 00:08:49.870
+Now, if I ask you to rank these
+
+00:08:49.870 --> 00:08:50.510
+documents
+
+00:08:51.290 --> 00:08:52.510
+how would you rank them?
+
+00:08:54.510 --> 00:08:56.710
+This is basically our ideal ranking:
+
+00:08:56.710 --> 00:08:59.990
+when humans can examine the documents
+
+00:08:59.990 --> 00:09:01.390
+and then try to rank them.
+
+00:09:03.290 --> 00:09:05.300
+So think for a moment and take a look
+
+00:09:05.300 --> 00:09:08.470
+at this slide and perhaps by
+
+00:09:09.360 --> 00:09:10.360
+pausing the lecture.
+
+00:09:12.430 --> 00:09:15.250
+So I think most of you would agree that
+
+00:09:15.250 --> 00:09:18.340
+d4 and d3 are probably
+
+00:09:18.340 --> 00:09:20.660
+better than others because they really
+
+00:09:20.660 --> 00:09:21.210
+cover
+
+00:09:21.920 --> 00:09:22.510
+the query well.
+
+00:09:23.520 --> 00:09:26.400
+They match news, presidential and
+
+00:09:26.400 --> 00:09:27.060
+campaign.
+
+00:09:27.820 --> 00:09:29.680
+So it looks like these documents
+
+00:09:29.680 --> 00:09:33.060
+are probably better than the others, so
+
+00:09:33.060 --> 00:09:34.650
+they should be ranked on top.
+
+00:09:35.650 --> 00:09:40.100
+An the other three D2, D1, and D5 are
+
+00:09:40.100 --> 00:09:43.100
+really non relevant, so we can also say
+
+00:09:43.100 --> 00:09:43.470
+differently.
+
+00:09:43.470 --> 00:09:46.170
+D4 and D3 are relevant documents and D1, D2,
+
+00:09:46.170 --> 00:09:48.620
+and D5 are non relevant.
+
+00:09:50.080 --> 00:09:53.420
+So now let's see if our simplest
+
+00:09:53.420 --> 00:09:55.460
+vector space model could do the same or
+
+00:09:55.460 --> 00:09:56.640
+could do something closer.
+
+00:09:57.300 --> 00:09:59.320
+So let's first think about how we
+
+00:09:59.320 --> 00:10:01.700
+actually use this model to score
+
+00:10:01.700 --> 00:10:02.300
+documents.
+
+00:10:03.660 --> 00:10:06.012
+Right here I show 2 documents D1
+
+00:10:06.012 --> 00:10:09.020
+and D3 and we have the query
+
+00:10:09.020 --> 00:10:11.660
+also here. In the vectors space model
+
+00:10:11.660 --> 00:10:13.985
+of course we want to 1st compute the
+
+00:10:13.985 --> 00:10:16.355
+vectors for these documents and the
+
+00:10:16.355 --> 00:10:16.750
+query.
+
+00:10:16.750 --> 00:10:18.891
+Now I show the vocabulary here as well,
+
+00:10:18.891 --> 00:10:21.680
+so these are the N dimensions that
+
+00:10:21.680 --> 00:10:22.645
+will be thinking about.
+
+00:10:22.645 --> 00:10:25.540
+So what do you think is the vector
+
+00:10:25.540 --> 00:10:26.790
+representation for the query?
+
+00:10:27.600 --> 00:10:30.550
+Note that we are assuming that we only
+
+00:10:30.550 --> 00:10:33.730
+use zero and one to indicate whether
+
+00:10:33.730 --> 00:10:35.140
+the term is
+
+00:10:35.790 --> 00:10:38.066
+absent or present in the query or in
+
+00:10:38.066 --> 00:10:41.820
+the document, so these are 0/1 bit
+
+00:10:41.820 --> 00:10:42.430
+vectors.
+
+00:10:43.810 --> 00:10:45.450
+So what do you think is the query
+
+00:10:45.450 --> 00:10:45.940
+vector?
+
+00:10:47.750 --> 00:10:51.800
+The query has four words here, so for
+
+00:10:51.800 --> 00:10:54.366
+these four words there will be one and
+
+00:10:54.366 --> 00:10:56.189
+for the rest will be 0.
+
+00:10:57.570 --> 00:10:59.490
+Now, what about the documents? It's the
+
+00:10:59.490 --> 00:11:02.785
+same, so T1 has two words news and
+
+00:11:02.785 --> 00:11:03.207
+about.
+
+00:11:03.207 --> 00:11:05.450
+So there are two ones here and the rest
+
+00:11:05.450 --> 00:11:06.300
+of zeros.
+
+00:11:07.120 --> 00:11:08.100
+Similarly.
+
+00:11:08.780 --> 00:11:09.450
+So.
+
+00:11:10.410 --> 00:11:12.520
+Now that we have the two vectors.
+
+00:11:15.010 --> 00:11:16.540
+Let's compute the similarity.
+
+00:11:17.350 --> 00:11:19.690
+And we're going to use dot product so
+
+00:11:19.690 --> 00:11:21.710
+you can see when we use dot product we
+
+00:11:21.710 --> 00:11:24.520
+just multiply the corresponding
+
+00:11:24.520 --> 00:11:25.825
+elements, right?
+
+00:11:25.825 --> 00:11:27.540
+So these two will be.
+
+00:11:28.470 --> 00:11:29.190
+forming,
+
+00:11:30.120 --> 00:11:32.610
+forming product and these two will
+
+00:11:32.610 --> 00:11:34.980
+generate another product and these two
+
+00:11:34.980 --> 00:11:37.670
+will generate yet another product and so
+
+00:11:37.670 --> 00:11:38.340
+on so forth.
+
+00:11:39.900 --> 00:11:42.540
+Now you can easy to see if we do that.
+
+00:11:44.370 --> 00:11:46.690
+We actually don't have to care about.
+
+00:11:47.280 --> 00:11:49.000
+These zeros.
+
+00:11:50.250 --> 00:11:52.770
+Because if whenever we have zero the
+
+00:11:52.770 --> 00:11:54.110
+product will be 0.
+
+00:11:54.110 --> 00:11:56.990
+So when we take a sum over all these
+
+00:11:56.990 --> 00:11:57.620
+pairs
+
+00:11:59.000 --> 00:11:59.850
+then
+
+00:12:00.590 --> 00:12:03.140
+the zero entries will be gone.
+
+00:12:04.310 --> 00:12:06.690
+As long as you have 1 zero then the
+
+00:12:06.690 --> 00:12:08.090
+product will be 0.
+
+00:12:08.090 --> 00:12:11.200
+So in effect we're just counting how
+
+00:12:11.200 --> 00:12:11.760
+many
+
+00:12:12.720 --> 00:12:15.710
+Pairs of one and one, but in this case
+
+00:12:15.710 --> 00:12:17.960
+we have seen two, so the result would
+
+00:12:17.960 --> 00:12:18.675
+be two.
+
+00:12:18.675 --> 00:12:20.140
+So what does that mean?
+
+00:12:20.140 --> 00:12:22.910
+Well, that means this number or the
+
+00:12:22.910 --> 00:12:25.310
+value of this scoring function is
+
+00:12:25.310 --> 00:12:28.310
+simply the count of how many unique
+
+00:12:28.310 --> 00:12:29.980
+query terms are matched in the
+
+00:12:29.980 --> 00:12:30.560
+document.
+
+00:12:31.940 --> 00:12:34.680
+Because if a document, if a term is
+
+00:12:34.680 --> 00:12:37.850
+matched in the document, then there
+
+00:12:37.850 --> 00:12:39.360
+will be 2 ones.
+
+00:12:41.280 --> 00:12:43.490
+If it's not then there will be 0 on
+
+00:12:43.490 --> 00:12:44.880
+the document side.
+
+00:12:46.230 --> 00:12:49.139
+Similarly, if the document has a term,
+
+00:12:49.140 --> 00:12:50.830
+but the term is not in the query, there
+
+00:12:50.830 --> 00:12:53.390
+will be a zero in the query vector, so
+
+00:12:53.390 --> 00:12:54.430
+those don't count.
+
+00:12:54.430 --> 00:12:57.250
+So as a result this scoring function
+
+00:12:57.250 --> 00:12:58.050
+basically
+
+00:12:58.630 --> 00:13:02.060
+matches how many unique query terms are
+
+00:13:02.060 --> 00:13:03.710
+matched in the document.
+
+00:13:03.710 --> 00:13:05.950
+This is how we interpret this score.
+
+00:13:07.030 --> 00:13:10.420
+Now we can also take a look at the D3.
+
+00:13:10.420 --> 00:13:11.380
+In this case
+
+00:13:13.000 --> 00:13:13.900
+you can see
+
+00:13:14.530 --> 00:13:16.370
+the result is 3 because
+
+00:13:16.370 --> 00:13:18.320
+D3 matched three distinct
+
+00:13:18.320 --> 00:13:20.840
+query words: news, presidential, campaign.
+
+00:13:21.530 --> 00:13:23.770
+Whereas D1 only match two. Now
+
+00:13:23.770 --> 00:13:26.350
+in this case, it seems reasonable to
+
+00:13:26.350 --> 00:13:29.490
+rank D3 on top of D1 and
+
+00:13:29.490 --> 00:13:32.440
+this simplest vector space model indeed
+
+00:13:32.440 --> 00:13:34.730
+does that, so that looks pretty good.
+
+00:13:34.730 --> 00:13:37.069
+However, if we examine this model in
+
+00:13:37.070 --> 00:13:39.370
+detail, we likely will find some
+
+00:13:39.370 --> 00:13:39.970
+problems.
+
+00:13:39.970 --> 00:13:41.430
+So here I'm going to show
+
+00:13:42.020 --> 00:13:44.650
+all the scores for these five
+
+00:13:44.650 --> 00:13:45.220
+documents.
+
+00:13:46.520 --> 00:13:49.060
+And you can easily verify their correct
+
+00:13:49.060 --> 00:13:49.720
+because
+
+00:13:49.720 --> 00:13:52.200
+we're basically counting the number of
+
+00:13:52.200 --> 00:13:54.710
+unique query terms matched in each
+
+00:13:54.710 --> 00:13:55.240
+document.
+
+00:13:56.350 --> 00:13:58.150
+Now note that this matching actually that
+
+00:13:58.150 --> 00:13:59.260
+makes sense, right?
+
+00:13:59.260 --> 00:14:01.500
+It basically means if a document
+
+00:14:01.500 --> 00:14:03.956
+matches more unique query terms then
+
+00:14:03.956 --> 00:14:06.309
+the document will be assumed to be more
+
+00:14:06.310 --> 00:14:08.675
+relevant, and that seems to make sense.
+
+00:14:08.675 --> 00:14:12.420
+The only problem is here we can notice
+
+00:14:12.420 --> 00:14:17.860
+that there are three documents D2, D3, and D4 and they
+
+00:14:17.860 --> 00:14:20.850
+tied with a 3
+
+00:14:21.580 --> 00:14:22.500
+as a score.
+
+00:14:24.450 --> 00:14:26.490
+So that's a problem, because if you
+
+00:14:26.490 --> 00:14:29.560
+look at them carefully, it seems that
+
+00:14:30.770 --> 00:14:33.250
+D4 should be
+
+00:14:34.000 --> 00:14:36.960
+ranked above D3 because D3
+
+00:14:36.960 --> 00:14:39.720
+only mentioned presidential once, but
+
+00:14:39.720 --> 00:14:42.000
+D4 mentioned it multiple times.
+
+00:14:42.000 --> 00:14:44.340
+In the case of D3 presidential,
+
+00:14:44.340 --> 00:14:46.320
+could be an extended matching.
+
+00:14:47.510 --> 00:14:49.370
+But D4 is clearly about the
+
+00:14:49.370 --> 00:14:50.530
+presidential campaign.
+
+00:14:51.240 --> 00:14:53.060
+Another problem is that
+
+00:14:53.990 --> 00:14:57.550
+D2 and D3 also have the same score.
+
+00:14:58.130 --> 00:15:00.280
+But if you look at the three words that
+
+00:15:00.280 --> 00:15:02.620
+are matched in the case of D2
+
+00:15:03.560 --> 00:15:06.950
+it matched the news, about, and campaign.
+
+00:15:06.950 --> 00:15:08.802
+But in the case of D3, it
+
+00:15:08.802 --> 00:15:11.260
+matched news, presidential, and
+
+00:15:11.260 --> 00:15:11.670
+campaign.
+
+00:15:12.430 --> 00:15:15.400
+So intuitively D3 is better
+
+00:15:15.400 --> 00:15:18.670
+because matching presidential is
+
+00:15:19.380 --> 00:15:22.110
+more important than matching about even
+
+00:15:22.110 --> 00:15:24.480
+though about and presidential above in
+
+00:15:24.480 --> 00:15:25.070
+the query.
+
+00:15:25.840 --> 00:15:28.255
+So intuitively, we would like D3
+
+00:15:28.255 --> 00:15:29.970
+we ranked above D2.
+
+00:15:30.660 --> 00:15:33.040
+But this model doesn't do that.
+
+00:15:33.760 --> 00:15:36.520
+So that means this model is still not
+
+00:15:36.520 --> 00:15:37.420
+good enough.
+
+00:15:37.420 --> 00:15:39.250
+We have to solve these problems.
+
+00:15:41.280 --> 00:15:43.360
+To summarize, in this lecture we talked
+
+00:15:43.360 --> 00:15:45.480
+about how to instantiate a vector space
+
+00:15:45.480 --> 00:15:45.950
+model.
+
+00:15:47.490 --> 00:15:49.430
+We may need to do three things.
+
+00:15:49.430 --> 00:15:50.310
+One is to
+
+00:15:50.900 --> 00:15:52.200
+define the dimension.
+
+00:15:53.530 --> 00:15:57.230
+The second is to decide how to place
+
+00:15:57.860 --> 00:16:00.410
+documents as vectors in the vector
+
+00:16:00.410 --> 00:16:00.880
+space.
+
+00:16:01.550 --> 00:16:04.570
+And to also place a query in the vector
+
+00:16:04.570 --> 00:16:05.770
+space as a vector.
+
+00:16:08.020 --> 00:16:08.780
+And 3rd
+
+00:16:09.400 --> 00:16:12.880
+is to define the similarity between two
+
+00:16:12.880 --> 00:16:15.290
+vectors, particularly the query vector
+
+00:16:15.290 --> 00:16:17.880
+and the document vector. We also talk
+
+00:16:17.880 --> 00:16:21.310
+about a very simple way to instantiate
+
+00:16:21.310 --> 00:16:22.399
+vector space model.
+
+00:16:22.400 --> 00:16:24.970
+Indeed, that's probably the simplest
+
+00:16:24.970 --> 00:16:27.820
+vector space model that we can derive.
+
+00:16:27.820 --> 00:16:30.750
+In this case, we use each word to define a
+
+00:16:30.750 --> 00:16:31.410
+dimension.
+
+00:16:31.410 --> 00:16:35.325
+When user 0/1 bit vector to represent a
+
+00:16:35.325 --> 00:16:36.700
+document or a query.
+
+00:16:37.320 --> 00:16:40.020
+In this case, we basically only care
+
+00:16:40.020 --> 00:16:42.280
+about word presence or absence.
+
+00:16:42.280 --> 00:16:43.860
+We ignore the frequency.
+
+00:16:44.920 --> 00:16:47.570
+And we use the dot product as the
+
+00:16:47.570 --> 00:16:48.880
+similarity function.
+
+00:16:50.260 --> 00:16:53.970
+And with such a instantiation, and we
+
+00:16:53.970 --> 00:16:57.190
+showed that the scoring function is
+
+00:16:57.190 --> 00:16:59.885
+basically to score a document based on
+
+00:16:59.885 --> 00:17:02.120
+the number of distinct query words
+
+00:17:02.120 --> 00:17:03.570
+matched in the document.
+
+00:17:04.560 --> 00:17:07.130
+We also show that such a such simple vector
+
+00:17:07.130 --> 00:17:09.685
+space model still doesn't work well and
+
+00:17:09.685 --> 00:17:10.990
+we need to improve it.
+
+00:17:12.430 --> 00:17:14.510
+And this is a topic that we're going to
+
+00:17:14.510 --> 00:17:15.790
+cover in the next lecture.
+
+

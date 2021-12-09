@@ -1,0 +1,831 @@
+WEBVTT Kind: captions; Language: en-US
+
+NOTE
+Created on 2021-02-26T23:57:54.6099196Z by ClassTranscribe
+
+00:00:00.300 --> 00:00:02.890
+This lecture is about the methods for
+
+00:00:02.890 --> 00:00:04.220
+text categorization.
+
+00:00:12.570 --> 00:00:14.080
+So in this lecture were going to
+
+00:00:14.080 --> 00:00:15.690
+discuss how to do text
+
+00:00:15.690 --> 00:00:16.250
+categorization.
+
+00:00:19.330 --> 00:00:20.220
+1st.
+
+00:00:21.450 --> 00:00:23.520
+There are many methods for text
+
+00:00:23.520 --> 00:00:24.480
+categorization
+
+00:00:25.340 --> 00:00:28.940
+In such a method, the idea is to
+
+00:00:28.940 --> 00:00:31.100
+determine the category based on some
+
+00:00:31.100 --> 00:00:33.800
+rules that we design carefully to
+
+00:00:33.800 --> 00:00:35.780
+reflect the domain knowledge about the
+
+00:00:35.780 --> 00:00:37.400
+categorization problem.
+
+00:00:37.400 --> 00:00:40.120
+So, for example, if you want to do
+
+00:00:40.120 --> 00:00:41.980
+topical categorisation for news
+
+00:00:41.980 --> 00:00:44.320
+articles, you can say if the news
+
+00:00:44.320 --> 00:00:47.590
+article mentions word like game and
+
+00:00:47.590 --> 00:00:50.030
+Sports three times that we're going to
+
+00:00:50.030 --> 00:00:51.780
+say it's about sports.
+
+00:00:52.720 --> 00:00:55.180
+Things like that and this would allow
+
+00:00:55.180 --> 00:00:57.690
+us to deterministically decide which
+
+00:00:57.690 --> 00:00:59.920
+category A document should be put into.
+
+00:01:01.960 --> 00:01:05.910
+Now such a strategy would work well if
+
+00:01:05.910 --> 00:01:08.890
+the following conditions hold.
+
+00:01:08.890 --> 00:01:11.360
+First, the categories must be very well
+
+00:01:11.360 --> 00:01:14.150
+defined, and this allows the person to
+
+00:01:14.150 --> 00:01:17.550
+clearly decide the category based on
+
+00:01:17.550 --> 00:01:19.550
+some clear rules.
+
+00:01:21.580 --> 00:01:24.010
+Secondly, the categories
+
+00:01:25.459 --> 00:01:28.289
+have to be easy to distinguish based on
+
+00:01:28.289 --> 00:01:32.739
+surface features in text, so that means
+
+00:01:32.739 --> 00:01:36.004
+superficial features like keywords or
+
+00:01:36.004 --> 00:01:37.839
+punctuations or whatever.
+
+00:01:37.839 --> 00:01:40.529
+You can easily identify text data.
+
+00:01:41.399 --> 00:01:44.689
+For example, if there is some special
+
+00:01:44.689 --> 00:01:47.579
+vocabulary that is known to only occur
+
+00:01:47.579 --> 00:01:49.279
+in a particular category, and that
+
+00:01:49.279 --> 00:01:51.089
+would be most effective because we can
+
+00:01:51.089 --> 00:01:53.159
+easily use such a vocabulary or pattern
+
+00:01:53.159 --> 00:01:55.789
+of such a vocabulary to recognize this
+
+00:01:55.789 --> 00:01:56.149
+category.
+
+00:01:57.549 --> 00:02:00.889
+Now we also should have sufficient
+
+00:02:00.889 --> 00:02:01.719
+knowledge.
+
+00:02:02.659 --> 00:02:05.329
+For designing these rules and so if
+
+00:02:05.329 --> 00:02:08.299
+that's the case, then such a method can
+
+00:02:08.299 --> 00:02:11.759
+be effective, and so it does have a
+
+00:02:11.759 --> 00:02:15.999
+provisions in some domains and
+
+00:02:15.999 --> 00:02:16.849
+sometimes.
+
+00:02:16.849 --> 00:02:20.399
+However in general there are several
+
+00:02:20.399 --> 00:02:22.299
+problems with this approach.
+
+00:02:22.299 --> 00:02:24.849
+First, of course it's labor intensive.
+
+00:02:24.849 --> 00:02:27.019
+It requires a lot of manual work.
+
+00:02:27.019 --> 00:02:28.749
+Obviously we can't do this for all
+
+00:02:28.749 --> 00:02:30.159
+kinds of categorization problems.
+
+00:02:30.159 --> 00:02:31.749
+We have to do it
+
+00:02:33.209 --> 00:02:34.999
+From scratch for a different
+
+00:02:34.999 --> 00:02:37.369
+problem, becauses different rules would
+
+00:02:37.369 --> 00:02:39.639
+be needed so it doesn't scale up as
+
+00:02:39.639 --> 00:02:39.929
+well.
+
+00:02:40.979 --> 00:02:44.239
+ Secondly, it cannot handle
+
+00:02:44.239 --> 00:02:45.699
+uncertainties in rules.
+
+00:02:45.699 --> 00:02:51.679
+Often the rules aren't 100% reliable take
+
+00:02:51.679 --> 00:02:53.459
+for example, and looking at the
+
+00:02:53.459 --> 00:02:55.639
+occurrences of words in text and try to
+
+00:02:55.639 --> 00:02:56.649
+decide the topic.
+
+00:02:57.229 --> 00:03:01.059
+It's actually very hard to have 1%
+
+00:03:01.059 --> 00:03:02.009
+correct the rule.
+
+00:03:02.729 --> 00:03:04.909
+So for example, you can say if it has
+
+00:03:04.909 --> 00:03:08.489
+games, sports, basketball, then for
+
+00:03:08.489 --> 00:03:09.649
+sure it's about sports.
+
+00:03:09.649 --> 00:03:12.249
+But one can also imagine some text
+
+00:03:12.249 --> 00:03:14.269
+articles that mention these keywords.
+
+00:03:15.169 --> 00:03:18.452
+But that may not be exactly about the
+
+00:03:18.452 --> 00:03:20.689
+sports, or only marginally touching
+
+00:03:20.689 --> 00:03:21.279
+sports.
+
+00:03:21.279 --> 00:03:24.099
+The main topic could be another topic,
+
+00:03:24.099 --> 00:03:26.079
+different topic then sports.
+
+00:03:27.379 --> 00:03:29.939
+So that's one disadvantage of this
+
+00:03:29.939 --> 00:03:32.034
+approach, and then finally the rules
+
+00:03:32.034 --> 00:03:35.519
+may be inconsistent and this would need
+
+00:03:35.519 --> 00:03:38.199
+to concern about robustness more
+
+00:03:38.199 --> 00:03:41.042
+specifically, and sometimes the results
+
+00:03:41.042 --> 00:03:42.669
+of categorization may be different
+
+00:03:42.669 --> 00:03:44.709
+depending on which rule to be applied.
+
+00:03:44.709 --> 00:03:47.179
+So in that case then you will face
+
+00:03:47.179 --> 00:03:49.759
+uncertainty and you will also have to
+
+00:03:49.759 --> 00:03:52.519
+decide the order of applying the rules
+
+00:03:52.519 --> 00:03:55.789
+or combination of results that are
+
+00:03:55.789 --> 00:03:56.494
+contradictory.
+
+00:03:56.494 --> 00:03:57.859
+So all these.
+
+00:03:58.009 --> 00:04:01.239
+Problems with this approach, and it
+
+00:04:01.239 --> 00:04:03.869
+turns out that the both problems can be
+
+00:04:03.869 --> 00:04:05.859
+solved or alleviated by using machine
+
+00:04:05.859 --> 00:04:06.309
+learning.
+
+00:04:07.189 --> 00:04:10.859
+So these machine learning methods are
+
+00:04:10.859 --> 00:04:14.179
+more automatic, but I still put
+
+00:04:14.179 --> 00:04:16.669
+automatic in quotation marks cause
+
+00:04:16.669 --> 00:04:18.719
+they're not really completely automatic
+
+00:04:18.719 --> 00:04:21.139
+because it still require manual work.
+
+00:04:21.769 --> 00:04:23.999
+More specifically, we have to use human
+
+00:04:23.999 --> 00:04:26.319
+experts to help in two ways.
+
+00:04:26.319 --> 00:04:28.929
+First, the human experts must annotate
+
+00:04:28.929 --> 00:04:31.539
+datasets with category labels, will
+
+00:04:31.539 --> 00:04:33.619
+tell the computer which documents
+
+00:04:33.619 --> 00:04:35.739
+should not receive which categories.
+
+00:04:36.409 --> 00:04:38.404
+And this is called a training data.
+
+00:04:38.404 --> 00:04:41.309
+And then Secondly the human experts
+
+00:04:41.309 --> 00:04:43.259
+also need to provide a set of features
+
+00:04:43.259 --> 00:04:46.909
+to represent each text object that can
+
+00:04:46.909 --> 00:04:49.089
+potentially provide a clue about the
+
+00:04:49.089 --> 00:04:49.729
+category.
+
+00:04:49.729 --> 00:04:52.889
+So we need to provide some basic
+
+00:04:52.889 --> 00:04:54.739
+features for the computers to look
+
+00:04:54.739 --> 00:04:55.169
+into.
+
+00:04:55.779 --> 00:04:58.399
+And in the case of text, natural choice
+
+00:04:58.399 --> 00:04:59.339
+would be the words.
+
+00:04:59.339 --> 00:05:02.939
+So using each word as a feature is a
+
+00:05:02.939 --> 00:05:05.469
+very common choice to start with.
+
+00:05:05.469 --> 00:05:07.089
+But of course there are other sophisticated
+
+00:05:07.089 --> 00:05:08.969
+features like phrases or
+
+00:05:08.969 --> 00:05:11.419
+even policy feature tags or even
+
+00:05:11.419 --> 00:05:12.749
+syntactic structures.
+
+00:05:12.749 --> 00:05:15.919
+So once human experts can provide this,
+
+00:05:15.919 --> 00:05:17.359
+then we can use machine learning to
+
+00:05:17.359 --> 00:05:20.549
+learn soft rules for categorization
+
+00:05:20.549 --> 00:05:21.771
+from the training data.
+
+00:05:21.771 --> 00:05:24.939
+So soft rules just means we're going to
+
+00:05:24.939 --> 00:05:26.759
+still decide which category should be
+
+00:05:26.759 --> 00:05:27.869
+assigned to the document.
+
+00:05:27.919 --> 00:05:30.259
+But it's not going to be used using a
+
+00:05:30.259 --> 00:05:33.969
+rule that is deterministic, so we might
+
+00:05:33.969 --> 00:05:37.389
+use something similar to saying that if
+
+00:05:37.389 --> 00:05:39.959
+it matches game sports many times, it's
+
+00:05:39.959 --> 00:05:41.309
+likely to be a sports.
+
+00:05:41.309 --> 00:05:43.799
+But we're not going to say exactly for
+
+00:05:43.799 --> 00:05:45.299
+sure, but instead we're going to use
+
+00:05:45.299 --> 00:05:48.069
+probabilities or weights so that we can
+
+00:05:48.069 --> 00:05:51.129
+combine multiple evidences, so the
+
+00:05:51.129 --> 00:05:52.789
+learning process basically is going to
+
+00:05:52.789 --> 00:05:54.189
+figure out which features are most
+
+00:05:54.189 --> 00:05:55.759
+useful for separating different
+
+00:05:55.759 --> 00:05:56.479
+categories.
+
+00:05:57.029 --> 00:05:58.954
+And it's going to also figure out how
+
+00:05:58.954 --> 00:06:01.149
+to optimally combine features to
+
+00:06:01.149 --> 00:06:03.659
+minimize errors of categorisation on
+
+00:06:03.659 --> 00:06:05.839
+the training data, so the training data
+
+00:06:05.839 --> 00:06:08.179
+as you can see very important.
+
+00:06:08.799 --> 00:06:10.159
+It's the basis for learning.
+
+00:06:10.869 --> 00:06:12.759
+And then the train classifier can be
+
+00:06:12.759 --> 00:06:14.608
+applied to a new text object to
+
+00:06:14.609 --> 00:06:16.949
+predict the most likely category, and
+
+00:06:16.949 --> 00:06:19.539
+that's to simulate the prediction of
+
+00:06:19.539 --> 00:06:23.999
+what a human would assign to this text
+
+00:06:23.999 --> 00:06:24.579
+object.
+
+00:06:24.579 --> 00:06:27.059
+If the human would to make a judgement.
+
+00:06:27.059 --> 00:06:30.879
+So when we use machine learning for
+
+00:06:30.879 --> 00:06:33.449
+text categorization, we can also talk
+
+00:06:33.449 --> 00:06:36.879
+about the problem in the general
+
+00:06:36.879 --> 00:06:39.082
+setting of supervised learning.
+
+00:06:39.082 --> 00:06:40.929
+So the setup is.
+
+00:06:41.259 --> 00:06:44.724
+To learn a classifier to map a value of
+
+00:06:44.724 --> 00:06:46.929
+X into a map of Y.
+
+00:06:46.929 --> 00:06:50.049
+So here X is all the text objects.
+
+00:06:50.739 --> 00:06:54.505
+And Y is all the categories a set of
+
+00:06:54.505 --> 00:06:56.389
+categories, so the classifier would
+
+00:06:56.389 --> 00:07:00.539
+take any value in X as input and we
+
+00:07:00.539 --> 00:07:03.151
+generate the value in Y as output, and
+
+00:07:03.151 --> 00:07:06.729
+we hope the output Y would be the right
+
+00:07:06.729 --> 00:07:10.139
+category for X, and here correct of course
+
+00:07:10.139 --> 00:07:12.189
+is judged based on the training data,
+
+00:07:12.189 --> 00:07:14.972
+so that's the general goal, like in all
+
+00:07:14.972 --> 00:07:16.879
+the machine learning problems or
+
+00:07:16.879 --> 00:07:19.179
+supervised learning problems where you
+
+00:07:19.179 --> 00:07:21.079
+are given some examples of
+
+00:07:21.129 --> 00:07:23.234
+Input and output for function and then
+
+00:07:23.234 --> 00:07:27.279
+the computer is going to figure out how
+
+00:07:27.279 --> 00:07:29.859
+the function behaves like based on
+
+00:07:29.859 --> 00:07:32.504
+these examples and then try to be able
+
+00:07:32.504 --> 00:07:35.249
+to compute the values for future access
+
+00:07:35.249 --> 00:07:36.469
+that we have not seen.
+
+00:07:38.699 --> 00:07:41.809
+So in general, all methods would
+
+00:07:41.809 --> 00:07:44.219
+rely on discriminating features of text
+
+00:07:44.219 --> 00:07:45.759
+objects to distinguish different
+
+00:07:45.759 --> 00:07:47.639
+categories, so that's why these
+
+00:07:47.639 --> 00:07:49.519
+features are very important and they
+
+00:07:49.519 --> 00:07:51.799
+have to be provided by humans.
+
+00:07:52.599 --> 00:07:54.379
+And they will also combine multiple
+
+00:07:54.379 --> 00:07:56.349
+features in a weighted matter with
+
+00:07:56.349 --> 00:08:00.782
+weights to be optimized to minimize the
+
+00:08:00.782 --> 00:08:02.698
+errors on the training data.
+
+00:08:02.699 --> 00:08:04.649
+So ultimately, the learning processes
+
+00:08:04.649 --> 00:08:06.979
+optimization problem and the objective
+
+00:08:06.979 --> 00:08:09.690
+function is often tide to the errors on
+
+00:08:09.690 --> 00:08:10.898
+the training data.
+
+00:08:12.519 --> 00:08:14.519
+Different methods tend to vary in their
+
+00:08:14.519 --> 00:08:17.039
+ways of measuring the errors on the
+
+00:08:17.039 --> 00:08:18.369
+training data.
+
+00:08:18.369 --> 00:08:21.169
+They might optimize a different object
+
+00:08:21.169 --> 00:08:23.539
+function, which is often also called a
+
+00:08:23.539 --> 00:08:25.459
+loss function or cost function.
+
+00:08:26.409 --> 00:08:29.069
+They also tend to vary in their ways of
+
+00:08:29.069 --> 00:08:32.559
+combining the features, so linear
+
+00:08:32.559 --> 00:08:35.259
+combination for example is simple is
+
+00:08:35.259 --> 00:08:36.329
+often used.
+
+00:08:36.899 --> 00:08:39.179
+But they're not as powerful as non
+
+00:08:39.179 --> 00:08:40.989
+linear combination, but nonlinear
+
+00:08:40.989 --> 00:08:43.249
+models might be more complex for
+
+00:08:43.249 --> 00:08:43.789
+training.
+
+00:08:43.789 --> 00:08:46.049
+So there are tradeoffs as well, but
+
+00:08:46.049 --> 00:08:48.259
+that would lead to different variations
+
+00:08:48.259 --> 00:08:48.719
+of.
+
+00:08:50.039 --> 00:08:52.099
+Many variations of these learning
+
+00:08:52.099 --> 00:08:52.649
+methods.
+
+00:08:53.429 --> 00:08:55.619
+So in general, we can distinguish the
+
+00:08:55.619 --> 00:08:59.029
+two kinds of classifiers at a high level
+
+00:08:59.029 --> 00:09:00.784
+one is going to generative classifiers.
+
+00:09:00.784 --> 00:09:02.484
+The other is called discriminative
+
+00:09:02.484 --> 00:09:03.209
+classifiers.
+
+00:09:03.859 --> 00:09:07.209
+The generative classifiers try to learn
+
+00:09:07.209 --> 00:09:09.129
+what the data looks like in each
+
+00:09:09.129 --> 00:09:09.759
+category.
+
+00:09:10.699 --> 00:09:12.999
+So it attempts to model the join the
+
+00:09:12.999 --> 00:09:15.169
+distribution of the data and the label
+
+00:09:15.169 --> 00:09:16.399
+X&amp;Y.
+
+00:09:17.349 --> 00:09:21.599
+And, this can then be factored out to
+
+00:09:21.599 --> 00:09:24.273
+a product of Y.
+
+00:09:24.273 --> 00:09:29.489
+The distribution of labels and join the
+
+00:09:29.489 --> 00:09:33.739
+probability of sorry the conditional
+
+00:09:33.739 --> 00:09:36.732
+probability of X given Y so it's Y.
+
+00:09:36.732 --> 00:09:39.216
+So we first model distribution of
+
+00:09:39.216 --> 00:09:42.939
+labels and then we model how the data
+
+00:09:42.939 --> 00:09:46.039
+is generated given a particular label
+
+00:09:46.039 --> 00:09:46.469
+here.
+
+00:09:48.379 --> 00:09:51.569
+And once we can estimate these models,
+
+00:09:51.569 --> 00:09:53.569
+then we can compute this
+
+00:09:53.569 --> 00:09:56.279
+conditional probability of label given
+
+00:09:56.279 --> 00:09:58.009
+data based on.
+
+00:09:58.649 --> 00:10:01.409
+The probability of data given label.
+
+00:10:02.559 --> 00:10:04.819
+And the label distribution here by
+
+00:10:04.819 --> 00:10:05.989
+using the base rule.
+
+00:10:07.069 --> 00:10:09.569
+Now this is the most important thing
+
+00:10:09.569 --> 00:10:11.899
+'cause this conditional probability of
+
+00:10:11.899 --> 00:10:14.669
+the label can then be used directly to
+
+00:10:14.669 --> 00:10:16.929
+decide which label is most likely.
+
+00:10:18.679 --> 00:10:20.649
+So in such approaches, the objective
+
+00:10:20.649 --> 00:10:23.814
+function is actually likelihood, so we model
+
+00:10:23.814 --> 00:10:27.434
+how the data are generated, so only thus it
+
+00:10:27.434 --> 00:10:29.949
+only indirectly captures the training
+
+00:10:29.949 --> 00:10:30.509
+errors.
+
+00:10:31.279 --> 00:10:33.739
+But if we can model the data in each
+
+00:10:33.739 --> 00:10:35.749
+category accurately, then we can also
+
+00:10:35.749 --> 00:10:37.169
+classify accurately.
+
+00:10:37.929 --> 00:10:41.019
+One example is naive Bayes classifier.
+
+00:10:41.809 --> 00:10:42.599
+In this case.
+
+00:10:43.329 --> 00:10:47.219
+The other kind of approaches are called
+
+00:10:47.219 --> 00:10:48.709
+discriminative classifiers.
+
+00:10:48.709 --> 00:10:51.689
+These classifiers try to learn what
+
+00:10:51.689 --> 00:10:53.899
+features separate categories, so they
+
+00:10:53.899 --> 00:10:55.629
+directly tackle the problem of
+
+00:10:55.629 --> 00:10:57.269
+categorisation or separation of
+
+00:10:57.269 --> 00:10:57.919
+classes.
+
+00:10:58.799 --> 00:11:03.199
+So sorry for the problem.
+
+00:11:04.209 --> 00:11:06.759
+So these discriminative classifiers
+
+00:11:06.759 --> 00:11:09.459
+attempted to model the.
+
+00:11:10.339 --> 00:11:11.319
+Conditional.
+
+00:11:12.039 --> 00:11:14.539
+Probability of the label given the data
+
+00:11:14.539 --> 00:11:15.849
+point directly.
+
+00:11:16.519 --> 00:11:18.999
+So the objective function tends to
+
+00:11:18.999 --> 00:11:20.719
+directly measure the errors of
+
+00:11:20.719 --> 00:11:22.539
+categorisation on the training data.
+
+00:11:24.169 --> 00:11:26.189
+Some examples include the logistical
+
+00:11:26.189 --> 00:11:28.669
+regression support vector machines and
+
+00:11:28.669 --> 00:11:30.339
+the K nearest neighbors.
+
+00:11:31.629 --> 00:11:35.029
+We will cover some of these classifiers
+
+00:11:35.029 --> 00:11:38.029
+in detail in the next few lectures.
+
+

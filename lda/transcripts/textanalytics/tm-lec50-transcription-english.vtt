@@ -1,0 +1,1299 @@
+WEBVTT Kind: captions; Language: en-US
+
+NOTE
+Created on 2021-02-27T00:00:43.4842580Z by ClassTranscribe
+
+00:00:00.300 --> 00:00:02.730
+This lecture is about a specific
+
+00:00:02.730 --> 00:00:05.580
+technique for contextual text mining
+
+00:00:05.580 --> 00:00:07.800
+called contextual probabilistic latent
+
+00:00:07.800 --> 00:00:09.000
+semantic analysis.
+
+00:00:19.280 --> 00:00:20.630
+In this lecture, we're going to
+
+00:00:20.630 --> 00:00:22.690
+continue discussing contextual text
+
+00:00:22.690 --> 00:00:23.100
+mining.
+
+00:00:23.830 --> 00:00:25.890
+And we're going to introduce contextual
+
+00:00:25.890 --> 00:00:26.630
+probabilistic
+
+00:00:26.630 --> 00:00:28.310
+latent semantic analysis
+
+00:00:28.880 --> 00:00:31.610
+As an extension of PLSA for doing
+
+00:00:31.610 --> 00:00:32.780
+contextual text mining.
+
+00:00:34.270 --> 00:00:37.200
+Recall that in contextual text mining
+
+00:00:37.200 --> 00:00:39.389
+we hope to analyze topics in text.
+
+00:00:40.030 --> 00:00:42.540
+In consideration of context so that we
+
+00:00:42.540 --> 00:00:44.710
+can associate the topics with
+
+00:00:44.710 --> 00:00:46.350
+appropriate context that we're
+
+00:00:46.350 --> 00:00:47.100
+interested in.
+
+00:00:47.980 --> 00:00:50.210
+So in this approach contextual 
+
+00:00:50.210 --> 00:00:52.290
+probabilistic latent semantic
+
+00:00:52.290 --> 00:00:54.330
+analysis or CPLSA
+
+00:00:55.030 --> 00:00:57.840
+The main idea is to explicitly add
+
+00:00:57.840 --> 00:01:01.010
+interesting context variables into a
+
+00:01:01.010 --> 00:01:02.930
+generated model.
+
+00:01:02.930 --> 00:01:04.870
+Recall that before when we generate the
+
+00:01:04.870 --> 00:01:07.110
+text, we generally assume we will start
+
+00:01:07.110 --> 00:01:09.110
+with some topics and then sample words
+
+00:01:09.110 --> 00:01:10.010
+from some topics.
+
+00:01:10.630 --> 00:01:12.950
+But here we are going to add context
+
+00:01:12.950 --> 00:01:17.670
+variables so that the coverage of
+
+00:01:17.670 --> 00:01:20.660
+topics and also the content of topics
+
+00:01:20.660 --> 00:01:22.670
+will be tight little context.
+
+00:01:23.350 --> 00:01:25.470
+Or in other words, we can do let the
+
+00:01:25.470 --> 00:01:28.000
+context influence both coverage and
+
+00:01:28.000 --> 00:01:29.240
+content of a topic.
+
+00:01:31.010 --> 00:01:33.420
+The consequences that this would enable
+
+00:01:33.420 --> 00:01:37.270
+us to discover contextualized topics
+
+00:01:37.270 --> 00:01:39.950
+make the topics more interesting, more
+
+00:01:39.950 --> 00:01:43.365
+meaningful, because we can then have
+
+00:01:43.365 --> 00:01:45.990
+topics that can be interpreted as
+
+00:01:45.990 --> 00:01:48.010
+specific to a particular context that
+
+00:01:48.010 --> 00:01:48.990
+we're interested in.
+
+00:01:48.990 --> 00:01:50.750
+For example, a particular time period.
+
+00:01:51.910 --> 00:01:56.460
+As extension of PLSA model, CPLSA
+
+00:01:56.460 --> 00:02:00.900
+mainly does the following changes.
+
+00:02:00.900 --> 00:02:03.340
+Firstly it would model the conditional
+
+00:02:03.340 --> 00:02:05.850
+likelihood of text given context.
+
+00:02:06.730 --> 00:02:09.369
+That clearly suggests that the
+
+00:02:09.370 --> 00:02:12.300
+generation of text would then depend on
+
+00:02:12.300 --> 00:02:15.095
+context, and that allows us to bring
+
+00:02:15.095 --> 00:02:16.770
+context into the generative model.
+
+00:02:18.120 --> 00:02:20.790
+Secondly, it makes 2 specific
+
+00:02:20.790 --> 00:02:22.490
+assumptions about the dependency of
+
+00:02:22.490 --> 00:02:24.300
+topics on context.
+
+00:02:24.300 --> 00:02:26.965
+One is to assume that depending on the
+
+00:02:26.965 --> 00:02:28.390
+context depending on different time
+
+00:02:28.390 --> 00:02:30.306
+periods or different locations, we
+
+00:02:30.306 --> 00:02:32.770
+assume that there are different views
+
+00:02:32.770 --> 00:02:35.040
+of the topic or different versions of
+
+00:02:35.040 --> 00:02:37.675
+word distributions that characterize a
+
+00:02:37.675 --> 00:02:40.340
+topic, and this assumption allows us to
+
+00:02:40.340 --> 00:02:43.300
+discover different variations of the
+
+00:02:43.300 --> 00:02:45.943
+same topic in different context.
+
+00:02:45.943 --> 00:02:48.900
+The other is that we assume.
+
+00:02:48.950 --> 00:02:52.550
+The topic coverage also depends on the
+
+00:02:52.550 --> 00:02:53.220
+context.
+
+00:02:54.240 --> 00:02:56.140
+And that means depending on the time or
+
+00:02:56.140 --> 00:02:58.520
+location, we might cover topics
+
+00:02:58.520 --> 00:02:59.160
+differently.
+
+00:02:59.160 --> 00:03:01.995
+And then again this dependency would
+
+00:03:01.995 --> 00:03:03.920
+then allow us to capture the
+
+00:03:03.920 --> 00:03:07.320
+association of topics with specific
+
+00:03:07.320 --> 00:03:07.780
+context.
+
+00:03:09.380 --> 00:03:11.630
+We can still use the EM algorithm to
+
+00:03:11.630 --> 00:03:14.060
+solve the problem of parameter
+
+00:03:14.060 --> 00:03:14.760
+estimation.
+
+00:03:15.440 --> 00:03:17.320
+And in this case, the estimate premise
+
+00:03:17.320 --> 00:03:20.510
+would naturally contain context
+
+00:03:20.510 --> 00:03:23.230
+variables, and in particular a lot of
+
+00:03:23.230 --> 00:03:25.590
+conditional probabilities of topics
+
+00:03:25.590 --> 00:03:28.450
+given certain context.
+
+00:03:29.830 --> 00:03:31.290
+And this would allow us to do
+
+00:03:31.290 --> 00:03:32.440
+contextual text mining.
+
+00:03:33.000 --> 00:03:34.690
+So this is the basic idea.
+
+00:03:35.640 --> 00:03:39.330
+Now we don't have time to introduce
+
+00:03:39.330 --> 00:03:42.050
+this model in detail, but there are
+
+00:03:42.050 --> 00:03:43.925
+references here that you can look into
+
+00:03:43.925 --> 00:03:45.879
+to know more detail here.
+
+00:03:45.880 --> 00:03:50.000
+I just want to explain the high level
+
+00:03:50.000 --> 00:03:52.790
+ideas in more detail, particularly
+
+00:03:52.790 --> 00:03:54.450
+willing to explain the generation
+
+00:03:54.450 --> 00:03:58.440
+process of text data that has context
+
+00:03:58.440 --> 00:04:00.490
+associated in such a model.
+
+00:04:01.230 --> 00:04:04.070
+So as you see here, we can assume there
+
+00:04:04.070 --> 00:04:05.640
+are still multiple topics.
+
+00:04:05.640 --> 00:04:08.500
+For example, some topics might
+
+00:04:08.500 --> 00:04:10.630
+represent the themes like a government
+
+00:04:10.630 --> 00:04:13.766
+response donation or the city of New
+
+00:04:13.766 --> 00:04:14.139
+Orleans.
+
+00:04:14.140 --> 00:04:17.190
+Now this example is in the context of
+
+00:04:17.190 --> 00:04:20.779
+Hurricane Katrina and that hit New Orleans.
+
+00:04:22.970 --> 00:04:26.200
+Now, as you can see, we assume there
+
+00:04:26.200 --> 00:04:30.210
+are different views associated with the
+
+00:04:30.210 --> 00:04:31.600
+each of the topics.
+
+00:04:32.300 --> 00:04:36.615
+And these are shown as view one, view two and
+
+00:04:36.615 --> 00:04:37.420
+view three
+
+00:04:37.420 --> 00:04:39.530
+Each view is a different version of
+
+00:04:39.530 --> 00:04:40.690
+word distributions.
+
+00:04:41.370 --> 00:04:43.390
+And these views are tide to some
+
+00:04:43.390 --> 00:04:44.640
+context variables.
+
+00:04:44.640 --> 00:04:46.616
+For example, type to the location Texas
+
+00:04:46.616 --> 00:04:51.360
+or the time July 2005 or the occupation
+
+00:04:51.360 --> 00:04:54.550
+of the other being sociologist.
+
+00:04:55.950 --> 00:04:59.450
+Now on the right side you see now we assume the
+
+00:04:59.450 --> 00:05:01.380
+document has contact information, so
+
+00:05:01.380 --> 00:05:05.270
+the time is known to be July 2005,
+
+00:05:05.270 --> 00:05:07.110
+location is Texas, etc.
+
+00:05:07.110 --> 00:05:10.210
+Now such context information is what we
+
+00:05:10.210 --> 00:05:11.365
+hope to model as well.
+
+00:05:11.365 --> 00:05:12.950
+So we're not going to just model the
+
+00:05:12.950 --> 00:05:13.370
+text.
+
+00:05:15.000 --> 00:05:18.490
+And so one idea here is to model the
+
+00:05:18.490 --> 00:05:20.990
+variations of topic content in
+
+00:05:20.990 --> 00:05:22.820
+different context and this gives us
+
+00:05:22.820 --> 00:05:25.250
+different views of the world
+
+00:05:25.250 --> 00:05:26.080
+distributions.
+
+00:05:27.600 --> 00:05:29.260
+Now on the bottom you will see the
+
+00:05:29.260 --> 00:05:31.660
+theme coverage or topic coverage might
+
+00:05:31.660 --> 00:05:33.920
+also vary according to these context.
+
+00:05:34.870 --> 00:05:36.680
+Because in the.
+
+00:05:38.380 --> 00:05:41.290
+In the case of location like Texas,
+
+00:05:41.290 --> 00:05:43.460
+people might want to cover the red
+
+00:05:43.460 --> 00:05:46.340
+topics more at the new audience, as
+
+00:05:46.340 --> 00:05:47.460
+visualized here.
+
+00:05:47.460 --> 00:05:51.600
+But in a certain time period, maybe
+
+00:05:51.600 --> 00:05:55.510
+particular topic like donation will be
+
+00:05:55.510 --> 00:05:59.000
+covered more so this variation is also
+
+00:05:59.000 --> 00:06:01.350
+considered in CPLSA.
+
+00:06:02.110 --> 00:06:04.590
+So to generate such a document with
+
+00:06:04.590 --> 00:06:07.940
+context, we first also choose a view.
+
+00:06:08.590 --> 00:06:11.420
+And this view of course now could be
+
+00:06:11.420 --> 00:06:13.940
+from any of these contexts.
+
+00:06:13.940 --> 00:06:15.470
+Let's say we have taken this view.
+
+00:06:15.470 --> 00:06:17.620
+That depends on the time in the middle.
+
+00:06:18.200 --> 00:06:20.660
+So now we have a specific version of
+
+00:06:20.660 --> 00:06:21.435
+word distributions.
+
+00:06:21.435 --> 00:06:23.420
+Now you can see some probabilities of
+
+00:06:23.420 --> 00:06:25.210
+words for each topic.
+
+00:06:26.570 --> 00:06:29.570
+Now, once we have chosen a view, now
+
+00:06:29.570 --> 00:06:32.000
+the situation will be very similar to
+
+00:06:32.000 --> 00:06:34.015
+what happened in standard PLSA.
+
+00:06:34.015 --> 00:06:36.000
+We assume we have got a word
+
+00:06:36.000 --> 00:06:38.170
+distribution associated with each
+
+00:06:38.170 --> 00:06:38.990
+topic, right?
+
+00:06:39.750 --> 00:06:41.040
+And then next to the view we choose a
+
+00:06:41.040 --> 00:06:42.820
+coverage from the bottom.
+
+00:06:42.820 --> 00:06:44.810
+So we're going to choose particular
+
+00:06:44.810 --> 00:06:48.170
+coverage and that coverage.
+
+00:06:48.960 --> 00:06:54.120
+Before is fixed in PLSA and it's hard to
+
+00:06:54.120 --> 00:06:55.020
+a particular document.
+
+00:06:55.020 --> 00:06:56.940
+Each document has just one coverage
+
+00:06:56.940 --> 00:06:57.640
+distribution.
+
+00:06:58.770 --> 00:07:01.120
+Now here, because we consider context
+
+00:07:01.120 --> 00:07:03.735
+so the distribution of topics or the
+
+00:07:03.735 --> 00:07:06.340
+coverage of topics can vary depending
+
+00:07:06.340 --> 00:07:08.650
+on the context that has influenced the
+
+00:07:08.650 --> 00:07:09.010
+coverage.
+
+00:07:09.890 --> 00:07:11.790
+So, for example, we might pick a
+
+00:07:11.790 --> 00:07:14.100
+particular coverage, let's say in this
+
+00:07:14.100 --> 00:07:14.540
+case.
+
+00:07:15.290 --> 00:07:16.530
+We pick
+
+00:07:16.530 --> 00:07:18.560
+We've picked the document specifically
+
+00:07:18.560 --> 00:07:21.920
+coverage now with the coverage and
+
+00:07:21.920 --> 00:07:23.700
+these word distributions, we can
+
+00:07:23.700 --> 00:07:25.410
+generate the document in exactly the
+
+00:07:25.410 --> 00:07:26.970
+same way as in PLSA.
+
+00:07:26.970 --> 00:07:30.067
+So what it means we're going to use the
+
+00:07:30.067 --> 00:07:32.830
+coverage to choose a topic to choose
+
+00:07:32.830 --> 00:07:34.130
+one of these three topics.
+
+00:07:34.750 --> 00:07:36.702
+Let's say we have picked up, let's say,
+
+00:07:36.702 --> 00:07:40.000
+the yellow topic, then withdraw a word
+
+00:07:40.000 --> 00:07:43.710
+from this particular topic on the top.
+
+00:07:44.720 --> 00:07:46.060
+So we might get the word
+
+00:07:46.060 --> 00:07:47.070
+like government.
+
+00:07:47.850 --> 00:07:49.240
+And then next time we might choose a
+
+00:07:49.240 --> 00:07:52.150
+different topic, an will get donate,
+
+00:07:52.150 --> 00:07:54.990
+etc right until we generate all the
+
+00:07:54.990 --> 00:07:56.810
+words and this is basically the same
+
+00:07:56.810 --> 00:07:58.760
+process as in PLSA.
+
+00:07:59.470 --> 00:08:02.450
+Now, so the main difference is when we
+
+00:08:02.450 --> 00:08:06.780
+obtain the coverage and the word
+
+00:08:06.780 --> 00:08:09.490
+distributions, we let the context
+
+00:08:09.490 --> 00:08:10.900
+influence our choice.
+
+00:08:10.900 --> 00:08:12.580
+So in other words, we have extra
+
+00:08:12.580 --> 00:08:15.506
+switches that are tied to this context
+
+00:08:15.506 --> 00:08:18.010
+that would control the choices of
+
+00:08:18.010 --> 00:08:20.285
+different views of topics and choices
+
+00:08:20.285 --> 00:08:21.250
+of coverage.
+
+00:08:21.890 --> 00:08:23.982
+And naturally, the model will have more
+
+00:08:23.982 --> 00:08:26.100
+parameters to estimate, but once we can
+
+00:08:26.100 --> 00:08:27.986
+estimate those parameters that involve
+
+00:08:27.986 --> 00:08:29.810
+the context, then we will be able to
+
+00:08:29.810 --> 00:08:31.466
+understand the context of
+
+00:08:31.466 --> 00:08:33.745
+specific views of topics or context of
+
+00:08:33.745 --> 00:08:35.706
+specific coverages of topics.
+
+00:08:35.706 --> 00:08:37.770
+And this is precisely what we want in
+
+00:08:37.770 --> 00:08:39.050
+contextual text mining.
+
+00:08:40.290 --> 00:08:43.300
+So here are some sample results from
+
+00:08:43.300 --> 00:08:44.310
+using such a model.
+
+00:08:44.310 --> 00:08:45.990
+Not necessary exactly the same model,
+
+00:08:45.990 --> 00:08:47.870
+but similar models.
+
+00:08:47.870 --> 00:08:50.213
+So on this slide you see some sample
+
+00:08:50.213 --> 00:08:52.500
+results of comparing news articles
+
+00:08:52.500 --> 00:08:55.170
+about Iraq war and Afghanistan war.
+
+00:08:56.210 --> 00:08:57.850
+Now we have about 30 articles.
+
+00:08:58.980 --> 00:09:01.190
+On Iraq war and 26 articles on
+
+00:09:01.190 --> 00:09:02.140
+Afghanistan war.
+
+00:09:02.760 --> 00:09:04.890
+Now, in this case, the goal is to.
+
+00:09:06.460 --> 00:09:09.460
+To review the common topics covered in
+
+00:09:09.460 --> 00:09:12.230
+both sets, articles and the differences
+
+00:09:12.230 --> 00:09:16.479
+or variations of the topic in each of the
+
+00:09:16.480 --> 00:09:17.450
+two collections.
+
+00:09:18.530 --> 00:09:20.170
+So in this case, the context that is
+
+00:09:20.170 --> 00:09:22.960
+explicitly specified by the topical
+
+00:09:22.960 --> 00:09:23.550
+collection.
+
+00:09:24.930 --> 00:09:27.840
+And we see the results here show that.
+
+00:09:28.880 --> 00:09:32.010
+There is a common theme that's
+
+00:09:32.010 --> 00:09:34.150
+corresponding to cluster around here in
+
+00:09:34.150 --> 00:09:34.970
+this column.
+
+00:09:35.950 --> 00:09:38.474
+That there is a common theme indicating
+
+00:09:38.474 --> 00:09:41.070
+that United Nations is involved in both
+
+00:09:41.070 --> 00:09:43.979
+wars is a common topic covered in both
+
+00:09:43.980 --> 00:09:46.430
+sets of articles, and that's indicated
+
+00:09:46.430 --> 00:09:48.790
+by the high probability words shown here
+
+00:09:48.790 --> 00:09:49.870
+United Nations.
+
+00:09:51.050 --> 00:09:52.876
+Now if you the background, of course
+
+00:09:52.876 --> 00:09:56.040
+this is not surprising and this is.
+
+00:09:56.620 --> 00:09:58.700
+This topic is indeed very relevant,
+
+00:09:58.700 --> 00:09:59.350
+to both wars.
+
+00:10:00.220 --> 00:10:02.160
+If you look at the column further and
+
+00:10:02.160 --> 00:10:05.560
+what's interesting is that the next two
+
+00:10:05.560 --> 00:10:08.570
+cells of word distributions actually
+
+00:10:08.570 --> 00:10:11.520
+tell US collection specific variations
+
+00:10:11.520 --> 00:10:14.580
+of the topic of United Nations.
+
+00:10:14.580 --> 00:10:16.694
+So it indicates that in Iraq war,
+
+00:10:16.694 --> 00:10:18.879
+United Nations was more involved in
+
+00:10:18.880 --> 00:10:21.160
+weapon inspections, whereas in
+
+00:10:21.160 --> 00:10:23.770
+Afghanistan war it was more involved in
+
+00:10:23.770 --> 00:10:25.930
+maybe aid to Northern Alliance as a
+
+00:10:25.930 --> 00:10:28.523
+different variation of the topic of
+
+00:10:28.523 --> 00:10:29.089
+United Nations.
+
+00:10:30.010 --> 00:10:31.970
+So this shows that by bringing the
+
+00:10:31.970 --> 00:10:34.730
+context, in this case, different wars
+
+00:10:34.730 --> 00:10:36.290
+are different collections of text.
+
+00:10:36.290 --> 00:10:39.750
+We can have topic variations, tied to
+
+00:10:39.750 --> 00:10:41.690
+these contexts to review the
+
+00:10:41.690 --> 00:10:43.430
+differences of coverage of United
+
+00:10:43.430 --> 00:10:45.340
+Nations in the two wars.
+
+00:10:46.190 --> 00:10:47.870
+Similarly, if you look at the second
+
+00:10:47.870 --> 00:10:48.570
+cluster.
+
+00:10:49.480 --> 00:10:51.610
+Cluster 2 has to do with the killing
+
+00:10:51.610 --> 00:10:52.840
+of people and again.
+
+00:10:52.840 --> 00:10:55.020
+Not surprising if you know the background
+
+00:10:55.020 --> 00:10:57.427
+about wars or the wars involved
+
+00:10:57.427 --> 00:10:58.530
+killing of people.
+
+00:10:59.100 --> 00:11:02.270
+But imagine if you are not familiar
+
+00:11:02.270 --> 00:11:04.180
+with the text collections or have a lot
+
+00:11:04.180 --> 00:11:05.840
+of text articles and such a technique
+
+00:11:05.840 --> 00:11:08.760
+can review the common topics covered in
+
+00:11:08.760 --> 00:11:10.220
+both sets of articles.
+
+00:11:10.220 --> 00:11:12.298
+It can be used to review common topics
+
+00:11:12.298 --> 00:11:14.890
+in multiple sets of articles as well.
+
+00:11:14.890 --> 00:11:17.480
+If you look down, of course in that
+
+00:11:17.480 --> 00:11:20.370
+column of cluster 2 you see variations
+
+00:11:20.370 --> 00:11:23.310
+of killing of people and that
+
+00:11:23.310 --> 00:11:25.620
+correspond to in different different
+
+00:11:25.620 --> 00:11:26.300
+contexts.
+
+00:11:28.390 --> 00:11:31.940
+And here is another example of results.
+
+00:11:33.360 --> 00:11:35.390
+Obtain the front block articles about
+
+00:11:35.390 --> 00:11:36.620
+the Hurricane Katrina.
+
+00:11:37.350 --> 00:11:40.610
+Now in this case, what you see here is
+
+00:11:40.610 --> 00:11:43.010
+visualization of the.
+
+00:11:44.160 --> 00:11:46.280
+trends of topics overtime.
+
+00:11:47.120 --> 00:11:51.790
+And the top one shows just the temporal
+
+00:11:51.790 --> 00:11:52.890
+chains of two topics.
+
+00:11:52.890 --> 00:11:55.360
+One is oil price and one is.
+
+00:11:56.020 --> 00:11:58.090
+about the flooding of the city.
+
+00:11:58.090 --> 00:11:59.030
+New Orleans.
+
+00:11:59.950 --> 00:12:04.080
+This these topics are obtained from
+
+00:12:04.080 --> 00:12:05.810
+block articles about the Hurricane
+
+00:12:05.810 --> 00:12:06.510
+Katrina.
+
+00:12:07.180 --> 00:12:09.430
+And people talked about these topics.
+
+00:12:10.080 --> 00:12:11.720
+And in addition to some other topics.
+
+00:12:12.290 --> 00:12:14.220
+But the visualization shows that with
+
+00:12:14.220 --> 00:12:15.740
+this technique that we can have
+
+00:12:15.740 --> 00:12:18.310
+conditional distribution of time given
+
+00:12:18.310 --> 00:12:18.930
+a topic.
+
+00:12:19.560 --> 00:12:22.380
+So this allows us to plot this
+
+00:12:22.380 --> 00:12:23.440
+conditional probability.
+
+00:12:23.440 --> 00:12:25.060
+General curves like what you're seeing
+
+00:12:25.060 --> 00:12:25.500
+here.
+
+00:12:25.500 --> 00:12:29.300
+We see that initially the two curves
+
+00:12:29.300 --> 00:12:30.850
+tracked each other very well. But later we see the topic of New Orleans was mentioned again but oil price was not
+
+00:12:39.880 --> 00:12:40.540
+and
+
+00:12:41.870 --> 00:12:44.990
+This turns out to be the time period
+
+00:12:44.990 --> 00:12:47.740
+when another Hurricane Hurricane Rita
+
+00:12:47.740 --> 00:12:50.240
+hit the region that apparently tricked
+
+00:12:50.240 --> 00:12:52.065
+more discussion about the flooding of
+
+00:12:52.065 --> 00:12:52.620
+the city.
+
+00:12:54.700 --> 00:12:59.400
+The bottom curve shows the coverage of
+
+00:12:59.400 --> 00:13:01.280
+this topic about the flooding of the
+
+00:13:01.280 --> 00:13:04.620
+city by block articles in different
+
+00:13:04.620 --> 00:13:08.010
+locations and also shows some shift of
+
+00:13:08.010 --> 00:13:08.720
+coverage.
+
+00:13:09.420 --> 00:13:12.600
+That might be related to peoples
+
+00:13:12.600 --> 00:13:17.670
+migrating from the state of Louisiana
+
+00:13:17.670 --> 00:13:19.350
+to Texas, for example.
+
+00:13:20.470 --> 00:13:23.360
+So in this case we can see the time can
+
+00:13:23.360 --> 00:13:25.670
+be used as context to reveal trends of
+
+00:13:25.670 --> 00:13:26.220
+topics.
+
+00:13:27.610 --> 00:13:31.470
+This is some additional result on
+
+00:13:31.470 --> 00:13:33.450
+special patterns and this.
+
+00:13:33.450 --> 00:13:35.890
+In this case it's about the topic of
+
+00:13:35.890 --> 00:13:36.930
+government response.
+
+00:13:37.730 --> 00:13:40.030
+And there was some criticism about the
+
+00:13:40.030 --> 00:13:42.180
+slow response of government in the case
+
+00:13:42.180 --> 00:13:45.230
+of Hurricane Katrina, and discussion
+
+00:13:45.230 --> 00:13:47.730
+now is covered in different locations
+
+00:13:47.730 --> 00:13:51.030
+and these visualizations show the
+
+00:13:51.030 --> 00:13:53.100
+coverage in different weeks of the
+
+00:13:53.100 --> 00:13:56.090
+event, and initially it's covered
+
+00:13:56.090 --> 00:13:59.789
+mostly in the victim states in the
+
+00:13:59.790 --> 00:14:01.570
+South, but then gradually it's
+
+00:14:01.570 --> 00:14:02.870
+spreading to other.
+
+00:14:04.360 --> 00:14:06.870
+Locations, but in week four, which is
+
+00:14:06.870 --> 00:14:10.220
+shown on the bottom on the left, we see
+
+00:14:10.220 --> 00:14:11.810
+a pattern that's very similar to the
+
+00:14:11.810 --> 00:14:14.710
+very first week on the top left, and
+
+00:14:14.710 --> 00:14:17.250
+that's why again the hurricane Rita
+
+00:14:17.250 --> 00:14:17.970
+hit the region.
+
+00:14:18.580 --> 00:14:20.700
+So such a technique would allow us to
+
+00:14:20.700 --> 00:14:23.170
+use location as context to examine
+
+00:14:23.170 --> 00:14:24.630
+variations of topics.
+
+00:14:24.630 --> 00:14:26.710
+And of course, the model is completely
+
+00:14:26.710 --> 00:14:28.630
+general, so you can apply this to any
+
+00:14:28.630 --> 00:14:31.450
+other collections of text to reveal
+
+00:14:31.450 --> 00:14:32.860
+spatial temporal patterns.
+
+00:14:34.350 --> 00:14:36.610
+Is yet another application of this kind
+
+00:14:36.610 --> 00:14:39.626
+of model where we look at the use of
+
+00:14:39.626 --> 00:14:42.010
+the model for event impact analysis.
+
+00:14:43.200 --> 00:14:44.610
+So here we are looking at the research
+
+00:14:44.610 --> 00:14:47.000
+articles in information retrieval, IR,
+
+00:14:47.000 --> 00:14:48.640
+particularly SIGIR papers.
+
+00:14:49.370 --> 00:14:51.712
+And the topic we focus on is about
+
+00:14:51.712 --> 00:14:53.960
+the retrieval models and you can see
+
+00:14:53.960 --> 00:14:56.620
+the top word top words with high
+
+00:14:56.620 --> 00:14:58.219
+probability is about this model on the
+
+00:14:58.220 --> 00:14:58.630
+left.
+
+00:14:59.460 --> 00:15:02.975
+And then we hope to examine the impact
+
+00:15:02.975 --> 00:15:04.050
+of two events.
+
+00:15:04.050 --> 00:15:07.230
+One is the start of TREC for text
+
+00:15:07.230 --> 00:15:08.170
+retrieval conference.
+
+00:15:08.170 --> 00:15:10.980
+This is a major evaluation effort
+
+00:15:10.980 --> 00:15:13.570
+sponsored by US government and was
+
+00:15:13.570 --> 00:15:16.110
+launched in 1992 or around that time
+
+00:15:16.110 --> 00:15:19.120
+and that is known to have made an
+
+00:15:19.120 --> 00:15:21.850
+impact on the topics of research
+
+00:15:21.850 --> 00:15:22.950
+information retrieval.
+
+00:15:23.720 --> 00:15:25.540
+The other is the publication of a
+
+00:15:25.540 --> 00:15:28.386
+Seminal paper by Croft and Ponte, and
+
+00:15:28.386 --> 00:15:30.390
+this is about the language modeling
+
+00:15:30.390 --> 00:15:31.860
+approach to information retrieval.
+
+00:15:31.860 --> 00:15:33.780
+It's also known to have made a high
+
+00:15:33.780 --> 00:15:35.420
+impact on information retrieval
+
+00:15:35.420 --> 00:15:37.830
+research, so we hope to use this kind
+
+00:15:37.830 --> 00:15:39.980
+of model, understand impact, and the
+
+00:15:39.980 --> 00:15:43.530
+idea here is simply to use the time as
+
+00:15:43.530 --> 00:15:46.600
+context an use these events to divide
+
+00:15:46.600 --> 00:15:48.757
+the time periods into a period before
+
+00:15:48.757 --> 00:15:51.340
+the event an another after this event,
+
+00:15:51.340 --> 00:15:53.130
+and then we can compare the differences
+
+00:15:53.130 --> 00:15:53.720
+of.
+
+00:15:53.770 --> 00:15:55.800
+The topics, the coverage and
+
+00:15:55.800 --> 00:15:57.023
+variations, etc.
+
+00:15:57.023 --> 00:15:59.840
+So in this case the results show I've
+
+00:15:59.840 --> 00:16:02.554
+seen that before TREC the study of
+
+00:16:02.554 --> 00:16:04.760
+retrieval models was mostly a vector
+
+00:16:04.760 --> 00:16:07.690
+space model, Boolean model, etc.
+
+00:16:07.690 --> 00:16:08.920
+But the after TREC.
+
+00:16:08.920 --> 00:16:10.868
+Apparently the study of retrieval
+
+00:16:10.868 --> 00:16:12.860
+models have involved a lot of other
+
+00:16:12.860 --> 00:16:15.470
+words that seem to suggest some
+
+00:16:15.470 --> 00:16:17.460
+different retrieval tasks though.
+
+00:16:17.460 --> 00:16:20.320
+So for example email was used in the
+
+00:16:20.320 --> 00:16:23.540
+enterprise search tasks and subtropical
+
+00:16:23.540 --> 00:16:25.530
+retrieval, with another task introduced
+
+00:16:25.530 --> 00:16:26.190
+later by
+
+00:16:26.240 --> 00:16:26.690
+TREC.
+
+00:16:28.090 --> 00:16:30.770
+On the bottom we see the variations
+
+00:16:30.770 --> 00:16:33.870
+that are correlated with the
+
+00:16:33.870 --> 00:16:35.360
+publication of the language model
+
+00:16:35.360 --> 00:16:35.790
+paper.
+
+00:16:35.790 --> 00:16:38.100
+Before we have those classical
+
+00:16:38.100 --> 00:16:40.050
+probabilistic model logic model,
+
+00:16:40.050 --> 00:16:41.630
+Boolean model etc.
+
+00:16:41.630 --> 00:16:46.230
+But after 1998 that we see clear
+
+00:16:46.230 --> 00:16:48.746
+dominance of language model as
+
+00:16:48.746 --> 00:16:51.480
+probabilistic models and we see words
+
+00:16:51.480 --> 00:16:53.010
+like a language model, estimation of
+
+00:16:53.010 --> 00:16:54.410
+parameters etc.
+
+00:16:54.410 --> 00:16:58.710
+So this technique here can use event as
+
+00:16:58.710 --> 00:16:59.510
+context.
+
+00:16:59.560 --> 00:17:02.000
+To understand the impact of event
+
+00:17:02.000 --> 00:17:04.090
+again, the technique is general so you
+
+00:17:04.090 --> 00:17:06.369
+can use this to analyze the impact of
+
+00:17:06.370 --> 00:17:08.170
+any event.
+
+00:17:08.170 --> 00:17:10.290
+Here are some suggested readings.
+
+00:17:11.660 --> 00:17:13.680
+The first is
+
+00:17:14.620 --> 00:17:17.730
+paper about simple extension of PLSA to
+
+00:17:17.730 --> 00:17:20.170
+enable cross collection comparison.
+
+00:17:20.860 --> 00:17:23.335
+It's to perform comparative text mining
+
+00:17:23.335 --> 00:17:25.270
+to allow us to extract the common
+
+00:17:25.270 --> 00:17:27.440
+topics shared by multiple collections
+
+00:17:27.440 --> 00:17:29.530
+and their variations in each
+
+00:17:29.530 --> 00:17:30.060
+collection.
+
+00:17:30.940 --> 00:17:33.730
+The second one is the main paper about
+
+00:17:33.730 --> 00:17:36.545
+the CPLSA model with a discussion of
+
+00:17:36.545 --> 00:17:37.620
+a lot of applications.
+
+00:17:38.170 --> 00:17:39.740
+The third one has a lot of details
+
+00:17:39.740 --> 00:17:41.930
+about this special temporal patterns
+
+00:17:41.930 --> 00:17:45.770
+for Hurricane Katrina, example.
+
+

@@ -1,0 +1,934 @@
+WEBVTT Kind: captions; Language: en-US
+
+NOTE
+Created on 2021-02-27T00:04:28.4946443Z by ClassTranscribe
+
+00:00:00.300 --> 00:00:02.550
+So now let's talk about the extension
+
+00:00:02.550 --> 00:00:02.990
+of PLSA
+
+00:00:02.990 --> 00:00:06.605
+to derive LDA and to motivate that
+
+00:00:06.605 --> 00:00:08.275
+we need to talk about some deficiency
+
+00:00:08.275 --> 00:00:09.230
+of PLSA.
+
+00:00:09.230 --> 00:00:11.490
+First, it's not really generating model
+
+00:00:11.490 --> 00:00:13.430
+because we cannot compute the probability
+
+00:00:13.430 --> 00:00:14.640
+of a new document.
+
+00:00:14.640 --> 00:00:16.720
+You can see why, and that's because the
+
+00:00:16.720 --> 00:00:18.730
+pies are needed to generate the
+
+00:00:18.730 --> 00:00:21.114
+document, but the pis are tied to the
+
+00:00:21.114 --> 00:00:22.910
+document that we have in the training
+
+00:00:22.910 --> 00:00:23.310
+data.
+
+00:00:31.080 --> 00:00:33.150
+So we cannot compute the pis for
+
+00:00:33.150 --> 00:00:34.030
+future document.
+
+00:00:34.690 --> 00:00:35.920
+And there was some heuristic.
+
+00:00:35.920 --> 00:00:36.980
+A work around though.
+
+00:00:37.680 --> 00:00:39.930
+And Secondly, it has many parameters
+
+00:00:39.930 --> 00:00:41.680
+and I've asked you to compute how many
+
+00:00:41.680 --> 00:00:43.903
+parameters exactly there are in PLSA and
+
+00:00:43.903 --> 00:00:46.330
+you will see there are many 
+parameters
+.
+
+00:00:46.330 --> 00:00:48.520
+That means the model is very complex
+
+00:00:48.520 --> 00:00:50.480
+and that also means there are many
+
+00:00:50.480 --> 00:00:53.120
+local 
+maximum
+ and it's prone to
+
+00:00:53.120 --> 00:00:56.100
+overfitting and that means it's very
+
+00:00:56.100 --> 00:01:00.810
+hard to also find a good local maximum.
+
+00:01:02.370 --> 00:01:04.920
+And that really represents global
+
+00:01:04.920 --> 00:01:05.435
+maximum.
+
+00:01:05.435 --> 00:01:08.050
+And in terms of explaining future data,
+
+00:01:08.050 --> 00:01:10.595
+we might find that it would overfit the
+
+00:01:10.595 --> 00:01:12.150
+training data because of the
+
+00:01:12.150 --> 00:01:13.298
+complexity of the model.
+
+00:01:13.298 --> 00:01:15.370
+The model is so flexible to fit the
+
+00:01:15.370 --> 00:01:17.250
+precisely what the training data looks
+
+00:01:17.250 --> 00:01:19.790
+like, and then it doesn't allow us to
+
+00:01:19.790 --> 00:01:22.820
+generalize the model for using other
+
+00:01:22.820 --> 00:01:23.200
+data.
+
+00:01:23.910 --> 00:01:26.520
+This, however, is not necessary problem
+
+00:01:26.520 --> 00:01:28.110
+for text mining because here we are
+
+00:01:28.110 --> 00:01:30.240
+often only interested in fitting the
+
+00:01:30.240 --> 00:01:31.920
+training documents that we have.
+
+00:01:31.920 --> 00:01:34.200
+We are not always interested in
+
+00:01:34.200 --> 00:01:36.390
+modeling future data, but in other
+
+00:01:36.390 --> 00:01:38.850
+cases or if we care about generality,
+
+00:01:38.850 --> 00:01:40.600
+we would worry about this over fitting.
+
+00:01:42.220 --> 00:01:45.280
+So LDA is proposed to improve that and
+
+00:01:45.280 --> 00:01:48.150
+it basically to make PLSA a generative
+
+00:01:48.150 --> 00:01:50.260
+model by imposing a Dirichlet prior on
+
+00:01:50.260 --> 00:01:51.880
+the model parameters. Dirichlet
+
+00:01:51.880 --> 00:01:53.345
+is just a special distribution
+
+00:01:53.345 --> 00:01:55.645
+that we can use to specify prior.
+
+00:01:55.645 --> 00:01:57.720
+So in this sense, LDA is just a
+
+00:01:57.720 --> 00:01:59.980
+Bayesian version of PLSA and the
+
+00:01:59.980 --> 00:02:01.670
+parameters are now much more
+
+00:02:01.670 --> 00:02:02.290
+regularized.
+
+00:02:02.290 --> 00:02:03.850
+You will see there are many fewer
+
+00:02:03.850 --> 00:02:04.350
+parameters.
+
+00:02:05.270 --> 00:02:07.275
+And you can achieve the same goal as
+
+00:02:07.275 --> 00:02:08.805
+PLSA for text mining.
+
+00:02:08.805 --> 00:02:11.145
+It means it can compute the topic
+
+00:02:11.145 --> 00:02:12.982
+coverage and topic word distributions
+
+00:02:12.982 --> 00:02:14.850
+as in PLSA.
+
+00:02:14.850 --> 00:02:17.405
+However, there is no free launch while
+
+00:02:17.405 --> 00:02:20.610
+the parameters for PLSA  is much
+
+00:02:20.610 --> 00:02:23.787
+fewer, there were fewer parameters and
+
+00:02:23.787 --> 00:02:26.225
+in order to compute the topic coverage
+
+00:02:26.225 --> 00:02:28.640
+and word distributions, we again face
+
+00:02:28.640 --> 00:02:31.000
+the problem of influence of these
+
+00:02:31.000 --> 00:02:32.532
+variables because they're not the
+
+00:02:32.532 --> 00:02:33.880
+parameters of the model.
+
+00:02:33.880 --> 00:02:35.440
+So the inference part.
+
+00:02:35.500 --> 00:02:37.826
+Again, face the local Maxima problem.
+
+00:02:37.826 --> 00:02:39.630
+So essentially they are doing something
+
+00:02:39.630 --> 00:02:43.350
+very similar, but theoretically LDA is
+
+00:02:43.350 --> 00:02:46.150
+more elegant way of looking at the
+
+00:02:46.150 --> 00:02:47.786
+topic modeling problem.
+
+00:02:47.786 --> 00:02:51.795
+So let's see how we can generalize PLSA
+
+00:02:51.795 --> 00:02:56.159
+to LDA or extend the PLSA to have LDA
+
+00:02:56.160 --> 00:02:58.580
+now a full treatment of LDA is beyond
+
+00:02:58.580 --> 00:03:00.060
+the scope of this course and we just
+
+00:03:00.060 --> 00:03:02.000
+don't have time to go in depth in
+
+00:03:02.000 --> 00:03:02.880
+talking about that.
+
+00:03:02.880 --> 00:03:04.300
+But here I just want to give you a
+
+00:03:04.300 --> 00:03:07.540
+brief idea about what's the extension and
+
+00:03:07.540 --> 00:03:08.870
+what it enables.
+
+00:03:09.540 --> 00:03:11.230
+So this is a picture of LDA.
+
+00:03:11.230 --> 00:03:13.490
+Now I remove the background model just
+
+00:03:13.490 --> 00:03:14.720
+for simplicity.
+
+00:03:15.850 --> 00:03:18.567
+Now in this model, all these parameters
+
+00:03:18.567 --> 00:03:20.980
+are free to change and we do not impose
+
+00:03:20.980 --> 00:03:23.810
+any prior, so these word distributions
+
+00:03:23.810 --> 00:03:27.170
+are now represented as theta i
+
+00:03:27.170 --> 00:03:28.110
+vectors.
+
+00:03:28.110 --> 00:03:31.380
+So these word distributions.
+
+00:03:31.380 --> 00:03:34.853
+So here and the other set of parameters
+
+00:03:34.853 --> 00:03:37.190
+are pis and we present as a vector
+
+00:03:37.190 --> 00:03:37.740
+also.
+
+00:03:37.740 --> 00:03:39.210
+And this is for convenience to
+
+00:03:39.210 --> 00:03:42.313
+introduce LDA and we have one vector
+
+00:03:42.313 --> 00:03:43.320
+for each document.
+
+00:03:43.900 --> 00:03:47.770
+And in this case in theta we have
+
+00:03:47.770 --> 00:03:49.000
+one vector for each topic.
+
+00:03:49.990 --> 00:03:53.370
+Now that the difference between LDA and
+
+00:03:53.370 --> 00:03:56.790
+PLSA is that in LDA we're going to not
+
+00:03:56.790 --> 00:03:58.400
+allow them to free the change.
+
+00:03:58.400 --> 00:04:00.310
+Instead, we're going to force them to
+
+00:04:00.310 --> 00:04:02.310
+be drawn from another distribution.
+
+00:04:03.290 --> 00:04:05.850
+So more specifically they will be drawn
+
+00:04:05.850 --> 00:04:08.320
+from 2 Dirichlet distributions
+
+00:04:08.320 --> 00:04:10.290
+respectively.
+
+00:04:10.290 --> 00:04:12.080
+The 
+Dirichlet 
+distribution is a distribution over
+
+00:04:12.080 --> 00:04:14.740
+vectors, so it gives us a probability
+
+00:04:14.740 --> 00:04:16.600
+for a particular choice of a vector.
+
+00:04:16.600 --> 00:04:18.590
+Take for example pis, right?
+
+00:04:18.590 --> 00:04:22.010
+So this Dirichlet distribution tell us
+
+00:04:22.010 --> 00:04:24.890
+which vector of pis is more likely,
+
+00:04:24.890 --> 00:04:26.690
+and this distribution itself is
+
+00:04:26.690 --> 00:04:28.910
+controlled by another vector of
+
+00:04:28.910 --> 00:04:30.150
+parameters of alpha's.
+
+00:04:31.590 --> 00:04:33.310
+Depending on 
+alpha's, we can
+
+00:04:33.310 --> 00:04:34.720
+characterize the distribution in
+
+00:04:34.720 --> 00:04:36.670
+different ways and with force certain
+
+00:04:36.670 --> 00:04:37.740
+choices of pi's.
+
+00:04:37.740 --> 00:04:39.350
+To be more likely than others.
+
+00:04:39.350 --> 00:04:41.935
+For example, you might favor a choice
+
+00:04:41.935 --> 00:04:44.489
+of relatively uniform distribution of
+
+00:04:44.490 --> 00:04:47.189
+all the topics, or you might favor
+
+00:04:47.190 --> 00:04:50.836
+generating skewed coverage of topics,
+
+00:04:50.836 --> 00:04:52.440
+and this is controlled by Alpha.
+
+00:04:53.060 --> 00:04:54.280
+And similar here.
+
+00:04:54.280 --> 00:04:57.890
+The topic word distributions are drawn
+
+00:04:57.890 --> 00:04:59.610
+from another Dirichlet distribution
+
+00:04:59.610 --> 00:05:02.140
+with beta parameters and note that
+
+00:05:02.140 --> 00:05:04.115
+here Alpha has K parameters
+
+00:05:04.115 --> 00:05:06.900
+corresponding to our inference on the
+
+00:05:06.900 --> 00:05:09.900
+k values of pis for a document,
+
+00:05:09.900 --> 00:05:13.130
+whereas here beta has N values
+
+00:05:13.130 --> 00:05:15.310
+corresponding to controlling the N
+
+00:05:15.310 --> 00:05:16.820
+words in our vocabulary.
+
+00:05:17.580 --> 00:05:20.380
+Now, once we impose these price than
+
+00:05:20.380 --> 00:05:21.750
+the generation process will be
+
+00:05:21.750 --> 00:05:26.090
+different an we all start with drawing
+
+00:05:26.090 --> 00:05:29.500
+pi's from this Dirichlet distribution
+
+00:05:29.500 --> 00:05:31.520
+and this pi will tell us these
+
+00:05:31.520 --> 00:05:32.770
+probabilities.
+
+00:05:35.060 --> 00:05:38.680
+And then we're going to use the pi to
+
+00:05:38.680 --> 00:05:41.700
+further choose which topic to use, and
+
+00:05:41.700 --> 00:05:44.919
+this is of course very similar to the
+
+00:05:44.920 --> 00:05:45.950
+PLSA model.
+
+00:05:46.790 --> 00:05:49.240
+A similar here we're not going to have
+
+00:05:49.240 --> 00:05:51.130
+these distributions free.
+
+00:05:51.130 --> 00:05:54.869
+Instead we can do draw one from the
+
+00:05:54.870 --> 00:05:58.000
+Dirichlet distribution, and then from
+
+00:05:58.000 --> 00:06:00.020
+this, then we're going to further
+
+00:06:00.020 --> 00:06:03.010
+sample a word and the rest is very
+
+00:06:03.010 --> 00:06:04.090
+similar to the PLSA.
+
+00:06:04.090 --> 00:06:06.480
+The likelihood function now is more
+
+00:06:06.480 --> 00:06:08.110
+complicated for LDA, but there's a
+
+00:06:08.110 --> 00:06:10.133
+close connection between the likelihood
+
+00:06:10.133 --> 00:06:12.355
+function of LDA and PLSA, so I'm going
+
+00:06:12.355 --> 00:06:14.625
+to illustrate the difference here.
+
+00:06:14.625 --> 00:06:17.380
+So in the top you see PLSA.
+
+00:06:17.750 --> 00:06:19.810
+Likelihood function that you have
+
+00:06:19.810 --> 00:06:21.490
+already seen before it's copied from
+
+00:06:21.490 --> 00:06:24.170
+previous slide only that I dropped the
+
+00:06:24.170 --> 00:06:25.910
+background for simplicity.
+
+00:06:27.060 --> 00:06:31.020
+So in the LDA formulas you see very
+
+00:06:31.020 --> 00:06:31.630
+similar things.
+
+00:06:31.630 --> 00:06:33.460
+First you see the first equation is
+
+00:06:33.460 --> 00:06:35.600
+essentially the same and this is the
+
+00:06:35.600 --> 00:06:37.710
+probability of generating a word from
+
+00:06:37.710 --> 00:06:39.200
+multiple word distributions.
+
+00:06:40.550 --> 00:06:43.190
+And this formula is a sum of all the
+
+00:06:43.190 --> 00:06:45.280
+possibilities of generating the word
+
+00:06:45.280 --> 00:06:48.080
+inside the sum is a product of the
+
+00:06:48.080 --> 00:06:50.100
+probability of choosing a topic
+
+00:06:50.100 --> 00:06:52.370
+multiplied by the probability of
+
+00:06:52.370 --> 00:06:54.270
+observing the world from that topic.
+
+00:06:55.060 --> 00:06:57.260
+So this is a very important formula as
+
+00:06:57.260 --> 00:06:58.935
+I have stressed but multiple times and
+
+00:06:58.935 --> 00:07:01.380
+this is actually the core assumption in
+
+00:07:01.380 --> 00:07:03.450
+all the topic models and you might see
+
+00:07:03.450 --> 00:07:05.150
+other topic models that are extensions
+
+00:07:05.150 --> 00:07:08.196
+of LDA or PLSA and they all rely on this.
+
+00:07:08.196 --> 00:07:09.745
+So it's very important to understand
+
+00:07:09.745 --> 00:07:10.160
+this.
+
+00:07:10.910 --> 00:07:12.749
+And this gives us the probability of
+
+00:07:12.750 --> 00:07:14.930
+getting a word from a mixture model.
+
+00:07:14.930 --> 00:07:17.590
+Now next in the probability of a
+
+00:07:17.590 --> 00:07:20.930
+document we see there is a PLSA
+
+00:07:20.930 --> 00:07:23.360
+component in the LDA formula.
+
+00:07:23.360 --> 00:07:25.610
+But the LDA formula would add some
+
+00:07:25.610 --> 00:07:29.370
+integral here, and that's to explain to
+
+00:07:29.370 --> 00:07:31.950
+account for the fact that the pis are
+
+00:07:31.950 --> 00:07:35.000
+not fixed, so they are drawn from
+
+00:07:35.000 --> 00:07:36.390
+Dirichlet distribution.
+
+00:07:37.200 --> 00:07:38.330
+And that's shown here.
+
+00:07:39.100 --> 00:07:40.690
+That's why we have to take the integral
+
+00:07:40.690 --> 00:07:43.050
+to consider all the possible pi's that
+
+00:07:43.050 --> 00:07:45.690
+we could possibly draw from this
+
+00:07:45.690 --> 00:07:46.790
+Dirichlet
+ distribution.
+
+00:07:47.740 --> 00:07:51.255
+And similarly, in the likelihood for
+
+00:07:51.255 --> 00:07:53.610
+the whole collection, we also see
+
+00:07:53.610 --> 00:07:55.450
+further components added.
+
+00:07:55.450 --> 00:07:56.730
+Another integral here.
+
+00:07:58.070 --> 00:08:01.660
+Right, so basically in the LDA we just
+
+00:08:01.660 --> 00:08:03.920
+added these integrals to account for
+
+00:08:03.920 --> 00:08:05.990
+the uncertainties and we added of
+
+00:08:05.990 --> 00:08:07.770
+course the 
+Dirichlet
+ distributions to
+
+00:08:07.770 --> 00:08:10.540
+govern the choice of these parameters,
+
+00:08:10.540 --> 00:08:11.750
+pi's and theta's.
+
+00:08:12.810 --> 00:08:15.067
+So this is a likelihood function for
+
+00:08:15.067 --> 00:08:15.535
+LDA.
+
+00:08:15.535 --> 00:08:17.530
+Now let's next let's talk about
+
+00:08:17.530 --> 00:08:19.785
+parameter is making an inference is now
+
+00:08:19.785 --> 00:08:21.840
+the parameters can be now estimated
+
+00:08:21.840 --> 00:08:23.730
+using exactly the same approach
+
+00:08:23.730 --> 00:08:25.550
+maximum likelihood estimator for LDA.
+
+00:08:25.550 --> 00:08:28.220
+Now you might think about how many
+
+00:08:28.220 --> 00:08:30.795
+parameters are there in LDA versus PLSA.
+
+00:08:30.795 --> 00:08:32.726
+You will see there are fewer parameters
+
+00:08:32.726 --> 00:08:34.950
+in LDA because in this case the only
+
+00:08:34.950 --> 00:08:37.020
+parameters are alphas and betas.
+
+00:08:37.750 --> 00:08:39.710
+So we can use the maximum likelihood
+
+00:08:39.710 --> 00:08:41.200
+estimated to compute that.
+
+00:08:41.200 --> 00:08:43.210
+Of course it's more complicated because
+
+00:08:43.210 --> 00:08:45.820
+the form of likelihood functions more
+
+00:08:45.820 --> 00:08:46.210
+complicated.
+
+00:08:46.310 --> 00:08:49.430
+But what's also important is not set.
+
+00:08:49.430 --> 00:08:50.060
+Now.
+
+00:08:50.060 --> 00:08:53.740
+These parameters that we are interested
+
+00:08:53.740 --> 00:08:56.790
+in, namely the topics and the coverage,
+
+00:08:56.790 --> 00:08:59.010
+are no longer parameters in LDA.
+
+00:08:59.010 --> 00:09:02.715
+In this case we have to use Bayesian
+
+00:09:02.715 --> 00:09:05.029
+inference or posterior inference to
+
+00:09:05.030 --> 00:09:07.769
+compute them based on the parameters
+
+00:09:07.770 --> 00:09:08.640
+Alpha and beta.
+
+00:09:08.640 --> 00:09:12.320
+Unfortunately, this computation is
+
+00:09:12.320 --> 00:09:15.050
+intractable, so we generally have to
+
+00:09:15.050 --> 00:09:16.500
+resort to approximate.
+
+00:09:17.000 --> 00:09:17.670
+Influence.
+
+00:09:18.620 --> 00:09:20.260
+And there are many methods are
+
+00:09:20.260 --> 00:09:22.310
+available for and then.
+
+00:09:23.940 --> 00:09:25.670
+So you will see them when you use
+
+00:09:25.670 --> 00:09:28.370
+different toolkits for LDA, or you read
+
+00:09:28.370 --> 00:09:31.500
+the papers about that these different
+
+00:09:31.500 --> 00:09:32.890
+extensions of LDA.
+
+00:09:34.350 --> 00:09:37.640
+Now here we of course can't give in
+
+00:09:37.640 --> 00:09:40.340
+depth introduction to, but just know
+
+00:09:40.340 --> 00:09:42.500
+that they are computed based on
+
+00:09:42.500 --> 00:09:45.800
+Bayesian inference with.
+
+00:09:47.390 --> 00:09:50.200
+By using the parameters of alphas and
+
+00:09:50.200 --> 00:09:50.730
+beta.
+
+00:09:51.310 --> 00:09:53.526
+But algorithmically, actually in the
+
+00:09:53.526 --> 00:09:55.840
+end, in some algorithm at least, it's
+
+00:09:55.840 --> 00:09:58.710
+very similar to PLSA an, especially when
+
+00:09:58.710 --> 00:10:02.320
+we use algorithm called collapsed Gibbs
+
+00:10:02.320 --> 00:10:02.750
+sampling.
+
+00:10:02.750 --> 00:10:04.645
+Then the algorithm looks very similar
+
+00:10:04.645 --> 00:10:06.100
+to the EM algorithm.
+
+00:10:06.100 --> 00:10:08.160
+So in the end they're doing something
+
+00:10:08.160 --> 00:10:08.970
+very similar.
+
+00:10:09.920 --> 00:10:12.070
+So to summarize, our discussion of
+
+00:10:12.070 --> 00:10:14.670
+probabilistic topic models and these
+
+00:10:14.670 --> 00:10:17.250
+models provide a general principal way
+
+00:10:17.250 --> 00:10:19.620
+of mining and analyzing topics in texts
+
+00:10:19.620 --> 00:10:20.970
+with many applications.
+
+00:10:22.210 --> 00:10:25.340
+The best basis test setup is to take
+
+00:10:25.340 --> 00:10:27.636
+tax data as input, and we're going to
+
+00:10:27.636 --> 00:10:29.070
+output the key topics.
+
+00:10:29.070 --> 00:10:31.380
+Each topic is characterized by a word
+
+00:10:31.380 --> 00:10:33.540
+distribution, and we're going to also
+
+00:10:33.540 --> 00:10:35.610
+output proportions of these topics
+
+00:10:35.610 --> 00:10:37.150
+covered in each document.
+
+00:10:38.850 --> 00:10:42.753
+And PLSA is the basic topic model, and
+
+00:10:42.753 --> 00:10:45.005
+in fact the most basic topic Model.
+
+00:10:45.005 --> 00:10:47.395
+And this is also often adequate for
+
+00:10:47.395 --> 00:10:48.240
+most applications.
+
+00:10:48.240 --> 00:10:50.020
+That's why we spend a lot of time to
+
+00:10:50.020 --> 00:10:51.960
+explain PLSA in detail.
+
+00:10:53.020 --> 00:10:55.990
+Now LDA improves over PLSA by imposing
+
+00:10:55.990 --> 00:10:56.600
+priors.
+
+00:10:56.600 --> 00:10:59.030
+This has led to theoretically more
+
+00:10:59.030 --> 00:10:59.930
+appealing models.
+
+00:11:00.520 --> 00:11:03.140
+However, in practice, LDA and PLSA
+
+00:11:03.140 --> 00:11:05.210
+intended to give similar performance,
+
+00:11:05.210 --> 00:11:08.890
+so in practice, PLSA, an LDA, would work
+
+00:11:08.890 --> 00:11:10.940
+equally well for most tasks.
+
+00:11:12.170 --> 00:11:14.500
+Here are some suggested readings if you
+
+00:11:14.500 --> 00:11:16.010
+want to know more about the topic.
+
+00:11:16.010 --> 00:11:18.600
+First is a nice review of probabilistic
+
+00:11:18.600 --> 00:11:19.420
+topic models.
+
+00:11:20.230 --> 00:11:22.420
+The 2nd paper has a discussion about
+
+00:11:22.420 --> 00:11:24.739
+how to automatically label a topic
+
+00:11:24.740 --> 00:11:25.270
+model.
+
+00:11:25.270 --> 00:11:27.430
+Now I've shown some distributions and
+
+00:11:27.430 --> 00:11:29.970
+they intuitively suggest the topic, but
+
+00:11:29.970 --> 00:11:31.460
+what exactly is the topic?
+
+00:11:31.460 --> 00:11:35.201
+Can we use phrases to label the topic
+
+00:11:35.201 --> 00:11:37.510
+to make it more easy to understand?
+
+00:11:37.510 --> 00:11:39.290
+And this paper is about the techniques
+
+00:11:39.290 --> 00:11:40.125
+for doing that.
+
+00:11:40.125 --> 00:11:42.720
+The third one is empirical comparison
+
+00:11:42.720 --> 00:11:45.455
+of LDA and PLSA for various tasks.
+
+00:11:45.455 --> 00:11:47.700
+The conclusion is that they tend to
+
+00:11:47.700 --> 00:11:48.710
+perform similarly.
+
+

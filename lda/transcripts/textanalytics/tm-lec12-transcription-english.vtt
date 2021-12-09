@@ -1,0 +1,1011 @@
+WEBVTT Kind: captions; Language: en-US
+
+NOTE
+Created on 2021-02-27T00:00:43.3589039Z by ClassTranscribe
+
+00:00:00.290 --> 00:00:02.400
+This lecture is about the syntagmatic
+
+00:00:02.400 --> 00:00:04.070
+relation discovery and mutual
+
+00:00:04.070 --> 00:00:04.690
+information.
+
+00:00:13.270 --> 00:00:14.810
+In this lecture, we're going to
+
+00:00:14.810 --> 00:00:16.590
+continue discussing syntagmatic
+
+00:00:16.590 --> 00:00:17.610
+relation discovery.
+
+00:00:17.610 --> 00:00:19.630
+In particular, we're going to talk
+
+00:00:19.630 --> 00:00:21.920
+about another concept, the information
+
+00:00:21.920 --> 00:00:23.590
+theory, called mutual information.
+
+00:00:24.550 --> 00:00:26.710
+And how it can be used to discover
+
+00:00:26.710 --> 00:00:28.030
+syntagmatic relations?
+
+00:00:28.670 --> 00:00:31.680
+Before we talked about a problem of
+
+00:00:31.680 --> 00:00:34.510
+conditional entropy, and that is the
+
+00:00:34.510 --> 00:00:36.680
+conditional entropy computed on
+
+00:00:36.680 --> 00:00:39.130
+different pairs of words is not really
+
+00:00:39.130 --> 00:00:41.130
+comparable, so that makes it hard to
+
+00:00:41.130 --> 00:00:45.520
+discover strong syntagmatic relations
+
+00:00:45.520 --> 00:00:47.510
+globally from corpus.
+
+00:00:47.510 --> 00:00:50.440
+So now we're going to introduce mutual
+
+00:00:50.440 --> 00:00:52.853
+information, which is another concept
+
+00:00:52.853 --> 00:00:55.770
+in information theory that allows us
+
+00:00:55.770 --> 00:00:58.662
+to, in some sense, normalize the
+
+00:00:58.662 --> 00:01:00.470
+conditional entropy to make.
+
+00:01:00.700 --> 00:01:02.950
+a more comparable across different
+
+00:01:02.950 --> 00:01:03.470
+pairs.
+
+00:01:04.780 --> 00:01:06.810
+In particular, mutual information,
+
+00:01:06.810 --> 00:01:10.840
+denoted by I(X;Y), measures
+
+00:01:10.840 --> 00:01:15.950
+the entropy reduction of X obtained from
+
+00:01:15.950 --> 00:01:17.290
+knowing Y.
+
+00:01:17.290 --> 00:01:19.450
+More specifically the question we're
+
+00:01:19.450 --> 00:01:21.000
+interested in here, is how much
+
+00:01:21.000 --> 00:01:23.600
+reduction in the entropy of X can we
+
+00:01:23.600 --> 00:01:25.480
+obtain by knowing Y.
+
+00:01:26.910 --> 00:01:29.995
+So mathematically, it can be defined as
+
+00:01:29.995 --> 00:01:32.420
+the difference between the original
+
+00:01:32.420 --> 00:01:34.950
+entropy of X and the conditional
+
+00:01:34.950 --> 00:01:36.820
+entropy of X given Y.
+
+00:01:37.840 --> 00:01:40.751
+And you might see here you can see
+
+00:01:40.751 --> 00:01:41.199
+here.
+
+00:01:41.200 --> 00:01:43.625
+It can also be defined as a reduction
+
+00:01:43.625 --> 00:01:47.230
+of entropy of Y, because of knowing
+
+00:01:47.230 --> 00:01:47.810
+X.
+
+00:01:48.760 --> 00:01:51.960
+Normally the two conditional entropies
+
+00:01:51.960 --> 00:01:55.850
+H(X|Y) and H(Y|X) are
+
+00:01:55.850 --> 00:01:57.890
+not equal.
+
+00:01:57.890 --> 00:01:58.140
+ But interestingly,
+
+00:01:58.140 --> 00:02:00.060
+the reduction of entropy
+
+00:02:00.720 --> 00:02:04.990
+by knowing one of them is actually
+
+00:02:04.990 --> 00:02:09.000
+equal, so this quantity is called
+
+00:02:09.000 --> 00:02:12.580
+mutual information denoted by I here
+
+00:02:12.580 --> 00:02:14.450
+and this function has some interesting
+
+00:02:14.450 --> 00:02:14.970
+properties.
+
+00:02:14.970 --> 00:02:16.733
+First, it's also non negative.
+
+00:02:16.733 --> 00:02:19.420
+This is easy to understand becausw the
+
+00:02:19.420 --> 00:02:23.260
+original entropy is always not going to
+
+00:02:23.260 --> 00:02:24.760
+be lower than the
+
+00:02:26.110 --> 00:02:28.185
+possibly reduced conditional
+
+00:02:28.185 --> 00:02:28.707
+entropy.
+
+00:02:28.707 --> 00:02:30.940
+In other words, the conditional entropy
+
+00:02:30.940 --> 00:02:33.400
+would never exceed the original entropy.
+
+00:02:33.400 --> 00:02:35.780
+Knowing some information can always
+
+00:02:35.780 --> 00:02:38.666
+help us potentially, but won't hurt us
+
+00:02:38.666 --> 00:02:40.350
+in predicting X.
+
+00:02:41.430 --> 00:02:43.520
+The second property is that it's
+
+00:02:43.520 --> 00:02:45.830
+symmetric while conditional entropy is
+
+00:02:45.830 --> 00:02:46.790
+not symmetrical.
+
+00:02:46.790 --> 00:02:48.250
+Mutual information is.
+
+00:02:49.800 --> 00:02:52.440
+The third property is that
+
+00:02:53.520 --> 00:02:56.920
+it reaches its minimum zero if and only
+
+00:02:56.920 --> 00:03:00.200
+if the two random variables are
+
+00:03:00.200 --> 00:03:01.610
+completely independent.
+
+00:03:01.610 --> 00:03:03.610
+That means knowing one of them doesn't
+
+00:03:03.610 --> 00:03:05.390
+tell us anything about the other.
+
+00:03:07.190 --> 00:03:10.430
+And this last property can be verified
+
+00:03:10.430 --> 00:03:14.010
+by simply looking at the equation
+
+00:03:14.010 --> 00:03:14.470
+above.
+
+00:03:15.030 --> 00:03:17.990
+And it reaches 0 if and only if the
+
+00:03:17.990 --> 00:03:20.360
+conditional entropy of X given Y is
+
+00:03:20.360 --> 00:03:23.593
+exactly the same as original entropy of
+
+00:03:23.593 --> 00:03:24.139
+X.
+
+00:03:24.140 --> 00:03:26.390
+So that means knowing why did not help
+
+00:03:26.390 --> 00:03:29.460
+at all, and that's when X&amp;Y are
+
+00:03:29.460 --> 00:03:30.640
+completely independent.
+
+00:03:31.990 --> 00:03:35.400
+Now when we fix X to rank different
+
+00:03:35.400 --> 00:03:38.980
+Ys using conditional entropy would
+
+00:03:38.980 --> 00:03:43.073
+give the same order as ranking based on
+
+00:03:43.073 --> 00:03:44.990
+mutual information, because in the
+
+00:03:44.990 --> 00:03:49.046
+function here H of X is fixed because X
+
+00:03:49.046 --> 00:03:49.839
+is fixed.
+
+00:03:49.840 --> 00:03:51.625
+So ranking based on mutual information
+
+00:03:51.625 --> 00:03:54.041
+is exactly the same as ranking based on
+
+00:03:54.041 --> 00:03:56.320
+the conditional entropy of X given Y.
+
+00:03:57.280 --> 00:03:59.270
+But the mutual information allows us to
+
+00:03:59.270 --> 00:04:03.370
+compare different pairs of X&amp;Y, so
+
+00:04:03.370 --> 00:04:05.646
+that's why mutual information is more
+
+00:04:05.646 --> 00:04:08.120
+general and in general more useful.
+
+00:04:10.550 --> 00:04:13.120
+So let's examine them intuition of
+
+00:04:13.120 --> 00:04:15.100
+using mutual information for syntagmatic
+
+00:04:15.100 --> 00:04:16.030
+relation mining.
+
+00:04:17.010 --> 00:04:19.330
+Now the question we ask for syntactic
+
+00:04:19.330 --> 00:04:21.370
+relation mining is whenever eats
+
+00:04:21.370 --> 00:04:24.050
+occurs, what other words also tend to
+
+00:04:24.050 --> 00:04:24.430
+occur?
+
+00:04:25.470 --> 00:04:28.940
+So this question can be framed as a
+
+00:04:28.940 --> 00:04:30.670
+mutual information question, that is,
+
+00:04:30.670 --> 00:04:32.346
+which was have higher mutual
+
+00:04:32.346 --> 00:04:33.525
+information with eats.
+
+00:04:33.525 --> 00:04:35.430
+So we're going to compute the mutual
+
+00:04:35.430 --> 00:04:37.190
+information between eats and other
+
+00:04:37.190 --> 00:04:37.710
+words.
+
+00:04:38.460 --> 00:04:41.430
+And if we do that, and it's basically a
+
+00:04:41.430 --> 00:04:43.310
+based on the same intuition as in
+
+00:04:43.310 --> 00:04:45.432
+conditional entropy, we will see that
+
+00:04:45.432 --> 00:04:47.450
+words that are strongly associated with
+
+00:04:47.450 --> 00:04:49.580
+each will tend to have high mutual
+
+00:04:49.580 --> 00:04:52.070
+information, whereas words that are not
+
+00:04:52.070 --> 00:04:52.313
+related.
+
+00:04:52.313 --> 00:04:54.790
+We have lower mutual information, so
+
+00:04:54.790 --> 00:04:57.500
+this I give some example here.
+
+00:04:57.500 --> 00:04:59.470
+The mutual information between eats
+
+00:04:59.470 --> 00:05:02.610
+and meats, which is the same as between
+
+00:05:02.610 --> 00:05:04.955
+meats and eats cause major information
+
+00:05:04.955 --> 00:05:08.180
+is symmetric is expected to be higher
+
+00:05:08.180 --> 00:05:08.580
+than
+
+00:05:09.130 --> 00:05:10.920
+The mutual information between eats and
+
+00:05:10.920 --> 00:05:11.320
+the.
+
+00:05:11.950 --> 00:05:13.660
+Because knowing the doesn't really
+
+00:05:13.660 --> 00:05:16.410
+help us predict eats. Similarly knowing
+
+00:05:16.410 --> 00:05:20.140
+eats doesn't help us predicting the as
+
+00:05:20.140 --> 00:05:20.600
+well.
+
+00:05:21.320 --> 00:05:25.730
+And you also can easily see that the
+
+00:05:25.730 --> 00:05:28.510
+mutual information between  a word and
+
+00:05:28.510 --> 00:05:32.385
+itself is the largest which is equal to
+
+00:05:32.385 --> 00:05:33.410
+the mutual info.
+
+00:05:33.410 --> 00:05:35.860
+The entropy of this word.
+
+00:05:37.620 --> 00:05:40.820
+So because in this case the
+
+00:05:40.820 --> 00:05:43.380
+reduction is maximum
+
+00:05:44.030 --> 00:05:46.310
+because knowing one would allow us to
+
+00:05:46.310 --> 00:05:48.950
+predict the other completely so the
+
+00:05:48.950 --> 00:05:50.530
+conditional entropy is zero.
+
+00:05:50.530 --> 00:05:52.070
+Therefore the mutual information
+
+00:05:52.070 --> 00:05:54.170
+reaches its maximum.
+
+00:05:54.170 --> 00:05:55.310
+It's going to be
+
+00:05:56.730 --> 00:05:59.750
+larger than or equal to the mutual information
+
+00:05:59.750 --> 00:06:01.710
+between eats and another word.
+
+00:06:02.390 --> 00:06:04.534
+In other words, picking any other
+
+00:06:04.534 --> 00:06:06.540
+word, and computing mutual information
+
+00:06:06.540 --> 00:06:08.450
+between eats and that word,
+
+00:06:08.450 --> 00:06:10.260
+you won't get any mutual information
+
+00:06:10.260 --> 00:06:12.040
+larger than the mutual information
+
+00:06:12.040 --> 00:06:13.670
+between eats and itself.
+
+00:06:16.440 --> 00:06:19.450
+So now let's think about how to compute
+
+00:06:19.450 --> 00:06:20.955
+the mutual information.
+
+00:06:20.955 --> 00:06:23.590
+Now, in order to do that, we often.
+
+00:06:24.830 --> 00:06:27.265
+use a different form of mutual
+
+00:06:27.265 --> 00:06:29.270
+information, and we can mathematically
+
+00:06:29.270 --> 00:06:31.570
+write the mutual information into the
+
+00:06:31.570 --> 00:06:34.850
+form shown on this slide, where we
+
+00:06:34.850 --> 00:06:38.330
+essentially see a formula that computes
+
+00:06:38.330 --> 00:06:40.790
+what's called KL-divergences or
+
+00:06:40.790 --> 00:06:42.613
+callback labeler divergance.
+
+00:06:42.613 --> 00:06:45.330
+This is another term in information
+
+00:06:45.330 --> 00:06:47.390
+theory that measures the divergance
+
+00:06:47.390 --> 00:06:48.910
+between two distributions.
+
+00:06:50.490 --> 00:06:52.220
+Now if you look at the formula, it's
+
+00:06:52.220 --> 00:06:54.630
+also sum over many combinations of
+
+00:06:54.630 --> 00:06:56.340
+different values of the two random
+
+00:06:56.340 --> 00:06:58.640
+variables, but inside the sum mainly
+
+00:06:58.640 --> 00:07:01.950
+we're doing a comparison between 2
+
+00:07:01.950 --> 00:07:03.210
+joint distributions.
+
+00:07:03.830 --> 00:07:07.600
+The numerator has the joint actual
+
+00:07:07.600 --> 00:07:08.280
+observed.
+
+00:07:08.280 --> 00:07:10.390
+Join the distribution of the two random
+
+00:07:10.390 --> 00:07:11.140
+variables.
+
+00:07:11.870 --> 00:07:14.780
+The bottom part of the denominator can
+
+00:07:14.780 --> 00:07:17.730
+be interpreted as the expected joint
+
+00:07:17.730 --> 00:07:19.490
+distribution of the two random
+
+00:07:19.490 --> 00:07:20.250
+variables.
+
+00:07:20.250 --> 00:07:22.850
+If there were independent.
+
+00:07:24.280 --> 00:07:26.130
+Because when two random variables are
+
+00:07:26.130 --> 00:07:28.690
+independent, they joined distribution
+
+00:07:28.690 --> 00:07:31.689
+is equal to the product of the two
+
+00:07:31.690 --> 00:07:32.900
+probabilities.
+
+00:07:35.170 --> 00:07:37.110
+So this comparison would tell us
+
+00:07:37.110 --> 00:07:39.196
+whether the two variables are indeed
+
+00:07:39.196 --> 00:07:40.933
+independent if there indeed
+
+00:07:40.933 --> 00:07:42.310
+independent, then we would expect that
+
+00:07:42.310 --> 00:07:43.400
+the two are the same.
+
+00:07:44.310 --> 00:07:47.115
+But if the numerator is different from
+
+00:07:47.115 --> 00:07:49.570
+the denominator, that would mean the
+
+00:07:49.570 --> 00:07:52.385
+two variables are not independent, and
+
+00:07:52.385 --> 00:07:54.700
+that helps measure the association.
+
+00:07:55.600 --> 00:07:57.790
+The sum is simply to take into
+
+00:07:57.790 --> 00:07:59.990
+consideration of all the combinations
+
+00:07:59.990 --> 00:08:03.170
+of the values of these two random
+
+00:08:03.170 --> 00:08:03.700
+variables.
+
+00:08:03.700 --> 00:08:06.570
+In our case, each random variable can
+
+00:08:06.570 --> 00:08:09.480
+choose one of the two values 0 or 1, so we
+
+00:08:09.480 --> 00:08:11.000
+have four combinations here.
+
+00:08:12.310 --> 00:08:14.900
+So if we look at this form of mutual
+
+00:08:14.900 --> 00:08:16.640
+information it shows that the mutual
+
+00:08:16.640 --> 00:08:18.325
+information measures the diversions of
+
+00:08:18.325 --> 00:08:20.990
+the actual joint distribution from the
+
+00:08:20.990 --> 00:08:22.850
+expected distribution under the
+
+00:08:22.850 --> 00:08:24.315
+independence assumption.
+
+00:08:24.315 --> 00:08:27.700
+The larger this divergence is, the higher
+
+00:08:27.700 --> 00:08:29.550
+the mutual information would be.
+
+00:08:33.470 --> 00:08:35.990
+So now let's further look at the what
+
+00:08:35.990 --> 00:08:38.230
+are exactly the probabilities involved
+
+00:08:38.230 --> 00:08:40.000
+in this formula of mutual information.
+
+00:08:41.130 --> 00:08:43.689
+And here I listed all the probabilities
+
+00:08:43.690 --> 00:08:45.270
+involved and it's easy for you to
+
+00:08:45.270 --> 00:08:50.240
+verify that basically we have first 2
+
+00:08:50.240 --> 00:08:52.990
+probabilities corresponding to the
+
+00:08:52.990 --> 00:08:55.640
+presence or absence of each word.
+
+00:08:56.250 --> 00:08:59.040
+So for W1, we have two probabilities
+
+00:08:59.040 --> 00:08:59.800
+shown here.
+
+00:09:00.660 --> 00:09:04.340
+They should sum to 1 because a word can
+
+00:09:04.340 --> 00:09:07.560
+either be present or absent in the
+
+00:09:07.560 --> 00:09:08.260
+segment.
+
+00:09:11.020 --> 00:09:15.260
+And similarly for the second word, we
+
+00:09:15.260 --> 00:09:16.700
+also have two probabilities
+
+00:09:16.700 --> 00:09:19.090
+representing presence or absence of
+
+00:09:19.090 --> 00:09:20.540
+this word, and this sums to one
+
+00:09:20.540 --> 00:09:21.110
+as well.
+
+00:09:21.770 --> 00:09:23.680
+And then finally we have a lot of joint
+
+00:09:23.680 --> 00:09:26.410
+probabilities that represented the
+
+00:09:26.410 --> 00:09:28.780
+scenarios of Co-occurrences of the two
+
+00:09:28.780 --> 00:09:29.260
+words.
+
+00:09:30.060 --> 00:09:31.360
+And they are shown here.
+
+00:09:33.590 --> 00:09:36.370
+Right, so this sums to 1 because
+
+00:09:36.950 --> 00:09:39.700
+the two words can only have these four
+
+00:09:39.700 --> 00:09:40.950
+possible scenarios.
+
+00:09:40.950 --> 00:09:42.820
+Either they both occur.
+
+00:09:43.460 --> 00:09:45.560
+So in that case both variables will
+
+00:09:45.560 --> 00:09:48.790
+have a value of one or one of them
+
+00:09:48.790 --> 00:09:49.460
+occurs.
+
+00:09:49.460 --> 00:09:50.690
+There are two scenarios.
+
+00:09:51.510 --> 00:09:54.050
+In these two cases, one of the random
+
+00:09:54.050 --> 00:09:56.030
+variables will be equal to 1 and the
+
+00:09:56.030 --> 00:09:57.372
+other would be 0.
+
+00:09:57.372 --> 00:10:01.610
+And finally we have the scenario when
+
+00:10:01.610 --> 00:10:03.190
+none of them occurs.
+
+00:10:03.190 --> 00:10:05.150
+So this is when the two variables
+
+00:10:05.150 --> 00:10:06.610
+taking a value of 0.
+
+00:10:07.340 --> 00:10:08.900
+And they're summing up to 1, so these
+
+00:10:08.900 --> 00:10:10.800
+are the probabilities involved in the
+
+00:10:10.800 --> 00:10:12.490
+calculation of mutual information.
+
+00:10:13.090 --> 00:10:13.790
+here.
+
+00:10:15.740 --> 00:10:17.850
+Once we know how to calculate these
+
+00:10:17.850 --> 00:10:19.700
+probabilities, we can easily calculate
+
+00:10:19.700 --> 00:10:20.670
+the mutual information.
+
+00:10:24.090 --> 00:10:25.110
+It's also interesting to
+
+00:10:25.110 --> 00:10:26.430
+note that there are some
+
+00:10:26.430 --> 00:10:28.920
+relations or constraints among these
+
+00:10:28.920 --> 00:10:31.630
+probabilities, and we already saw two
+
+00:10:31.630 --> 00:10:36.275
+of them, so the in the previous slide
+
+00:10:36.275 --> 00:10:37.980
+that you have seen that the
+
+00:10:38.750 --> 00:10:42.690
+marginal probabilities of these words
+
+00:10:42.690 --> 00:10:45.620
+sum to one, and we also have seen this
+
+00:10:45.620 --> 00:10:46.390
+constraint
+
+00:10:47.080 --> 00:10:50.380
+that says the two words can only have
+
+00:10:50.380 --> 00:10:52.140
+these four different scenarios of Co
+
+00:10:52.140 --> 00:10:54.130
+occurrences, but we also have some
+
+00:10:54.130 --> 00:10:57.000
+additional constraints listed in the
+
+00:10:57.000 --> 00:10:57.540
+bottom.
+
+00:10:58.190 --> 00:11:00.460
+And so, for example, this one means
+
+00:11:01.800 --> 00:11:04.850
+if we add up the probabilities that we
+
+00:11:04.850 --> 00:11:06.980
+observe the two words occur together
+
+00:11:06.980 --> 00:11:08.826
+and the probabilities when the word
+
+00:11:08.826 --> 00:11:10.797
+the first word occurs and the second
+
+00:11:10.797 --> 00:11:13.068
+word doesn't occur, we get exactly the
+
+00:11:13.068 --> 00:11:15.675
+probability that the first word is
+
+00:11:15.675 --> 00:11:16.109
+observed.
+
+00:11:16.110 --> 00:11:18.752
+In other words, and when the word is
+
+00:11:18.752 --> 00:11:20.820
+observed when the first word is
+
+00:11:20.820 --> 00:11:22.450
+observed and there are only two
+
+00:11:22.450 --> 00:11:25.160
+scenarios depending on weather second
+
+00:11:25.160 --> 00:11:26.920
+word is also observed.
+
+00:11:26.920 --> 00:11:29.410
+So this probability captures the first
+
+00:11:29.410 --> 00:11:31.560
+scenario when the signal word actually
+
+00:11:31.560 --> 00:11:32.629
+is also observed.
+
+00:11:33.590 --> 00:11:35.570
+And this captures the second scenario
+
+00:11:35.570 --> 00:11:38.010
+when the seond word is not observed,
+
+00:11:38.010 --> 00:11:39.770
+so we only see the first word.
+
+00:11:40.440 --> 00:11:41.850
+And it's easy to see the other
+
+00:11:41.850 --> 00:11:44.970
+equations also follow the same
+
+00:11:44.970 --> 00:11:45.570
+reasoning.
+
+00:11:46.840 --> 00:11:49.540
+Now these equations allow us to compute
+
+00:11:49.540 --> 00:11:51.170
+some probabilities based on other
+
+00:11:51.170 --> 00:11:52.080
+probabilities.
+
+00:11:52.720 --> 00:11:54.730
+And this can simplify the computation.
+
+00:11:55.620 --> 00:11:59.940
+So more specifically, and if we know the
+
+00:11:59.940 --> 00:12:03.140
+probability that a word is present, and
+
+00:12:03.140 --> 00:12:04.115
+in this case right?
+
+00:12:04.115 --> 00:12:05.140
+So if we know this.
+
+00:12:05.980 --> 00:12:09.194
+And if we know the presence of the
+
+00:12:09.194 --> 00:12:11.650
+probability of presence of the second
+
+00:12:11.650 --> 00:12:15.590
+word, then we can easily compute their
+
+00:12:15.590 --> 00:12:17.120
+absence probability, right?
+
+00:12:17.120 --> 00:12:19.720
+It's very easy to use this equation
+
+00:12:19.720 --> 00:12:20.270
+to do that.
+
+00:12:21.060 --> 00:12:23.519
+An so we this will take care of the
+
+00:12:23.520 --> 00:12:27.280
+computation of these probabilities of
+
+00:12:27.280 --> 00:12:29.800
+presence or absence of each word.
+
+00:12:29.800 --> 00:12:31.680
+Now let's look at their joint
+
+00:12:31.680 --> 00:12:33.100
+distribution, right?
+
+00:12:33.100 --> 00:12:35.540
+Let's assume that we also have
+
+00:12:35.540 --> 00:12:37.770
+available probability that they
+
+00:12:37.770 --> 00:12:38.770
+occur together.
+
+00:12:39.380 --> 00:12:42.140
+Now it's easy to see that we can
+
+00:12:42.140 --> 00:12:43.985
+actually compute the all the rest of
+
+00:12:43.985 --> 00:12:45.880
+these probabilities based on these.
+
+00:12:46.730 --> 00:12:48.850
+Specifically, for example, using this
+
+00:12:48.850 --> 00:12:51.330
+equation, we can compute the
+
+00:12:51.330 --> 00:12:53.590
+probability that the first word
+
+00:12:53.590 --> 00:12:56.090
+occurred and the second word did not,
+
+00:12:56.090 --> 00:12:58.585
+because we know these probabilities in
+
+00:12:58.585 --> 00:12:59.340
+the boxes.
+
+00:13:00.130 --> 00:13:02.550
+And similarly, using this equation we
+
+00:13:02.550 --> 00:13:04.050
+can compute the probability that we
+
+00:13:04.050 --> 00:13:05.750
+observe only the second word.
+
+00:13:06.510 --> 00:13:08.130
+And then finally we.
+
+00:13:08.130 --> 00:13:11.320
+This probability can be calculated by
+
+00:13:11.320 --> 00:13:13.191
+using this equation, because now this
+
+00:13:13.191 --> 00:13:15.610
+is known and this is also known and
+
+00:13:15.610 --> 00:13:18.180
+this is already known right?
+
+00:13:19.460 --> 00:13:21.680
+So this can be easier to calculate.
+
+00:13:22.810 --> 00:13:24.540
+Right, so now this can be calculated.
+
+00:13:25.930 --> 00:13:28.890
+So this slide shows that we only need
+
+00:13:28.890 --> 00:13:30.860
+to know how to compute these three
+
+00:13:30.860 --> 00:13:32.809
+probabilities that are shown in the
+
+00:13:32.810 --> 00:13:37.060
+boxes, namely the presence of each word
+
+00:13:37.060 --> 00:13:40.930
+and the Co occurrence of both words in
+
+00:13:40.930 --> 00:13:41.500
+a segment.
+
+

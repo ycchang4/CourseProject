@@ -1,0 +1,1341 @@
+WEBVTT Kind: captions; Language: en-US
+
+NOTE
+Created on 2021-02-27T00:01:25.0336839Z by ClassTranscribe
+
+00:00:00.300 --> 00:00:02.750
+This lecture is about opinion mining
+
+00:00:02.750 --> 00:00:05.300
+and sentiment analysis covering its
+
+00:00:05.300 --> 00:00:06.030
+motivation.
+
+00:00:15.180 --> 00:00:17.450
+In this lecture we are going to start
+
+00:00:17.450 --> 00:00:19.830
+talking about mining a different kind
+
+00:00:19.830 --> 00:00:22.486
+of knowledge, namely knowledge about
+
+00:00:22.486 --> 00:00:25.250
+the observer or humans that have
+
+00:00:25.250 --> 00:00:26.740
+generated text data.
+
+00:00:26.740 --> 00:00:28.200
+In particular, we're going to talk
+
+00:00:28.200 --> 00:00:30.360
+about the opinion mining and sentiment
+
+00:00:30.360 --> 00:00:31.140
+analysis.
+
+00:00:32.550 --> 00:00:35.030
+As we discussed earlier, text data can
+
+00:00:35.030 --> 00:00:38.580
+be regarded as the data generated from
+
+00:00:38.580 --> 00:00:41.730
+humans as subjective sensors.
+
+00:00:42.690 --> 00:00:45.380
+In contrast, we have other devices such
+
+00:00:45.380 --> 00:00:49.580
+as video recorder that can report
+
+00:00:49.580 --> 00:00:52.420
+what's happening in the real world
+
+00:00:52.420 --> 00:00:55.340
+objectively to generate the video data,
+
+00:00:55.340 --> 00:00:56.230
+for example.
+
+00:00:58.160 --> 00:01:01.110
+Now the main difference between text data
+
+00:01:01.110 --> 00:01:06.250
+and other data like video data is that
+
+00:01:06.250 --> 00:01:11.310
+it has rich and rich opinions and the
+
+00:01:11.310 --> 00:01:14.050
+content tends to be subjective because
+
+00:01:14.050 --> 00:01:15.800
+it's generated from humans.
+
+00:01:16.610 --> 00:01:19.660
+Now this is actually unique advantage
+
+00:01:19.660 --> 00:01:20.240
+of text data,
+
+00:01:20.240 --> 00:01:22.110
+as compared with other data
+
+00:01:22.110 --> 00:01:23.640
+because it offers us a great
+
+00:01:23.640 --> 00:01:26.550
+opportunity to understand the
+
+00:01:26.550 --> 00:01:27.350
+observers.
+
+00:01:28.020 --> 00:01:30.460
+We can mine the text data to understand
+
+00:01:30.460 --> 00:01:32.800
+the opinions, understand the people's
+
+00:01:32.800 --> 00:01:34.660
+preferences, how people think about
+
+00:01:34.660 --> 00:01:35.220
+something.
+
+00:01:36.980 --> 00:01:38.030
+So this lecture and
+
+00:01:38.030 --> 00:01:39.450
+the following lectures will be mainly
+
+00:01:39.450 --> 00:01:44.360
+about how we can mine and analyze
+
+00:01:44.360 --> 00:01:48.010
+opinions buried in a lot of text data.
+
+00:01:49.480 --> 00:01:52.056
+So let's start with the concept of
+
+00:01:52.056 --> 00:01:55.150
+opinion that it's not that easy to
+
+00:01:55.150 --> 00:01:59.210
+formally define opinion, but mostly we
+
+00:01:59.210 --> 00:02:02.300
+would define opinion as a subjective
+
+00:02:02.300 --> 00:02:04.800
+statement describing what a person
+
+00:02:04.800 --> 00:02:07.110
+believes or thinks about something.
+
+00:02:08.660 --> 00:02:10.595
+Now I highlighted a quite a few words
+
+00:02:10.595 --> 00:02:12.800
+here, and that's because it was
+
+00:02:12.800 --> 00:02:14.655
+thinking a little more about these
+
+00:02:14.655 --> 00:02:17.350
+words and that would help us better
+
+00:02:17.350 --> 00:02:20.459
+understand what's in the opinion and this
+
+00:02:20.460 --> 00:02:24.360
+further helps us to define opinion more
+
+00:02:24.360 --> 00:02:27.020
+formally, which is always needed to
+
+00:02:27.020 --> 00:02:29.340
+computationally solve the problem of
+
+00:02:29.340 --> 00:02:30.300
+opinion mining.
+
+00:02:30.300 --> 00:02:33.910
+So let's first look at the keyword
+
+00:02:33.910 --> 00:02:34.642
+subjective here.
+
+00:02:34.642 --> 00:02:38.230
+Now this is in contrast with objective
+
+00:02:38.230 --> 00:02:39.970
+statement or factual statement.
+
+00:02:40.760 --> 00:02:43.860
+Those statements can be proved right or
+
+00:02:43.860 --> 00:02:44.330
+wrong.
+
+00:02:45.070 --> 00:02:47.490
+And this is a key differentiating
+
+00:02:47.490 --> 00:02:50.590
+factor from opinion, which tends to be
+
+00:02:50.590 --> 00:02:53.880
+not easy to prove wrong or right
+
+00:02:53.880 --> 00:02:55.360
+because it reflects what a person
+
+00:02:55.360 --> 00:02:57.050
+thinks about something.
+
+00:02:58.890 --> 00:03:03.480
+So in contrast, objective statement can
+
+00:03:03.480 --> 00:03:06.720
+usually be proved wrong or correct.
+
+00:03:07.550 --> 00:03:10.620
+For example, you might say this
+
+00:03:10.620 --> 00:03:12.060
+computer has a
+
+00:03:12.770 --> 00:03:14.970
+screen and a battery.
+
+00:03:16.570 --> 00:03:18.200
+Now that's something you can check.
+
+00:03:18.200 --> 00:03:22.320
+It's either having a battery or not.
+
+00:03:23.360 --> 00:03:25.600
+But in contrast, if you think about the
+
+00:03:25.600 --> 00:03:28.940
+sentence such as this laptop has the
+
+00:03:28.940 --> 00:03:29.810
+best battery.
+
+00:03:31.660 --> 00:03:35.080
+Or this laptop has a nice screen, now
+
+00:03:35.080 --> 00:03:36.920
+these statements are more subjective
+
+00:03:36.920 --> 00:03:40.130
+and it's very hard to prove whether
+
+00:03:40.130 --> 00:03:43.520
+it's wrong or correct.
+
+00:03:44.480 --> 00:03:48.010
+So opinion is subjective statement.
+
+00:03:50.130 --> 00:03:53.700
+And next, let's look at the keyword
+
+00:03:53.700 --> 00:03:55.820
+person here and that indicates this
+
+00:03:55.820 --> 00:03:57.580
+opinion Holder 'cause when we talk
+
+00:03:57.580 --> 00:04:00.510
+about opinion, it's about the opinion
+
+00:04:00.510 --> 00:04:03.510
+held by someone and then we notice that
+
+00:04:03.510 --> 00:04:04.730
+there is something here.
+
+00:04:04.730 --> 00:04:06.675
+So that's the target of the opinion.
+
+00:04:06.675 --> 00:04:09.510
+The opinions is expressed on this
+
+00:04:09.510 --> 00:04:09.960
+something.
+
+00:04:11.320 --> 00:04:14.050
+And now, of course, believes or thinks
+
+00:04:14.050 --> 00:04:17.490
+implies that the opinion would depend on
+
+00:04:17.490 --> 00:04:19.884
+the culture or background and context
+
+00:04:19.884 --> 00:04:22.380
+in general, because of person might
+
+00:04:22.380 --> 00:04:24.282
+think differently in the different
+
+00:04:24.282 --> 00:04:24.660
+context.
+
+00:04:24.660 --> 00:04:26.990
+People from different background may
+
+00:04:26.990 --> 00:04:28.980
+also think in different ways.
+
+00:04:28.980 --> 00:04:31.920
+So this analysis shows that there are
+
+00:04:31.920 --> 00:04:33.560
+multiple elements that we need to
+
+00:04:33.560 --> 00:04:35.730
+include in order to characterize
+
+00:04:35.730 --> 00:04:36.720
+an opinion.
+
+00:04:38.050 --> 00:04:40.830
+So what's the basic opinion
+
+00:04:40.830 --> 00:04:43.900
+representation like, well,  it should include
+
+00:04:43.900 --> 00:04:46.280
+at least three measurements, right?
+
+00:04:46.280 --> 00:04:48.816
+First it has to specify what's the
+
+00:04:48.816 --> 00:04:49.510
+opinion Holder.
+
+00:04:49.510 --> 00:04:52.680
+So whose opinion is this, second must also
+
+00:04:52.680 --> 00:04:53.920
+specify the target.
+
+00:04:53.920 --> 00:04:55.930
+What's this opinion about?
+
+00:04:56.990 --> 00:05:00.489
+And 3rd, of course we want opinion
+
+00:05:00.490 --> 00:05:03.003
+content and So what exactly is the
+
+00:05:03.003 --> 00:05:03.289
+opinion?
+
+00:05:03.289 --> 00:05:05.650
+If you can identify this, we get a
+
+00:05:05.650 --> 00:05:08.630
+basic understanding of an opinion and can
+
+00:05:08.630 --> 00:05:09.580
+already be useful.
+
+00:05:09.580 --> 00:05:11.660
+Sometimes if you want to understand
+
+00:05:11.660 --> 00:05:13.490
+further, we want to enrich the opinion
+
+00:05:13.490 --> 00:05:14.220
+representation.
+
+00:05:15.110 --> 00:05:16.596
+And that means we also want to
+
+00:05:16.596 --> 00:05:18.518
+understand, for example, the context of
+
+00:05:18.518 --> 00:05:21.042
+the opinion and what situation was
+
+00:05:21.042 --> 00:05:22.266
+opinion expressed.
+
+00:05:22.266 --> 00:05:25.210
+For example, in what time was it
+
+00:05:25.210 --> 00:05:25.833
+expressed?
+
+00:05:25.833 --> 00:05:29.190
+We also would like to deeply understand
+
+00:05:29.190 --> 00:05:33.240
+opinion sentiment and this is to
+
+00:05:33.240 --> 00:05:33.800
+understand,
+
+00:05:34.520 --> 00:05:37.430
+what the opinion tells us about the
+
+00:05:37.430 --> 00:05:40.340
+opinion holder's feeling, for example,
+
+00:05:40.340 --> 00:05:42.870
+is this opinion positive or negative?
+
+00:05:43.540 --> 00:05:46.760
+Or perhaps the opinion holder was
+
+00:05:46.760 --> 00:05:48.350
+happy or sad.
+
+00:05:49.000 --> 00:05:50.630
+And so such understanding obviously
+
+00:05:50.630 --> 00:05:53.760
+goes beyond just extracting the opinion
+
+00:05:53.760 --> 00:05:56.350
+content and needs some analysis.
+
+00:06:00.350 --> 00:06:03.035
+So let's take a simple example of a
+
+00:06:03.035 --> 00:06:03.760
+product review.
+
+00:06:03.760 --> 00:06:05.798
+In this case, this actually explicit
+
+00:06:05.798 --> 00:06:08.650
+opinion Holder and explicit target,
+
+00:06:08.650 --> 00:06:09.980
+so it's
+
+00:06:09.980 --> 00:06:11.656
+It's obviously what's opinion Holder,
+
+00:06:11.656 --> 00:06:13.750
+and that's just a reviewer, and it's
+
+00:06:13.750 --> 00:06:15.925
+also often very clear what's the
+
+00:06:15.925 --> 00:06:18.105
+opinion target, and that's the
+
+00:06:18.105 --> 00:06:19.230
+product being reviewed.
+
+00:06:19.230 --> 00:06:20.580
+For example iPhone 6.
+
+00:06:21.800 --> 00:06:24.340
+When the review was posted, usually you
+
+00:06:24.340 --> 00:06:25.850
+can extract such information
+
+00:06:25.850 --> 00:06:26.410
+easily.
+
+00:06:27.230 --> 00:06:28.920
+Now the content of course is the review
+
+00:06:28.920 --> 00:06:31.170
+text that's in general also easy to
+
+00:06:31.170 --> 00:06:31.630
+obtain.
+
+00:06:32.180 --> 00:06:35.240
+So you can see product reviews are
+
+00:06:35.240 --> 00:06:37.730
+fairly easy to analyze in terms of
+
+00:06:37.730 --> 00:06:39.150
+obtaining a basic opinion
+
+00:06:39.150 --> 00:06:39.890
+representation.
+
+00:06:40.570 --> 00:06:43.010
+But of course, if you want to get more
+
+00:06:43.010 --> 00:06:45.090
+information, we might want to know the
+
+00:06:45.090 --> 00:06:45.710
+context.
+
+00:06:45.710 --> 00:06:49.020
+For example, the review was written in
+
+00:06:49.020 --> 00:06:50.390
+2015.
+
+00:06:51.550 --> 00:06:55.040
+Or we want to know that the sentiment
+
+00:06:55.040 --> 00:06:57.580
+of this review is positive, and so this
+
+00:06:57.580 --> 00:06:59.270
+additional understanding of course adds
+
+00:06:59.270 --> 00:07:02.580
+value to mining the opinions.
+
+00:07:04.230 --> 00:07:07.320
+Now you can see in this case the task
+
+00:07:07.320 --> 00:07:09.150
+is relatively easy, and that's
+
+00:07:09.150 --> 00:07:09.890
+because.
+
+00:07:09.890 --> 00:07:12.380
+The opinion Holder and opinion target
+
+00:07:12.380 --> 00:07:13.940
+that have already been identified.
+
+00:07:14.710 --> 00:07:16.200
+Now let's take a look at the sentence
+
+00:07:16.200 --> 00:07:17.080
+in the news.
+
+00:07:17.080 --> 00:07:19.500
+In this case, we have implicit holder
+
+00:07:19.500 --> 00:07:20.670
+and implicit target.
+
+00:07:21.290 --> 00:07:25.870
+And the task is in general harder so we
+
+00:07:25.870 --> 00:07:27.290
+can identify
+
+00:07:28.610 --> 00:07:30.460
+opinion holder here and that's
+
+00:07:30.460 --> 00:07:31.870
+governor of Connecticut.
+
+00:07:32.650 --> 00:07:35.000
+We can also identify the target.
+
+00:07:35.630 --> 00:07:38.320
+So one target is Hurricane Sandy.
+
+00:07:38.980 --> 00:07:40.330
+But there is also another target,
+
+00:07:40.330 --> 00:07:42.010
+which is a hurricane of
+
+00:07:42.010 --> 00:07:43.020
+1938.
+
+00:07:44.490 --> 00:07:45.840
+So what's the opinion?
+
+00:07:45.840 --> 00:07:49.430
+Well, this negative sentiment here
+
+00:07:49.430 --> 00:07:51.450
+that's indicated by words like a bad
+
+00:07:51.450 --> 00:07:52.180
+and worst.
+
+00:07:53.230 --> 00:07:55.190
+And we can also then
+
+00:07:55.770 --> 00:07:57.760
+identify the context.
+
+00:07:57.760 --> 00:07:59.430
+New England in this case.
+
+00:08:00.300 --> 00:08:03.720
+Now unlike in the product review, all these
+
+00:08:03.720 --> 00:08:05.860
+elements must be extracted by using
+
+00:08:05.860 --> 00:08:07.460
+natural language processing techniques.
+
+00:08:08.230 --> 00:08:11.460
+So the task is much harder and we need
+
+00:08:11.460 --> 00:08:13.100
+a deeper natural language processing.
+
+00:08:14.740 --> 00:08:16.880
+And these examples also,
+
+00:08:17.470 --> 00:08:20.220
+suggest that a lot of work can be
+
+00:08:20.220 --> 00:08:22.300
+easily done for product reviews, and
+
+00:08:22.300 --> 00:08:24.470
+that's indeed what has happened.
+
+00:08:24.470 --> 00:08:28.040
+Analyzing sentiment in news is still
+
+00:08:28.040 --> 00:08:29.010
+quite difficult.
+
+00:08:29.010 --> 00:08:32.160
+It's more difficult than the analysis
+
+00:08:32.160 --> 00:08:34.220
+of opinions in product reviews.
+
+00:08:36.690 --> 00:08:38.080
+Now there are also some other
+
+00:08:38.080 --> 00:08:39.300
+interesting variations.
+
+00:08:39.300 --> 00:08:40.410
+In fact, here we're going to
+
+00:08:40.410 --> 00:08:42.850
+examine the variations of opinions more
+
+00:08:42.850 --> 00:08:43.980
+systematically.
+
+00:08:43.980 --> 00:08:45.840
+First, lets think about the opinion
+
+00:08:45.840 --> 00:08:46.320
+Holder.
+
+00:08:46.950 --> 00:08:48.542
+Now the Holder could be an individual
+
+00:08:48.542 --> 00:08:50.900
+or could be a group of people and
+
+00:08:50.900 --> 00:08:53.070
+sometimes opinion was from a committee
+
+00:08:53.070 --> 00:08:55.170
+or from a whole country of people.
+
+00:08:56.330 --> 00:08:59.090
+Opinion Target can also vary a lot.
+
+00:08:59.090 --> 00:09:01.600
+It can be about 1 entity, a particular
+
+00:09:01.600 --> 00:09:03.425
+person, a particular product, a
+
+00:09:03.425 --> 00:09:05.120
+particular policy, etc.
+
+00:09:05.680 --> 00:09:07.320
+But it could be about a group of
+
+00:09:07.320 --> 00:09:07.940
+products.
+
+00:09:07.940 --> 00:09:09.560
+Could be about the product from a
+
+00:09:09.560 --> 00:09:10.820
+company in general.
+
+00:09:11.760 --> 00:09:13.830
+Could also be very specific about one
+
+00:09:13.830 --> 00:09:14.590
+attribute,
+
+00:09:14.590 --> 00:09:16.770
+attribute of Entity for example.
+
+00:09:16.770 --> 00:09:18.810
+It's just about the battery of iPhone.
+
+00:09:20.510 --> 00:09:23.190
+It could be about someone else opinion
+
+00:09:23.190 --> 00:09:24.290
+and one person might
+
+00:09:24.290 --> 00:09:26.350
+comment on another persons opinion
+
+00:09:26.350 --> 00:09:26.930
+etc.
+
+00:09:26.930 --> 00:09:29.040
+So you can see there is a lot of
+
+00:09:29.040 --> 00:09:31.850
+variation here that will cause the
+
+00:09:31.850 --> 00:09:33.360
+problem to vary a lot.
+
+00:09:33.960 --> 00:09:36.580
+Now opinion content, of course, can
+
+00:09:36.580 --> 00:09:38.430
+also vary a lot on the surface.
+
+00:09:38.430 --> 00:09:40.600
+You can identify one sentence opinion
+
+00:09:40.600 --> 00:09:42.589
+or one phrase opinion, but you can also
+
+00:09:42.590 --> 00:09:45.610
+have longer text to express the
+
+00:09:45.610 --> 00:09:46.800
+opinion like a whole article.
+
+00:09:48.270 --> 00:09:49.970
+And Furthermore, we can identify the
+
+00:09:49.970 --> 00:09:52.040
+variation in the sentiment or emotion
+
+00:09:52.040 --> 00:09:53.130
+dimension.
+
+00:09:53.130 --> 00:09:55.710
+That's about the feeling of the opinion
+
+00:09:55.710 --> 00:09:56.290
+Holder.
+
+00:09:56.290 --> 00:09:58.650
+So we can distinguish positive versus
+
+00:09:58.650 --> 00:10:01.480
+negative or neutral or happy versus
+
+00:10:01.480 --> 00:10:02.530
+sad, etc.
+
+00:10:03.050 --> 00:10:04.989
+Finally, the opinion context can also
+
+00:10:04.990 --> 00:10:05.460
+vary.
+
+00:10:05.460 --> 00:10:07.720
+We can have simple context, like
+
+00:10:07.720 --> 00:10:09.770
+different time or different locations,
+
+00:10:09.770 --> 00:10:12.530
+but there could be also complex text
+
+00:10:12.530 --> 00:10:16.030
+such as some background topic being
+
+00:10:16.030 --> 00:10:16.750
+discussed.
+
+00:10:16.750 --> 00:10:18.829
+So when opinion expressed in the
+
+00:10:18.830 --> 00:10:21.773
+particular discourse context, it has to
+
+00:10:21.773 --> 00:10:23.645
+be interpreted in different ways than
+
+00:10:23.645 --> 00:10:25.565
+when it's expressed in another context,
+
+00:10:25.565 --> 00:10:28.280
+so the context can be very rich to
+
+00:10:28.280 --> 00:10:30.135
+improve the entire discourse
+
+00:10:30.135 --> 00:10:32.870
+context of opinion. From computational
+
+00:10:32.870 --> 00:10:35.240
+perspective, we're most interested in
+
+00:10:35.240 --> 00:10:36.320
+what opinions
+
+00:10:37.010 --> 00:10:39.370
+can be extracted from text data, so it
+
+00:10:39.370 --> 00:10:40.510
+turns out that we can also
+
+00:10:40.510 --> 00:10:43.030
+differentiate distinguish different
+
+00:10:43.030 --> 00:10:44.930
+kinds of opinions in text data from
+
+00:10:44.930 --> 00:10:46.550
+computation perspective.
+
+00:10:46.550 --> 00:10:48.570
+First, the Observer might make a
+
+00:10:48.570 --> 00:10:50.510
+comment about the opinion target in the
+
+00:10:50.510 --> 00:10:51.285
+observed world.
+
+00:10:51.285 --> 00:10:53.360
+So in this case we have the author's
+
+00:10:53.360 --> 00:10:54.160
+opinion.
+
+00:10:54.160 --> 00:10:56.310
+For example, I don't like this phone at
+
+00:10:56.310 --> 00:10:58.530
+all, and that's opinion of this author.
+
+00:10:59.880 --> 00:11:03.890
+In contrast, the text might also
+
+00:11:04.840 --> 00:11:08.446
+report opinions about others so the
+
+00:11:08.446 --> 00:11:11.016
+person could also make observation
+
+00:11:11.016 --> 00:11:14.430
+about another person's opinion and report
+
+00:11:14.430 --> 00:11:15.080
+this opinion.
+
+00:11:15.080 --> 00:11:18.610
+So for example, I believe he loves the
+
+00:11:18.610 --> 00:11:22.225
+painting and that opinion is really
+
+00:11:22.225 --> 00:11:25.690
+about, is really expressed by
+
+00:11:25.690 --> 00:11:26.530
+another person.
+
+00:11:27.140 --> 00:11:30.720
+Here, so it doesn't mean this author
+
+00:11:30.720 --> 00:11:32.340
+loves that painting.
+
+00:11:33.530 --> 00:11:35.410
+So clearly the two kinds of opinions
+
+00:11:35.410 --> 00:11:38.880
+need to be analyzed in different ways
+
+00:11:38.880 --> 00:11:40.520
+and sometimes in product reviews you
+
+00:11:40.520 --> 00:11:43.140
+can see, although mostly the opinions
+
+00:11:43.140 --> 00:11:44.955
+are from this reviewer.
+
+00:11:44.955 --> 00:11:46.743
+Sometimes a reviewer might mention
+
+00:11:46.743 --> 00:11:49.410
+opinions of his friend or her friend,
+
+00:11:49.410 --> 00:11:49.860
+right?
+
+00:11:50.500 --> 00:11:53.750
+And another complication is that there
+
+00:11:53.750 --> 00:11:56.040
+may be indirect opinions or inferred
+
+00:11:56.040 --> 00:12:00.750
+opinions that can be obtained by making
+
+00:12:00.750 --> 00:12:02.710
+inferences on what's expressed in the
+
+00:12:02.710 --> 00:12:05.110
+text that might not necessarily look
+
+00:12:05.110 --> 00:12:05.750
+like opinion.
+
+00:12:05.750 --> 00:12:09.490
+For example, one statement might be
+
+00:12:09.490 --> 00:12:11.830
+this phone ran out of battery in just
+
+00:12:11.830 --> 00:12:12.460
+one hour.
+
+00:12:13.960 --> 00:12:18.110
+Now this is in a way, a factual
+
+00:12:18.110 --> 00:12:20.430
+statement, 'cause you know it's either
+
+00:12:20.430 --> 00:12:22.810
+true or false, right?
+
+00:12:22.810 --> 00:12:24.640
+You can even verify that.
+
+00:12:25.580 --> 00:12:27.580
+But from this statement one can also
+
+00:12:27.580 --> 00:12:30.729
+infer some negative opinions about the
+
+00:12:30.730 --> 00:12:33.070
+quality of the battery of this phone or
+
+00:12:33.070 --> 00:12:35.845
+the feeling of the opinion holder about
+
+00:12:35.845 --> 00:12:36.490
+the battery.
+
+00:12:37.040 --> 00:12:39.340
+In the opinion, Holder clearly wish the
+
+00:12:39.340 --> 00:12:40.660
+battery to last longer.
+
+00:12:42.390 --> 00:12:44.330
+So these are interesting variations
+
+00:12:44.330 --> 00:12:45.860
+that we need to pay attention to when
+
+00:12:45.860 --> 00:12:47.670
+we extract opinions.
+
+00:12:47.670 --> 00:12:51.070
+Also, for this reason about the
+
+00:12:51.070 --> 00:12:52.230
+indirect opinions.
+
+00:12:53.680 --> 00:12:56.260
+It's often also very useful to extract
+
+00:12:56.260 --> 00:12:58.055
+it or whatever the person had said
+
+00:12:58.055 --> 00:12:59.860
+about the product, and sometimes
+
+00:12:59.860 --> 00:13:02.067
+factual sentences like this
+
+00:13:02.067 --> 00:13:03.380
+are also very useful.
+
+00:13:03.380 --> 00:13:05.900
+So from practical viewpoint, sometimes
+
+00:13:05.900 --> 00:13:07.900
+we don't necessarily extract the
+
+00:13:07.900 --> 00:13:08.990
+subjective sentences.
+
+00:13:08.990 --> 00:13:11.826
+Instead, would you just get all the
+
+00:13:11.826 --> 00:13:13.840
+sentences that are about opinions that
+
+00:13:13.840 --> 00:13:16.082
+are useful for understanding the person
+
+00:13:16.082 --> 00:13:17.950
+or understanding the product that we are
+
+00:13:17.950 --> 00:13:18.530
+commenting on.
+
+00:13:19.440 --> 00:13:21.770
+So the task of opinion mining can be
+
+00:13:21.770 --> 00:13:24.680
+defined as taking text data as input to
+
+00:13:24.680 --> 00:13:26.100
+generate a set of opinion
+
+00:13:26.100 --> 00:13:27.030
+representations.
+
+00:13:27.030 --> 00:13:30.875
+In each representation we should identify
+
+00:13:30.875 --> 00:13:33.870
+opinion Holder, target content and
+
+00:13:33.870 --> 00:13:34.500
+context.
+
+00:13:34.500 --> 00:13:37.420
+Ideally we can also infer opinion
+
+00:13:37.420 --> 00:13:39.995
+sentiment from the content and context
+
+00:13:39.995 --> 00:13:41.540
+to better understand
+
+00:13:43.080 --> 00:13:43.820
+the opinion.
+
+00:13:44.590 --> 00:13:46.810
+Now often some elements of the
+
+00:13:46.810 --> 00:13:48.180
+representation are already known.
+
+00:13:48.180 --> 00:13:49.890
+I just gave a good example,
+
+00:13:49.890 --> 00:13:52.015
+in the case of product reviews where
+
+00:13:52.015 --> 00:13:54.320
+the opinion Holder and opinion target
+
+00:13:54.320 --> 00:13:57.850
+are often explicitly identified, and
+
+00:13:57.850 --> 00:14:01.360
+that's not why this turns out to be one of the
+
+00:14:01.360 --> 00:14:03.935
+simplest opinion mining
+
+00:14:03.935 --> 00:14:04.762
+tasks.
+
+00:14:04.762 --> 00:14:06.950
+Now it's interesting to think about
+
+00:14:06.950 --> 00:14:09.840
+other tasks that might be also simple,
+
+00:14:09.840 --> 00:14:11.440
+because those are the cases where you
+
+00:14:11.440 --> 00:14:14.260
+can easily build applications by using
+
+00:14:14.260 --> 00:14:15.690
+opinion mining techniques.
+
+00:14:17.800 --> 00:14:20.510
+So now that we have talked about what
+
+00:14:20.510 --> 00:14:22.690
+is opinion mining and we have defined
+
+00:14:22.690 --> 00:14:25.180
+the task, let's also just talk a little
+
+00:14:25.180 --> 00:14:27.140
+bit about the why opinion mining is
+
+00:14:27.140 --> 00:14:29.920
+very important and why it's very
+
+00:14:29.920 --> 00:14:30.570
+useful.
+
+00:14:30.570 --> 00:14:34.295
+So here I identify three major reasons,
+
+00:14:34.295 --> 00:14:35.575
+3 broad reasons.
+
+00:14:35.575 --> 00:14:37.880
+The first is it can help decision
+
+00:14:37.880 --> 00:14:38.480
+support.
+
+00:14:39.160 --> 00:14:41.650
+I can help us optimize our decisions.
+
+00:14:41.650 --> 00:14:44.150
+We often look at the other peoples
+
+00:14:44.150 --> 00:14:47.020
+opinions and look at the reader reviews
+
+00:14:47.020 --> 00:14:48.727
+in order to make a decision like
+
+00:14:48.727 --> 00:14:50.620
+buying, buying a product, or using the
+
+00:14:50.620 --> 00:14:51.190
+service.
+
+00:14:52.070 --> 00:14:53.180
+We also
+
+00:14:54.080 --> 00:14:56.390
+Would be interested in others opinions.
+
+00:14:56.390 --> 00:14:58.890
+When we decide whom to vote, for
+
+00:14:58.890 --> 00:14:59.470
+example.
+
+00:15:00.190 --> 00:15:03.720
+And policymakers may also want to know
+
+00:15:03.720 --> 00:15:06.210
+peoples opinions when designing a new
+
+00:15:06.210 --> 00:15:06.730
+policy.
+
+00:15:06.730 --> 00:15:09.090
+So that's one general kind of
+
+00:15:09.090 --> 00:15:09.740
+applications.
+
+00:15:09.740 --> 00:15:11.170
+And it's very broad, of course.
+
+00:15:12.430 --> 00:15:14.990
+The second application is to understand
+
+00:15:14.990 --> 00:15:16.370
+people, and this is also very
+
+00:15:16.370 --> 00:15:17.050
+important.
+
+00:15:17.620 --> 00:15:19.970
+For example, it can help understand
+
+00:15:19.970 --> 00:15:21.410
+peoples preferences.
+
+00:15:21.410 --> 00:15:23.970
+So and this could help us better serve
+
+00:15:23.970 --> 00:15:24.457
+people.
+
+00:15:24.457 --> 00:15:26.570
+For example, we can optimize the
+
+00:15:26.570 --> 00:15:29.030
+product search engine, optimize
+
+00:15:29.030 --> 00:15:30.825
+recommender system if we know what
+
+00:15:30.825 --> 00:15:33.020
+people are interested in, what people
+
+00:15:33.020 --> 00:15:34.590
+think about products.
+
+00:15:35.670 --> 00:15:37.806
+It can also help her with advertising,
+
+00:15:37.806 --> 00:15:39.970
+of course, and we can have targeted
+
+00:15:39.970 --> 00:15:41.650
+advertising if we know what kind of
+
+00:15:41.650 --> 00:15:46.676
+people tend to know to like what kind
+
+00:15:46.676 --> 00:15:47.560
+of product.
+
+00:15:48.440 --> 00:15:51.070
+Now the third kind of applications can
+
+00:15:51.070 --> 00:15:53.720
+be called voluntary survey.
+
+00:15:53.720 --> 00:15:55.360
+Now this is mostly to support
+
+00:15:55.360 --> 00:15:58.400
+research that used to be done by doing
+
+00:15:58.400 --> 00:16:00.890
+surveys, doing manual surveys, questioning
+
+00:16:00.890 --> 00:16:01.430
+answering.
+
+00:16:02.520 --> 00:16:05.070
+People need to fill in forms to
+
+00:16:05.070 --> 00:16:05.990
+answer some questions.
+
+00:16:07.560 --> 00:16:10.490
+Now this is directly related to humans as
+
+00:16:10.490 --> 00:16:13.630
+sensors, and we can usually aggregate
+
+00:16:13.630 --> 00:16:16.290
+opinions from a lot of humans to kind
+
+00:16:16.290 --> 00:16:17.960
+of assess the general opinion.
+
+00:16:18.550 --> 00:16:20.600
+Now this is would be very useful for
+
+00:16:20.600 --> 00:16:23.160
+business intelligence, where product
+
+00:16:23.160 --> 00:16:26.430
+manufacturers want to know,
+
+00:16:27.060 --> 00:16:29.060
+where their products have advantages
+
+00:16:29.060 --> 00:16:30.010
+over others.
+
+00:16:30.910 --> 00:16:32.450
+What are the winning features of their
+
+00:16:32.450 --> 00:16:34.570
+product or winning features of
+
+00:16:34.570 --> 00:16:35.980
+competitive products?
+
+00:16:36.980 --> 00:16:38.740
+Market research has to do with
+
+00:16:38.740 --> 00:16:40.603
+understanding consumers opinions and
+
+00:16:40.603 --> 00:16:43.140
+this is clearly very useful, directed
+
+00:16:43.140 --> 00:16:43.700
+for that.
+
+00:16:43.700 --> 00:16:45.080
+Data Driven social science
+
+00:16:45.080 --> 00:16:47.410
+research can benefit from this because
+
+00:16:47.410 --> 00:16:50.850
+they can do text mining to understand
+
+00:16:50.850 --> 00:16:51.855
+the people's opinions.
+
+00:16:51.855 --> 00:16:53.889
+And if we can aggregate a lot of
+
+00:16:53.889 --> 00:16:56.100
+opinions from social media from a lot
+
+00:16:56.100 --> 00:17:00.050
+of public information, then you can
+
+00:17:00.050 --> 00:17:03.440
+actually do some study of some
+
+00:17:03.440 --> 00:17:04.160
+questions.
+
+00:17:04.160 --> 00:17:06.410
+For example, we can study the behavior
+
+00:17:06.410 --> 00:17:07.280
+of people
+
+00:17:07.510 --> 00:17:11.030
+on social media or in social
+
+00:17:11.030 --> 00:17:13.840
+networks, and these can be regarded as
+
+00:17:13.840 --> 00:17:15.100
+voluntary survey,
+
+00:17:16.150 --> 00:17:18.070
+but done by those people.
+
+00:17:19.110 --> 00:17:20.670
+And in general, we can gain a lot of
+
+00:17:20.670 --> 00:17:23.070
+advantage in any prediction task
+
+00:17:23.070 --> 00:17:25.140
+because we can leverage the text data
+
+00:17:25.140 --> 00:17:30.210
+as extra data about any problem and
+
+00:17:30.210 --> 00:17:33.210
+so we can use text based prediction
+
+00:17:33.210 --> 00:17:35.390
+techniques to help you make prediction
+
+00:17:35.390 --> 00:17:37.560
+or improve the accuracy of prediction.
+
+

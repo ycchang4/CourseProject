@@ -1,0 +1,972 @@
+WEBVTT Kind: captions; Language: en-US
+
+NOTE
+Created on 2021-02-27T00:01:03.1090236Z by ClassTranscribe
+
+00:00:00.280 --> 00:00:02.720
+This lecture is about the future of web
+
+00:00:02.720 --> 00:00:03.170
+search.
+
+00:00:12.540 --> 00:00:15.020
+In this lecture we're going to talk
+
+00:00:15.020 --> 00:00:17.760
+about some possible future trends of
+
+00:00:17.760 --> 00:00:20.620
+web search and intelligent
+
+00:00:20.620 --> 00:00:22.080
+information retrieval systems in
+
+00:00:22.080 --> 00:00:22.680
+general.
+
+00:00:24.250 --> 00:00:26.040
+In order to further improve the
+
+00:00:26.040 --> 00:00:28.220
+accuracy of search engines, it's
+
+00:00:28.220 --> 00:00:32.640
+important to consider special cases of
+
+00:00:32.640 --> 00:00:36.180
+information need, so one particular
+
+00:00:36.180 --> 00:00:39.660
+trend could be to have more and more
+
+00:00:39.660 --> 00:00:42.220
+specialized and customized search
+
+00:00:42.220 --> 00:00:43.883
+engines and they can be called vertical
+
+00:00:43.883 --> 00:00:44.689
+search engines.
+
+00:00:45.670 --> 00:00:48.120
+These vertical search engines can be
+
+00:00:48.120 --> 00:00:49.940
+expected to be more effective than the
+
+00:00:49.940 --> 00:00:53.500
+current general search engines because
+
+00:00:53.500 --> 00:00:56.380
+they could assume that the users are a
+
+00:00:56.380 --> 00:00:59.700
+special group of users that might have
+
+00:00:59.700 --> 00:01:02.345
+a common information need, and then the
+
+00:01:02.345 --> 00:01:05.180
+search engine can be customized to serve
+
+00:01:05.180 --> 00:01:06.070
+such users.
+
+00:01:07.200 --> 00:01:09.860
+And because of the customization is
+
+00:01:09.860 --> 00:01:12.420
+also possible to do personalization, so
+
+00:01:12.420 --> 00:01:13.860
+search can be personalized.
+
+00:01:15.320 --> 00:01:17.170
+Because we have a better understanding
+
+00:01:17.170 --> 00:01:18.240
+of the users.
+
+00:01:20.210 --> 00:01:22.186
+Because of the restriction of the domain,
+
+00:01:22.186 --> 00:01:25.690
+we also have some advantages in
+
+00:01:25.690 --> 00:01:27.728
+handling the documents because we can
+
+00:01:27.728 --> 00:01:29.530
+have better understanding of documents.
+
+00:01:29.530 --> 00:01:31.930
+For example, particular words may not
+
+00:01:31.930 --> 00:01:34.305
+be ambiguous in such a domain, so we
+
+00:01:34.305 --> 00:01:36.950
+can bypass the problem of ambiguity.
+
+00:01:38.270 --> 00:01:41.100
+Another trend that we can expect to
+
+00:01:41.100 --> 00:01:42.030
+see is
+
+00:01:42.030 --> 00:01:44.450
+The search engine will be able to learn
+
+00:01:44.450 --> 00:01:45.480
+over time.
+
+00:01:45.480 --> 00:01:49.170
+It's like a lifetime learning or
+
+00:01:49.170 --> 00:01:50.280
+lifelong learning.
+
+00:01:50.890 --> 00:01:53.480
+And this is of course very attractive,
+
+00:01:53.480 --> 00:01:55.100
+because that means the search engine
+
+00:01:55.100 --> 00:01:58.480
+will self improve itself as more people
+
+00:01:58.480 --> 00:01:59.252
+are using it.
+
+00:01:59.252 --> 00:02:01.009
+Search engines will become better and
+
+00:02:01.009 --> 00:02:02.943
+better and this is already happening
+
+00:02:02.943 --> 00:02:04.885
+because search engines can learn from
+
+00:02:04.885 --> 00:02:07.860
+the implicit feedback, more users use
+
+00:02:07.860 --> 00:02:09.529
+it and the quality of the search
+
+00:02:09.530 --> 00:02:11.810
+results for the popular queries that
+
+00:02:11.810 --> 00:02:14.200
+are typed in by many users will likely
+
+00:02:14.200 --> 00:02:15.040
+become better.
+
+00:02:15.590 --> 00:02:18.530
+So this is another feature that we
+
+00:02:18.530 --> 00:02:19.060
+would see.
+
+00:02:20.860 --> 00:02:23.400
+The third trend might be the
+
+00:02:23.400 --> 00:02:25.490
+integration of multi models of
+
+00:02:25.490 --> 00:02:26.480
+information access.
+
+00:02:27.070 --> 00:02:30.100
+So search navigation and recommendation
+
+00:02:30.100 --> 00:02:33.650
+or filtering might be combined to form
+
+00:02:33.650 --> 00:02:35.440
+a full fledged information management
+
+00:02:35.440 --> 00:02:36.050
+system.
+
+00:02:37.360 --> 00:02:39.990
+And in the beginning of this course we
+
+00:02:39.990 --> 00:02:42.330
+talked about the push versus pull.
+
+00:02:42.330 --> 00:02:43.699
+These are different modes of
+
+00:02:43.700 --> 00:02:46.270
+information access, but these modes can
+
+00:02:46.270 --> 00:02:47.290
+be combined.
+
+00:02:48.060 --> 00:02:50.352
+And similarly, in the pull mode,
+
+00:02:50.352 --> 00:02:52.730
+querying and browsing could also be
+
+00:02:52.730 --> 00:02:54.650
+combined then in fact we're doing
+
+00:02:54.650 --> 00:02:57.130
+that basically today with the current
+
+00:02:57.130 --> 00:02:59.453
+search engines we are querying.
+
+00:02:59.453 --> 00:03:02.010
+Sometimes browsing, clicking on links.
+
+00:03:02.010 --> 00:03:04.155
+Sometimes we've got some information
+
+00:03:04.155 --> 00:03:06.460
+recommended, although most of the cases
+
+00:03:06.460 --> 00:03:10.600
+information recommended is because of
+
+00:03:10.600 --> 00:03:11.400
+advertising.
+
+00:03:11.400 --> 00:03:14.020
+But in the future you can imagine
+
+00:03:14.020 --> 00:03:16.980
+seamlessly integrate the system with
+
+00:03:16.980 --> 00:03:19.260
+multi mode for information access.
+
+00:03:19.750 --> 00:03:21.080
+And that would be convenient for
+
+00:03:21.080 --> 00:03:21.620
+people.
+
+00:03:22.930 --> 00:03:26.300
+Another trend is that we might see
+
+00:03:26.300 --> 00:03:28.860
+systems that try to go beyond, search
+
+00:03:28.860 --> 00:03:30.780
+it supports the user tasks.
+
+00:03:30.780 --> 00:03:33.212
+After all, the reason why people want
+
+00:03:33.212 --> 00:03:37.010
+to search is to solve a problem or to
+
+00:03:37.010 --> 00:03:38.990
+make a decision or perform a task.
+
+00:03:39.610 --> 00:03:42.520
+For example, consumers might search for
+
+00:03:42.520 --> 00:03:44.430
+opinions about products in order to
+
+00:03:44.430 --> 00:03:46.370
+purchase a product and choose a good
+
+00:03:46.370 --> 00:03:47.440
+product to buy.
+
+00:03:47.440 --> 00:03:49.895
+So in this case it would be beneficial
+
+00:03:49.895 --> 00:03:52.830
+to support the whole workflow of
+
+00:03:52.830 --> 00:03:55.180
+purchasing a product or choosing a
+
+00:03:55.180 --> 00:03:55.520
+product.
+
+00:03:56.120 --> 00:03:58.460
+In this area, after the current search
+
+00:03:58.460 --> 00:04:00.040
+engines already provided good support,
+
+00:04:00.040 --> 00:04:01.950
+for example, you can sometimes look at
+
+00:04:01.950 --> 00:04:03.930
+the reviews and then if you want to buy
+
+00:04:03.930 --> 00:04:05.970
+it and you can just click on the button
+
+00:04:05.970 --> 00:04:07.340
+to go to the shopping site
+
+00:04:07.340 --> 00:04:08.570
+directly, get it done.
+
+00:04:08.570 --> 00:04:11.040
+But it does not provide a good task
+
+00:04:11.040 --> 00:04:12.658
+support for many other tasks.
+
+00:04:12.658 --> 00:04:14.990
+For example for researchers, you might
+
+00:04:14.990 --> 00:04:17.750
+want to find the relevant literature or
+
+00:04:17.750 --> 00:04:19.010
+site of the literature, and then
+
+00:04:19.010 --> 00:04:23.310
+there's no support for finishing tasks
+
+00:04:23.310 --> 00:04:24.550
+such as writing a paper.
+
+00:04:26.050 --> 00:04:28.350
+So in general, I think there are many
+
+00:04:28.350 --> 00:04:31.330
+opportunities to innovate, and so in
+
+00:04:31.330 --> 00:04:33.110
+the following a few slides I would be
+
+00:04:33.110 --> 00:04:34.670
+talking a little bit more about some
+
+00:04:34.670 --> 00:04:38.820
+specific ideas or thoughts that
+
+00:04:38.820 --> 00:04:41.330
+hopefully you can help you imagine new
+
+00:04:41.330 --> 00:04:42.875
+application possibilities.
+
+00:04:42.875 --> 00:04:46.380
+Some of them might be already relevant
+
+00:04:46.380 --> 00:04:49.520
+to what you are currently working on.
+
+00:04:51.210 --> 00:04:53.100
+In general, you can think about any
+
+00:04:53.100 --> 00:04:55.520
+intelligent system, especially intended
+
+00:04:55.520 --> 00:04:59.703
+information system, as being specified by
+
+00:04:59.703 --> 00:05:03.420
+these three nodes, and so if we connect
+
+00:05:03.420 --> 00:05:06.115
+these three into a triangle, then we'll
+
+00:05:06.115 --> 00:05:08.736
+be able to specify information system,
+
+00:05:08.736 --> 00:05:11.336
+and I call this data user service
+
+00:05:11.336 --> 00:05:12.003
+triangle.
+
+00:05:12.003 --> 00:05:14.350
+So basically the three questions you
+
+00:05:14.350 --> 00:05:18.100
+ask would be who are you serving and
+
+00:05:18.100 --> 00:05:21.160
+what kind of data you are managing.
+
+00:05:21.220 --> 00:05:23.730
+And what kind of service you provide?
+
+00:05:24.360 --> 00:05:27.060
+Right there, this would help us
+
+00:05:27.060 --> 00:05:30.880
+basically specify your system and there
+
+00:05:30.880 --> 00:05:32.265
+are many different ways to connect
+
+00:05:32.265 --> 00:05:34.050
+them, depending on how you connect
+
+00:05:34.050 --> 00:05:35.660
+them, you will have a different kind of
+
+00:05:35.660 --> 00:05:37.233
+system, so let me give you some example.
+
+00:05:37.233 --> 00:05:38.150
+On the top,
+
+00:05:38.150 --> 00:05:40.490
+you can see different kinds of users, on
+
+00:05:40.490 --> 00:05:43.160
+the left side you can see different
+
+00:05:43.160 --> 00:05:45.480
+types of data or information, and on the
+
+00:05:45.480 --> 00:05:47.530
+bottom you can see different service
+
+00:05:47.530 --> 00:05:48.650
+functions.
+
+00:05:48.650 --> 00:05:50.970
+Now imagine we can connect all these in
+
+00:05:50.970 --> 00:05:51.650
+different ways.
+
+00:05:51.650 --> 00:05:53.169
+So for example if you can connect
+
+00:05:53.170 --> 00:05:54.860
+everyone with web pages.
+
+00:05:55.330 --> 00:05:58.160
+And the support search and browsing.
+
+00:05:58.160 --> 00:05:59.080
+What do you get?
+
+00:05:59.080 --> 00:06:01.130
+That's web search, right?
+
+00:06:01.970 --> 00:06:03.710
+What if we connect the
+
+00:06:03.710 --> 00:06:06.090
+UIUC employees with organization
+
+00:06:06.090 --> 00:06:08.077
+documents or enterprise documents to
+
+00:06:08.077 --> 00:06:10.590
+support the search and browsing.
+
+00:06:10.590 --> 00:06:11.623
+That's enterprise search.
+
+00:06:11.623 --> 00:06:15.030
+If you connect the scientists with
+
+00:06:15.030 --> 00:06:18.260
+literature information to provide all
+
+00:06:18.260 --> 00:06:20.530
+kinds of service, including search,
+
+00:06:20.530 --> 00:06:23.663
+browsing or alert of new relevant
+
+00:06:23.663 --> 00:06:26.600
+documents, or mining, analyzing
+
+00:06:26.600 --> 00:06:29.256
+research trends, or provide the task
+
+00:06:29.256 --> 00:06:31.350
+support or decision support, for
+
+00:06:31.350 --> 00:06:32.510
+example.
+
+00:06:32.820 --> 00:06:35.696
+You might be might be able to provide a
+
+00:06:35.696 --> 00:06:38.890
+support for automatically generating
+
+00:06:38.890 --> 00:06:40.570
+related work section for research
+
+00:06:40.570 --> 00:06:43.240
+paper, and this would be closer to task
+
+00:06:43.240 --> 00:06:44.610
+support, right?
+
+00:06:44.610 --> 00:06:46.420
+So then we can imagine this would be a
+
+00:06:46.420 --> 00:06:48.660
+literature assistant if we connect to
+
+00:06:48.660 --> 00:06:51.700
+online shoppers with blog articles or
+
+00:06:51.700 --> 00:06:56.580
+product reviews, then we can help these
+
+00:06:56.580 --> 00:07:00.060
+people to improve shopping experience
+
+00:07:00.060 --> 00:07:02.900
+so we can provide for example data
+
+00:07:02.900 --> 00:07:05.095
+mining capabilities to analyze the
+
+00:07:05.095 --> 00:07:05.970
+reviews to
+
+00:07:06.020 --> 00:07:08.870
+Compare products, compare sentiment of
+
+00:07:08.870 --> 00:07:12.010
+products and to provide a task support or
+
+00:07:12.010 --> 00:07:14.010
+decision support to help them choose
+
+00:07:14.010 --> 00:07:15.370
+what product to buy.
+
+00:07:15.370 --> 00:07:17.700
+Or we can connect the customer service
+
+00:07:17.700 --> 00:07:21.560
+people with emails from the customers.
+
+00:07:22.320 --> 00:07:25.965
+And we can imagine a system that can
+
+00:07:25.965 --> 00:07:28.590
+provide analysis of these emails to
+
+00:07:28.590 --> 00:07:30.260
+find the major complaints of the
+
+00:07:30.260 --> 00:07:31.110
+customers.
+
+00:07:31.110 --> 00:07:33.750
+We can imagine the system could provide
+
+00:07:33.750 --> 00:07:37.640
+task support by automatically generating a response
+
+00:07:37.640 --> 00:07:40.080
+to the customer email, or maybe
+
+00:07:40.080 --> 00:07:43.280
+intelligently attach also promotion.
+
+00:07:44.560 --> 00:07:47.430
+Message if appropriate if the detector
+
+00:07:47.430 --> 00:07:49.790
+that's a positive message, not a
+
+00:07:49.790 --> 00:07:51.330
+complaint, and then you might to take
+
+00:07:51.330 --> 00:07:53.400
+this opportunity to attach some
+
+00:07:53.400 --> 00:07:55.230
+promotion information.
+
+00:07:55.230 --> 00:07:57.225
+Whereas if it's a complaint that you
+
+00:07:57.225 --> 00:07:58.260
+might be able to.
+
+00:07:59.360 --> 00:08:01.730
+Automatically generate some generic
+
+00:08:01.730 --> 00:08:05.980
+response first and tell the customer that
+
+00:08:05.980 --> 00:08:07.600
+he or she can expect the detailed
+
+00:08:07.600 --> 00:08:09.240
+response later, etc.
+
+00:08:09.240 --> 00:08:12.890
+All these are trying to help people to
+
+00:08:12.890 --> 00:08:14.310
+improve the productivity.
+
+00:08:15.470 --> 00:08:17.720
+So this shows that the opportunities
+
+00:08:17.720 --> 00:08:20.590
+are really a lot, it's just only
+
+00:08:20.590 --> 00:08:22.136
+restricted by our imagination.
+
+00:08:22.136 --> 00:08:26.130
+So this picture shows the trend of the
+
+00:08:26.130 --> 00:08:28.650
+technology and also it characterizes
+
+00:08:28.650 --> 00:08:31.990
+the intelligent information system in
+
+00:08:31.990 --> 00:08:36.160
+three angles you can see in the center
+
+00:08:36.160 --> 00:08:37.620
+there is a triangle that connects
+
+00:08:37.620 --> 00:08:40.510
+keyword queries to search and bag of
+
+00:08:40.510 --> 00:08:41.495
+words representation.
+
+00:08:41.495 --> 00:08:44.290
+That means the current search engines
+
+00:08:44.290 --> 00:08:46.910
+basically provides search support.
+
+00:08:47.550 --> 00:08:52.090
+Users and mostly model users based on
+
+00:08:52.090 --> 00:08:53.170
+keyword queries.
+
+00:08:53.960 --> 00:08:57.940
+And it sees the data through a bag of
+
+00:08:57.940 --> 00:08:59.110
+words representation.
+
+00:08:59.110 --> 00:09:01.960
+So it's a very simple approximation of
+
+00:09:01.960 --> 00:09:04.580
+the actual information in the
+
+00:09:04.580 --> 00:09:05.320
+documents.
+
+00:09:06.060 --> 00:09:07.840
+But that's what the current system
+
+00:09:07.840 --> 00:09:08.380
+does.
+
+00:09:08.380 --> 00:09:11.340
+It connects these three nodes in such a
+
+00:09:11.340 --> 00:09:11.990
+simple way.
+
+00:09:11.990 --> 00:09:14.220
+Or it only provides you basic
+
+00:09:14.220 --> 00:09:16.923
+search function and doesn't really
+
+00:09:16.923 --> 00:09:18.620
+understand the user.
+
+00:09:18.620 --> 00:09:20.579
+And it doesn't really understand it
+
+00:09:20.580 --> 00:09:20.980
+that much
+
+00:09:20.980 --> 00:09:24.020
+information in the documents.
+
+00:09:24.020 --> 00:09:27.690
+Now I showed some trends to push each
+
+00:09:27.690 --> 00:09:28.300
+node.
+
+00:09:29.850 --> 00:09:32.280
+Toward more advanced function, so think
+
+00:09:32.280 --> 00:09:36.620
+about the user node here so we can go
+
+00:09:36.620 --> 00:09:37.950
+beyond the keyword queries.
+
+00:09:37.950 --> 00:09:40.050
+Look at the user search history and
+
+00:09:40.050 --> 00:09:43.020
+then further model the user completely
+
+00:09:43.020 --> 00:09:44.770
+to understand the users task,
+
+00:09:44.770 --> 00:09:48.560
+environment, task need context or
+
+00:09:48.560 --> 00:09:49.924
+other information.
+
+00:09:49.924 --> 00:09:53.730
+So this is pushing for personalization
+
+00:09:53.730 --> 00:09:55.836
+and complete the user modeling and this
+
+00:09:55.836 --> 00:09:57.620
+is a major direction in research.
+
+00:09:57.620 --> 00:09:59.845
+In order to build intelligent
+
+00:09:59.845 --> 00:10:00.980
+information systems.
+
+00:10:01.690 --> 00:10:03.640
+On the document side.
+
+00:10:04.320 --> 00:10:06.560
+We can also see we can go beyond bag of
+
+00:10:06.560 --> 00:10:08.810
+words representation to have entity
+
+00:10:08.810 --> 00:10:10.230
+relation representation.
+
+00:10:10.230 --> 00:10:13.170
+This means we'll recognize peoples names
+
+00:10:13.170 --> 00:10:16.520
+their relations, locations etc and this is
+
+00:10:16.520 --> 00:10:18.460
+already feasible with today's natural
+
+00:10:18.460 --> 00:10:20.480
+language processing technique and
+
+00:10:20.480 --> 00:10:23.240
+Google's recent initiative on the
+
+00:10:23.240 --> 00:10:24.340
+Knowledge Graph.
+
+00:10:24.340 --> 00:10:26.370
+If you have heard of it, it's a good
+
+00:10:26.370 --> 00:10:28.885
+step toward this direction and once we
+
+00:10:28.885 --> 00:10:31.400
+can get to that level of representation
+
+00:10:31.400 --> 00:10:34.220
+in a robust manner at large scale, it can
+
+00:10:34.220 --> 00:10:35.950
+enable the search engine to
+
+00:10:36.000 --> 00:10:38.640
+provide much better service. In the
+
+00:10:38.640 --> 00:10:39.400
+future,
+
+00:10:39.400 --> 00:10:41.810
+we would like to have knowledge
+
+00:10:41.810 --> 00:10:43.750
+representation where we can add perhaps
+
+00:10:43.750 --> 00:10:45.910
+inference rules and then the search
+
+00:10:45.910 --> 00:10:47.920
+engine will become more intelligent.
+
+00:10:49.170 --> 00:10:51.730
+So this calls for large scale semantic
+
+00:10:51.730 --> 00:10:54.470
+analysis, and perhaps this is more
+
+00:10:54.470 --> 00:10:56.180
+feasible for vertical search engines.
+
+00:10:56.880 --> 00:10:58.510
+It's easier to make progress in a
+
+00:10:58.510 --> 00:11:00.670
+particular domain. Now on the service
+
+00:11:00.670 --> 00:11:02.620
+side, we see that we need to go beyond
+
+00:11:02.620 --> 00:11:04.470
+the search if support information
+
+00:11:04.470 --> 00:11:09.390
+access in general, so search is only
+
+00:11:09.390 --> 00:11:11.840
+one way to get access to information as
+
+00:11:11.840 --> 00:11:12.140
+well.
+
+00:11:12.140 --> 00:11:16.390
+Recommender systems and push and pull
+
+00:11:16.390 --> 00:11:18.610
+are different ways to get access to
+
+00:11:18.610 --> 00:11:20.945
+relevant information, but going beyond
+
+00:11:20.945 --> 00:11:22.780
+access we also need to help people
+
+00:11:22.780 --> 00:11:24.330
+digest information.
+
+00:11:24.330 --> 00:11:26.930
+Once the information is found and this
+
+00:11:26.930 --> 00:11:27.870
+step has to do with
+
+00:11:27.930 --> 00:11:30.160
+analysis of information or data mining.
+
+00:11:30.160 --> 00:11:32.710
+We have to find the patterns or
+
+00:11:32.710 --> 00:11:35.410
+converted the text information into
+
+00:11:35.410 --> 00:11:38.689
+your knowledge that can be used in
+
+00:11:38.690 --> 00:11:39.180
+application
+
+00:11:39.180 --> 00:11:41.193
+or actionable knowledge that can be
+
+00:11:41.193 --> 00:11:43.170
+used for decision making. And
+
+00:11:43.170 --> 00:11:45.270
+furthermore the knowledge would be used
+
+00:11:45.270 --> 00:11:48.530
+to help user to improve productivity in
+
+00:11:48.530 --> 00:11:49.860
+finishing a task.
+
+00:11:49.860 --> 00:11:51.965
+For example, a decision making task.
+
+00:11:51.965 --> 00:11:55.635
+So this is a trend and so basically in
+
+00:11:55.635 --> 00:11:57.350
+this dimension we
+
+00:11:58.000 --> 00:12:00.710
+anticipate in the futur.
+
+00:12:00.710 --> 00:12:02.230
+Intelligent Information systems will
+
+00:12:02.230 --> 00:12:05.350
+provide intelligent and interactive
+
+00:12:05.350 --> 00:12:05.820
+task
+
+00:12:05.820 --> 00:12:08.030
+support. Now I should also emphasize
+
+00:12:08.030 --> 00:12:10.025
+interactive here because it's important
+
+00:12:10.025 --> 00:12:13.420
+to optimize the combined
+
+00:12:13.420 --> 00:12:16.305
+intelligence of the users and the
+
+00:12:16.305 --> 00:12:19.432
+system so we can get some help from
+
+00:12:19.432 --> 00:12:23.000
+users in some natural way and we don't
+
+00:12:23.000 --> 00:12:24.670
+have to assume the system has to do
+
+00:12:24.670 --> 00:12:27.600
+everything when the human user and the
+
+00:12:27.600 --> 00:12:28.260
+machine
+
+00:12:28.310 --> 00:12:30.750
+can collaborate in an intelligent way
+
+00:12:30.750 --> 00:12:34.320
+in an efficient way, then the combined
+
+00:12:34.320 --> 00:12:36.770
+intelligence will be high and in
+
+00:12:36.770 --> 00:12:38.650
+general we can minimize the user's
+
+00:12:38.650 --> 00:12:41.250
+overall effort in solving problem.
+
+00:12:42.580 --> 00:12:44.740
+So this is the big picture of future
+
+00:12:44.740 --> 00:12:46.640
+intelligent information systems.
+
+00:12:47.410 --> 00:12:49.700
+And this hopefully can provide us some
+
+00:12:49.700 --> 00:12:52.560
+insights about how to make further
+
+00:12:52.560 --> 00:12:54.700
+innovations on top of what we can do
+
+00:12:54.700 --> 00:12:55.160
+today.
+
+

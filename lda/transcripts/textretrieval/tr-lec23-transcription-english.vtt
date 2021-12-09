@@ -1,0 +1,727 @@
+WEBVTT Kind: captions; Language: en-US
+
+NOTE
+Created on 2021-02-26T23:58:12.3206172Z by ClassTranscribe
+
+00:00:00.280 --> 00:00:03.000
+So I showed you how we rewrite the
+
+00:00:03.000 --> 00:00:04.810
+query likelihood retrieval function
+
+00:00:04.810 --> 00:00:08.130
+into a form that looks like the formula
+
+00:00:08.130 --> 00:00:09.170
+of this slide.
+
+00:00:09.170 --> 00:00:12.020
+After we make the assumption about the
+
+00:00:12.020 --> 00:00:14.180
+smoothing the language model.
+
+00:00:27.420 --> 00:00:29.950
+Based on the collection language model.
+
+00:00:30.630 --> 00:00:33.160
+If you look at the this rewriting it
+
+00:00:33.160 --> 00:00:35.480
+actually would give us two benefits.
+
+00:00:36.040 --> 00:00:39.450
+The first benefit is it helps us better
+
+00:00:39.450 --> 00:00:42.350
+understand this ranking function.
+
+00:00:42.350 --> 00:00:44.300
+In particular, we're going to show that
+
+00:00:44.300 --> 00:00:47.030
+from this formula we can see smoothing
+
+00:00:47.030 --> 00:00:48.840
+with the collection language model will
+
+00:00:48.840 --> 00:00:50.610
+give us something like a TF IDF
+
+00:00:50.610 --> 00:00:52.600
+weighting and length normalization.
+
+00:00:52.600 --> 00:00:55.650
+The second benefit is that it also
+
+00:00:55.650 --> 00:00:59.460
+allows us to compute the query likelihood
+
+00:00:59.460 --> 00:01:01.230
+more efficiently.
+
+00:01:02.810 --> 00:01:04.820
+In particular, we see that the main
+
+00:01:04.820 --> 00:01:06.780
+part of the formula is a sum over the
+
+00:01:06.780 --> 00:01:07.960
+matched query terms.
+
+00:01:09.490 --> 00:01:12.600
+So this is much better than if we take
+
+00:01:12.600 --> 00:01:14.110
+a sum over all the words.
+
+00:01:14.790 --> 00:01:16.630
+After we smooth the document language
+
+00:01:16.630 --> 00:01:18.270
+model, we send you to have non zero
+
+00:01:18.270 --> 00:01:20.510
+probabilities for all the words.
+
+00:01:21.280 --> 00:01:24.040
+So this new form of the formula is much
+
+00:01:24.040 --> 00:01:25.890
+easier to score or to compute.
+
+00:01:27.450 --> 00:01:29.970
+It's also interesting to note that the
+
+00:01:29.970 --> 00:01:33.000
+last term here is actually independent
+
+00:01:33.000 --> 00:01:35.609
+of the document, since our goal is to
+
+00:01:35.610 --> 00:01:37.660
+rank the documents for the same query,
+
+00:01:37.660 --> 00:01:39.950
+we can ignore this term for ranking.
+
+00:01:40.510 --> 00:01:42.300
+Because it's going to be the same for
+
+00:01:42.300 --> 00:01:43.530
+all the documents.
+
+00:01:43.530 --> 00:01:45.700
+Ignoring it wouldn't affect the order
+
+00:01:45.700 --> 00:01:46.669
+of the documents.
+
+00:01:48.960 --> 00:01:50.510
+Inside the sum,
+
+00:01:51.260 --> 00:01:55.100
+We also see that each matched query
+
+00:01:55.100 --> 00:01:57.220
+term would contribute.
+
+00:01:58.230 --> 00:01:58.980
+weight
+
+00:01:59.640 --> 00:02:02.580
+And this weight actually is very
+
+00:02:02.580 --> 00:02:03.260
+interesting.
+
+00:02:03.260 --> 00:02:06.580
+because it looks like a TF IDF
+
+00:02:06.580 --> 00:02:06.980
+weighting.
+
+00:02:06.980 --> 00:02:09.205
+First, we can already see it has a
+
+00:02:09.205 --> 00:02:11.730
+frequency of the word in the query,
+
+00:02:11.730 --> 00:02:13.970
+just like in the vector space model.
+
+00:02:13.970 --> 00:02:17.490
+When we take a dot product we see the
+
+00:02:17.490 --> 00:02:20.070
+word frequency in the query to show up
+
+00:02:20.070 --> 00:02:21.220
+in such a sum.
+
+00:02:22.130 --> 00:02:24.660
+And so naturally, this pot would
+
+00:02:24.660 --> 00:02:29.125
+correspond to the vector element from
+
+00:02:29.125 --> 00:02:32.440
+the document vector, and here indeed we
+
+00:02:32.440 --> 00:02:36.910
+can see it actually encodes a weight
+
+00:02:36.910 --> 00:02:39.670
+that has similar factor to TF IDF
+
+00:02:39.670 --> 00:02:40.200
+weighting.
+
+00:02:41.020 --> 00:02:43.020
+I'll let you examine it.
+
+00:02:43.020 --> 00:02:43.860
+Can you see it?
+
+00:02:43.860 --> 00:02:46.690
+Can you see which part is capturing TF?
+
+00:02:46.690 --> 00:02:49.560
+and which part is capturing IDF
+
+00:02:49.560 --> 00:02:49.930
+weighting?
+
+00:02:51.540 --> 00:02:53.640
+So if you want you can pause the video
+
+00:02:53.640 --> 00:02:54.820
+to think more about it.
+
+00:02:55.710 --> 00:02:58.500
+So, have you noticed that this p 
+
+00:02:58.500 --> 00:03:01.320
+of seen is related to the term
+
+00:03:01.320 --> 00:03:01.850
+frequency?
+
+00:03:02.520 --> 00:03:05.570
+In the sense that if a word occurs very
+
+00:03:05.570 --> 00:03:08.700
+frequently in the document, then the
+
+00:03:08.700 --> 00:03:10.450
+estimated probability here would
+
+00:03:10.450 --> 00:03:11.550
+tend to be larger.
+
+00:03:11.550 --> 00:03:15.600
+So this means this term is really doing
+
+00:03:15.600 --> 00:03:18.090
+something like TF weighting.
+
+00:03:18.090 --> 00:03:19.670
+Have you also notice that?
+
+00:03:20.260 --> 00:03:22.280
+This term in the denominator.
+
+00:03:23.190 --> 00:03:25.250
+Is actually achieving the effect of
+
+00:03:25.250 --> 00:03:25.950
+IDF?
+
+00:03:25.950 --> 00:03:26.430
+Why?
+
+00:03:26.430 --> 00:03:27.436
+Because
+
+00:03:27.436 --> 00:03:29.460
+this is the popularity of the term
+
+00:03:29.460 --> 00:03:30.050
+in the collection.
+
+00:03:31.680 --> 00:03:34.110
+But it's in the denominator, so if.
+
+00:03:34.690 --> 00:03:36.070
+The probability in the collection is  
+
+
+00:03:36.070 --> 00:03:37.165
+larger,
+
+00:03:37.165 --> 00:03:40.090
+then the weight is actually smaller, and this
+
+00:03:40.090 --> 00:03:41.740
+means a popular term.
+
+00:03:41.740 --> 00:03:43.716
+We actually have a smaller weight and
+
+00:03:43.716 --> 00:03:45.680
+this is precisely what IDF weighting
+
+00:03:45.680 --> 00:03:46.290
+is doing.
+
+00:03:46.920 --> 00:03:49.250
+Only that we now have a different form
+
+00:03:49.250 --> 00:03:50.650
+of TF and IDF.
+
+00:03:51.430 --> 00:03:54.850
+Remember, IDF
+ has a log logarithm of
+
+00:03:54.850 --> 00:03:55.790
+document frequency.
+
+00:03:55.790 --> 00:03:57.420
+But here we have something different.
+
+00:03:58.190 --> 00:04:01.330
+But intuitively it achieves a similar
+
+00:04:01.330 --> 00:04:02.320
+fact.
+
+00:04:02.320 --> 00:04:04.410
+Interestingly, we also have something
+
+00:04:04.410 --> 00:04:06.850
+related to the length normalization.
+
+00:04:07.670 --> 00:04:09.580
+Again, can you see which factor is
+
+00:04:09.580 --> 00:04:11.150
+related to the document length?
+
+00:04:12.760 --> 00:04:13.700
+In this formula.
+
+00:04:14.650 --> 00:04:17.670
+I just say that this term is related to
+
+00:04:17.670 --> 00:04:18.520
+IDF weighting.
+
+00:04:19.170 --> 00:04:19.940
+This.
+
+00:04:20.790 --> 00:04:22.940
+This collection probability, but it
+
+00:04:22.940 --> 00:04:25.580
+turns out that this term here is
+
+00:04:25.580 --> 00:04:27.240
+actually related to the document length.
+
+00:04:27.240 --> 00:04:30.450
+Normalization in particular alpha sub d
+
+00:04:30.450 --> 00:04:32.360
+might be related to document.
+
+00:04:33.870 --> 00:04:37.080
+length, so it encodes how much
+
+00:04:37.080 --> 00:04:39.670
+probability mass we want to give to
+
+00:04:39.670 --> 00:04:40.590
+unseen words.
+
+00:04:41.530 --> 00:04:43.530
+How much smoothing do we want to do
+
+00:04:43.530 --> 00:04:43.710
+?
+
+00:04:43.710 --> 00:04:46.392
+Intuitively, if a document is long then
+
+00:04:46.392 --> 00:04:49.150
+we need to do less smoothing because we
+
+00:04:49.150 --> 00:04:50.970
+can assume that data is large enough.
+
+00:04:50.970 --> 00:04:53.322
+We probably have observed all the words
+
+00:04:53.322 --> 00:04:55.890
+that the author could have written, but
+
+00:04:55.890 --> 00:04:57.300
+the document is short.
+
+00:04:57.300 --> 00:04:59.818
+Then alpha sub d could be expected to be
+
+00:04:59.818 --> 00:05:00.462
+to be large.
+
+00:05:00.462 --> 00:05:02.300
+We need to do more smoothing.
+
+00:05:02.300 --> 00:05:03.795
+It's like that there are words that
+
+00:05:03.795 --> 00:05:06.410
+have not been written yet by the other.
+
+00:05:07.570 --> 00:05:11.380
+So this term appears to penalize long
+
+00:05:11.380 --> 00:05:12.920
+documenting in that the alpha sub d
+
+00:05:12.920 --> 00:05:15.420
+would tend to be longer than larger
+
+00:05:15.420 --> 00:05:16.280
+than.
+
+00:05:16.940 --> 00:05:18.250
+for a long document.
+
+00:05:19.000 --> 00:05:20.750
+But note that the alpha sub d also
+
+00:05:20.750 --> 00:05:22.140
+occurs here.
+
+00:05:22.820 --> 00:05:26.170
+And so this may not actually be
+
+00:05:26.170 --> 00:05:26.960
+necessary.
+
+00:05:26.960 --> 00:05:29.533
+Penalizing long documents effect is not
+
+00:05:29.533 --> 00:05:30.770
+so clear here.
+
+00:05:31.850 --> 00:05:33.470
+But as we will see later when we
+
+00:05:33.470 --> 00:05:35.430
+consider some specific smoothing
+
+00:05:35.430 --> 00:05:38.180
+methods, it turns out that they do
+
+00:05:38.180 --> 00:05:40.920
+penalize long documents just like in TF
+
+00:05:40.920 --> 00:05:43.490
+IDF weighting 
+and document length
+
+
+00:05:43.490 --> 00:05:45.270
+normalization formulas in the vector
+
+00:05:45.270 --> 00:05:46.040
+space model.
+
+00:05:46.820 --> 00:05:48.090
+So that's a very interesting
+
+00:05:48.090 --> 00:05:50.460
+observation, because it means we don't
+
+00:05:50.460 --> 00:05:52.590
+even have to think about the specific
+
+00:05:52.590 --> 00:05:53.915
+way of doing smoothing.
+
+00:05:53.915 --> 00:05:56.330
+We just need to assume that if we
+
+00:05:56.330 --> 00:05:58.440
+smooth with this collection language
+
+00:05:58.440 --> 00:06:01.640
+model, then we would have a formula.
+
+00:06:02.760 --> 00:06:05.580
+That looks like a TF IDF weighting and
+
+00:06:05.580 --> 00:06:06.960
+documents length normalization.
+
+00:06:08.090 --> 00:06:10.870
+What's also interesting is that we have
+
+00:06:10.870 --> 00:06:12.800
+very fixed form of the ranking
+
+00:06:12.800 --> 00:06:13.270
+function.
+
+00:06:14.050 --> 00:06:16.940
+And see we have not heuristically put a
+
+00:06:16.940 --> 00:06:18.200
+logarithm here.
+
+00:06:19.170 --> 00:06:21.380
+In fact, you can think about why we
+
+00:06:21.380 --> 00:06:23.510
+will have a logarithm here.
+
+00:06:23.510 --> 00:06:25.215
+If you look at the assumptions that we
+
+00:06:25.215 --> 00:06:27.110
+have made, it will be clear it's
+
+00:06:27.110 --> 00:06:28.160
+because we have.
+
+00:06:28.760 --> 00:06:31.650
+used logarithm of query likelihood
+
+00:06:31.650 --> 00:06:32.410
+for scoring.
+
+00:06:33.550 --> 00:06:36.495
+And we turned the product into a sum of
+
+00:06:36.495 --> 00:06:38.470
+logarithm of probability and that's why
+
+00:06:38.470 --> 00:06:39.520
+we have this logarithm.
+
+00:06:40.350 --> 00:06:41.960
+Note that if we only want to
+
+00:06:41.960 --> 00:06:44.300
+heuristically implement the TF weight
+
+00:06:44.300 --> 00:06:46.620
+and IDF weighting, we don't
+
+00:06:46.620 --> 00:06:48.210
+necessarily have to have a logarithm
+
+00:06:48.210 --> 00:06:48.700
+here.
+
+00:06:48.700 --> 00:06:51.300
+Imagine if we drop this logarithm, we
+
+00:06:51.300 --> 00:06:53.810
+would still have TF and IDF weighting.
+
+00:06:54.890 --> 00:06:56.510
+But what's nice with probabilistic
+
+00:06:56.510 --> 00:06:58.930
+modeling is that we are automatically
+
+00:06:58.930 --> 00:07:01.190
+given a logarithm function here.
+
+00:07:01.840 --> 00:07:05.295
+And that's basically a fixed form of
+
+00:07:05.295 --> 00:07:07.970
+the formula that we did not really have
+
+00:07:07.970 --> 00:07:10.280
+to heuristically design, and in this
+
+00:07:10.280 --> 00:07:13.573
+case, if you try to drop this
+
+00:07:13.573 --> 00:07:16.530
+logarithm, the more of probably one work
+
+00:07:16.530 --> 00:07:18.260
+as well as if you keep logarithm.
+
+00:07:19.290 --> 00:07:21.290
+So a nice property of probabilistic
+
+00:07:21.290 --> 00:07:24.310
+modeling is that by following some
+
+00:07:24.310 --> 00:07:26.740
+assumptions and probability rules we will
+
+00:07:26.740 --> 00:07:28.680
+get a formula automatically.
+
+00:07:29.300 --> 00:07:31.310
+And the formula would have a particular
+
+00:07:31.310 --> 00:07:33.490
+form, like in this case.
+
+00:07:34.480 --> 00:07:36.320
+And if we heuristically design the
+
+00:07:36.320 --> 00:07:38.870
+formula, we may not necessary end up 
+
+00:07:38.870 --> 00:07:41.610
+having such a specific form.
+
+00:07:41.610 --> 00:07:43.350
+So to summarize, we talked about the
+
+00:07:43.350 --> 00:07:45.790
+need for smoothing document language
+
+00:07:45.790 --> 00:07:48.580
+model, otherwise would give zero
+
+00:07:48.580 --> 00:07:51.035
+probability for unseen words in the
+
+00:07:51.035 --> 00:07:51.390
+document.
+
+00:07:52.230 --> 00:07:55.460
+And that's not good for scoring a query
+
+00:07:55.460 --> 00:07:57.750
+with such an unseen world.
+
+00:07:58.730 --> 00:08:01.420
+And it's also necessary in general to
+
+00:08:01.420 --> 00:08:05.180
+improve the accuracy of estimating the
+
+00:08:05.180 --> 00:08:08.220
+model represents the topic of this
+
+00:08:08.220 --> 00:08:08.860
+document.
+
+00:08:10.130 --> 00:08:12.560
+The general idea of smoothing in
+
+00:08:12.560 --> 00:08:14.340
+retrieval is to use the collection
+
+00:08:14.340 --> 00:08:16.470
+language Model to
+
+00:08:17.150 --> 00:08:19.600
+Give us some clue about the which unseen
+
+00:08:19.600 --> 00:08:21.310
+word should have a higher
+
+00:08:21.310 --> 00:08:22.070
+probability.
+
+00:08:22.070 --> 00:08:23.630
+That is, the probability of an unseen
+
+00:08:23.630 --> 00:08:26.420
+word is assumed to be proportional to
+
+00:08:26.420 --> 00:08:28.000
+its probability in the collection.
+
+00:08:29.500 --> 00:08:31.880
+With this assumption, we've shown that
+
+00:08:31.880 --> 00:08:34.150
+we can derive a general ranking formula
+
+00:08:34.150 --> 00:08:36.800
+for query likelihood that has the effect
+
+00:08:36.800 --> 00:08:38.860
+of TF IDF weighting and document length
+
+00:08:38.860 --> 00:08:39.455
+normalization.
+
+00:08:39.455 --> 00:08:41.530
+We also see that through some
+
+00:08:41.530 --> 00:08:43.687
+rewriting, the scoring of such a
+
+00:08:43.687 --> 00:08:45.950
+ranking function is primarily based on
+
+00:08:45.950 --> 00:08:48.270
+sum of weights on match query terms,
+
+00:08:48.270 --> 00:08:50.420
+just like it in the vector space model.
+
+00:08:50.420 --> 00:08:53.329
+But the actual ranking function is
+
+00:08:53.330 --> 00:08:56.030
+given us automatically by the
+
+00:08:56.030 --> 00:08:58.003
+probability rules and the assumptions that
+
+00:08:58.003 --> 00:09:00.045
+we have made and unlike in the vector
+
+00:09:00.045 --> 00:09:01.160
+space model where we have to
+
+00:09:01.160 --> 00:09:02.110
+heuristically.
+
+00:09:02.170 --> 00:09:04.090
+Think about the form of the function.
+
+00:09:04.090 --> 00:09:07.510
+However, we still need to address the
+
+00:09:07.510 --> 00:09:10.530
+question how exactly we should smooth
+
+00:09:10.530 --> 00:09:11.850
+the document language model.
+
+00:09:11.850 --> 00:09:14.820
+How exactly we should use the reference
+
+00:09:14.820 --> 00:09:16.520
+language model based on the collection
+
+00:09:16.520 --> 00:09:18.870
+to adjust the probability of the
+
+00:09:18.870 --> 00:09:20.340
+maximum likelihood estimate?
+
+00:09:20.340 --> 00:09:22.590
+And this is the topic of the next
+
+00:09:22.590 --> 00:09:23.090
+lecture.
+
+

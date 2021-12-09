@@ -1,0 +1,757 @@
+WEBVTT Kind: captions; Language: en-US
+
+NOTE
+Created on 2021-02-27T00:04:28.4192663Z by ClassTranscribe
+
+00:00:00.300 --> 00:00:02.820
+This lecture is about the expectation
+
+00:00:02.820 --> 00:00:04.980
+maximization algorithm, also called the
+
+00:00:04.980 --> 00:00:06.060
+EM algorithm.
+
+00:00:13.880 --> 00:00:15.530
+In this lecture, we're going to
+
+00:00:15.530 --> 00:00:16.780
+continue the discussion of
+
+00:00:16.780 --> 00:00:18.276
+probabilistic topic models.
+
+00:00:18.276 --> 00:00:20.620
+In particular, we're going to introduce
+
+00:00:20.620 --> 00:00:23.690
+the EM algorithm, which is a family of
+
+00:00:23.690 --> 00:00:26.200
+useful algorithms for computing the
+
+00:00:26.200 --> 00:00:28.310
+maximum likelihood estimate of mixture
+
+00:00:28.310 --> 00:00:28.770
+models.
+
+00:00:28.770 --> 00:00:32.010
+So this is now familiar scenario of
+
+00:00:32.010 --> 00:00:34.460
+using a two component mixture model to
+
+00:00:34.460 --> 00:00:36.300
+try to factor out the background words
+
+00:00:36.300 --> 00:00:39.480
+from one topic word distribution here.
+
+00:00:40.990 --> 00:00:42.960
+So we are interested in
+
+00:00:44.610 --> 00:00:46.420
+computing this estimate.
+
+00:00:46.990 --> 00:00:50.440
+And we're going to try to adjust these
+
+00:00:50.440 --> 00:00:53.370
+probability values to maximize the
+
+00:00:53.370 --> 00:00:55.370
+probability of the observed document,
+
+00:00:55.370 --> 00:00:57.250
+and know that we assume that all the
+
+00:00:57.250 --> 00:00:58.780
+other parameters are known.
+
+00:00:58.780 --> 00:01:01.490
+So the only thing unknown is this
+
+00:01:01.490 --> 00:01:03.560
+word probabilities are given by theta sub d
+
+00:01:03.560 --> 00:01:04.000
+update.
+
+00:01:04.740 --> 00:01:06.580
+And in this lecture were going to look
+
+00:01:06.580 --> 00:01:10.460
+into how to compute this maximum likelihood 
+
+00:01:10.460 --> 00:01:11.150
+estimator.
+
+00:01:12.290 --> 00:01:15.499
+Now let's start with the idea of
+
+00:01:15.500 --> 00:01:17.830
+separating the words in the text data
+
+00:01:17.830 --> 00:01:19.240
+into two groups.
+
+00:01:19.240 --> 00:01:22.009
+One group would be explained by the
+
+00:01:22.010 --> 00:01:24.580
+background model, the other group would
+
+00:01:24.580 --> 00:01:27.750
+be explained by the Unknown topic word
+
+00:01:27.750 --> 00:01:28.680
+distribution
+
+00:01:28.680 --> 00:01:30.930
+After all, this is the basic idea of
+
+00:01:30.930 --> 00:01:31.550
+mixture model.
+
+00:01:32.200 --> 00:01:35.925
+But suppose we actually know which word is from which
+
+00:01:35.925 --> 00:01:37.940
+distribution, so that would mean, for
+
+00:01:37.940 --> 00:01:39.750
+example these words:
+
+00:01:39.750 --> 00:01:43.450
+the is and we are known to be from this
+
+00:01:43.450 --> 00:01:44.790
+background word distribution.
+
+00:01:45.770 --> 00:01:47.729
+On the other hand, the other words,
+
+00:01:47.730 --> 00:01:50.580
+text, mining, clustering, etc are known
+
+00:01:50.580 --> 00:01:53.950
+to be from the topic word distribution.
+
+00:01:53.950 --> 00:01:55.853
+If you can see the color, then these
+
+00:01:55.853 --> 00:01:57.015
+are shown in blue.
+
+00:01:57.015 --> 00:02:00.456
+These blue words are then assumed to be
+
+00:02:00.456 --> 00:02:02.140
+from the topic word distribution.
+
+00:02:03.100 --> 00:02:06.030
+If we already know how to separate
+
+00:02:06.030 --> 00:02:08.179
+these words, then the problem of
+
+00:02:08.180 --> 00:02:09.870
+estimating the world distribution would
+
+00:02:09.870 --> 00:02:11.380
+be extremely simple, right?
+
+00:02:11.380 --> 00:02:13.740
+If you think about this for a moment,
+
+00:02:13.740 --> 00:02:18.495
+you realize that well we can simply take all
+
+00:02:18.495 --> 00:02:21.255
+these words that are known to be from
+
+00:02:21.255 --> 00:02:23.250
+this word distribution theta sub d
+
+00:02:23.250 --> 00:02:24.230
+and normalize them.
+
+00:02:24.230 --> 00:02:26.390
+So indeed this problem will be very
+
+00:02:26.390 --> 00:02:27.280
+easy to solve.
+
+00:02:27.280 --> 00:02:30.791
+If we had known which words are from
+
+00:02:30.791 --> 00:02:32.900
+which distribution precisely.
+
+00:02:33.440 --> 00:02:34.990
+And this is in fact
+
+00:02:36.170 --> 00:02:38.260
+Making this model no longer mixture
+
+00:02:38.260 --> 00:02:40.600
+model because we can already observe
+
+00:02:40.600 --> 00:02:43.090
+which distribution has been used to
+
+00:02:43.090 --> 00:02:45.540
+generate which part of the data, so we
+
+00:02:45.540 --> 00:02:49.195
+actually go back to the Single word
+
+00:02:49.195 --> 00:02:51.690
+distribution problem, and in this case
+
+00:02:51.690 --> 00:02:53.930
+let's call these words
+
+00:02:54.630 --> 00:02:58.570
+that are known to be from theta d
+
+00:02:58.570 --> 00:02:59.400
+pseudo document
+
+00:02:59.400 --> 00:03:01.990
+d prime and then all we need to do is
+
+00:03:01.990 --> 00:03:07.030
+just normalize these word counts for
+
+00:03:07.030 --> 00:03:08.450
+each word w sub I.
+
+00:03:09.860 --> 00:03:14.000
+And that's fairly straightforward, and
+
+00:03:14.000 --> 00:03:16.090
+it's just dictated by the maximum likelihood
+
+00:03:16.090 --> 00:03:17.950
+estimate now.
+
+00:03:18.780 --> 00:03:21.100
+This idea, however, doesn't work,
+
+00:03:21.100 --> 00:03:23.660
+because we in practice don't really
+
+00:03:23.660 --> 00:03:25.500
+know which word is from which
+
+00:03:25.500 --> 00:03:26.250
+distribution.
+
+00:03:26.250 --> 00:03:28.990
+But this gives us the idea of perhaps
+
+00:03:28.990 --> 00:03:32.312
+we can guess which word is from which.
+
+00:03:32.312 --> 00:03:33.270
+distribution.
+
+00:03:34.330 --> 00:03:36.720
+Specifically, given all the parameters can we infer the distribution the word is from
+
+00:03:41.790 --> 00:03:46.040
+So let's assume that we actually know tentative
+
+00:03:46.040 --> 00:03:48.730
+probabilities for these words in
+
+00:03:48.730 --> 00:03:49.590
+theta sub D.
+
+00:03:50.380 --> 00:03:52.640
+So now all the parameters are known for
+
+00:03:52.640 --> 00:03:53.410
+this mixture model.
+
+00:03:55.180 --> 00:03:57.880
+And now let's consider word like 
+
+00:03:57.880 --> 00:03:58.340
+text.
+
+00:03:59.040 --> 00:04:01.035
+So the question is, do you think text
+
+00:04:01.035 --> 00:04:04.140
+is more likely have been having been
+
+00:04:04.140 --> 00:04:06.880
+generated from theta sub d or from
+
+00:04:06.880 --> 00:04:07.910
+theta sub B?
+
+00:04:08.640 --> 00:04:10.700
+So in other words, we want to infer
+
+00:04:10.700 --> 00:04:12.420
+which distribution has been used to
+
+00:04:12.420 --> 00:04:13.510
+generate this text.
+
+00:04:14.940 --> 00:04:17.070
+Now, this inference process is a
+
+00:04:17.070 --> 00:04:19.680
+typical Bayesian inference situation
+
+00:04:19.680 --> 00:04:22.690
+where we have some prior about
+
+00:04:23.270 --> 00:04:25.980
+These two distributions so can you see
+
+00:04:25.980 --> 00:04:28.033
+what is our prior here?
+
+00:04:28.033 --> 00:04:31.800
+Well the prior here is the probability of
+
+00:04:31.800 --> 00:04:33.440
+each distribution, right?
+
+00:04:33.440 --> 00:04:36.950
+So the prior is given by these two
+
+00:04:36.950 --> 00:04:37.900
+probabilities.
+
+00:04:37.900 --> 00:04:40.140
+In this case the prior is
+
+00:04:41.700 --> 00:04:43.990
+Saying that each model is equally
+
+00:04:43.990 --> 00:04:46.300
+likely, but we can imagine perhaps a
+
+00:04:46.300 --> 00:04:47.600
+different prior possible.
+
+00:04:48.260 --> 00:04:50.620
+So this is called prior because this
+
+00:04:50.620 --> 00:04:53.170
+is our guess of which distribution has
+
+00:04:53.170 --> 00:04:55.890
+been used to generate the world before
+
+00:04:55.890 --> 00:04:57.722
+we even observe the word.
+
+00:04:57.722 --> 00:05:00.440
+So that's why we call it prior.
+
+00:05:01.320 --> 00:05:03.693
+if we don't observe the word or
+
+00:05:03.693 --> 00:05:05.270
+we don't know what word has been
+
+00:05:05.270 --> 00:05:07.080
+observed, our best guess is just say
+
+00:05:07.080 --> 00:05:07.620
+well.
+
+00:05:08.550 --> 00:05:09.650
+They are equally likely.
+
+00:05:10.230 --> 00:05:11.530
+Alright, so it's just a flipping a
+
+00:05:11.530 --> 00:05:11.940
+coin.
+
+00:05:13.310 --> 00:05:15.120
+Now in Bayesian inference, we typically
+
+00:05:15.120 --> 00:05:17.390
+then would update our belief after we
+
+00:05:17.390 --> 00:05:18.840
+have observed evidence.
+
+00:05:18.840 --> 00:05:20.280
+So what is evidence here?
+
+00:05:20.280 --> 00:05:23.190
+While the evidence here is the word
+
+00:05:23.190 --> 00:05:23.650
+text.
+
+00:05:24.440 --> 00:05:27.650
+Now that we are interested in the word
+
+00:05:27.650 --> 00:05:30.850
+text, so text can be regarded as
+
+00:05:30.850 --> 00:05:31.500
+evidence.
+
+00:05:33.180 --> 00:05:37.773
+And in the if we use Bayes rule to
+
+00:05:37.773 --> 00:05:40.570
+combine the prior and the data
+
+00:05:40.570 --> 00:05:44.180
+likelihood, what we will end up with is
+
+00:05:44.180 --> 00:05:50.030
+to combine the prior with the likelihood
+
+00:05:50.030 --> 00:05:53.510
+that you see here, which is basically
+
+00:05:53.510 --> 00:05:56.200
+the probability of the word text from
+
+00:05:56.200 --> 00:05:58.730
+each distribution and we see that in
+
+00:05:58.730 --> 00:06:01.870
+both cases text is possible that even
+
+00:06:01.870 --> 00:06:03.830
+in the background it is still possible.
+
+00:06:03.830 --> 00:06:05.960
+It just has a very small probability.
+
+00:06:07.050 --> 00:06:09.720
+So intuitively, what would be your
+
+00:06:09.720 --> 00:06:10.260
+guess?
+
+00:06:10.260 --> 00:06:11.460
+So in this case
+
+00:06:13.410 --> 00:06:15.350
+Now, if you're like many others, you
+
+00:06:15.350 --> 00:06:18.560
+will guess text is probably from theta sub d
+
+00:06:18.560 --> 00:06:21.630
+is more likely from  theta sub d,
+
+00:06:21.630 --> 00:06:24.980
+why? And you will probably see that
+
+00:06:24.980 --> 00:06:25.750
+it's because.
+
+00:06:26.850 --> 00:06:29.250
+Text has a much higher probability
+
+00:06:29.250 --> 00:06:29.780
+here.
+
+00:06:30.410 --> 00:06:34.989
+By the theta sub d, than by the
+
+00:06:34.990 --> 00:06:37.410
+background model, which has a very
+
+00:06:37.410 --> 00:06:38.380
+small probability.
+
+00:06:39.080 --> 00:06:41.920
+And by this we are going to say text is
+
+00:06:41.920 --> 00:06:44.810
+more likely from theta sub d.
+
+00:06:44.810 --> 00:06:47.630
+So you see our guess of which
+
+00:06:47.630 --> 00:06:49.250
+distribution has been used to generate
+
+00:06:49.250 --> 00:06:53.300
+the text would depend on how high the
+
+00:06:53.300 --> 00:06:56.620
+probability of the data the text is in
+
+00:06:56.620 --> 00:06:58.320
+each word distribution.
+
+00:06:59.080 --> 00:07:01.970
+We are going do tend to guess the distribution
+
+00:07:01.970 --> 00:07:04.320
+that gives the word higher probability
+
+00:07:04.320 --> 00:07:07.680
+and this is likely to maximize the
+
+00:07:07.680 --> 00:07:09.250
+likelihood right so.
+
+00:07:10.230 --> 00:07:13.800
+We're going to choose word that has a
+
+00:07:13.800 --> 00:07:15.640
+higher likelihood.
+
+00:07:15.640 --> 00:07:17.170
+So in other words, we're going to
+
+00:07:17.170 --> 00:07:19.790
+compare these two probabilities.
+
+00:07:21.320 --> 00:07:22.950
+Of the word given by each
+
+00:07:22.950 --> 00:07:23.660
+distributions.
+
+00:07:25.050 --> 00:07:26.090
+But our
+
+00:07:26.740 --> 00:07:29.920
+guess must also be affected by the
+
+00:07:29.920 --> 00:07:32.830
+prior, so we also need to compare these
+
+00:07:32.830 --> 00:07:36.970
+two priors why? because imagine if we
+
+00:07:36.970 --> 00:07:39.210
+adjust these probabilities, we're going
+
+00:07:39.210 --> 00:07:41.340
+to say the probability of choosing a
+
+00:07:41.340 --> 00:07:43.880
+background model is almost 100%.
+
+00:07:44.660 --> 00:07:46.520
+Now if we have that kind of strong
+
+00:07:46.520 --> 00:07:48.950
+prior, then that would affect your
+
+00:07:48.950 --> 00:07:49.410
+guess.
+
+00:07:49.410 --> 00:07:51.750
+You might think well, wait a moment,
+
+00:07:51.750 --> 00:07:53.700
+maybe text could have been from the
+
+00:07:53.700 --> 00:07:55.440
+background as well, although the
+
+00:07:55.440 --> 00:07:57.580
+probability is very small here.
+
+00:07:58.320 --> 00:08:00.190
+The prior is very high.
+
+00:08:00.960 --> 00:08:02.980
+So in the end we have to combine the
+
+00:08:02.980 --> 00:08:05.936
+two and the bayes formula provides
+
+00:08:05.936 --> 00:08:09.160
+provides us a solid and principled way
+
+00:08:09.160 --> 00:08:12.110
+of making these kind of guess to quantify
+
+00:08:12.110 --> 00:08:12.530
+that.
+
+00:08:13.330 --> 00:08:16.310
+So more specifically, let's think about
+
+00:08:16.310 --> 00:08:18.000
+the probability that this word text
+
+00:08:18.000 --> 00:08:18.795
+has been generated.
+
+00:08:18.795 --> 00:08:23.670
+In fact from theta sub D, The in order
+
+00:08:23.670 --> 00:08:25.300
+for texture to be generated from theta sub d
+
+00:08:25.300 --> 00:08:27.850
+two things must happen first.
+
+00:08:28.510 --> 00:08:30.590
+The theta sub d must have been
+
+00:08:30.590 --> 00:08:32.760
+selected, so we have the selection
+
+00:08:32.760 --> 00:08:36.620
+probability here, and Secondly, we also
+
+00:08:36.620 --> 00:08:39.163
+have to actually have observed text
+
+00:08:39.163 --> 00:08:40.450
+from the distribution.
+
+00:08:40.450 --> 00:08:42.940
+So when we multiply the two together,
+
+00:08:42.940 --> 00:08:46.990
+we get the probability that text has in
+
+00:08:46.990 --> 00:08:49.920
+fact has been generated from theta sub d 
+
+
+00:08:49.920 --> 00:08:54.120
+Similarly, for the background model an.
+
+00:08:54.880 --> 00:08:57.370
+The probability of generating text
+
+00:08:57.370 --> 00:08:59.810
+is another product of similar form.
+
+00:09:00.410 --> 00:09:03.830
+We also introduced a latent variable Z
+
+00:09:03.830 --> 00:09:06.690
+here to denote whether
+
+00:09:07.670 --> 00:09:11.213
+the word is from the background or
+
+00:09:11.213 --> 00:09:11.679
+the topic.
+
+00:09:11.680 --> 00:09:15.412
+When Z is zero, it means it's from the
+
+00:09:15.412 --> 00:09:15.810
+topic
+
+00:09:16.410 --> 00:09:18.880
+theta sub d when it's one, it means
+
+00:09:18.880 --> 00:09:21.170
+it's from the background theta sub b.
+
+00:09:21.920 --> 00:09:24.507
+So now we have the probability that
+
+00:09:24.507 --> 00:09:26.640
+text is generated from each.
+
+00:09:26.640 --> 00:09:29.630
+Then we simply we can simply normalize
+
+00:09:29.630 --> 00:09:33.088
+them to have estimate of the
+
+00:09:33.088 --> 00:09:38.189
+probability that the word text is from
+
+00:09:38.190 --> 00:09:41.780
+theta sub d or from theta sub b.
+
+00:09:42.370 --> 00:09:45.130
+And equivalently, the probability that
+
+00:09:45.130 --> 00:09:48.990
+Z is equal to 0 given that the observed
+
+00:09:48.990 --> 00:09:50.220
+evidence is text.
+
+00:09:51.540 --> 00:09:53.030
+So this is
+
+00:09:53.680 --> 00:09:55.140
+Application of Bayes rule.
+
+00:09:55.920 --> 00:09:58.800
+But this step is very crucial for
+
+00:09:58.800 --> 00:10:00.490
+understanding the EM algorithm.
+
+00:10:01.330 --> 00:10:05.050
+Because if we can do this, then we
+
+00:10:05.050 --> 00:10:08.240
+would be able to 1st initialize the
+
+00:10:08.240 --> 00:10:09.510
+parameter values
+
+00:10:10.420 --> 00:10:12.640
+Somewhat randomly, and then we're going
+
+00:10:12.640 --> 00:10:17.610
+to take a guess of these Z values and or
+
+00:10:17.610 --> 00:10:19.203
+which distribution has been used to
+
+00:10:19.203 --> 00:10:23.200
+generate which word and the initialized parameter
+
+00:10:23.200 --> 00:10:24.730
+values would allow us to have a
+
+00:10:24.730 --> 00:10:26.550
+complete specification of the mixture
+
+00:10:26.550 --> 00:10:29.100
+model, which further allows us to apply
+
+00:10:29.100 --> 00:10:31.870
+Bayes rule to infer which distribution
+
+00:10:31.870 --> 00:10:34.679
+is more likely to generate
+
+00:10:35.460 --> 00:10:39.130
+Each word and this prediction
+
+00:10:39.130 --> 00:10:42.280
+essentially helped us to separate words
+
+00:10:42.280 --> 00:10:45.330
+from the two distributions, although we
+
+00:10:45.330 --> 00:10:47.880
+can't separate them for sure, but we
+
+00:10:47.880 --> 00:10:50.810
+can separate them probabilistically
+
+00:10:51.550 --> 00:10:52.390
+as shown here.
+
+

@@ -1,0 +1,2356 @@
+WEBVTT Kind: captions; Language: en-US
+
+NOTE
+Created on 2021-02-27T00:01:00.2233808Z by ClassTranscribe
+
+00:00:00.300 --> 00:00:02.630
+This lecture is a continued discussion
+
+00:00:02.630 --> 00:00:03.120
+of.
+
+00:00:10.870 --> 00:00:12.800
+Discriminative classifiers for text
+
+00:00:12.800 --> 00:00:13.510
+categorization.
+
+00:00:15.660 --> 00:00:17.980
+So in this lecture will introduce yet
+
+00:00:17.980 --> 00:00:19.830
+another discriminative classifier
+
+00:00:19.830 --> 00:00:22.310
+called a support vector machine or VM,
+
+00:00:22.310 --> 00:00:24.410
+which is a very popular classification
+
+00:00:24.410 --> 00:00:26.340
+method, and there has been also shown
+
+00:00:26.340 --> 00:00:28.310
+to be effective for text
+
+00:00:28.310 --> 00:00:29.000
+categorization.
+
+00:00:31.180 --> 00:00:34.550
+So to introduce this classifier, let's
+
+00:00:34.550 --> 00:00:37.295
+also think about the simple case of two
+
+00:00:37.295 --> 00:00:40.510
+categories and we have two public
+
+00:00:40.510 --> 00:00:42.179
+categories, season one and Season 2
+
+00:00:42.180 --> 00:00:42.540
+here.
+
+00:00:43.160 --> 00:00:46.230
+An we want to classify documents into
+
+00:00:46.230 --> 00:00:48.120
+these two categories and we're going to
+
+00:00:48.120 --> 00:00:50.680
+represent again a document by a feature
+
+00:00:50.680 --> 00:00:52.050
+vector X here.
+
+00:00:53.050 --> 00:00:55.860
+Now the idea of this classifier is do
+
+00:00:55.860 --> 00:00:56.530
+design.
+
+00:00:56.530 --> 00:00:58.100
+Also a linear separator.
+
+00:00:58.840 --> 00:01:02.095
+Here that you see and it's very similar
+
+00:01:02.095 --> 00:01:03.870
+to what you have seen or just for
+
+00:01:03.870 --> 00:01:04.418
+logistic regression.
+
+00:01:04.418 --> 00:01:09.290
+And we're going to also say that if the
+
+00:01:09.290 --> 00:01:12.169
+sign of this function value is
+
+00:01:12.170 --> 00:01:14.500
+positive, then we're going to say the
+
+00:01:14.500 --> 00:01:16.390
+object is in Category 1.
+
+00:01:16.390 --> 00:01:19.732
+Otherwise, we're going to say it's in
+
+00:01:19.732 --> 00:01:23.756
+Category 2, so that makes 0 value.
+
+00:01:23.756 --> 00:01:27.080
+The decision boundary between two
+
+00:01:27.080 --> 00:01:27.710
+categories.
+
+00:01:28.680 --> 00:01:31.080
+So in general in high dimensional space
+
+00:01:31.080 --> 00:01:36.380
+such a zero point corresponds to a
+
+00:01:36.380 --> 00:01:37.150
+hyperplane.
+
+00:01:38.040 --> 00:01:40.750
+I show you a simple case of two
+
+00:01:40.750 --> 00:01:44.020
+dimensional space with just X1 and X2.
+
+00:01:44.020 --> 00:01:47.760
+In this case this corresponds to a line
+
+00:01:47.760 --> 00:01:50.050
+that you can see here.
+
+00:01:50.690 --> 00:01:52.060
+So this is.
+
+00:01:53.410 --> 00:01:58.540
+A line defined by just three parameters
+
+00:01:58.540 --> 00:02:01.160
+here beta0 
+beta
+1 
+beta
+2.
+
+00:02:02.240 --> 00:02:03.690
+Now this line.
+
+00:02:04.970 --> 00:02:07.390
+Is the heading in this direction, so it
+
+00:02:07.390 --> 00:02:11.600
+shows that as we increase X1, X2
+
+00:02:11.600 --> 00:02:12.990
+will also increase.
+
+00:02:12.990 --> 00:02:15.560
+So know that beta1 and beta2
+
+00:02:15.560 --> 00:02:17.590
+have different signs or one is negative
+
+00:02:17.590 --> 00:02:18.820
+and there is positive.
+
+00:02:19.620 --> 00:02:24.410
+I so let's just assume that beta one is
+
+00:02:24.410 --> 00:02:26.880
+negative and beta two is positive.
+
+00:02:28.660 --> 00:02:31.210
+Now it's interesting to examine then
+
+00:02:31.210 --> 00:02:33.740
+the data instances on the two sides of
+
+00:02:33.740 --> 00:02:35.910
+this line, so here that there are
+
+00:02:35.910 --> 00:02:38.250
+incidences are visualized as circles
+
+00:02:38.250 --> 00:02:41.099
+for one class and diamonds for the
+
+00:02:41.100 --> 00:02:41.840
+other class.
+
+00:02:42.990 --> 00:02:45.440
+Now one question is to take a point
+
+00:02:45.440 --> 00:02:49.000
+like this one and to ask the question
+
+00:02:49.000 --> 00:02:51.655
+what's the value of this expression or
+
+00:02:51.655 --> 00:02:54.180
+this classifier for this data point.
+
+00:02:55.200 --> 00:02:56.910
+So what do you think?
+
+00:02:56.910 --> 00:02:58.960
+Basically working to evaluate its value
+
+00:02:58.960 --> 00:03:00.800
+by using this function.
+
+00:03:01.580 --> 00:03:04.335
+And as we said, if this value is
+
+00:03:04.335 --> 00:03:05.937
+positive we're gonna say this is in
+
+00:03:05.937 --> 00:03:07.540
+category one, and if it's negative it's
+
+00:03:07.540 --> 00:03:09.520
+going to be in category Two.
+
+00:03:09.520 --> 00:03:11.770
+Intuitively, this line separates these
+
+00:03:11.770 --> 00:03:14.585
+two categories, so we expect the points
+
+00:03:14.585 --> 00:03:17.087
+on one side would be positive and
+
+00:03:17.087 --> 00:03:19.395
+points on the other side would be
+
+00:03:19.395 --> 00:03:19.750
+negative.
+
+00:03:19.750 --> 00:03:21.690
+Or the question is under the assumption
+
+00:03:21.690 --> 00:03:23.960
+that I just mentioned, let's examine a
+
+00:03:23.960 --> 00:03:25.520
+particular point like this one.
+
+00:03:26.550 --> 00:03:28.340
+So what do you think is the sign of
+
+00:03:28.340 --> 00:03:29.720
+this expression?
+
+00:03:31.490 --> 00:03:34.710
+To examine the sign, we can simply look
+
+00:03:34.710 --> 00:03:36.780
+at this expression.
+
+00:03:36.780 --> 00:03:40.971
+Here we can compare this with, let's
+
+00:03:40.971 --> 00:03:44.890
+say, value on the line.
+
+00:03:44.890 --> 00:03:47.190
+Let's say compare this with this point.
+
+00:03:48.320 --> 00:03:51.720
+They have identical X one, but then one
+
+00:03:51.720 --> 00:03:53.820
+has a higher value for its too.
+
+00:03:54.590 --> 00:03:57.590
+Now let's look at the sign of the
+
+00:03:57.590 --> 00:04:00.870
+coefficient for X2, where we know this
+
+00:04:00.870 --> 00:04:01.750
+is a positive.
+
+00:04:02.700 --> 00:04:05.915
+So what that means is that the F value
+
+00:04:05.915 --> 00:04:08.617
+for this point should be higher than
+
+00:04:08.617 --> 00:04:12.290
+the F value for this point on the line.
+
+00:04:12.290 --> 00:04:14.140
+That means this will be positive,
+
+00:04:14.140 --> 00:04:14.930
+right?
+
+00:04:16.070 --> 00:04:18.710
+So we know in general for all the
+
+00:04:18.710 --> 00:04:21.480
+points on this side, the.
+
+00:04:22.510 --> 00:04:24.110
+Functions about it would be positive.
+
+00:04:24.870 --> 00:04:27.150
+And you can also verify all the points
+
+00:04:27.150 --> 00:04:29.680
+on this side would be negative, and so
+
+00:04:29.680 --> 00:04:31.070
+this is how this kind of linear
+
+00:04:31.070 --> 00:04:33.060
+classifier or linear separator can then
+
+00:04:33.060 --> 00:04:35.200
+separate the points in the two
+
+00:04:35.200 --> 00:04:35.950
+categories.
+
+00:04:37.630 --> 00:04:40.630
+So now the natural question is, which
+
+00:04:40.630 --> 00:04:42.560
+linear separate is the best?
+
+00:04:42.560 --> 00:04:45.280
+Now I've again she want lying here that
+
+00:04:45.280 --> 00:04:47.010
+can separate the two classes.
+
+00:04:47.690 --> 00:04:49.550
+And this line, of course, is determined
+
+00:04:49.550 --> 00:04:52.450
+by the vector beta, the coefficients,
+
+00:04:52.450 --> 00:04:54.560
+different coefficient will give us a
+
+00:04:54.560 --> 00:04:55.086
+different line.
+
+00:04:55.086 --> 00:04:56.550
+So we could imagine there are other
+
+00:04:56.550 --> 00:04:58.175
+lines that can do the same job.
+
+00:04:58.175 --> 00:05:01.109
+So gamma, for example, could give us
+
+00:05:01.110 --> 00:05:03.335
+another line that can also separate
+
+00:05:03.335 --> 00:05:04.890
+these instances.
+
+00:05:05.760 --> 00:05:07.480
+And of course there are also lines that
+
+00:05:07.480 --> 00:05:09.150
+won't separate them, and those are bad
+
+00:05:09.150 --> 00:05:09.520
+lines.
+
+00:05:09.520 --> 00:05:11.210
+But the question is when we have
+
+00:05:11.210 --> 00:05:12.819
+multiple lines that can separate the
+
+00:05:12.820 --> 00:05:15.620
+both clauses, which line is the best?
+
+00:05:15.620 --> 00:05:17.390
+In fact, you can imagine there are many
+
+00:05:17.390 --> 00:05:19.580
+different ways of choosing the line.
+
+00:05:20.800 --> 00:05:23.930
+So the logistical regression classifier
+
+00:05:23.930 --> 00:05:26.380
+that you have seen earlier actually
+
+00:05:26.380 --> 00:05:29.850
+uses some criteria to determine where
+
+00:05:29.850 --> 00:05:31.650
+this line should be, and it's a linear
+
+00:05:31.650 --> 00:05:34.310
+separate as well and uses a conditional
+
+00:05:34.310 --> 00:05:36.057
+likelihood on the training data to
+
+00:05:36.057 --> 00:05:37.880
+determine which line is the best.
+
+00:05:37.880 --> 00:05:39.900
+But in this VM, we're going to look at
+
+00:05:39.900 --> 00:05:42.190
+another criteria for determining which
+
+00:05:42.190 --> 00:05:44.776
+lines best and this time the criteria
+
+00:05:44.776 --> 00:05:46.770
+is more tide to the classification
+
+00:05:46.770 --> 00:05:47.170
+error.
+
+00:05:47.170 --> 00:05:48.440
+As you will see.
+
+00:05:49.330 --> 00:05:51.860
+So the basic idea is to choose the
+
+00:05:51.860 --> 00:05:52.690
+separator.
+
+00:05:53.490 --> 00:05:55.230
+To maximize the margin.
+
+00:05:56.010 --> 00:05:57.050
+So what is the margin?
+
+00:05:57.050 --> 00:05:58.060
+Well, I choose.
+
+00:05:59.290 --> 00:06:02.810
+So I've shown some daughter lines here
+
+00:06:02.810 --> 00:06:04.870
+to indicate the boundaries of those
+
+00:06:04.870 --> 00:06:06.280
+data points in.
+
+00:06:07.560 --> 00:06:10.930
+In each class and the margin is simply
+
+00:06:10.930 --> 00:06:13.980
+the distance between the line, the
+
+00:06:13.980 --> 00:06:16.720
+separator and the closest points from
+
+00:06:16.720 --> 00:06:17.470
+each class.
+
+00:06:18.370 --> 00:06:20.870
+So you can see the margin of this side
+
+00:06:20.870 --> 00:06:22.660
+is as I've shown here.
+
+00:06:23.330 --> 00:06:25.065
+And you can also define the margin on
+
+00:06:25.065 --> 00:06:25.910
+the other side.
+
+00:06:26.870 --> 00:06:29.000
+And in order for the separate to
+
+00:06:29.000 --> 00:06:32.150
+maximizing the margin, it has to be
+
+00:06:32.150 --> 00:06:34.320
+kind of in the middle of the two
+
+00:06:34.320 --> 00:06:36.350
+boundaries, and you don't want this
+
+00:06:36.350 --> 00:06:38.980
+separator to be very close to one side.
+
+00:06:39.570 --> 00:06:41.830
+And then that inducing intuitively
+
+00:06:41.830 --> 00:06:42.830
+makes a lot of sense.
+
+00:06:44.040 --> 00:06:46.910
+So this is the basic idea of ecfmg.
+
+00:06:46.910 --> 00:06:47.910
+We're going to choose a linear
+
+00:06:47.910 --> 00:06:50.030
+separator to maximize the margin.
+
+00:06:51.980 --> 00:06:54.660
+Now on this slide I've also changed the
+
+00:06:54.660 --> 00:06:56.339
+notation so that I'm not going to use
+
+00:06:56.340 --> 00:06:56.770
+beta.
+
+00:06:56.770 --> 00:06:58.610
+Didn't know the parameters and, but
+
+00:06:58.610 --> 00:07:01.210
+instead I'm going to use W, although W
+
+00:07:01.210 --> 00:07:03.270
+was used to denote the words before.
+
+00:07:03.270 --> 00:07:05.100
+So don't be confused here.
+
+00:07:05.100 --> 00:07:09.980
+W here is actually wait set of weights.
+
+00:07:10.990 --> 00:07:11.440
+And.
+
+00:07:12.600 --> 00:07:17.190
+So I'm also using locates be to denote
+
+00:07:17.190 --> 00:07:19.110
+beta zero, the bias constant.
+
+00:07:19.900 --> 00:07:22.230
+And there are instances do represented
+
+00:07:22.230 --> 00:07:22.840
+as X.
+
+00:07:23.860 --> 00:07:27.090
+And I also use the vector form of
+
+00:07:27.090 --> 00:07:28.480
+multiplication here.
+
+00:07:28.480 --> 00:07:31.850
+So we see transpose of W vector
+
+00:07:31.850 --> 00:07:34.240
+multiplied by the feature vector.
+
+00:07:35.160 --> 00:07:38.640
+So P is a biased constant and W is a
+
+00:07:38.640 --> 00:07:41.560
+set of weights and with one wait for
+
+00:07:41.560 --> 00:07:44.007
+each feature we have M features and so
+
+00:07:44.007 --> 00:07:46.020
+have aim weights and are represented as
+
+00:07:46.020 --> 00:07:46.600
+a vector.
+
+00:07:47.470 --> 00:07:50.170
+An similarly the data instance.
+
+00:07:50.170 --> 00:07:52.710
+Here the text object is represented by
+
+00:07:52.710 --> 00:07:54.760
+also a feature vector of the same
+
+00:07:54.760 --> 00:07:55.780
+number of elements.
+
+00:07:55.780 --> 00:07:59.530
+XI is future value.
+
+00:07:59.530 --> 00:08:01.100
+For example word count.
+
+00:08:02.060 --> 00:08:04.990
+I can you can verify when we multiply
+
+00:08:04.990 --> 00:08:07.340
+these two vectors together, take the
+
+00:08:07.340 --> 00:08:10.680
+dot product that we get the same form
+
+00:08:10.680 --> 00:08:13.580
+of the NIA separate as you have seen
+
+00:08:13.580 --> 00:08:14.150
+before.
+
+00:08:14.150 --> 00:08:15.260
+It's just a different way of
+
+00:08:15.260 --> 00:08:16.220
+representing this.
+
+00:08:16.890 --> 00:08:19.480
+Now I use this way so that it's more
+
+00:08:19.480 --> 00:08:21.930
+consistent with what notations people
+
+00:08:21.930 --> 00:08:24.580
+usually use when they talk about SVM.
+
+00:08:24.580 --> 00:08:25.820
+This way you can.
+
+00:08:26.580 --> 00:08:28.450
+Better connected the slides with some
+
+00:08:28.450 --> 00:08:29.750
+other readings you might do.
+
+00:08:31.030 --> 00:08:31.660
+OK.
+
+00:08:32.280 --> 00:08:33.000
+So.
+
+00:08:34.840 --> 00:08:38.290
+When we maximize the margins of
+
+00:08:38.290 --> 00:08:42.110
+separate, it just means with the
+
+00:08:42.110 --> 00:08:42.906
+boundary of.
+
+00:08:42.906 --> 00:08:44.970
+The separate is only determined by a
+
+00:08:44.970 --> 00:08:47.247
+few data points, and these are the data
+
+00:08:47.247 --> 00:08:49.700
+points that we call support vectors.
+
+00:08:49.700 --> 00:08:52.010
+So here are illustrated to support
+
+00:08:52.010 --> 00:08:54.720
+vectors for one class and two for the
+
+00:08:54.720 --> 00:08:55.300
+other class.
+
+00:08:56.060 --> 00:08:58.810
+At this, porters define the margin
+
+00:08:58.810 --> 00:08:59.470
+basically.
+
+00:09:00.590 --> 00:09:03.080
+And you can imagine once we know which
+
+00:09:03.080 --> 00:09:06.780
+are support vectors, then this center
+
+00:09:06.780 --> 00:09:09.020
+separate line will be determined by
+
+00:09:09.020 --> 00:09:10.290
+them so.
+
+00:09:11.840 --> 00:09:14.230
+The other data points actually don't
+
+00:09:14.230 --> 00:09:15.540
+really matter that much.
+
+00:09:16.160 --> 00:09:18.470
+And you can see if they you change
+
+00:09:18.470 --> 00:09:20.120
+other data points, it won't really
+
+00:09:20.120 --> 00:09:22.070
+affect the margin, so the separate with
+
+00:09:22.070 --> 00:09:24.395
+the stay the same mainly affected by
+
+00:09:24.395 --> 00:09:26.200
+the support vector machines.
+
+00:09:26.200 --> 00:09:28.758
+Sorry it's mainly affected by the
+
+00:09:28.758 --> 00:09:30.410
+support vectors and that's why it is
+
+00:09:30.410 --> 00:09:31.710
+called a support vector machine.
+
+00:09:32.790 --> 00:09:34.520
+OK, so.
+
+00:09:35.520 --> 00:09:37.976
+The next question is of course, how can
+
+00:09:37.976 --> 00:09:42.112
+we set it up to optimize the line?
+
+00:09:42.112 --> 00:09:45.460
+How can we actually find the line?
+
+00:09:46.010 --> 00:09:47.270
+Or the separator.
+
+00:09:47.270 --> 00:09:49.660
+Now this is equivalent to finding
+
+00:09:49.660 --> 00:09:53.160
+values for W&amp;B because they would
+
+00:09:53.160 --> 00:09:55.520
+determine where exactly the separator
+
+00:09:55.520 --> 00:09:55.930
+is.
+
+00:09:57.860 --> 00:10:00.399
+So in the simplest case, the linear
+
+00:10:00.400 --> 00:10:03.930
+osfm is just a simple optimization
+
+00:10:03.930 --> 00:10:04.480
+problem.
+
+00:10:04.480 --> 00:10:06.840
+So again we let's recall that our
+
+00:10:06.840 --> 00:10:09.380
+classifier is such a linear separator
+
+00:10:09.380 --> 00:10:11.360
+where we have weights for all the
+
+00:10:11.360 --> 00:10:13.260
+features and the main goal is to learn
+
+00:10:13.260 --> 00:10:15.160
+these weights W&amp;B.
+
+00:10:15.250 --> 00:10:18.613
+And the classifier will say X is in
+
+00:10:18.613 --> 00:10:20.600
+category one if it's positive.
+
+00:10:20.600 --> 00:10:22.410
+Otherwise it's going to say it's in the
+
+00:10:22.410 --> 00:10:23.065
+other category.
+
+00:10:23.065 --> 00:10:26.232
+So this is our assumption or setup.
+
+00:10:26.232 --> 00:10:29.822
+So in the linear is UVM, we're going to
+
+00:10:29.822 --> 00:10:33.130
+then seek these parameter values to
+
+00:10:33.130 --> 00:10:36.370
+optimize the margins and then the
+
+00:10:36.370 --> 00:10:37.150
+training error.
+
+00:10:38.510 --> 00:10:40.150
+The training laid out would be
+
+00:10:40.150 --> 00:10:41.840
+basically like a in other classifiers
+
+00:10:41.840 --> 00:10:43.695
+we have a set of training points where
+
+00:10:43.695 --> 00:10:46.660
+we know the X vector and then we also
+
+00:10:46.660 --> 00:10:48.910
+the corresponding label, why I?
+
+00:10:50.120 --> 00:10:53.655
+An here we define why I as two values,
+
+00:10:53.655 --> 00:10:56.430
+but these two values are not 01 as you
+
+00:10:56.430 --> 00:10:58.060
+have seen before, but rather negative
+
+00:10:58.060 --> 00:10:59.870
+one and positive one and their
+
+00:10:59.870 --> 00:11:02.050
+corresponding to these two categories
+
+00:11:02.050 --> 00:11:03.150
+as I've shown here.
+
+00:11:03.840 --> 00:11:06.310
+Now you might wonder why we don't
+
+00:11:06.310 --> 00:11:09.190
+define them as zero and one, but
+
+00:11:09.190 --> 00:11:12.290
+instead of having negative 11 and this
+
+00:11:12.290 --> 00:11:14.283
+is purely for mathematical convenience,
+
+00:11:14.283 --> 00:11:15.780
+as you will see in a moment.
+
+00:11:16.580 --> 00:11:19.452
+So the goal of optimization first is to
+
+00:11:19.452 --> 00:11:22.035
+make sure the labeling on training data
+
+00:11:22.035 --> 00:11:22.980
+is all correct.
+
+00:11:22.980 --> 00:11:26.130
+So that just means if Yi, the known
+
+00:11:26.130 --> 00:11:29.530
+label, for instance XI is one we would
+
+00:11:29.530 --> 00:11:32.772
+like this classify value to be large.
+
+00:11:32.772 --> 00:11:35.796
+And here we just choose threshold one
+
+00:11:35.796 --> 00:11:36.419
+here.
+
+00:11:36.420 --> 00:11:38.372
+But if you use another threshold, you
+
+00:11:38.372 --> 00:11:41.220
+can see you can easily affect that
+
+00:11:41.220 --> 00:11:44.096
+constant into the parameter values B&amp;W
+
+00:11:44.096 --> 00:11:46.830
+to make the right hand side.
+
+00:11:46.890 --> 00:11:47.500
+Just one.
+
+00:11:48.770 --> 00:11:51.946
+Now, if, on the other hand, why I is
+
+00:11:51.946 --> 00:11:53.630
+negative one that means it's in a
+
+00:11:53.630 --> 00:11:56.049
+different class then we want this
+
+00:11:56.050 --> 00:11:57.943
+classifier to give us a very small
+
+00:11:57.943 --> 00:11:58.226
+value.
+
+00:11:58.226 --> 00:12:00.069
+In fact a negative value.
+
+00:12:00.070 --> 00:12:02.630
+And we want this value to be less than
+
+00:12:02.630 --> 00:12:04.250
+or equal to negative one.
+
+00:12:05.300 --> 00:12:09.010
+These are the two different instances,
+
+00:12:09.010 --> 00:12:12.376
+different kinds of cases and how can we
+
+00:12:12.376 --> 00:12:14.420
+combine them together now.
+
+00:12:14.420 --> 00:12:17.200
+This is where it's convenient when we
+
+00:12:17.200 --> 00:12:20.790
+have chosen why I as negative one for
+
+00:12:20.790 --> 00:12:22.860
+the other category cause it turns out
+
+00:12:22.860 --> 00:12:24.870
+that we can easily combine the two into
+
+00:12:24.870 --> 00:12:25.870
+one constraint.
+
+00:12:26.510 --> 00:12:29.240
+Why I multiplied by the classifier
+
+00:12:29.240 --> 00:12:31.800
+value must be larger than or equal to
+
+00:12:31.800 --> 00:12:32.290
+1?
+
+00:12:33.070 --> 00:12:34.110
+An obviously when?
+
+00:12:34.110 --> 00:12:36.630
+Why is just one you see.
+
+00:12:36.630 --> 00:12:38.155
+This is the same as the constraint on
+
+00:12:38.155 --> 00:12:39.100
+the left hand side.
+
+00:12:40.040 --> 00:12:42.840
+But when Yi is negative one you also
+
+00:12:42.840 --> 00:12:44.330
+see a new.
+
+00:12:44.330 --> 00:12:46.940
+This is equivalent to the other
+
+00:12:46.940 --> 00:12:49.470
+inequality, so this one actually
+
+00:12:49.470 --> 00:12:52.610
+captures both constraints in a unified
+
+00:12:52.610 --> 00:12:54.770
+way, and that's a convenient way of
+
+00:12:54.770 --> 00:12:56.010
+capturing these constraints.
+
+00:12:56.630 --> 00:12:57.980
+What's our second goal?
+
+00:12:57.980 --> 00:12:58.680
+That's true.
+
+00:12:58.680 --> 00:12:59.980
+Maximizing margin, right?
+
+00:12:59.980 --> 00:13:02.709
+So we want to ensure the separate can
+
+00:13:02.710 --> 00:13:05.200
+do well on the training data, but then,
+
+00:13:05.200 --> 00:13:07.230
+among all the cases where we can
+
+00:13:07.230 --> 00:13:08.760
+separate the data, we also would like
+
+00:13:08.760 --> 00:13:10.930
+to choose the separate that has the
+
+00:13:10.930 --> 00:13:12.250
+largest margin.
+
+00:13:12.250 --> 00:13:15.810
+Now the margin can be shown to be
+
+00:13:15.810 --> 00:13:17.590
+related to the magnitude of the
+
+00:13:17.590 --> 00:13:18.070
+weights.
+
+00:13:25.970 --> 00:13:28.570
+The sum of squares of all those
+
+00:13:28.570 --> 00:13:29.040
+weights.
+
+00:13:29.600 --> 00:13:34.060
+So this to have a small value for this
+
+00:13:34.060 --> 00:13:34.930
+expression.
+
+00:13:34.930 --> 00:13:40.240
+It means all the eyes must be small.
+
+00:13:42.310 --> 00:13:44.620
+So we've just assume that we have a
+
+00:13:44.620 --> 00:13:48.420
+constraint for the getting the data on
+
+00:13:48.420 --> 00:13:49.990
+the training set to be classified
+
+00:13:49.990 --> 00:13:50.740
+correctly.
+
+00:13:50.740 --> 00:13:53.210
+Now we also have the objective that's
+
+00:13:53.210 --> 00:13:56.650
+Tide to maximization of margin and this
+
+00:13:56.650 --> 00:14:00.510
+is simply to maximize sorry to minimize
+
+00:14:00.510 --> 00:14:03.230
+W transpose multiplied by W and we
+
+00:14:03.230 --> 00:14:05.340
+often denote this by file W.
+
+00:14:06.440 --> 00:14:08.510
+So now you can see this is basically
+
+00:14:08.510 --> 00:14:10.470
+optimization problem, right?
+
+00:14:10.470 --> 00:14:13.800
+We have some variables to optimize and
+
+00:14:13.800 --> 00:14:16.761
+these are the weights and B and we have
+
+00:14:16.761 --> 00:14:17.396
+some constraints.
+
+00:14:17.396 --> 00:14:19.299
+These are linear constraints and the
+
+00:14:19.300 --> 00:14:20.784
+objective function is a quadratic
+
+00:14:20.784 --> 00:14:21.844
+function of the weights.
+
+00:14:21.844 --> 00:14:24.402
+So this is a quadratic program with
+
+00:14:24.402 --> 00:14:25.800
+linear constraints and there are
+
+00:14:25.800 --> 00:14:27.470
+standard algorithms that are available
+
+00:14:27.470 --> 00:14:29.290
+for solving this problem.
+
+00:14:29.900 --> 00:14:31.510
+And once we solve, the problem, will
+
+00:14:31.510 --> 00:14:34.902
+obtain the weights W&amp;B and then this
+
+00:14:34.902 --> 00:14:36.750
+would give us a well defined the
+
+00:14:36.750 --> 00:14:38.845
+classifier, so we can then use this
+
+00:14:38.845 --> 00:14:41.040
+classifier to classify any new texture
+
+00:14:41.040 --> 00:14:41.830
+objects.
+
+00:14:41.830 --> 00:14:44.880
+Now the previous formulation did not
+
+00:14:44.880 --> 00:14:47.080
+allow any error in the classification,
+
+00:14:47.080 --> 00:14:48.910
+but sometimes the data may not be
+
+00:14:48.910 --> 00:14:50.090
+linearly separable.
+
+00:14:50.090 --> 00:14:53.540
+That means they may not look as nice as
+
+00:14:53.540 --> 00:14:56.320
+you have seen on the previous slide
+
+00:14:56.320 --> 00:14:58.915
+where align can separate all of them.
+
+00:14:58.915 --> 00:15:00.650
+And what would happen if we.
+
+00:15:00.710 --> 00:15:02.000
+Allow some errors.
+
+00:15:02.700 --> 00:15:05.060
+The principle can stay right, so we
+
+00:15:05.060 --> 00:15:06.560
+want to minimize the training error,
+
+00:15:06.560 --> 00:15:09.420
+but try to also maximize the margin.
+
+00:15:09.990 --> 00:15:12.140
+But in this case we have a soft margin
+
+00:15:12.140 --> 00:15:15.050
+because the data points may not be a
+
+00:15:15.050 --> 00:15:16.180
+completely separate bowl.
+
+00:15:16.880 --> 00:15:18.940
+So it turns out that we can easily
+
+00:15:18.940 --> 00:15:23.190
+modify it as VM to accommodate this.
+
+00:15:24.480 --> 00:15:26.756
+So what you see here is very similar to
+
+00:15:26.756 --> 00:15:28.520
+what you have seen before, but we have
+
+00:15:28.520 --> 00:15:30.410
+introduced the extra variables.
+
+00:15:30.410 --> 00:15:33.290
+Cassie I an we in fact will have one
+
+00:15:33.290 --> 00:15:36.200
+for each data instance and this is
+
+00:15:36.200 --> 00:15:38.020
+going to model the error that will
+
+00:15:38.020 --> 00:15:40.162
+allow for each instance.
+
+00:15:40.162 --> 00:15:42.490
+But the optimization problem will be
+
+00:15:42.490 --> 00:15:43.350
+very similar.
+
+00:15:44.760 --> 00:15:47.082
+So specifically, you will see we have
+
+00:15:47.082 --> 00:15:48.900
+added something to the optimization
+
+00:15:48.900 --> 00:15:49.530
+problem.
+
+00:15:49.530 --> 00:15:52.760
+First we have added some.
+
+00:15:54.150 --> 00:15:58.540
+Some error to the constraint so that
+
+00:15:58.540 --> 00:16:00.770
+now we allow.
+
+00:16:02.080 --> 00:16:05.220
+Allow the classifier to make some
+
+00:16:05.220 --> 00:16:11.580
+mistakes here, so this KCI is allowed
+
+00:16:11.580 --> 00:16:14.990
+error if we set KCI to 0, then we go
+
+00:16:14.990 --> 00:16:16.295
+back to the original constraint.
+
+00:16:16.295 --> 00:16:18.860
+We want every instance we classified
+
+00:16:18.860 --> 00:16:22.330
+accurately, but if we allow this to be.
+
+00:16:23.620 --> 00:16:26.125
+Zero, then we allow some errors here.
+
+00:16:26.125 --> 00:16:28.110
+In fact, the one CI is very large.
+
+00:16:28.110 --> 00:16:30.660
+The error can be very, very large, so
+
+00:16:30.660 --> 00:16:33.090
+naturally we don't want this to happen.
+
+00:16:33.090 --> 00:16:36.675
+So we want to then also minimize this
+
+00:16:36.675 --> 00:16:37.567
+CI.
+
+00:16:37.567 --> 00:16:40.900
+So Cassie, I needs to be minimized in
+
+00:16:40.900 --> 00:16:42.040
+order to control the error.
+
+00:16:42.810 --> 00:16:45.520
+And so as a result in the objective
+
+00:16:45.520 --> 00:16:47.830
+function we also add more to the
+
+00:16:47.830 --> 00:16:51.470
+original 1, which is only an by
+
+00:16:51.470 --> 00:16:53.490
+basically ensuring that we're going to
+
+00:16:53.490 --> 00:16:55.963
+not only minimize the weights, but also
+
+00:16:55.963 --> 00:16:59.429
+minimize the errors as you see here, we
+
+00:16:59.430 --> 00:17:01.790
+simply take a sum over all the
+
+00:17:01.790 --> 00:17:02.710
+instances.
+
+00:17:02.710 --> 00:17:06.220
+Each one has a CI to model the error
+
+00:17:06.220 --> 00:17:08.690
+allowed for that instance an when we
+
+00:17:08.690 --> 00:17:12.190
+combine them together, we basically
+
+00:17:12.190 --> 00:17:14.090
+want to minimize the errors on.
+
+00:17:14.140 --> 00:17:14.920
+All of them.
+
+00:17:16.190 --> 00:17:17.840
+Now you see there's a parameter.
+
+00:17:17.840 --> 00:17:19.710
+See here and that's a constant to
+
+00:17:19.710 --> 00:17:21.960
+control the tradeoff between minimizing
+
+00:17:21.960 --> 00:17:24.903
+the errors and maximizing the region of
+
+00:17:24.903 --> 00:17:27.980
+the margin if C is set to zero, you can
+
+00:17:27.980 --> 00:17:30.830
+see we go back to the original object
+
+00:17:30.830 --> 00:17:33.180
+function where we only maximize margin.
+
+00:17:34.130 --> 00:17:36.550
+And we don't really optimize the
+
+00:17:36.550 --> 00:17:39.250
+training errors and then see I can be
+
+00:17:39.250 --> 00:17:41.270
+set to a very large value to make the
+
+00:17:41.270 --> 00:17:43.200
+constraints easy to satisfy.
+
+00:17:43.200 --> 00:17:46.120
+That's not very good of course, so see
+
+00:17:46.120 --> 00:17:48.790
+should be set to a non 0 value and a
+
+00:17:48.790 --> 00:17:50.270
+positive value.
+
+00:17:50.880 --> 00:17:53.000
+But when she is settled very, very
+
+00:17:53.000 --> 00:17:54.690
+large value would see the objective
+
+00:17:54.690 --> 00:17:56.587
+function will be dominated mostly by
+
+00:17:56.587 --> 00:17:59.029
+the training errors and so the
+
+00:17:59.030 --> 00:18:01.240
+optimization of margin will then play a
+
+00:18:01.240 --> 00:18:02.125
+secondary role.
+
+00:18:02.125 --> 00:18:05.086
+So if that happens, what would happen?
+
+00:18:05.086 --> 00:18:08.690
+What would happen is then we will try
+
+00:18:08.690 --> 00:18:10.918
+to do our best to minimize the training
+
+00:18:10.918 --> 00:18:11.192
+errors.
+
+00:18:11.192 --> 00:18:13.525
+But then we're not going to take care
+
+00:18:13.525 --> 00:18:15.660
+of the margin and that affects the
+
+00:18:15.660 --> 00:18:17.509
+generalization capacity of the
+
+00:18:17.510 --> 00:18:18.995
+classifier for future data.
+
+00:18:18.995 --> 00:18:20.660
+So it's also not good.
+
+00:18:20.900 --> 00:18:24.000
+So apparently this parameter C has to
+
+00:18:24.000 --> 00:18:25.580
+be actually set.
+
+00:18:27.210 --> 00:18:30.190
+Carefully, and this is just like in the
+
+00:18:30.190 --> 00:18:32.152
+case of nearest neighbor way you need
+
+00:18:32.152 --> 00:18:33.810
+to optimize the number of neighbors.
+
+00:18:33.810 --> 00:18:35.987
+Here you need to optimize the C and
+
+00:18:35.987 --> 00:18:39.270
+this is the general also achievable by
+
+00:18:39.270 --> 00:18:40.460
+doing cross validation.
+
+00:18:40.460 --> 00:18:41.730
+Basically you look at the empirical
+
+00:18:41.730 --> 00:18:44.903
+data to see what values should be set
+
+00:18:44.903 --> 00:18:46.900
+to in order to optimize the
+
+00:18:46.900 --> 00:18:47.680
+performance.
+
+00:18:48.870 --> 00:18:50.470
+Now with this modification in the
+
+00:18:50.470 --> 00:18:52.105
+problem, is there a quadratic program
+
+00:18:52.105 --> 00:18:53.570
+with linear constraints, so the
+
+00:18:53.570 --> 00:18:55.310
+optimization algorithm can be actually
+
+00:18:55.310 --> 00:18:58.620
+applied to solve this different version
+
+00:18:58.620 --> 00:19:00.320
+of the program?
+
+00:19:01.940 --> 00:19:03.940
+Again, once we have obtained the
+
+00:19:03.940 --> 00:19:07.620
+weights and the bias, then we can have
+
+00:19:07.620 --> 00:19:08.570
+classified.
+
+00:19:08.570 --> 00:19:10.320
+That's ready for classifying new
+
+00:19:10.320 --> 00:19:11.060
+objects.
+
+00:19:11.060 --> 00:19:13.620
+So that's the basic idea of Sven.
+
+00:19:17.040 --> 00:19:18.600
+So to summarize, the text
+
+00:19:18.600 --> 00:19:20.820
+categorisation methods we have
+
+00:19:20.820 --> 00:19:23.790
+introduced many methods and some are
+
+00:19:23.790 --> 00:19:25.470
+generative models, some more
+
+00:19:25.470 --> 00:19:28.815
+discriminative methods, and these tend
+
+00:19:28.815 --> 00:19:32.620
+to perform similarly when optimized, so
+
+00:19:32.620 --> 00:19:35.220
+there's still no clear winner, although
+
+00:19:35.220 --> 00:19:38.360
+each one has its pros and cons, and the
+
+00:19:38.360 --> 00:19:41.840
+performance might also very different
+
+00:19:41.840 --> 00:19:43.370
+data sets for different problems.
+
+00:19:44.170 --> 00:19:45.200
+Ann
+
+00:19:45.780 --> 00:19:47.960
+One reason is also becausw.
+
+00:19:47.960 --> 00:19:50.090
+The feature representation is very
+
+00:19:50.090 --> 00:19:53.810
+critical an so that these methods all
+
+00:19:53.810 --> 00:19:55.532
+require effective feature
+
+00:19:55.532 --> 00:19:58.223
+representation and to design effective
+
+00:19:58.223 --> 00:20:00.130
+feature set that we need domain
+
+00:20:00.130 --> 00:20:02.230
+knowledge and humans definitely play
+
+00:20:02.230 --> 00:20:03.430
+important role here.
+
+00:20:03.430 --> 00:20:05.190
+Although there are new machine learning
+
+00:20:05.190 --> 00:20:06.996
+methods like representation learning
+
+00:20:06.996 --> 00:20:10.070
+that can help with learning features.
+
+00:20:10.890 --> 00:20:17.320
+An another common scene is that they
+
+00:20:17.320 --> 00:20:18.840
+might be.
+
+00:20:21.050 --> 00:20:25.730
+Be performing similarly on the data set
+
+00:20:25.730 --> 00:20:28.710
+but with different mistakes and so
+
+00:20:28.710 --> 00:20:31.006
+their performance might be similar, but
+
+00:20:31.006 --> 00:20:33.360
+then the mistakes that make might be
+
+00:20:33.360 --> 00:20:36.190
+different, so that means it's useful to
+
+00:20:36.190 --> 00:20:37.660
+compare different methods for
+
+00:20:37.660 --> 00:20:39.830
+particular problem and then maybe
+
+00:20:39.830 --> 00:20:43.690
+combine multiple methods 'cause this
+
+00:20:43.690 --> 00:20:46.520
+can improve the robustness and they
+
+00:20:46.520 --> 00:20:50.950
+want to make the same mistakes so.
+
+00:20:51.440 --> 00:20:53.330
+And symbol approaches that would
+
+00:20:53.330 --> 00:20:55.920
+combine different methods and tend to
+
+00:20:55.920 --> 00:20:57.880
+be more robust and can be useful in
+
+00:20:57.880 --> 00:20:58.430
+practice.
+
+00:20:59.740 --> 00:21:02.060
+Most techniques that we introduce the
+
+00:21:02.060 --> 00:21:04.420
+use supervised machine learning and
+
+00:21:04.420 --> 00:21:06.850
+which is a very general method.
+
+00:21:06.850 --> 00:21:09.140
+So that means these methods can be
+
+00:21:09.140 --> 00:21:10.480
+actually applied to any text
+
+00:21:10.480 --> 00:21:13.380
+categorization problem as long as we
+
+00:21:13.380 --> 00:21:15.470
+have humans to help annotate some
+
+00:21:15.470 --> 00:21:18.470
+training data set and design features,
+
+00:21:18.470 --> 00:21:20.355
+then supervised machine learning an all
+
+00:21:20.355 --> 00:21:23.500
+these classifiers can be easily applied
+
+00:21:23.500 --> 00:21:24.900
+to those.
+
+00:21:25.730 --> 00:21:27.840
+Problems to solve the categorization
+
+00:21:27.840 --> 00:21:28.330
+problem.
+
+00:21:28.330 --> 00:21:32.223
+To allow us to characterize content of
+
+00:21:32.223 --> 00:21:35.020
+text concisely with categories or the
+
+00:21:35.020 --> 00:21:37.710
+predictor, some properties of real
+
+00:21:37.710 --> 00:21:39.240
+world variables that are associated
+
+00:21:39.240 --> 00:21:40.460
+with text data.
+
+00:21:42.350 --> 00:21:45.360
+The computers of course here are trying
+
+00:21:45.360 --> 00:21:47.170
+to optimize the combinations of the
+
+00:21:47.170 --> 00:21:50.010
+features provided by human an.
+
+00:21:50.010 --> 00:21:51.470
+As I say that there are many different
+
+00:21:51.470 --> 00:21:53.916
+ways of combining them and they also
+
+00:21:53.916 --> 00:21:55.180
+optimize different objects and
+
+00:21:55.180 --> 00:21:55.890
+functions.
+
+00:21:57.270 --> 00:21:59.180
+But in order to achieve good
+
+00:21:59.180 --> 00:22:01.150
+performance, they all require effective
+
+00:22:01.150 --> 00:22:02.910
+features and also plenty of training
+
+00:22:02.910 --> 00:22:03.320
+data.
+
+00:22:04.640 --> 00:22:06.620
+So as a general rule, and if you can
+
+00:22:06.620 --> 00:22:08.613
+improve the feature representation an
+
+00:22:08.613 --> 00:22:10.602
+and then provide more training data,
+
+00:22:10.602 --> 00:22:12.400
+then you can generate do better.
+
+00:22:12.400 --> 00:22:16.260
+So performance is often much more
+
+00:22:16.260 --> 00:22:18.340
+affected by the effectiveness of
+
+00:22:18.340 --> 00:22:21.125
+features and then by the choice of
+
+00:22:21.125 --> 00:22:22.440
+specific classifiers.
+
+00:22:22.440 --> 00:22:24.960
+So feature design tends to be more
+
+00:22:24.960 --> 00:22:26.820
+important than the choice of specific
+
+00:22:26.820 --> 00:22:27.470
+classifier.
+
+00:22:30.830 --> 00:22:34.090
+So how do we design effective features?
+
+00:22:34.090 --> 00:22:35.600
+Well, unfortunately this is very
+
+00:22:35.600 --> 00:22:38.150
+application specific, so there's no
+
+00:22:38.150 --> 00:22:41.610
+really much general thing to say here.
+
+00:22:43.470 --> 00:22:43.950
+But
+
+00:22:44.760 --> 00:22:45.980
+We can.
+
+00:22:46.590 --> 00:22:48.320
+And do some analysis of the
+
+00:22:48.320 --> 00:22:49.830
+categorization problem and try to
+
+00:22:49.830 --> 00:22:51.679
+understand the what kind of features
+
+00:22:51.680 --> 00:22:53.695
+might help us distinguish categories,
+
+00:22:53.695 --> 00:22:56.240
+and in general we can use a lot of
+
+00:22:56.240 --> 00:22:59.010
+domain knowledge to help us design
+
+00:22:59.010 --> 00:22:59.660
+features.
+
+00:23:00.880 --> 00:23:05.000
+An another way to figure out effective
+
+00:23:05.000 --> 00:23:07.900
+features is to do error analysis on the
+
+00:23:07.900 --> 00:23:09.150
+categorisation results.
+
+00:23:09.150 --> 00:23:10.970
+You could, for example, look at the
+
+00:23:10.970 --> 00:23:12.840
+which category tends to be confused
+
+00:23:12.840 --> 00:23:16.160
+with each other categories and you can
+
+00:23:16.160 --> 00:23:18.570
+use a confusion matrix to examine the
+
+00:23:18.570 --> 00:23:20.620
+errors systematically across
+
+00:23:20.620 --> 00:23:22.880
+categories, and then you can look into
+
+00:23:22.880 --> 00:23:25.690
+specific instances to see why the
+
+00:23:25.690 --> 00:23:27.745
+mistake has been made and what features
+
+00:23:27.745 --> 00:23:29.260
+can prevent the.
+
+00:23:29.260 --> 00:23:30.950
+This can allow you to obtain.
+
+00:23:31.610 --> 00:23:34.460
+Insights for design new features.
+
+00:23:35.150 --> 00:23:37.280
+So error analysis very important in
+
+00:23:37.280 --> 00:23:38.690
+general, and that's where you can get
+
+00:23:38.690 --> 00:23:40.440
+the insights about your specific
+
+00:23:40.440 --> 00:23:41.060
+problem.
+
+00:23:41.990 --> 00:23:44.070
+And then finally we can leverage some
+
+00:23:44.070 --> 00:23:45.490
+machine learning techniques.
+
+00:23:45.490 --> 00:23:47.250
+So for example, feature selection is a
+
+00:23:47.250 --> 00:23:48.670
+technique that we haven't really talked
+
+00:23:48.670 --> 00:23:50.500
+about, but it's very important and it
+
+00:23:50.500 --> 00:23:52.590
+has to do with trying to select the
+
+00:23:52.590 --> 00:23:54.110
+most useful features before you
+
+00:23:54.110 --> 00:23:56.450
+actually trainer for classifier, and
+
+00:23:56.450 --> 00:23:57.990
+sometimes training a classifier would
+
+00:23:57.990 --> 00:23:59.810
+also help you identify which features
+
+00:23:59.810 --> 00:24:00.850
+have high values.
+
+00:24:01.540 --> 00:24:03.730
+And there are also other ways to ensure
+
+00:24:03.730 --> 00:24:05.610
+the sparsity of the model.
+
+00:24:05.610 --> 00:24:07.500
+Meaning to recognize the weights.
+
+00:24:07.500 --> 00:24:10.695
+So for example, the SVM actually tries
+
+00:24:10.695 --> 00:24:12.820
+to minimize the weights on features,
+
+00:24:12.820 --> 00:24:15.895
+but you can further for some features
+
+00:24:15.895 --> 00:24:18.856
+to falsely use only a small number of
+
+00:24:18.856 --> 00:24:19.169
+features.
+
+00:24:20.180 --> 00:24:23.490
+There are also techniques for dimension
+
+00:24:23.490 --> 00:24:25.480
+reduction, and that's to reduce the
+
+00:24:25.480 --> 00:24:27.430
+high dimensional feature space into a
+
+00:24:27.430 --> 00:24:29.330
+lower dimensional space.
+
+00:24:29.330 --> 00:24:31.600
+Typical biclustering of features in
+
+00:24:31.600 --> 00:24:35.940
+various ways, so metrics factorization
+
+00:24:35.940 --> 00:24:39.700
+has been used to do such a job, and
+
+00:24:39.700 --> 00:24:41.100
+this and some of the techniques are
+
+00:24:41.100 --> 00:24:42.960
+after very similar to the topic models
+
+00:24:42.960 --> 00:24:45.770
+that we discussed, so topic models.
+
+00:24:47.960 --> 00:24:51.015
+LDA can actually help us reduce the
+
+00:24:51.015 --> 00:24:52.240
+dimension of features.
+
+00:24:52.240 --> 00:24:55.350
+Imagine the words are original feature
+
+00:24:55.350 --> 00:24:57.555
+representation, but the representation
+
+00:24:57.555 --> 00:24:59.890
+can be mapped to the topic space
+
+00:24:59.890 --> 00:25:00.210
+representation.
+
+00:25:00.210 --> 00:25:02.159
+Let's say we have K topics, so a
+
+00:25:02.160 --> 00:25:05.240
+document cannot be represented as a
+
+00:25:05.240 --> 00:25:06.790
+vector of justice K values
+
+00:25:06.790 --> 00:25:08.110
+corresponding to the topics.
+
+00:25:08.110 --> 00:25:10.582
+So we can let each topic define one
+
+00:25:10.582 --> 00:25:10.935
+dimension.
+
+00:25:10.935 --> 00:25:13.470
+So we have K dimensional space instead
+
+00:25:13.470 --> 00:25:15.882
+of the original high dimensional space
+
+00:25:15.882 --> 00:25:17.790
+corresponding to words.
+
+00:25:17.790 --> 00:25:18.550
+And this is.
+
+00:25:18.600 --> 00:25:20.780
+Often another way to learn factor
+
+00:25:20.780 --> 00:25:23.840
+features, especially, we could also use
+
+00:25:23.840 --> 00:25:26.170
+the categories to supervise learning of
+
+00:25:26.170 --> 00:25:28.420
+such low dimensional structures.
+
+00:25:29.690 --> 00:25:33.830
+An so the original word features can be
+
+00:25:33.830 --> 00:25:36.480
+also combined with such such latent
+
+00:25:36.480 --> 00:25:39.080
+dimension features or low dimensional
+
+00:25:39.080 --> 00:25:41.520
+space features to provide a
+
+00:25:41.520 --> 00:25:43.350
+multiresolution representation, which
+
+00:25:43.350 --> 00:25:45.050
+is often very useful.
+
+00:25:46.410 --> 00:25:47.973
+Deep learning is a new technique that
+
+00:25:47.973 --> 00:25:50.445
+has been developed in machine learning.
+
+00:25:50.445 --> 00:25:53.350
+It's particularly useful for learning
+
+00:25:53.350 --> 00:25:55.820
+representations, so different learning
+
+00:25:55.820 --> 00:25:57.420
+refers to deep neural network.
+
+00:25:57.420 --> 00:26:00.040
+It's another kind of classifier where
+
+00:26:00.040 --> 00:26:04.780
+you can have intermediate features
+
+00:26:04.780 --> 00:26:07.879
+embedded in the model so that it's
+
+00:26:07.880 --> 00:26:10.660
+highly non linear classifier.
+
+00:26:10.660 --> 00:26:13.345
+An some reason advance has allowed us
+
+00:26:13.345 --> 00:26:15.760
+to train such a complex network
+
+00:26:15.760 --> 00:26:16.750
+effectively.
+
+00:26:17.130 --> 00:26:19.670
+Ann is the technique has been shown to
+
+00:26:19.670 --> 00:26:22.620
+be quite effective for speech
+
+00:26:22.620 --> 00:26:24.240
+recognition, computer vision and
+
+00:26:24.240 --> 00:26:25.710
+recently it has been applied through
+
+00:26:25.710 --> 00:26:26.710
+text as well.
+
+00:26:27.310 --> 00:26:30.220
+It has shown some promise and one
+
+00:26:30.220 --> 00:26:34.120
+important advantage of this approach in
+
+00:26:34.120 --> 00:26:37.590
+relationship with the feature design is
+
+00:26:37.590 --> 00:26:40.120
+that they can learn intermediate
+
+00:26:40.120 --> 00:26:42.570
+representations or compound features
+
+00:26:42.570 --> 00:26:44.860
+automatically, and this is very
+
+00:26:44.860 --> 00:26:47.742
+valuable for learning effective
+
+00:26:47.742 --> 00:26:50.990
+representation for text localization.
+
+00:26:50.990 --> 00:26:54.660
+Although in Texas domain cause words
+
+00:26:54.660 --> 00:26:56.889
+are excellent representation of text
+
+00:26:56.890 --> 00:26:58.460
+content because these are.
+
+00:26:58.640 --> 00:27:01.960
+Humans invention for communication and
+
+00:27:01.960 --> 00:27:05.130
+they are generous sufficient for
+
+00:27:05.130 --> 00:27:07.650
+representing content for many tasks.
+
+00:27:07.650 --> 00:27:10.310
+If there's a need for some new
+
+00:27:10.310 --> 00:27:11.880
+representation, people would have
+
+00:27:11.880 --> 00:27:14.600
+invented a new words and new World.
+
+00:27:14.600 --> 00:27:17.160
+So because of this reason, the value of
+
+00:27:17.160 --> 00:27:20.470
+deep learning for text processing tends
+
+00:27:20.470 --> 00:27:22.880
+to be lower than for computer vision
+
+00:27:22.880 --> 00:27:24.680
+and speech recognition, where there
+
+00:27:24.680 --> 00:27:27.200
+aren't corresponding wedding design.
+
+00:27:27.200 --> 00:27:28.200
+The words.
+
+00:27:28.990 --> 00:27:29.970
+As features.
+
+00:27:30.660 --> 00:27:32.510
+But deep learning is still very
+
+00:27:32.510 --> 00:27:34.080
+promising for learning effective
+
+00:27:34.080 --> 00:27:35.550
+features, especially for complicated
+
+00:27:35.550 --> 00:27:37.520
+tasks like a sentiment analysis, and
+
+00:27:37.520 --> 00:27:41.530
+has been shown to be effective because
+
+00:27:41.530 --> 00:27:43.420
+it can provide replenishing that goes
+
+00:27:43.420 --> 00:27:44.770
+beyond bag of words.
+
+00:27:46.880 --> 00:27:50.470
+Regarding the training examples, it's
+
+00:27:50.470 --> 00:27:52.490
+generally hard to get a lot of training
+
+00:27:52.490 --> 00:27:54.260
+examples because it involves human
+
+00:27:54.260 --> 00:27:54.780
+labor.
+
+00:27:56.160 --> 00:27:58.230
+But there are also some ways to help
+
+00:27:58.230 --> 00:28:02.030
+with this, so one is to assume some low
+
+00:28:02.030 --> 00:28:03.920
+quality training examples can also be
+
+00:28:03.920 --> 00:28:06.410
+used so those can be called a pseudo
+
+00:28:06.410 --> 00:28:07.590
+training examples.
+
+00:28:07.590 --> 00:28:10.669
+For example, if you take a reviews from
+
+00:28:10.670 --> 00:28:12.120
+the Internet, they might have overall
+
+00:28:12.120 --> 00:28:12.780
+ratings.
+
+00:28:12.780 --> 00:28:17.160
+So to train a sentiment categorizer
+
+00:28:17.160 --> 00:28:19.290
+meaning we want to distinguish positive
+
+00:28:19.290 --> 00:28:22.235
+from negative opinions and categorize
+
+00:28:22.235 --> 00:28:25.470
+reviews into these two categories then.
+
+00:28:26.530 --> 00:28:29.060
+We could assume five star reviews are
+
+00:28:29.060 --> 00:28:30.970
+all positive training examples.
+
+00:28:30.970 --> 00:28:34.630
+OnStar negative but of course sometimes
+
+00:28:34.630 --> 00:28:35.692
+in five star reviews.
+
+00:28:35.692 --> 00:28:37.865
+We also mention negative opinions so
+
+00:28:37.865 --> 00:28:40.590
+that rain example is not all of that
+
+00:28:40.590 --> 00:28:42.720
+high quality, but they can still be
+
+00:28:42.720 --> 00:28:43.330
+useful.
+
+00:28:45.050 --> 00:28:46.930
+Another idea is really exploit unable
+
+00:28:46.930 --> 00:28:49.350
+data and there are techniques called a
+
+00:28:49.350 --> 00:28:51.100
+semi supervised machine learning
+
+00:28:51.100 --> 00:28:53.110
+techniques that can allow you to
+
+00:28:53.110 --> 00:28:56.186
+combine label data with unlabeled data.
+
+00:28:56.186 --> 00:28:58.910
+So in our case actually it's easy to
+
+00:28:58.910 --> 00:29:01.030
+see the mixture model can be used for
+
+00:29:01.030 --> 00:29:02.849
+both text clustering and
+
+00:29:02.850 --> 00:29:04.790
+categorisation, so even imagine if you
+
+00:29:04.790 --> 00:29:07.720
+have a lot of unable text data for
+
+00:29:07.720 --> 00:29:11.380
+categorization then you can actually do
+
+00:29:11.380 --> 00:29:14.740
+clustering on these text data to learn
+
+00:29:14.740 --> 00:29:15.510
+categories.
+
+00:29:15.560 --> 00:29:17.450
+And then try to somehow align these
+
+00:29:17.450 --> 00:29:22.050
+categories with the categories defined
+
+00:29:22.050 --> 00:29:23.870
+by the training data where we already
+
+00:29:23.870 --> 00:29:25.080
+know which documents are in which
+
+00:29:25.080 --> 00:29:25.710
+category.
+
+00:29:25.710 --> 00:29:29.585
+So you can in fact use the EM algorithm
+
+00:29:29.585 --> 00:29:31.500
+to actually combine both.
+
+00:29:31.500 --> 00:29:33.560
+That would allow you essentially to
+
+00:29:33.560 --> 00:29:36.131
+also pick up a useful words in the
+
+00:29:36.131 --> 00:29:36.865
+unlabeled data.
+
+00:29:36.865 --> 00:29:39.240
+You can think of this in another way.
+
+00:29:39.240 --> 00:29:41.720
+Basically, we can use, let's say a
+
+00:29:41.720 --> 00:29:44.493
+naive Bayes classifier to classify all
+
+00:29:44.493 --> 00:29:47.100
+the unlabeled text documents.
+
+00:29:47.320 --> 00:29:49.350
+And then we're going to assume the high
+
+00:29:49.350 --> 00:29:52.610
+confidence classification results, or
+
+00:29:52.610 --> 00:29:53.670
+actually reliable.
+
+00:29:53.670 --> 00:29:55.340
+Then you certainly have more training
+
+00:29:55.340 --> 00:29:55.580
+data.
+
+00:29:55.580 --> 00:29:59.100
+The cause from the unlabeled data we
+
+00:29:59.100 --> 00:30:01.876
+some are labeled as category ones and
+
+00:30:01.876 --> 00:30:03.270
+more labeled as category two.
+
+00:30:03.270 --> 00:30:05.220
+Although the label is not completely
+
+00:30:05.220 --> 00:30:05.930
+reliable.
+
+00:30:05.930 --> 00:30:07.840
+But then they can still be useful.
+
+00:30:07.840 --> 00:30:10.612
+So let's assume they are actually
+
+00:30:10.612 --> 00:30:13.759
+training label examples and then we
+
+00:30:13.760 --> 00:30:16.665
+combine them with the true training
+
+00:30:16.665 --> 00:30:17.440
+examples.
+
+00:30:17.490 --> 00:30:20.740
+To improve categorization method and so
+
+00:30:20.740 --> 00:30:24.600
+this idea is very powerful and when the
+
+00:30:24.600 --> 00:30:27.152
+enable data and training data are very
+
+00:30:27.152 --> 00:30:29.560
+different and we might need to use
+
+00:30:29.560 --> 00:30:30.990
+other advanced machine learning
+
+00:30:30.990 --> 00:30:33.830
+techniques called domain adaptation or
+
+00:30:33.830 --> 00:30:37.470
+transfer learning, this is when we can
+
+00:30:37.470 --> 00:30:39.570
+borrow some training examples from a
+
+00:30:39.570 --> 00:30:41.804
+related problem that may be different
+
+00:30:41.804 --> 00:30:44.880
+or from a categorisation task that.
+
+00:30:46.030 --> 00:30:48.395
+That involves data that follow very
+
+00:30:48.395 --> 00:30:50.555
+different distributions from what we
+
+00:30:50.555 --> 00:30:51.835
+are working on.
+
+00:30:51.835 --> 00:30:53.645
+But basically when the two domains are
+
+00:30:53.645 --> 00:30:54.740
+very different than we need to be
+
+00:30:54.740 --> 00:30:56.750
+careful not to overfit the training
+
+00:30:56.750 --> 00:30:58.950
+domain, but yet we can still want to
+
+00:30:58.950 --> 00:31:00.780
+use some signals from the related
+
+00:31:00.780 --> 00:31:01.560
+training data.
+
+00:31:02.180 --> 00:31:04.950
+So for example, training categorisation
+
+00:31:04.950 --> 00:31:07.730
+on news might not give you an
+
+00:31:07.730 --> 00:31:10.180
+immediately effective classifier for
+
+00:31:10.180 --> 00:31:13.760
+classifying topics in tweets, but you
+
+00:31:13.760 --> 00:31:16.750
+can still learn something from news to
+
+00:31:16.750 --> 00:31:21.080
+help categorizing tweets, so there are
+
+00:31:21.080 --> 00:31:22.550
+machine learning techniques that can
+
+00:31:22.550 --> 00:31:23.110
+help you.
+
+00:31:23.950 --> 00:31:25.310
+Do that effectively.
+
+00:31:25.310 --> 00:31:27.220
+Here's a suggestion reading an where
+
+00:31:27.220 --> 00:31:30.300
+you can find more details about some of
+
+00:31:30.300 --> 00:31:31.900
+the methods that we have covered.
+
+

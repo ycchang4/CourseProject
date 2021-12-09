@@ -1,0 +1,429 @@
+WEBVTT Kind: captions; Language: en-US
+
+NOTE
+Created on 2021-02-27T00:07:08.5571368Z by ClassTranscribe
+
+00:00:00.280 --> 00:00:03.540
+So we talked about page rank as a way
+
+00:00:03.540 --> 00:00:04.420
+to.
+
+00:00:10.910 --> 00:00:11.420
+
+
+00:00:12.100 --> 00:00:15.100
+Capture the authorities now we also
+
+00:00:15.100 --> 00:00:19.010
+looked at the some other examples where
+
+00:00:19.010 --> 00:00:22.420
+a hub might be interesting, so there is
+
+00:00:22.420 --> 00:00:24.440
+another algorithm called hits and
+
+00:00:24.440 --> 00:00:26.615
+that's going to compute the scores for
+
+00:00:26.615 --> 00:00:28.070
+authorities and hubs.
+
+00:00:28.070 --> 00:00:30.730
+Intuitions are pages that are wider.
+
+00:00:30.730 --> 00:00:33.296
+Sites are good authorities, then where
+
+00:00:33.296 --> 00:00:34.530
+pages that cite
+
+00:00:34.530 --> 00:00:36.640
+many other pages are good hubs, right?
+
+00:00:36.640 --> 00:00:41.060
+But the I think the most interesting
+
+00:00:41.060 --> 00:00:43.190
+idea of this algorithm hits is.
+
+00:00:43.240 --> 00:00:46.100
+It's going to use reinforcement
+
+00:00:46.100 --> 00:00:48.820
+mechanism to kind of help improve the
+
+00:00:48.820 --> 00:00:52.070
+scoring for hubs and authorities, and
+
+00:00:52.070 --> 00:00:52.730
+here.
+
+00:00:52.730 --> 00:00:53.780
+So here's the idea.
+
+00:00:53.780 --> 00:00:56.260
+It would assume that good authorities
+
+00:00:56.260 --> 00:00:57.920
+are cited by good hubs.
+
+00:00:58.700 --> 00:01:02.025
+That means if you're cited by many
+
+00:01:02.025 --> 00:01:05.060
+pages with good hub scores, then that
+
+00:01:05.060 --> 00:01:07.630
+increases your authority score and
+
+00:01:07.630 --> 00:01:10.178
+similarly good hubs are those that pointed
+
+00:01:10.178 --> 00:01:11.204
+to good authorities.
+
+00:01:11.204 --> 00:01:14.030
+So if you get you pointed to a lot of
+
+00:01:14.030 --> 00:01:16.284
+good authority pages, then your hub
+
+00:01:16.284 --> 00:01:17.620
+score will be increased.
+
+00:01:17.620 --> 00:01:20.370
+So then we can iterate, reinforce each
+
+00:01:20.370 --> 00:01:22.439
+other 'cause you can point to some good
+
+00:01:22.440 --> 00:01:25.028
+hubs so that you can point to some good
+
+00:01:25.028 --> 00:01:26.819
+authorities to get a good hub score,
+
+00:01:26.820 --> 00:01:29.469
+whereas those authoritie scores.
+
+00:01:29.540 --> 00:01:31.960
+Would be also improved because they are
+
+00:01:31.960 --> 00:01:35.160
+pointed to by a good hub and this
+
+00:01:35.160 --> 00:01:36.490
+algorithm is also general.
+
+00:01:36.490 --> 00:01:38.935
+It can have many applications in graph
+
+00:01:38.935 --> 00:01:40.285
+and network analysis.
+
+00:01:40.285 --> 00:01:42.880
+So just briefly, here's how it works.
+
+00:01:42.880 --> 00:01:45.030
+We first also construct the matrix, but
+
+00:01:45.030 --> 00:01:46.460
+this time we're going to construct the
+
+00:01:46.460 --> 00:01:48.590
+adjacency matrix and we're not going to
+
+00:01:48.590 --> 00:01:49.810
+normalize the values.
+
+00:01:49.810 --> 00:01:51.670
+So if there's a link, there is one.
+
+00:01:51.670 --> 00:01:54.510
+If there's no link that's zero again it's
+
+00:01:54.510 --> 00:01:55.400
+the same graph.
+
+00:01:56.070 --> 00:01:58.700
+And then we're going to define the Hub
+
+00:01:58.700 --> 00:02:03.520
+score of page as the sum of the
+
+00:02:03.520 --> 00:02:06.310
+authority scores of all the pages that
+
+00:02:06.310 --> 00:02:07.190
+it points to.
+
+00:02:08.180 --> 00:02:09.870
+So whether you are a hub really
+
+00:02:09.870 --> 00:02:11.870
+depends on whether you're pointing to a
+
+00:02:11.870 --> 00:02:14.400
+lot of good authority pages.
+
+00:02:14.400 --> 00:02:15.850
+That's what it says in the first
+
+00:02:15.850 --> 00:02:16.326
+equation.
+
+00:02:16.326 --> 00:02:20.070
+In the second equation, we define the
+
+00:02:20.070 --> 00:02:23.280
+authorities score over page as the sum
+
+00:02:23.280 --> 00:02:25.545
+of the hub scores of all those pages
+
+00:02:25.545 --> 00:02:27.058
+that the point to you.
+
+00:02:27.058 --> 00:02:28.710
+So whether you are good authoritie
+
+00:02:28.710 --> 00:02:30.454
+would depend on whether those pages
+
+00:02:30.454 --> 00:02:33.030
+that are pointing to you are good hubs
+
+00:02:33.030 --> 00:02:36.030
+so you can see this forms iterative
+
+00:02:36.030 --> 00:02:37.620
+reinforcement mechanism.
+
+00:02:38.660 --> 00:02:41.260
+Now these two equations can be also
+
+00:02:41.260 --> 00:02:43.800
+written in the matrix format.
+
+00:02:44.400 --> 00:02:47.810
+I saw what we get here is then the hub
+
+00:02:47.810 --> 00:02:52.060
+vector is equal to the product of the
+
+00:02:52.060 --> 00:02:56.150
+edges of the adjacency matrix and the authority
+
+00:02:56.150 --> 00:02:56.905
+vector.
+
+00:02:56.905 --> 00:02:58.850
+And this is basically the first
+
+00:02:58.850 --> 00:02:59.860
+equation right?
+
+00:02:59.860 --> 00:03:02.210
+And similarly the second equation can
+
+00:03:02.210 --> 00:03:05.030
+be returned as the authoritie vector is
+
+00:03:05.030 --> 00:03:08.200
+equal to the product of A transpose
+
+00:03:08.200 --> 00:03:11.053
+multiplied by the hub vector and
+
+00:03:11.053 --> 00:03:13.530
+these are just different ways of
+
+00:03:13.530 --> 00:03:15.350
+expressing these equations.
+
+00:03:15.810 --> 00:03:17.850
+But what's interesting is that if you
+
+00:03:17.850 --> 00:03:20.790
+look at the metrics form, you can also
+
+00:03:20.790 --> 00:03:23.790
+plug in the authority equation.
+
+00:03:24.730 --> 00:03:26.540
+Into the first one.
+
+00:03:26.540 --> 00:03:28.690
+So if you do that, you can actually
+
+00:03:28.690 --> 00:03:30.570
+then eliminate the authoritie vector
+
+00:03:30.570 --> 00:03:32.820
+completely and you get the equation of
+
+00:03:32.820 --> 00:03:34.778
+only hub scores, right?
+
+00:03:34.778 --> 00:03:38.589
+The Hub score vector is equal to A * A
+
+00:03:38.590 --> 00:03:41.423
+transpose multiplied by the hub score
+
+00:03:41.423 --> 00:03:42.420
+vector again.
+
+00:03:43.610 --> 00:03:45.110
+And similarly, we can do a
+
+00:03:45.110 --> 00:03:47.505
+transformation to have equation for
+
+00:03:47.505 --> 00:03:49.430
+just the authority scores.
+
+00:03:49.430 --> 00:03:51.900
+So although we framed the problem as
+
+00:03:51.900 --> 00:03:54.649
+computing hubs and authorities, we can
+
+00:03:54.650 --> 00:03:56.250
+actually eliminate one of them to
+
+00:03:56.250 --> 00:03:58.840
+obtain equation just for one of them.
+
+00:03:59.420 --> 00:04:01.270
+The difference between this and page
+
+00:04:01.270 --> 00:04:03.810
+rank is that now the matrix is actually
+
+00:04:03.810 --> 00:04:05.915
+a multiplication of the edges in the
+
+00:04:05.915 --> 00:04:08.480
+matrix and its transpose, so this is
+
+00:04:08.480 --> 00:04:10.020
+different from page rank.
+
+00:04:10.640 --> 00:04:13.090
+But mathematically, then we will be
+
+00:04:13.090 --> 00:04:14.820
+computing the same problem.
+
+00:04:14.820 --> 00:04:17.340
+So in hits we typically would
+
+00:04:17.340 --> 00:04:20.130
+initialize the values that said, one
+
+00:04:20.130 --> 00:04:22.269
+for all these values and then we would
+
+00:04:22.270 --> 00:04:24.940
+iteratively apply these equations,
+
+00:04:24.940 --> 00:04:26.710
+essentially and
+
+00:04:26.710 --> 00:04:29.160
+This is equivalent to multiply that by
+
+00:04:29.160 --> 00:04:32.660
+the Matrix A and A transpose.
+
+00:04:33.850 --> 00:04:36.020
+So the algorithm is exactly the similar
+
+00:04:36.020 --> 00:04:38.270
+page rank, but here because the
+
+00:04:38.270 --> 00:04:40.010
+adjacency matrix is not normalized.
+
+00:04:40.010 --> 00:04:43.918
+So what we have to do, what we have to
+
+00:04:43.918 --> 00:04:46.010
+do is after each iteration, we're going
+
+00:04:46.010 --> 00:04:48.470
+to normalize and this would allow us to
+
+00:04:48.470 --> 00:04:50.750
+control the growth of value, otherwise
+
+00:04:50.750 --> 00:04:52.952
+they would grow larger and larger.
+
+00:04:52.952 --> 00:04:54.950
+And if we do that and then we'll
+
+00:04:54.950 --> 00:04:58.710
+basically get hits algorithm to compute
+
+00:04:58.710 --> 00:05:00.750
+the hub scores an authority scores for
+
+00:05:00.750 --> 00:05:01.620
+all the pages.
+
+00:05:03.810 --> 00:05:06.830
+And these scores can then be used in
+
+00:05:06.830 --> 00:05:08.760
+ranking just like a page rank scores.
+
+00:05:09.750 --> 00:05:12.100
+So to summarize, in this lecture we
+
+00:05:12.100 --> 00:05:14.194
+have seen that link information is very
+
+00:05:14.194 --> 00:05:14.652
+useful.
+
+00:05:14.652 --> 00:05:17.280
+In particular, the anchor text is very
+
+00:05:17.280 --> 00:05:19.630
+useful to increase the.
+
+00:05:20.460 --> 00:05:23.889
+The text representation of a page and
+
+00:05:23.890 --> 00:05:26.260
+we also talk about page rank and hits on
+
+00:05:26.260 --> 00:05:28.980
+as two major link analysis algorithms.
+
+00:05:28.980 --> 00:05:32.670
+Both can generate scores for web pages
+
+00:05:32.670 --> 00:05:34.590
+that can be used in the ranking
+
+00:05:34.590 --> 00:05:35.410
+function.
+
+00:05:35.410 --> 00:05:37.850
+Note that page rank and it's also very
+
+00:05:37.850 --> 00:05:40.070
+general algorithms, so they have many
+
+00:05:40.070 --> 00:05:42.860
+applications in analyzing other graphs
+
+00:05:42.860 --> 00:05:44.120
+or networks.
+
+

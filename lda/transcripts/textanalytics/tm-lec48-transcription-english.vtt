@@ -1,0 +1,907 @@
+WEBVTT Kind: captions; Language: en-US
+
+NOTE
+Created on 2021-02-26T23:59:29.5933142Z by ClassTranscribe
+
+00:00:00.300 --> 00:00:02.610
+This lecture is about text based prediction.
+
+00:00:02.610 --> 00:00:03.240
+
+
+
+00:00:11.290 --> 00:00:14.230
+In this lecture we're going to start
+
+00:00:14.230 --> 00:00:16.910
+talking about mining a different kind
+
+00:00:16.910 --> 00:00:19.650
+of knowledge as you, you can see here on this slide.
+
+00:00:19.650 --> 00:00:20.950
+here on this slide.
+
+00:00:20.950 --> 00:00:24.800
+Namely, we're going to use text data to
+
+00:00:24.800 --> 00:00:28.730
+infer values of some other variables in
+
+00:00:28.730 --> 00:00:29.580
+the real world.
+
+00:00:30.450 --> 00:00:33.153
+That may not be directly related to the
+
+00:00:33.153 --> 00:00:35.780
+text, or only remotely related to text data.
+
+00:00:35.780 --> 00:00:38.315
+So this is very different from
+
+00:00:38.315 --> 00:00:40.780
+content analysis or topic mining where
+
+00:00:40.780 --> 00:00:43.290
+we directly characterize the content of text.
+
+00:00:43.290 --> 00:00:44.060
+
+
+
+00:00:44.620 --> 00:00:47.150
+It's also different from opinion mining
+
+00:00:47.150 --> 00:00:50.190
+or sentiment analysis, which still have
+
+00:00:50.190 --> 00:00:52.750
+to do with characterizing mostly the
+
+00:00:52.750 --> 00:00:54.790
+content only
+
+00:00:55.950 --> 00:00:58.380
+that we focus more on the subjective content 
+
+00:00:58.380 --> 00:01:01.400
+which reflects what we know
+
+00:01:01.400 --> 00:01:03.210
+about the opinion holder.
+
+00:01:04.590 --> 00:01:07.400
+But this only provides limited view of
+
+00:01:07.400 --> 00:01:10.980
+what we can predict. In this lecture
+
+00:01:10.980 --> 00:01:12.290
+and the following lectures, we're going
+
+00:01:12.290 --> 00:01:17.337
+to talk more about how we can predict
+
+00:01:17.337 --> 00:01:20.740
+more information about the world.
+
+00:01:20.740 --> 00:01:23.360
+How can we get sophisticated patterns
+
+00:01:23.360 --> 00:01:26.750
+of text together with other kinds of data?
+
+00:01:26.750 --> 00:01:27.170
+
+
+
+00:01:28.250 --> 00:01:30.190
+It would be useful to first take a look
+
+00:01:30.190 --> 00:01:32.276
+at the big picture of prediction in
+
+00:01:32.276 --> 00:01:34.660
+data mining in general and I call this data mining loop.
+
+00:01:34.660 --> 00:01:35.610
+
+
+
+00:01:36.330 --> 00:01:37.940
+So the picture that you're seeing right now
+
+00:01:37.940 --> 00:01:41.390
+is that there are multiple sensors,
+
+00:01:41.390 --> 00:01:44.370
+including human sensors to report what
+
+00:01:44.370 --> 00:01:46.202
+we have seen in the real world in the form of data.
+
+00:01:46.202 --> 00:01:47.005
+
+
+
+00:01:47.005 --> 00:01:49.209
+And of course the data are in the form of
+
+00:01:49.210 --> 00:01:51.030
+non text data and text data.
+
+00:01:51.840 --> 00:01:54.040
+And our goal is to see if we can
+
+00:01:54.040 --> 00:01:56.700
+predict some values of important
+
+00:01:56.700 --> 00:01:58.790
+real world variables that matter to us.
+
+00:01:59.390 --> 00:02:02.865
+For example, someone's health condition
+
+00:02:02.865 --> 00:02:05.340
+or the weather, or etc.
+
+00:02:05.340 --> 00:02:08.200
+So these variables would be important
+
+00:02:08.200 --> 00:02:10.816
+because we might want to act on that.
+
+00:02:10.816 --> 00:02:12.820
+We might want to make decisions based
+
+00:02:12.820 --> 00:02:13.290
+on that.
+
+00:02:14.570 --> 00:02:17.080
+So how can we get from the data to these
+
+00:02:17.080 --> 00:02:18.010
+predicted values?
+
+00:02:18.010 --> 00:02:20.160
+Well, in general we first have to do
+
+00:02:20.160 --> 00:02:20.900
+data mining and
+
+00:02:20.900 --> 00:02:22.809
+analysis of the data.
+
+00:02:23.640 --> 00:02:26.790
+Because we in general should treat all
+
+00:02:26.790 --> 00:02:28.800
+the data that we collected.
+
+00:02:29.740 --> 00:02:32.860
+in such a prediction problem set up,
+
+00:02:32.860 --> 00:02:35.480
+we are very much interested in joint
+
+00:02:35.480 --> 00:02:37.660
+mining of non text and text data.
+
+00:02:37.660 --> 00:02:39.640
+We should mine all the data together.
+
+00:02:41.730 --> 00:02:44.540
+And then through the analysis, we
+
+00:02:44.540 --> 00:02:46.440
+generally can generate the multiple
+
+00:02:46.440 --> 00:02:49.040
+predictors of this interesting
+
+00:02:49.040 --> 00:02:51.520
+variable to us, and we call these
+
+00:02:51.520 --> 00:02:52.170
+features.
+
+00:02:52.800 --> 00:02:55.170
+And these features can then be put into
+
+00:02:55.170 --> 00:02:57.840
+a predictive model to actually predict
+
+00:02:57.840 --> 00:03:01.480
+the value of any interesting variable.
+
+00:03:02.510 --> 00:03:05.730
+So this then allows us to change the
+
+00:03:05.730 --> 00:03:11.150
+world and so this basically is the
+
+00:03:11.150 --> 00:03:13.450
+general process for making a prediction
+
+00:03:13.450 --> 00:03:15.950
+based on data, including text data.
+
+00:03:16.900 --> 00:03:19.170
+Now it's important to emphasize that
+
+00:03:19.170 --> 00:03:22.450
+human actually plays very important role in this
+
+00:03:22.450 --> 00:03:23.160
+process.
+
+00:03:24.150 --> 00:03:26.440
+Especially because of the involvement
+
+00:03:26.440 --> 00:03:29.240
+of text data. And so human first would
+
+00:03:29.240 --> 00:03:31.919
+be involved in the mining of the data.
+
+00:03:31.920 --> 00:03:34.740
+It will control the generation of these
+
+00:03:34.740 --> 00:03:35.260
+features.
+
+00:03:35.920 --> 00:03:39.120
+And also help us understand the text data
+
+00:03:39.120 --> 00:03:41.720
+because text data are created to be
+
+00:03:41.720 --> 00:03:43.072
+consumed by humans.
+
+00:03:43.072 --> 00:03:45.790
+Humans are the best in consuming or
+
+00:03:45.790 --> 00:03:47.110
+interpreting text data.
+
+00:03:48.180 --> 00:03:50.130
+But when there are, of course a lot of text data
+
+00:03:50.130 --> 00:03:52.790
+than machines have to help, and
+
+00:03:52.790 --> 00:03:54.210
+that's why we need to do text data mining.
+
+00:03:54.210 --> 00:03:54.650
+
+
+
+00:03:55.570 --> 00:03:58.230
+Sometimes machines can see patterns in
+
+00:03:58.230 --> 00:04:00.710
+a lot of data that humans may not see,
+
+00:04:00.710 --> 00:04:02.400
+but in general human would play an
+
+00:04:02.400 --> 00:04:04.853
+important role in analyzing text data
+
+00:04:04.853 --> 00:04:06.170
+in all applications.
+
+00:04:06.870 --> 00:04:09.350
+Next human also must be involved in
+
+00:04:09.350 --> 00:04:11.650
+predictive model building and adjusting
+
+00:04:11.650 --> 00:04:12.540
+or testing.
+
+00:04:12.540 --> 00:04:15.730
+So in particular we will have a lot of
+
+00:04:15.730 --> 00:04:17.730
+domain knowledge about the problem of
+
+00:04:17.730 --> 00:04:20.697
+prediction that we can build into this
+
+00:04:20.697 --> 00:04:23.105
+predictive model, and then next,
+
+00:04:23.105 --> 00:04:25.690
+of course, when we have predicted
+
+00:04:25.690 --> 00:04:28.780
+values for the variables, then humans
+
+00:04:28.780 --> 00:04:31.740
+would be involved in taking actions to
+
+00:04:31.740 --> 00:04:33.470
+change the world or make decisions
+
+00:04:33.470 --> 00:04:35.190
+based on these predictive values.
+
+00:04:36.620 --> 00:04:38.890
+And finally, it's interesting that
+
+00:04:38.890 --> 00:04:41.400
+human could be also involved in
+
+00:04:41.400 --> 00:04:42.800
+controlling the sensors.
+
+00:04:43.820 --> 00:04:47.160
+And, this is so that we can adjust the
+
+00:04:47.160 --> 00:04:50.180
+sensors to collect the most useful data
+
+00:04:50.180 --> 00:04:51.010
+for prediction.
+
+00:04:52.380 --> 00:04:54.250
+So that's why I called this data mining
+
+00:04:54.250 --> 00:04:57.030
+loop because as we perturb the sensors
+
+00:04:57.030 --> 00:04:59.570
+to collect the new data and more useful
+
+00:04:59.570 --> 00:05:02.784
+data then we will obtain more data for
+
+00:05:02.784 --> 00:05:03.096
+prediction.
+
+00:05:03.096 --> 00:05:04.870
+This data generally will help us
+
+00:05:04.870 --> 00:05:07.247
+improve the prediction accuracy and in
+
+00:05:07.247 --> 00:05:09.850
+this loop are humans will recognize
+
+00:05:09.850 --> 00:05:12.155
+what additional data needs to be
+
+00:05:12.155 --> 00:05:14.213
+collected and machines would of course
+
+00:05:14.213 --> 00:05:17.450
+help humans identify what data should
+
+00:05:17.450 --> 00:05:18.900
+be collected next.
+
+00:05:18.900 --> 00:05:21.439
+In general, we want to collect data
+
+00:05:21.440 --> 00:05:23.490
+that are most useful for learning.
+
+00:05:23.610 --> 00:05:26.080
+And this there is actually a subarea
+
+00:05:26.080 --> 00:05:27.786
+in machine learning called active learning
+
+00:05:27.786 --> 00:05:29.490
+that has to do with this.
+
+00:05:29.490 --> 00:05:33.170
+How do you identify data points?
+
+00:05:33.170 --> 00:05:35.430
+That would be most helpful for machine
+
+00:05:35.430 --> 00:05:37.180
+learning programs if you can label
+
+00:05:37.180 --> 00:05:38.450
+them, right.
+
+00:05:38.450 --> 00:05:40.030
+So in general, you can see there's a
+
+00:05:40.030 --> 00:05:43.150
+loop here from data acquisition to data
+
+00:05:43.150 --> 00:05:45.540
+analysis or data mining to prediction
+
+00:05:45.540 --> 00:05:47.580
+of values, and to take actions to
+
+00:05:47.580 --> 00:05:49.470
+change the world and then observe what
+
+00:05:49.470 --> 00:05:50.150
+happens.
+
+00:05:50.150 --> 00:05:53.650
+And then you can then decide what
+
+00:05:53.650 --> 00:05:54.670
+additional data.
+
+00:05:54.720 --> 00:05:57.390
+Have to be collected by adjusting the
+
+00:05:57.390 --> 00:06:00.190
+sensor. Or from the prediction errors
+
+00:06:00.190 --> 00:06:02.580
+you can also know what additional data
+
+00:06:02.580 --> 00:06:04.330
+we need to acquire in order to improve
+
+00:06:04.330 --> 00:06:06.820
+the accuracy of prediction. And this big
+
+00:06:06.820 --> 00:06:09.420
+picture is actually very general and
+
+00:06:09.420 --> 00:06:12.590
+it's reflecting a lot of important
+
+00:06:12.590 --> 00:06:14.830
+applications of big data.
+
+00:06:16.050 --> 00:06:18.110
+So it's useful to keep that in mind
+
+00:06:18.110 --> 00:06:20.230
+while we're looking at some text mining techniques.
+
+00:06:20.230 --> 00:06:20.760
+
+
+
+00:06:21.860 --> 00:06:24.340
+So from text mining perspective and
+
+00:06:24.340 --> 00:06:25.670
+we're interested in text based
+
+00:06:25.670 --> 00:06:27.700
+prediction, of course sometimes text
+
+00:06:27.700 --> 00:06:30.490
+alone can make predictions. And this is
+
+00:06:30.490 --> 00:06:32.715
+most useful for prediction about
+
+00:06:32.715 --> 00:06:35.760
+human behavior or human preferences or
+
+00:06:35.760 --> 00:06:36.530
+opinions.
+
+00:06:36.530 --> 00:06:38.430
+But in general text data will be put
+
+00:06:38.430 --> 00:06:40.200
+together with non text data.
+
+00:06:40.200 --> 00:06:42.610
+So the interesting questions here would
+
+00:06:42.610 --> 00:06:45.450
+be first how can we design effective
+
+00:06:45.450 --> 00:06:46.240
+predictors?
+
+00:06:46.920 --> 00:06:50.650
+And how do we generate such effective
+
+00:06:50.650 --> 00:06:52.220
+predictors from text?
+
+00:06:53.610 --> 00:06:55.260
+This question has been addressed
+
+00:06:55.260 --> 00:06:57.120
+to some extent in some previous
+
+00:06:57.120 --> 00:06:58.980
+lectures where we talked about what
+
+00:06:58.980 --> 00:07:02.380
+kind of features we can design for text
+
+00:07:02.380 --> 00:07:02.970
+data.
+
+00:07:02.970 --> 00:07:06.106
+It has also been addressed to some
+
+00:07:06.106 --> 00:07:08.060
+extent by talking about the other
+
+00:07:08.060 --> 00:07:09.975
+knowledge that we can mine from text.
+
+00:07:09.975 --> 00:07:12.470
+So for example, topic mining can be
+
+00:07:12.470 --> 00:07:15.405
+very useful to generate the patterns or
+
+00:07:15.405 --> 00:07:18.570
+topic based indicators or predictors
+
+00:07:18.570 --> 00:07:20.790
+that can be further fed into a
+
+00:07:20.790 --> 00:07:21.925
+predictive model.
+
+00:07:21.925 --> 00:07:24.640
+So topics can be intermediate
+
+00:07:24.640 --> 00:07:26.129
+representation of text.
+
+00:07:26.320 --> 00:07:28.620
+That would allow us to design high
+
+00:07:28.620 --> 00:07:31.640
+level features or predictors that are
+
+00:07:31.640 --> 00:07:34.680
+useful for prediction of some other
+
+00:07:34.680 --> 00:07:35.350
+variable.
+
+00:07:35.350 --> 00:07:37.670
+It maybe, although it's generated from
+
+00:07:37.670 --> 00:07:40.010
+original text data, it provides a much
+
+00:07:40.010 --> 00:07:42.810
+better representation of the problem
+
+00:07:42.810 --> 00:07:44.965
+and it serves as more effective
+
+00:07:44.965 --> 00:07:45.580
+predictors.
+
+00:07:46.500 --> 00:07:48.700
+And similarly, sentiment analysis can
+
+00:07:48.700 --> 00:07:50.700
+lead to such predictors as well.
+
+00:07:50.700 --> 00:07:53.225
+So those are the data mining or text
+
+00:07:53.225 --> 00:07:55.180
+mining algorithms can be used to
+
+00:07:55.180 --> 00:07:56.400
+generate the predictors.
+
+00:07:58.360 --> 00:08:00.140
+The other question is how can we join
+
+00:08:00.140 --> 00:08:02.920
+mine text and non text data together?
+
+00:08:02.920 --> 00:08:05.180
+Now this is a question that we have not
+
+00:08:05.180 --> 00:08:07.740
+addressed yet. So in this lecture and
+
+00:08:07.740 --> 00:08:09.475
+the following lectures we're going
+
+00:08:09.475 --> 00:08:11.599
+to address this problem because this is
+
+00:08:11.600 --> 00:08:13.140
+where we can generate the much more
+
+00:08:13.140 --> 00:08:16.760
+enriched features for prediction and
+
+00:08:16.760 --> 00:08:19.440
+allows us to review a lot of
+
+00:08:19.440 --> 00:08:21.200
+interesting knowledge about the world.
+
+00:08:21.200 --> 00:08:23.250
+These patterns that are generated from
+
+00:08:23.250 --> 00:08:26.040
+text and non text data themselves
+
+00:08:26.690 --> 00:08:29.250
+can sometimes already be useful for
+
+00:08:29.250 --> 00:08:31.720
+prediction, but when they are put
+
+00:08:31.720 --> 00:08:34.550
+together with many other predictors
+
+00:08:34.550 --> 00:08:36.790
+they can really help improving the
+
+00:08:36.790 --> 00:08:37.980
+accuracy of prediction.
+
+00:08:38.980 --> 00:08:40.740
+Basically you can see text based
+
+00:08:40.740 --> 00:08:42.890
+prediction character serve as a unified
+
+00:08:42.890 --> 00:08:45.930
+framework to combine many text mining
+
+00:08:45.930 --> 00:08:48.210
+and analysis techniques, including
+
+00:08:48.210 --> 00:08:50.580
+topic mining and content,
+
+00:08:50.580 --> 00:08:52.810
+any content mining techniques or
+
+00:08:52.810 --> 00:08:54.080
+sentiment analysis.
+
+00:08:55.420 --> 00:08:57.710
+The goal here is mainly to infer
+
+00:08:57.710 --> 00:09:00.430
+values of real world variables.
+
+00:09:01.050 --> 00:09:03.530
+But in order to achieve the goal, we
+
+00:09:03.530 --> 00:09:07.160
+can do some other preparations and
+
+00:09:07.160 --> 00:09:08.220
+these are sub tasks.
+
+00:09:08.220 --> 00:09:11.509
+So one sub task could be mine, mine the
+
+00:09:11.510 --> 00:09:14.280
+content of text data like topic mining.
+
+00:09:15.390 --> 00:09:16.660
+And the other could be to mine
+
+00:09:16.660 --> 00:09:18.730
+knowledge about the observer so
+
+00:09:18.730 --> 00:09:20.770
+sentiment analysis or opinion analysis.
+
+00:09:20.770 --> 00:09:23.800
+And both can help provide predictors
+
+00:09:23.800 --> 00:09:26.320
+for the prediction problem.
+
+00:09:27.720 --> 00:09:29.820
+And of course we can also add non text
+
+00:09:29.820 --> 00:09:32.260
+data directly to the predictive model,
+
+00:09:32.260 --> 00:09:34.300
+but then non text data also helps
+
+00:09:34.300 --> 00:09:36.834
+provide context for text analysis
+
+00:09:36.834 --> 00:09:39.000
+that further improves the topic
+
+00:09:39.000 --> 00:09:42.620
+mining and the opinion analysis.
+
+00:09:42.620 --> 00:09:44.910
+And such improvement often leads to more
+
+00:09:44.910 --> 00:09:47.950
+effective predictors for our problems
+
+00:09:47.950 --> 00:09:50.350
+it would enlarge the space of patterns
+
+00:09:50.350 --> 00:09:53.610
+of opinions or topics that we can mine
+
+00:09:53.610 --> 00:09:54.340
+from text.
+
+00:09:54.900 --> 00:09:58.400
+As we'll discuss more later, so the
+
+00:09:58.400 --> 00:10:00.880
+join analysis of text and non text data
+
+00:10:00.880 --> 00:10:03.790
+can be actually understood from 2
+
+00:10:03.790 --> 00:10:04.570
+perspectives.
+
+00:10:05.610 --> 00:10:08.190
+In one perspective, we can see
+
+00:10:08.190 --> 00:10:10.400
+non text data can help text mining.
+
+00:10:11.590 --> 00:10:14.502
+Because non text data can provide
+
+00:10:14.502 --> 00:10:16.503
+a context for mining text data.
+
+00:10:16.503 --> 00:10:18.830
+Provide a way to partition text data in
+
+00:10:18.830 --> 00:10:21.749
+different ways, and this leads to a
+
+00:10:21.750 --> 00:10:23.560
+number of techniques for contextual
+
+00:10:23.560 --> 00:10:24.566
+text mining.
+
+00:10:24.566 --> 00:10:27.010
+And that's to mine text in the context
+
+00:10:27.010 --> 00:10:29.060
+defined by non text data.
+
+00:10:29.610 --> 00:10:31.540
+And you can see this reference here
+
+00:10:31.540 --> 00:10:34.190
+for a large body of work in this
+
+00:10:34.190 --> 00:10:35.870
+direction, and we're going to highlight
+
+00:10:35.870 --> 00:10:37.930
+some of them in the next lectures.
+
+00:10:39.240 --> 00:10:42.860
+Now the other perspective is text data
+
+00:10:42.860 --> 00:10:44.340
+can help non text data
+
+00:10:44.340 --> 00:10:45.610
+mining as well.
+
+00:10:46.190 --> 00:10:48.640
+And this is because text data can help
+
+00:10:48.640 --> 00:10:51.460
+interpret patterns discovered from non
+
+00:10:51.460 --> 00:10:52.320
+text data.
+
+00:10:52.320 --> 00:10:54.520
+This helps discover some frequent
+
+00:10:54.520 --> 00:10:56.070
+patterns from non text data.
+
+00:10:56.070 --> 00:10:59.664
+Now we can use the text data that are
+
+00:10:59.664 --> 00:11:01.719
+associated with instances where the
+
+00:11:01.719 --> 00:11:05.453
+pattern occurs as well as text data that
+
+00:11:05.453 --> 00:11:07.593
+are associated with instances where the
+
+00:11:07.593 --> 00:11:08.743
+pattern doesn't occur.
+
+00:11:08.743 --> 00:11:11.553
+And this gives us two sets of text data
+
+00:11:11.553 --> 00:11:13.303
+and then we can see what's the
+
+00:11:13.303 --> 00:11:14.880
+difference and this difference in text
+
+00:11:14.880 --> 00:11:17.690
+data is interpretable because text content
+
+00:11:17.690 --> 00:11:18.140
+
+
+
+00:11:18.190 --> 00:11:20.540
+is easy to digest and that difference
+
+00:11:20.540 --> 00:11:23.740
+might suggest some meaning for this
+
+00:11:23.740 --> 00:11:25.620
+pattern that we've found from non
+
+00:11:25.620 --> 00:11:28.020
+text data, so that helps interpret such
+
+00:11:28.020 --> 00:11:28.640
+patterns.
+
+00:11:29.300 --> 00:11:31.310
+And this technique is called pattern
+
+00:11:31.310 --> 00:11:32.070
+annotation.
+
+00:11:32.810 --> 00:11:36.120
+And, you can see this reference listed
+
+00:11:36.120 --> 00:11:37.400
+here for more detail.
+
+00:11:38.290 --> 00:11:40.180
+So here are the reference that I just
+
+00:11:40.180 --> 00:11:40.465
+mentioned.
+
+00:11:40.465 --> 00:11:42.770
+The first is reference for pattern annotation.
+
+00:11:42.770 --> 00:11:43.450
+
+
+
+00:11:44.080 --> 00:11:46.310
+The second is a Qiaozhu Mei
+
+00:11:46.310 --> 00:11:48.230
+dissertation on contextual text
+
+00:11:48.230 --> 00:11:50.730
+mining. It contains a large body
+
+00:11:50.730 --> 00:11:53.650
+of work on contextual text mining techniques.
+
+00:11:53.650 --> 00:11:54.220
+
+
+
+

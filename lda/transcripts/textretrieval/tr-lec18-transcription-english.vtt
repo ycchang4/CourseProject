@@ -1,0 +1,1155 @@
+WEBVTT Kind: captions; Language: en-US
+
+NOTE
+Created on 2021-02-27T00:04:33.0618386Z by ClassTranscribe
+
+00:00:00.280 --> 00:00:02.120
+This lecture is about some practical
+
+00:00:02.120 --> 00:00:04.590
+issues that you would have to address
+
+00:00:04.590 --> 00:00:06.160
+in evaluation of text retrieval
+
+00:00:06.160 --> 00:00:06.780
+systems.
+
+00:00:14.330 --> 00:00:16.210
+In this lecture we will continue the
+
+00:00:16.210 --> 00:00:18.240
+discussion of evaluation we'll cover
+
+00:00:18.240 --> 00:00:19.930
+some practical issues that you have to
+
+00:00:19.930 --> 00:00:23.280
+solve in actual evaluation of text
+
+00:00:23.280 --> 00:00:24.310
+retrieval systems.
+
+00:00:25.350 --> 00:00:26.090
+So,
+
+00:00:27.080 --> 00:00:29.010
+In order to create the test collection,
+
+00:00:29.010 --> 00:00:31.413
+we have to create a set of queries, a
+
+00:00:31.413 --> 00:00:33.690
+set of documents and a set of relevance
+
+00:00:33.690 --> 00:00:34.370
+judgments.
+
+00:00:35.640 --> 00:00:37.880
+It turns out that each is actually
+
+00:00:37.880 --> 00:00:38.960
+challenging to create.
+
+00:00:39.520 --> 00:00:41.939
+First, the documents and queries must
+
+00:00:41.940 --> 00:00:43.180
+be representative.
+
+00:00:43.180 --> 00:00:45.320
+They must represent the real queries,
+
+00:00:45.320 --> 00:00:47.695
+and real documents that the users handle,
+
+00:00:47.695 --> 00:00:50.610
+and we also have to use many queries
+
+00:00:50.610 --> 00:00:53.770
+and many documents in order to avoid
+
+00:00:53.770 --> 00:00:55.140
+biased conclusions.
+
+00:00:56.270 --> 00:00:59.630
+For the matching of relevant documents,
+
+00:01:00.350 --> 00:01:03.620
+with the queries we also need to ensure
+
+00:01:03.620 --> 00:01:07.475
+that there exists a lot of relevant
+
+00:01:07.475 --> 00:01:09.700
+documents for each query.
+
+00:01:09.700 --> 00:01:11.380
+If a query has only one, let's say
+
+00:01:11.380 --> 00:01:12.646
+rather than the document in the
+
+00:01:12.646 --> 00:01:15.060
+collection, then you know it's not very
+
+00:01:15.060 --> 00:01:16.980
+informative to compare different
+
+00:01:16.980 --> 00:01:19.280
+methods using such a query, because
+
+00:01:19.280 --> 00:01:21.400
+there's not that much room for us to
+
+00:01:21.400 --> 00:01:23.920
+see difference, so ideally there should
+
+00:01:23.920 --> 00:01:26.203
+be more relevant documents in the
+
+00:01:26.203 --> 00:01:28.005
+collection, but yet the queries also
+
+00:01:28.005 --> 00:01:29.553
+should represent the real queries that
+
+00:01:29.553 --> 00:01:30.450
+we care about.
+
+00:01:31.350 --> 00:01:33.870
+In terms of relevance judgments, the
+
+00:01:33.870 --> 00:01:35.581
+challenge is to ensure complete
+
+00:01:35.581 --> 00:01:38.108
+judgments of all the documents for all
+
+00:01:38.108 --> 00:01:40.570
+the queries, yet minimizing human
+
+00:01:40.570 --> 00:01:42.877
+effort because we have to use human
+
+00:01:42.877 --> 00:01:45.150
+labor to label these documents, it's
+
+00:01:45.150 --> 00:01:48.840
+very labor intensive and as a result
+
+00:01:48.840 --> 00:01:51.345
+it's impossible to actually label all
+
+00:01:51.345 --> 00:01:53.340
+the documents for all the queries,
+
+00:01:53.340 --> 00:01:56.550
+especially considering a giant dataset
+
+00:01:56.550 --> 00:01:57.470
+like the web.
+
+00:01:58.650 --> 00:02:01.576
+So this is actually a major challenge.
+
+00:02:01.576 --> 00:02:03.820
+It's a very difficult challenge. For
+
+00:02:03.820 --> 00:02:04.250
+measures,
+
+00:02:04.250 --> 00:02:06.060
+It's also challenging because we want
+
+00:02:06.060 --> 00:02:07.920
+the measures that would accurately
+
+00:02:07.920 --> 00:02:10.980
+reflect the perceived utility of users.
+
+00:02:11.560 --> 00:02:13.620
+We have to consider carefully what the
+
+00:02:13.620 --> 00:02:14.630
+users care about.
+
+00:02:15.320 --> 00:02:17.220
+And then design measures to measure
+
+00:02:17.220 --> 00:02:17.620
+that.
+
+00:02:17.620 --> 00:02:20.760
+If your measure is not measuring the
+
+00:02:20.760 --> 00:02:22.480
+right thing, then your conclusion would
+
+00:02:22.480 --> 00:02:23.680
+be misled.
+
+00:02:23.680 --> 00:02:25.130
+So it's very important.
+
+00:02:26.780 --> 00:02:28.650
+So, we're going to talk about a couple
+
+00:02:28.650 --> 00:02:29.240
+of issues here.
+
+00:02:29.240 --> 00:02:31.310
+One is a statistical significance test
+
+00:02:31.310 --> 00:02:33.565
+and this also is the reason why we have
+
+00:02:33.565 --> 00:02:35.555
+to use a lot of queries.
+
+00:02:35.555 --> 00:02:38.160
+And the question here is how sure can
+
+00:02:38.160 --> 00:02:41.430
+you be that observed difference that doesn't
+
+00:02:41.430 --> 00:02:42.990
+simply result from the particular
+
+00:02:42.990 --> 00:02:45.540
+queries you choose, so here are some
+
+00:02:45.540 --> 00:02:48.870
+sample results of average position for
+
+00:02:48.870 --> 00:02:51.760
+system A and system B in two different
+
+00:02:51.760 --> 00:02:52.630
+experiments.
+
+00:02:53.220 --> 00:02:55.870
+And you can see in the bottom we have
+
+00:02:55.870 --> 00:02:57.379
+mean average precision.
+
+00:02:57.380 --> 00:03:00.256
+So the mean if you look at the mean
+
+00:03:00.256 --> 00:03:01.100
+average precision.
+
+00:03:01.680 --> 00:03:05.180
+The mean average precisions are exactly
+
+00:03:05.180 --> 00:03:07.130
+the same in both experiments.
+
+00:03:07.960 --> 00:03:10.445
+So you can see this is 0.2.
+
+00:03:10.445 --> 00:03:13.910
+This is 0.4 for system B and again here,
+
+00:03:13.910 --> 00:03:16.630
+It's also 0.2 and 0.4, so
+
+00:03:16.630 --> 00:03:17.700
+they are identical.
+
+00:03:17.700 --> 00:03:20.810
+Yet if you look at the these exact average
+
+00:03:20.810 --> 00:03:23.184
+precisions for different queries. If you
+
+00:03:23.184 --> 00:03:26.070
+look at these numbers in detail,
+
+00:03:26.930 --> 00:03:30.170
+You will realize that, in one case you
+
+00:03:30.170 --> 00:03:32.190
+would feel that you can trust the
+
+00:03:32.190 --> 00:03:35.230
+conclusion here given by the average.
+
+00:03:35.990 --> 00:03:38.340
+In another case, in the other case, you
+
+00:03:38.340 --> 00:03:40.890
+will feel that well, I'm not sure.
+
+00:03:41.490 --> 00:03:43.960
+So why don't you take a look at all
+
+00:03:43.960 --> 00:03:44.810
+these numbers
+
+00:03:44.810 --> 00:03:45.690
+for a moment?
+
+00:03:45.690 --> 00:03:46.860
+Pause the video.
+
+00:03:48.110 --> 00:03:51.390
+So if you look at the average, the mean
+
+00:03:51.390 --> 00:03:54.680
+average precision, we can easily say
+
+00:03:54.680 --> 00:03:56.590
+that, well, system B is better, right?
+
+00:03:56.590 --> 00:04:01.530
+So it's afterwards 0.4 and then this is
+
+00:04:01.530 --> 00:04:04.030
+twice as much as 0.2, so that's
+
+00:04:04.030 --> 00:04:05.270
+a better performance.
+
+00:04:05.870 --> 00:04:07.190
+But if you look at these
+
+00:04:07.800 --> 00:04:09.500
+two experiments. Look at the detail
+
+00:04:09.500 --> 00:04:10.210
+results,
+
+00:04:11.040 --> 00:04:13.090
+You will see that would be more
+
+00:04:13.090 --> 00:04:15.726
+confident to say that in the case
+
+00:04:15.726 --> 00:04:17.340
+one in experiment one.
+
+00:04:18.010 --> 00:04:20.460
+In this case, because these numbers
+
+00:04:20.460 --> 00:04:22.860
+seem to be consistently better for
+
+00:04:22.860 --> 00:04:23.590
+system B .
+
+00:04:25.000 --> 00:04:27.450
+Whereas in experiment 2,
+
+00:04:28.460 --> 00:04:31.060
+We're not sure because looking at some
+
+00:04:31.060 --> 00:04:32.830
+results like this.
+
+00:04:33.780 --> 00:04:36.490
+Actually System A is better and this is another
+
+00:04:36.490 --> 00:04:36.822
+case.
+
+00:04:36.822 --> 00:04:38.150
+System A is better.
+
+00:04:39.210 --> 00:04:41.410
+But yet if we look at the only average,
+
+00:04:42.770 --> 00:04:43.870
+System B is better.
+
+00:04:45.050 --> 00:04:45.620
+So, 
+
+00:04:46.970 --> 00:04:47.830
+What do you think?
+
+00:04:48.930 --> 00:04:50.170
+You know how reliable
+
+00:04:50.760 --> 00:04:53.630
+Is our conclusion, if we only look at
+
+00:04:53.630 --> 00:04:54.260
+the average?
+
+00:04:55.840 --> 00:04:57.860
+Now, in this case, intuitively we feel
+
+00:04:57.860 --> 00:04:58.430
+experiment one
+
+00:04:58.430 --> 00:04:59.570
+is more reliable.
+
+00:05:00.930 --> 00:05:03.545
+But how can we quantitatively answer
+
+00:05:03.545 --> 00:05:04.410
+this question?
+
+00:05:04.410 --> 00:05:07.020
+And, This is why we need to do
+
+00:05:07.020 --> 00:05:08.520
+statistical significance test.
+
+00:05:09.300 --> 00:05:11.820
+So the idea of statistical significance
+
+00:05:11.820 --> 00:05:14.950
+test is basically to assess the variance
+
+00:05:14.950 --> 00:05:18.230
+across these different queries.
+
+00:05:18.230 --> 00:05:19.450
+If there is a
+
+00:05:20.160 --> 00:05:22.700
+A big variance that means the results
+
+00:05:22.700 --> 00:05:24.690
+could fluctuate a lot according to
+
+00:05:24.690 --> 00:05:25.780
+different queries.
+
+00:05:25.780 --> 00:05:28.900
+Then we should believe that unless you
+
+00:05:28.900 --> 00:05:31.320
+have used a lot of queries, the results
+
+00:05:31.320 --> 00:05:33.895
+might change if we use another set of
+
+00:05:33.895 --> 00:05:34.300
+queries.
+
+00:05:35.090 --> 00:05:39.349
+Right, so this is not. So,
+
+00:05:39.350 --> 00:05:41.705
+If you have see high variance then it's
+
+00:05:41.705 --> 00:05:42.890
+not very reliable.
+
+00:05:43.560 --> 00:05:45.390
+So let's look at these
+
+00:05:46.590 --> 00:05:49.060
+results again in the second case,
+
+00:05:49.060 --> 00:05:49.440
+right?
+
+00:05:49.440 --> 00:05:53.520
+So here we show two different ways to
+
+00:05:53.520 --> 00:05:54.080
+compare them.
+
+00:05:54.080 --> 00:05:56.070
+One is signed test where we just look
+
+00:05:56.070 --> 00:05:59.200
+at the sign. If system B is better than
+
+00:05:59.200 --> 00:06:01.340
+system A, we have a plus sign when
+
+00:06:01.340 --> 00:06:02.009
+System  A is better,
+
+00:06:02.009 --> 00:06:04.520
+we have a minus sign, etc.
+
+00:06:04.520 --> 00:06:05.806
+Using this case,
+
+00:06:05.806 --> 00:06:09.355
+If you see this, well, there are seven cases.
+
+00:06:09.355 --> 00:06:12.145
+We actually have 4 cases where system B
+
+00:06:12.145 --> 00:06:14.946
+is better, but 3 cases System A is
+
+00:06:14.946 --> 00:06:15.398
+better.
+
+00:06:15.398 --> 00:06:16.850
+You intuitively.
+
+00:06:17.080 --> 00:06:19.200
+This is almost like a random result,
+
+00:06:19.200 --> 00:06:19.447
+right?
+
+00:06:19.447 --> 00:06:22.820
+So if you just take a random sample of
+
+00:06:22.820 --> 00:06:26.610
+two to flip 7 coins, and if you use
+
+00:06:26.610 --> 00:06:28.825
+plus to denote the head and then minus
+
+00:06:28.825 --> 00:06:31.039
+to denote the tail, and that could easily be the
+
+00:06:31.040 --> 00:06:33.130
+results of just randomly flipping
+
+00:06:33.130 --> 00:06:34.516
+these 7 coins.
+
+00:06:34.516 --> 00:06:38.070
+So the fact that the average is larger
+
+00:06:38.070 --> 00:06:40.170
+doesn't tell us anything and we can
+
+00:06:40.170 --> 00:06:42.640
+reliably conclude that, and this can be
+
+00:06:42.640 --> 00:06:46.435
+quantitatively measured by a P value and
+
+00:06:46.435 --> 00:06:47.460
+that basically, 
+
+00:06:47.610 --> 00:06:51.710
+means the probability that this result
+
+00:06:51.710 --> 00:06:54.199
+is infected from random fluctuation.
+
+00:06:54.200 --> 00:06:56.289
+In this case probability is 1.
+
+00:06:56.290 --> 00:06:59.360
+It means it surely is random
+
+00:06:59.360 --> 00:07:00.040
+fluctuation.
+
+00:07:01.200 --> 00:07:05.270
+Now in Wilcoxon test, the nonparametric
+
+00:07:05.270 --> 00:07:08.555
+test and we would be not only looking
+
+00:07:08.555 --> 00:07:10.343
+at the science will be also looking at
+
+00:07:10.343 --> 00:07:13.210
+the magnitude of the difference, but we
+
+00:07:13.210 --> 00:07:15.225
+can draw a similar conclusion where you
+
+00:07:15.225 --> 00:07:18.190
+say it's very likely to be from random.
+
+00:07:18.190 --> 00:07:19.890
+So to illustrate this, let's think
+
+00:07:19.890 --> 00:07:20.950
+about the
+
+00:07:20.950 --> 00:07:22.860
+such a distribution and this is called
+
+00:07:22.860 --> 00:07:23.665
+the null distribution.
+
+00:07:23.665 --> 00:07:26.040
+We assume that the mean is 0 here.
+
+00:07:26.040 --> 00:07:27.870
+This say we start with the
+
+00:07:27.870 --> 00:07:29.400
+assumption that there's no difference
+
+00:07:29.400 --> 00:07:30.700
+between the two systems.
+
+00:07:31.330 --> 00:07:33.220
+But we assume that because of random
+
+00:07:33.220 --> 00:07:35.150
+fluctuations depending on the queries.
+
+00:07:35.150 --> 00:07:38.109
+We might observe a difference, so the
+
+00:07:38.110 --> 00:07:40.070
+actual difference might be on the left
+
+00:07:40.070 --> 00:07:43.168
+side here or on the right side here,
+
+00:07:43.168 --> 00:07:43.879
+right, so?
+
+00:07:43.880 --> 00:07:46.350
+And this curve kind of shows the
+
+00:07:46.350 --> 00:07:48.460
+probability that we will actually
+
+00:07:48.460 --> 00:07:51.180
+observe values that are deviating from
+
+00:07:51.180 --> 00:07:52.520
+zero here.
+
+00:07:53.650 --> 00:07:57.990
+Now, so if we look at this picture, then we
+
+00:07:57.990 --> 00:07:59.230
+see that.
+
+00:08:00.960 --> 00:08:03.450
+If a difference is observed here,
+
+00:08:04.090 --> 00:08:04.850
+then
+
+00:08:05.400 --> 00:08:07.760
+the chance is very high that this is in
+
+00:08:07.760 --> 00:08:10.640
+fact a random observation, right?
+
+00:08:10.640 --> 00:08:14.760
+We can define a region of you know likely
+
+00:08:14.760 --> 00:08:16.975
+observation because of random
+
+00:08:16.975 --> 00:08:20.440
+fluctuation, and this is 95% of all the
+
+00:08:20.440 --> 00:08:24.370
+outcomes and in this interval then the
+
+00:08:24.370 --> 00:08:27.173
+observed values may still be from
+
+00:08:27.173 --> 00:08:28.139
+random fluctuation.
+
+00:08:28.850 --> 00:08:31.010
+But if you observe a value in this
+
+00:08:31.010 --> 00:08:34.480
+region or a difference on this side,
+
+00:08:34.480 --> 00:08:39.296
+then the difference is unlikely from
+
+00:08:39.296 --> 00:08:40.720
+random fluctuation, right?
+
+00:08:40.720 --> 00:08:42.960
+So there's a very small probability
+
+00:08:42.960 --> 00:08:45.410
+that you will observe such a difference
+
+00:08:45.410 --> 00:08:47.436
+just because of random fluctuation.
+
+00:08:47.436 --> 00:08:50.140
+So in that case we can then conclude
+
+00:08:50.140 --> 00:08:52.370
+the difference must be real.
+
+00:08:52.370 --> 00:08:54.870
+So, System B is indeed better.
+
+00:08:56.030 --> 00:08:57.820
+So this is the idea of statistical
+
+00:08:57.820 --> 00:09:00.530
+significance test. The takeaway message
+
+00:09:00.530 --> 00:09:02.070
+here is that you have to use many
+
+00:09:02.070 --> 00:09:04.750
+queries to avoid jumping into a
+
+00:09:04.750 --> 00:09:07.260
+conclusion, as in this case to say
+
+00:09:07.260 --> 00:09:08.550
+System B is better.
+
+00:09:09.530 --> 00:09:11.520
+There are many different ways of doing
+
+00:09:11.520 --> 00:09:13.400
+this statistical significance test.
+
+00:09:14.520 --> 00:09:16.380
+So, now let's talk about the other
+
+00:09:16.380 --> 00:09:18.850
+problem of making judgments.
+
+00:09:18.850 --> 00:09:21.960
+And as we said earlier, it's very hard
+
+00:09:21.960 --> 00:09:24.650
+to judge all the documents completely
+
+00:09:24.650 --> 00:09:26.530
+unless it's a very small data set.
+
+00:09:27.590 --> 00:09:30.190
+So the question is if we can afford
+
+00:09:30.190 --> 00:09:31.730
+judging all the documents in the
+
+00:09:31.730 --> 00:09:33.510
+collection, which is subset, should we
+
+00:09:33.510 --> 00:09:33.990
+judge?
+
+00:09:34.890 --> 00:09:38.283
+And the solution here is pulling and
+
+00:09:38.283 --> 00:09:41.920
+this is a strategy that has been used
+
+00:09:41.920 --> 00:09:45.930
+in many cases to solve this problem.
+
+00:09:46.600 --> 00:09:48.670
+So the idea of pulling is the
+
+00:09:48.670 --> 00:09:49.130
+following.
+
+00:09:49.730 --> 00:09:53.290
+We would first choose a diverse set of
+
+00:09:53.290 --> 00:09:54.250
+ranking methods.
+
+00:09:54.250 --> 00:09:56.100
+These are text retrieval systems.
+
+00:09:57.030 --> 00:09:59.230
+And we hope these methods can help us
+
+00:09:59.230 --> 00:10:02.739
+nominate likely relevant documents.
+
+00:10:02.740 --> 00:10:04.722
+So the goal is to figure out the
+
+00:10:04.722 --> 00:10:06.080
+relevant documents we want to make
+
+00:10:06.080 --> 00:10:07.970
+judgments on relevant documents, because
+
+00:10:07.970 --> 00:10:10.350
+those are the most useful documents
+
+00:10:10.350 --> 00:10:11.880
+from users perspective.
+
+00:10:12.620 --> 00:10:14.540
+So then we're going to have each to
+
+00:10:14.540 --> 00:10:16.480
+return top K documents.
+
+00:10:17.120 --> 00:10:19.490
+The "K" can vary from systems right?
+
+00:10:19.490 --> 00:10:22.360
+But the point is to ask them to suggest
+
+00:10:22.360 --> 00:10:24.420
+the most likely relevant documents.
+
+00:10:25.410 --> 00:10:28.500
+And then we simply combine all these
+
+00:10:28.500 --> 00:10:31.310
+top K sets to form a pool
+
+00:10:31.880 --> 00:10:34.630
+of documents for human assessors, to
+
+00:10:34.630 --> 00:10:35.170
+judge.
+
+00:10:35.780 --> 00:10:38.580
+So imagine you have many systems, each
+
+00:10:38.580 --> 00:10:41.820
+will return K documents, will take the
+
+00:10:41.820 --> 00:10:43.700
+top K documents and we formed the
+
+00:10:43.700 --> 00:10:44.190
+union.
+
+00:10:44.910 --> 00:10:46.570
+Now, of course there are many documents
+
+00:10:46.570 --> 00:10:48.730
+that are duplicated bcause many systems
+
+00:10:48.730 --> 00:10:50.420
+might have retrieved the same relevamnt
+
+00:10:50.420 --> 00:10:51.110
+documents.
+
+00:10:51.760 --> 00:10:54.872
+So there will be some duplicate
+
+00:10:54.872 --> 00:10:57.815
+documents and there are also unique
+
+00:10:57.815 --> 00:10:59.920
+documents that are only returned by one
+
+00:10:59.920 --> 00:11:01.940
+system and so the idea of having
+
+00:11:01.940 --> 00:11:05.660
+diverse set of ranking methods is to
+
+00:11:05.660 --> 00:11:07.850
+ensure the pool is broad and can
+
+00:11:07.850 --> 00:11:10.110
+include as many possible relevant
+
+00:11:10.110 --> 00:11:11.340
+documents as possible.
+
+00:11:12.240 --> 00:11:15.030
+And then the users would.
+
+00:11:15.030 --> 00:11:16.880
+Human assistance would make a
+
+00:11:16.880 --> 00:11:20.535
+completely judgment on this data set
+
+00:11:20.535 --> 00:11:21.430
+this pool.
+
+00:11:22.230 --> 00:11:23.530
+And the other unjudged
+
+00:11:23.530 --> 00:11:25.900
+documents are usually just assumed
+
+00:11:25.900 --> 00:11:27.030
+to be non relevant.
+
+00:11:27.800 --> 00:11:29.710
+Now if the pool is large enough, this
+
+00:11:29.710 --> 00:11:30.970
+assumption is OK.
+
+00:11:31.630 --> 00:11:34.120
+But the if the pool is not very large,
+
+00:11:34.120 --> 00:11:35.660
+this actually has to be
+
+00:11:36.890 --> 00:11:39.130
+reconsidered and we might use other
+
+00:11:39.130 --> 00:11:40.880
+strategies to deal with them, and there
+
+00:11:40.880 --> 00:11:44.380
+are indeed other methods to handle such
+
+00:11:44.380 --> 00:11:47.870
+cases, and such a strategy is generally
+
+00:11:47.870 --> 00:11:51.850
+ok for comparing systems that
+
+00:11:51.850 --> 00:11:53.967
+contributed to the pool.
+
+00:11:53.967 --> 00:11:55.820
+That means if you participated in
+
+00:11:55.820 --> 00:11:57.950
+contributing to the pool, then it's
+
+00:11:57.950 --> 00:11:59.830
+unlikely that it will penalize your
+
+00:11:59.830 --> 00:12:01.700
+system because the top ranked documents
+
+00:12:01.700 --> 00:12:02.730
+have all been judged.
+
+00:12:04.170 --> 00:12:07.140
+However, this is problematic for
+
+00:12:07.140 --> 00:12:09.805
+evaluating a new system that may have
+
+00:12:09.805 --> 00:12:11.310
+not contributed to the pool.
+
+00:12:11.310 --> 00:12:14.490
+In this case, a new system might be
+
+00:12:14.490 --> 00:12:16.070
+penalized because it might have
+
+00:12:16.070 --> 00:12:18.763
+nominated some relevant documents that
+
+00:12:18.763 --> 00:12:21.220
+have not been judged, so those
+
+00:12:21.220 --> 00:12:23.520
+documents might be assumed to be
+
+00:12:23.520 --> 00:12:24.280
+non relevant.
+
+00:12:24.280 --> 00:12:25.490
+That's unfair.
+
+00:12:25.490 --> 00:12:29.460
+So to summarize, the whole part of text
+
+00:12:29.460 --> 00:12:31.930
+retrieval evaluation, it's extremely
+
+00:12:31.930 --> 00:12:34.429
+important because the problem is
+
+00:12:34.430 --> 00:12:36.130
+empirically defined problem.
+
+00:12:36.550 --> 00:12:40.450
+If we don't rely on users, there's no
+
+00:12:40.450 --> 00:12:42.220
+way to tell whether one method works
+
+00:12:42.220 --> 00:12:45.200
+better. If we have inappropriate
+
+00:12:45.200 --> 00:12:47.800
+experiment design, we might misguide
+
+00:12:47.800 --> 00:12:50.106
+our research or applications and we
+
+00:12:50.106 --> 00:12:51.567
+might just draw wrong conclusions.
+
+00:12:51.567 --> 00:12:54.100
+And we have seen this in some of our
+
+00:12:54.100 --> 00:12:56.270
+discussion, so make sure to get it
+
+00:12:56.270 --> 00:12:58.340
+right for your research or application.
+
+00:12:59.450 --> 00:13:01.737
+The main methodology is Cranfield
+
+00:13:01.737 --> 00:13:03.420
+evaluation methodology and this is
+
+00:13:03.420 --> 00:13:05.550
+still the main paradigm used in all
+
+00:13:05.550 --> 00:13:07.590
+kinds of empirical evaluation tasks,
+
+00:13:07.590 --> 00:13:09.180
+not just the search engine evaluation.
+
+00:13:09.180 --> 00:13:12.710
+MAP and nDCG are the two main measures
+
+00:13:12.710 --> 00:13:16.630
+that should definitely know about and they
+
+00:13:16.630 --> 00:13:18.440
+are appropriate for comparing ranking
+
+00:13:18.440 --> 00:13:19.030
+algorithms.
+
+00:13:19.030 --> 00:13:21.010
+You will see them often in research
+
+00:13:21.010 --> 00:13:21.600
+papers.
+
+00:13:22.840 --> 00:13:24.520
+Proceeding at the 10 documents is
+
+00:13:24.520 --> 00:13:26.200
+easier to interpret from the user's
+
+00:13:26.200 --> 00:13:28.110
+perspective, so that's also often
+
+00:13:28.110 --> 00:13:28.730
+useful.
+
+00:13:30.470 --> 00:13:32.020
+What's not covered is
+
+00:13:33.230 --> 00:13:36.350
+Some other evaluation strategy like A-B Test
+
+00:13:36.350 --> 00:13:40.774
+where the system would mix 2, the
+
+00:13:40.774 --> 00:13:43.556
+results of two methods randomly and
+
+00:13:43.556 --> 00:13:46.060
+then will show the mixed results to
+
+00:13:46.060 --> 00:13:46.365
+users.
+
+00:13:46.365 --> 00:13:48.429
+Of course the users don't see and which
+
+00:13:48.430 --> 00:13:50.796
+result is from which method the users
+
+00:13:50.796 --> 00:13:52.820
+would judge those results or click on
+
+00:13:52.820 --> 00:13:57.029
+those documents in search engine
+
+00:13:57.030 --> 00:13:57.740
+application.
+
+00:13:57.740 --> 00:13:59.920
+In this case then the search engine can
+
+00:13:59.920 --> 00:14:01.760
+keep track of the, clicked documents
+
+00:14:01.760 --> 00:14:04.730
+and see if one method has contributed
+
+00:14:04.730 --> 00:14:05.450
+more.
+
+00:14:05.500 --> 00:14:07.450
+through the clicked documents, if the
+
+00:14:07.450 --> 00:14:10.510
+user tends to click on one, the results
+
+00:14:10.510 --> 00:14:15.007
+from one method, then it's just that the
+
+00:14:15.007 --> 00:14:18.170
+method may may be better, so this is
+
+00:14:18.170 --> 00:14:20.100
+the leverage the real users of a search
+
+00:14:20.100 --> 00:14:20.915
+engine to do evaluation.
+
+00:14:20.915 --> 00:14:22.940
+It's called A-B Test, and it's a
+
+00:14:22.940 --> 00:14:25.913
+strategy that's often used by the modern
+
+00:14:25.913 --> 00:14:27.239
+search engines.
+
+00:14:27.240 --> 00:14:28.480
+Commercial search engines.
+
+00:14:29.270 --> 00:14:32.960
+Another way to evaluate IR or Text
+
+00:14:32.960 --> 00:14:35.130
+retrieval is user studies, and we
+
+00:14:35.130 --> 00:14:35.980
+haven't covered that.
+
+00:14:35.980 --> 00:14:38.190
+I've put some references here that you
+
+00:14:38.190 --> 00:14:39.780
+can look at if you want to know more
+
+00:14:39.780 --> 00:14:40.460
+about that.
+
+00:14:41.710 --> 00:14:43.790
+So there are three additional readings
+
+00:14:43.790 --> 00:14:44.160
+here.
+
+00:14:44.160 --> 00:14:47.210
+These are three mini books about
+
+00:14:47.210 --> 00:14:49.560
+evaluation and they all excellent in
+
+00:14:49.560 --> 00:14:52.550
+covering a broad review of information
+
+00:14:52.550 --> 00:14:55.240
+retrieval, evaluation, and discovered
+
+00:14:55.240 --> 00:14:57.870
+some of the things that we discussed.
+
+00:14:57.870 --> 00:15:00.450
+But they also have a lot of others to
+
+00:15:00.450 --> 00:15:00.990
+offer.
+
+

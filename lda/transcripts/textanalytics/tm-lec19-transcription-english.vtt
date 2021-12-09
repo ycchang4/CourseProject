@@ -1,0 +1,841 @@
+WEBVTT Kind: captions; Language: en-US
+
+NOTE
+Created on 2021-02-27T00:01:10.7670561Z by ClassTranscribe
+
+00:00:00.300 --> 00:00:02.660
+This lecture is a continued discussion
+
+00:00:02.660 --> 00:00:04.680
+of probabilistic topic models.
+
+00:00:15.220 --> 00:00:16.970
+In this lecture, we're going to
+
+00:00:16.970 --> 00:00:18.730
+continue discussing probabilistic
+
+00:00:18.730 --> 00:00:23.360
+models, we are going to talk about a very
+
+00:00:23.360 --> 00:00:25.720
+simple case where we are interested in
+
+00:00:25.720 --> 00:00:27.860
+just mining one topic from one
+
+00:00:27.860 --> 00:00:28.510
+document.
+
+00:00:30.810 --> 00:00:32.960
+So in this simple setup
+
+00:00:33.610 --> 00:00:36.340
+we are interested in analyzing one
+
+00:00:36.340 --> 00:00:38.610
+document and trying to
+
+00:00:39.370 --> 00:00:41.000
+discover just one topic.
+
+00:00:41.000 --> 00:00:44.490
+So this is the simplest case of topic
+
+00:00:44.490 --> 00:00:45.090
+modeling.
+
+00:00:45.090 --> 00:00:48.575
+The input now no longer has K, which is
+
+00:00:48.575 --> 00:00:50.950
+the number of topics because we know
+
+00:00:50.950 --> 00:00:52.220
+there is only one topic.
+
+00:00:52.940 --> 00:00:55.230
+And the collection has only one
+
+00:00:55.230 --> 00:00:56.320
+document also.
+
+00:00:58.220 --> 00:01:00.500
+In the output we also no longer have
+
+00:01:00.500 --> 00:01:03.300
+coverage because we assumed that the
+
+00:01:03.300 --> 00:01:06.910
+document covers this topic 100%.
+
+00:01:06.910 --> 00:01:08.635
+So the main goal is just to discover
+
+00:01:08.635 --> 00:01:10.790
+the word probabilities for this
+
+00:01:10.790 --> 00:01:13.100
+single topic, as shown here.
+
+00:01:14.670 --> 00:01:17.070
+As always, when we think about using a
+
+00:01:17.070 --> 00:01:19.460
+generative model to solve such a problem,
+
+00:01:19.460 --> 00:01:22.450
+we'll start with thinking about what
+
+00:01:22.450 --> 00:01:24.269
+kind of data we're going to model or
+
+00:01:24.270 --> 00:01:25.945
+from what perspective we're going to
+
+00:01:25.945 --> 00:01:28.130
+model the data or data representation.
+
+00:01:28.770 --> 00:01:31.090
+And then we're going to design a
+
+00:01:31.090 --> 00:01:33.610
+specific model for the generation of
+
+00:01:33.610 --> 00:01:35.670
+the data from our perspective.
+
+00:01:36.440 --> 00:01:38.525
+Where our perspective just means we
+
+00:01:38.525 --> 00:01:40.820
+want to take a particular angle of
+
+00:01:40.820 --> 00:01:43.239
+looking at the data so that the model
+
+00:01:43.240 --> 00:01:45.710
+would have the right parameters for
+
+00:01:45.710 --> 00:01:48.609
+discovering the knowledge that we want,
+
+00:01:48.610 --> 00:01:52.460
+and then we'll be thinking about the
+
+00:01:52.460 --> 00:01:55.050
+likelihood function or write down the
+
+00:01:55.050 --> 00:01:57.940
+library function to capture more
+
+00:01:57.940 --> 00:02:01.810
+formally how likely a data point will
+
+00:02:01.810 --> 00:02:05.040
+be obtained from this model.
+
+00:02:05.810 --> 00:02:07.270
+And the likelihood function will have
+
+00:02:07.270 --> 00:02:10.308
+some parameters in the function and
+
+00:02:10.308 --> 00:02:13.080
+then we are usually interested in
+
+00:02:13.080 --> 00:02:15.340
+estimating those parameters, for
+
+00:02:15.340 --> 00:02:18.539
+example by maximizing the likelihood
+
+00:02:18.540 --> 00:02:20.510
+which would lead to maximum likelihood
+
+00:02:20.510 --> 00:02:22.542
+estimator and these estimated
+
+00:02:22.542 --> 00:02:26.410
+parameters would then become the output
+
+00:02:26.410 --> 00:02:29.100
+of the mining algorithm.
+
+00:02:29.700 --> 00:02:31.570
+Which means we'll take the estimated
+
+00:02:31.570 --> 00:02:33.160
+parameters as a knowledge that we
+
+00:02:33.160 --> 00:02:34.710
+discover from the text.
+
+00:02:34.710 --> 00:02:37.860
+So let's look at these steps for this
+
+00:02:37.860 --> 00:02:39.210
+very simple case.
+
+00:02:39.210 --> 00:02:42.300
+Later, we'll look at this
+
+00:02:42.300 --> 00:02:44.660
+procedure for some more complicated
+
+00:02:44.660 --> 00:02:45.230
+cases.
+
+00:02:45.880 --> 00:02:47.490
+So our data in this case is just the
+
+00:02:47.490 --> 00:02:50.070
+document which is a sequence of words.
+
+00:02:50.070 --> 00:02:52.990
+Each word here is denoted by X sub I.
+
+00:02:54.230 --> 00:02:56.680
+Our model is a unigram language model,
+
+00:02:56.680 --> 00:02:59.610
+a word distribution that we hope to
+
+00:02:59.610 --> 00:03:02.650
+denote a topic and that's our goal.
+
+00:03:03.350 --> 00:03:05.955
+So we will have as many parameters as
+
+00:03:05.955 --> 00:03:07.685
+many words in our vocabulary,
+
+00:03:07.685 --> 00:03:09.290
+in this case M.
+
+00:03:09.840 --> 00:03:12.220
+And for convenience we're going to use
+
+00:03:12.220 --> 00:03:15.360
+theta sub I to denote the
+
+00:03:15.360 --> 00:03:18.830
+probability of word W sub I.
+
+00:03:20.340 --> 00:03:22.650
+And obviously these thetas of i's
+
+00:03:22.650 --> 00:03:23.610
+would sum to one.
+
+00:03:24.370 --> 00:03:26.430
+Now, what does the likelihood function
+
+00:03:26.430 --> 00:03:27.014
+look like?
+
+00:03:27.014 --> 00:03:29.501
+This is just the probability of
+
+00:03:29.501 --> 00:03:31.140
+generating this whole document
+
+00:03:31.140 --> 00:03:33.315
+given such a model. Because we assume
+
+00:03:33.315 --> 00:03:35.587
+the independence in generating each
+
+00:03:35.587 --> 00:03:35.950
+word,
+
+00:03:35.950 --> 00:03:37.890
+so the probability of the word the
+
+00:03:37.890 --> 00:03:40.173
+document would be just a product of the
+
+00:03:40.173 --> 00:03:41.319
+probability of each word.
+
+00:03:42.680 --> 00:03:46.000
+And since some word might have repeated
+
+00:03:46.000 --> 00:03:48.750
+occurrences, so we can also rewrite
+
+00:03:48.750 --> 00:03:51.280
+this product in a different form.
+
+00:03:52.540 --> 00:03:54.960
+So in this line we have rewritten the
+
+00:03:54.960 --> 00:03:58.140
+formula into a product over all the
+
+00:03:58.140 --> 00:04:00.410
+unique words in the vocabulary,
+
+00:04:01.630 --> 00:04:04.550
+W sub one through the W sub M.
+
+00:04:05.240 --> 00:04:08.090
+Now this is different from the previous
+
+00:04:08.090 --> 00:04:11.030
+line where the product is over
+
+00:04:11.030 --> 00:04:13.440
+different positions of words in the
+
+00:04:13.440 --> 00:04:14.050
+document.
+
+00:04:14.930 --> 00:04:17.290
+Now when we do this transformation,
+
+00:04:18.360 --> 00:04:22.000
+we then would need to introduce a count
+
+00:04:22.000 --> 00:04:23.420
+function here.
+
+00:04:24.060 --> 00:04:27.090
+This denotes the count of word one in
+
+00:04:27.090 --> 00:04:27.850
+document.
+
+00:04:29.190 --> 00:04:31.493
+And similarly, this is the count of
+
+00:04:31.493 --> 00:04:34.310
+words of M in the document. Because
+
+00:04:34.310 --> 00:04:36.560
+these words might have repeated
+
+00:04:36.560 --> 00:04:37.275
+occurrences.
+
+00:04:37.275 --> 00:04:39.743
+You can also see if a word did not occur
+
+00:04:39.743 --> 00:04:42.840
+in the document, it would have a zero
+
+00:04:42.840 --> 00:04:44.140
+count and therefore that
+
+00:04:44.140 --> 00:04:46.200
+corresponding term will disappear.
+
+00:04:46.200 --> 00:04:49.950
+So this is a very useful form of
+
+00:04:49.950 --> 00:04:52.895
+writing down the likelihood function
+
+00:04:52.895 --> 00:04:54.830
+that we will often use later.
+
+00:04:54.830 --> 00:04:57.529
+So I want you to pay attention to this.
+
+00:04:57.530 --> 00:04:59.860
+Just get familiar with this notation.
+
+00:04:59.910 --> 00:05:02.860
+It's just to change the
+
+00:05:02.860 --> 00:05:05.393
+product over all the different words in
+
+00:05:05.393 --> 00:05:06.490
+the vocabulary.
+
+00:05:06.490 --> 00:05:10.350
+So in the end, of course we'll use theta
+
+00:05:10.350 --> 00:05:12.460
+sub I to express this likelihood
+
+00:05:12.460 --> 00:05:14.119
+function and it would look like this.
+
+00:05:15.440 --> 00:05:18.780
+Next, we're going to find the theta
+
+00:05:18.780 --> 00:05:19.540
+values,
+
+00:05:20.190 --> 00:05:22.070
+or probabilities of these words that
+
+00:05:22.070 --> 00:05:24.410
+would maximize this likelihood
+
+00:05:24.410 --> 00:05:24.900
+function.
+
+00:05:24.900 --> 00:05:28.630
+So now let's take a look at the maximum
+
+00:05:28.630 --> 00:05:30.180
+likelihood estimate problem more
+
+00:05:30.180 --> 00:05:30.790
+closely.
+
+00:05:32.420 --> 00:05:35.490
+This line is copied from the previous
+
+00:05:35.490 --> 00:05:35.820
+slide.
+
+00:05:35.820 --> 00:05:37.460
+It's just our likelihood function.
+
+00:05:38.530 --> 00:05:42.770
+So our goal is to maximize this likelihood
+
+00:05:42.770 --> 00:05:43.260
+function.
+
+00:05:43.260 --> 00:05:46.530
+We will find it often easy to
+
+00:05:47.180 --> 00:05:49.595
+maximize the log likelihood instead of
+
+00:05:49.595 --> 00:05:51.580
+the original likelihood and this is
+
+00:05:51.580 --> 00:05:53.950
+purely for mathematical convenience,
+
+00:05:53.950 --> 00:05:56.350
+because after the logarithm
+
+00:05:56.350 --> 00:05:57.400
+transformation,
+
+00:05:57.970 --> 00:06:02.170
+our function will become a sum instead
+
+00:06:02.170 --> 00:06:03.120
+of a product.
+
+00:06:04.640 --> 00:06:07.210
+And we also have constraints
+
+00:06:07.940 --> 00:06:11.270
+over these probabilities.
+
+00:06:12.090 --> 00:06:15.650
+The sum makes it easier to take
+
+00:06:15.650 --> 00:06:17.770
+derivative, which is often needed for
+
+00:06:17.770 --> 00:06:20.530
+finding the optimal solution of this
+
+00:06:20.530 --> 00:06:21.060
+function.
+
+00:06:22.560 --> 00:06:26.340
+So please take a look at this sum
+
+00:06:26.340 --> 00:06:31.220
+again here and this is a form of
+
+00:06:31.220 --> 00:06:35.050
+function that you often see later also in
+
+00:06:35.610 --> 00:06:37.520
+more general topic models.
+
+00:06:38.380 --> 00:06:41.420
+So it's a sum over all the words in the
+
+00:06:41.420 --> 00:06:44.410
+vocabulary and inside the sum there is
+
+00:06:44.410 --> 00:06:48.180
+a count of words in the document.
+
+00:06:49.010 --> 00:06:53.260
+And this is multiplied by the logarithm
+
+00:06:53.260 --> 00:06:55.100
+of the probability.
+
+00:06:55.910 --> 00:06:57.640
+So let's see how we can solve this
+
+00:06:57.640 --> 00:06:58.120
+problem.
+
+00:06:58.820 --> 00:07:01.630
+Now at this point the problem is purely
+
+00:07:01.630 --> 00:07:03.860
+a mathematical problem, because we're
+
+00:07:03.860 --> 00:07:05.940
+going to just to find the optimal
+
+00:07:05.940 --> 00:07:10.193
+solution of a constrained maximization
+
+00:07:10.193 --> 00:07:10.916
+problem.
+
+00:07:10.916 --> 00:07:12.899
+The objective function is the
+
+00:07:12.900 --> 00:07:14.770
+likelihood function, and the constraint
+
+00:07:14.770 --> 00:07:16.640
+is that all these probabilities must
+
+00:07:16.640 --> 00:07:17.280
+sum to one.
+
+00:07:18.230 --> 00:07:21.270
+So one way to solve the problem is to
+
+00:07:21.270 --> 00:07:23.580
+use Lagrange multiplier approach.
+
+00:07:24.380 --> 00:07:27.595
+Now this content is beyond the scope of
+
+00:07:27.595 --> 00:07:28.300
+this course.
+
+00:07:28.870 --> 00:07:31.820
+But since Lagrange multiplier is very
+
+00:07:31.820 --> 00:07:33.870
+useful approach, I also would like to
+
+00:07:33.870 --> 00:07:36.330
+just give a brief introduction to this
+
+00:07:36.330 --> 00:07:38.000
+for those of you who are interested.
+
+00:07:39.640 --> 00:07:42.410
+So in this approach we will construct a
+
+00:07:42.410 --> 00:07:44.320
+Lagrange function here.
+
+00:07:45.330 --> 00:07:49.110
+And this function would combine our
+
+00:07:49.110 --> 00:07:53.200
+objective function with another term
+
+00:07:53.200 --> 00:07:55.380
+that encodes our constraints.
+
+00:07:56.600 --> 00:08:01.010
+And we introduce Lagrange multiplier
+
+00:08:01.010 --> 00:08:02.040
+here, Lambda.
+
+00:08:03.390 --> 00:08:04.970
+So it's additional parameter.
+
+00:08:05.610 --> 00:08:07.950
+Now the idea of this approach is to just
+
+00:08:07.950 --> 00:08:10.420
+turn the constrained optimization
+
+00:08:10.420 --> 00:08:13.140
+into, in some sense, unconstrained
+
+00:08:13.140 --> 00:08:14.320
+optimizing problem.
+
+00:08:14.320 --> 00:08:16.590
+So now we're just interested in
+
+00:08:16.590 --> 00:08:18.650
+optimizing this Lagrange function.
+
+00:08:19.360 --> 00:08:22.460
+As you may recall from calculus, an
+
+00:08:22.460 --> 00:08:24.680
+optimal point would be achieved when
+
+00:08:24.680 --> 00:08:29.720
+the derivative is set to 0.
+
+00:08:29.720 --> 00:08:32.040
+This is a necessary condition.
+
+00:08:32.040 --> 00:08:34.560
+It's not sufficient though, so.
+
+00:08:35.280 --> 00:08:37.770
+If we do that, you will see the partial
+
+00:08:37.770 --> 00:08:41.180
+derivative with respect to theta i here
+
+00:08:41.180 --> 00:08:42.610
+is equal to this.
+
+00:08:43.260 --> 00:08:46.280
+And this part comes from the
+
+00:08:47.360 --> 00:08:51.120
+derivative of the logarithm function.
+
+00:08:52.240 --> 00:08:55.070
+And this Lambda is simply taken from
+
+00:08:55.070 --> 00:08:55.770
+here.
+
+00:08:58.520 --> 00:09:00.190
+And when we set it to zero, we can
+
+00:09:00.190 --> 00:09:03.990
+easily see theta sub i is related to
+
+00:09:03.990 --> 00:09:05.830
+Lambda in this way.
+
+00:09:06.740 --> 00:09:09.025
+Since we know all the theta I's must sum
+
+00:09:09.025 --> 00:09:11.340
+to one, we can plug this into this
+
+00:09:11.340 --> 00:09:14.120
+constraint here, and this will allow us
+
+00:09:14.120 --> 00:09:15.870
+to solve for Lambda.
+
+00:09:16.530 --> 00:09:17.440
+And this is
+
+00:09:18.130 --> 00:09:20.920
+just negative sum of all the counts and
+
+00:09:20.920 --> 00:09:24.480
+this further allows us to then solve
+
+00:09:24.480 --> 00:09:25.930
+optimization problem.
+
+00:09:26.720 --> 00:09:28.960
+Eventually to find the optimal setting
+
+00:09:28.960 --> 00:09:30.170
+for Theta Sub I.
+
+00:09:31.280 --> 00:09:33.200
+And if you look at this formula, it
+
+00:09:33.200 --> 00:09:35.860
+turns out that it's actually very
+
+00:09:35.860 --> 00:09:38.060
+intuitive because this is just the
+
+00:09:38.060 --> 00:09:41.530
+normalized count of these words by
+
+00:09:41.530 --> 00:09:43.660
+the document length, which is also a
+
+00:09:43.660 --> 00:09:47.180
+sum of all the counts of words in the
+
+00:09:47.180 --> 00:09:48.070
+document.
+
+00:09:50.310 --> 00:09:54.540
+So after all this math, after all, we
+
+00:09:54.540 --> 00:09:57.010
+have just obtained something that's
+
+00:09:57.010 --> 00:09:58.820
+very intuitive, and
+
+00:09:59.430 --> 00:10:03.640
+this will be just our intuition where
+
+00:10:03.640 --> 00:10:07.430
+we want to maximize the
+
+00:10:08.210 --> 00:10:11.960
+theta by assigning as much
+
+00:10:11.960 --> 00:10:14.530
+probability mass as possible to all the
+
+00:10:14.530 --> 00:10:16.850
+observed words here.
+
+00:10:17.770 --> 00:10:20.110
+And you might also notice that this is
+
+00:10:20.110 --> 00:10:21.760
+the general result of maximum
+
+00:10:21.760 --> 00:10:22.840
+likelihood estimator.
+
+00:10:22.840 --> 00:10:26.409
+In general, the estimate would be to
+
+00:10:26.410 --> 00:10:28.810
+normalize count and it's just
+
+00:10:28.810 --> 00:10:30.870
+sometimes the counts have to be done in
+
+00:10:30.870 --> 00:10:33.750
+a particular way, as you will also see
+
+00:10:33.750 --> 00:10:34.390
+later.
+
+00:10:34.980 --> 00:10:38.570
+So this is basically an analytical
+
+00:10:38.570 --> 00:10:41.640
+solution to our optimization problem.
+
+00:10:41.640 --> 00:10:43.340
+In general, though, when the likelihood
+
+00:10:43.340 --> 00:10:45.870
+function is very complicated, we're not
+
+00:10:45.870 --> 00:10:47.580
+going to be able to solve the
+
+00:10:47.580 --> 00:10:49.530
+optimization problem by having a closed
+
+00:10:49.530 --> 00:10:50.770
+form formula.
+
+00:10:50.770 --> 00:10:52.770
+Instead, we have to use some numerical
+
+00:10:52.770 --> 00:10:55.020
+algorithms, and we're going to see such
+
+00:10:55.020 --> 00:10:56.170
+cases later also.
+
+00:10:59.040 --> 00:11:01.575
+So if you imagine what would we get if
+
+00:11:01.575 --> 00:11:03.700
+we use such a maximum likelihood estimator
+
+00:11:03.700 --> 00:11:06.430
+to estimate one topic for a single
+
+00:11:06.430 --> 00:11:08.606
+document D here, let's imagine this
+
+00:11:08.606 --> 00:11:10.390
+document is a text mining paper.
+
+00:11:10.390 --> 00:11:14.720
+Now what you might see is something
+
+00:11:14.720 --> 00:11:17.050
+that looks like this.
+
+00:11:17.050 --> 00:11:19.210
+On the top you will see the high
+
+00:11:19.210 --> 00:11:21.520
+probability words tend to be those very
+
+00:11:21.520 --> 00:11:23.620
+common words, often functional words in
+
+00:11:23.620 --> 00:11:26.650
+English, and this will be followed by
+
+00:11:26.650 --> 00:11:28.390
+some content words that really
+
+00:11:28.390 --> 00:11:29.150
+characterized the topic
+
+00:11:29.200 --> 00:11:33.050
+well like text, mining etc and then
+
+00:11:33.050 --> 00:11:35.330
+in the end you also see various more
+
+00:11:35.330 --> 00:11:36.980
+probabilities of words
+
+00:11:38.800 --> 00:11:41.140
+that are not really related to the
+
+00:11:41.140 --> 00:11:43.000
+topic, but they might be externally
+
+00:11:43.000 --> 00:11:44.600
+mentioned in the document.
+
+00:11:45.540 --> 00:11:48.130
+As a topic representation, you will see
+
+00:11:48.130 --> 00:11:49.535
+this is not ideal, right?
+
+00:11:49.535 --> 00:11:51.013
+The because of the high probability
+
+00:11:51.013 --> 00:11:52.600
+words are functional words
+
+00:11:52.600 --> 00:11:54.623
+they are not really characterizing the
+
+00:11:54.623 --> 00:11:55.119
+topic.
+
+00:11:55.120 --> 00:11:56.940
+So one question is how can we get rid
+
+00:11:56.940 --> 00:11:58.290
+of such common words?
+
+00:11:59.620 --> 00:12:02.720
+Now this is a topic of the next lecture.
+
+
+00:12:02.720 --> 00:12:04.370
+We're going to talk about how to use
+
+00:12:04.370 --> 00:12:06.830
+probabilistic models to somehow get rid
+
+00:12:06.830 --> 00:12:08.020
+of these common words.
+
+

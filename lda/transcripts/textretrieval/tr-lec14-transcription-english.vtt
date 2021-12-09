@@ -1,0 +1,912 @@
+WEBVTT Kind: captions; Language: en-US
+
+NOTE
+Created on 2021-02-27T00:07:08.6915956Z by ClassTranscribe
+
+00:00:00.280 --> 00:00:02.510
+This lecture is about the basic
+
+00:00:02.510 --> 00:00:04.310
+measures for evaluation of text
+
+00:00:04.310 --> 00:00:05.380
+retrieval systems.
+
+00:00:13.470 --> 00:00:15.990
+In this lecture we're going to discuss
+
+00:00:15.990 --> 00:00:18.330
+how we design basic measures.
+
+00:00:18.880 --> 00:00:22.250
+To quantitatively compared to retrieval
+
+00:00:22.250 --> 00:00:22.860
+systems.
+
+00:00:24.690 --> 00:00:26.560
+This is a slide that you have seen
+
+00:00:26.560 --> 00:00:28.000
+earlier in the lecture where we talked about.
+
+00:00:32.400 --> 00:00:34.660
+Cranfield evaluation methodology. We can have a test collection that
+
+00:00:34.660 --> 00:00:37.290
+consists of queries, documents and
+
+00:00:37.290 --> 00:00:38.420
+relevance judgments.
+
+00:00:39.260 --> 00:00:42.510
+We can then run two systems on these
+
+00:00:42.510 --> 00:00:47.610
+datasets to quantitatively evaluate
+
+00:00:47.610 --> 00:00:48.760
+their performance.
+
+00:00:49.690 --> 00:00:52.750
+And we raised the question about which
+
+00:00:52.750 --> 00:00:55.800
+set of results is better. Is system a
+
+00:00:55.800 --> 00:00:57.300
+better or system B better?
+
+00:00:58.010 --> 00:01:00.110
+So let's now talk about how to actually
+
+00:01:00.110 --> 00:01:02.580
+quantify their performance.
+
+00:01:02.580 --> 00:01:06.860
+Suppose we have a total of 10 relevant
+
+00:01:06.860 --> 00:01:08.360
+documents in the collection for this
+
+00:01:08.360 --> 00:01:08.840
+query.
+
+00:01:08.840 --> 00:01:11.205
+Now the relevance judgments shown on
+
+00:01:11.205 --> 00:01:11.830
+the right.
+
+00:01:12.620 --> 00:01:15.140
+Did not include all the ten, obviously
+
+00:01:15.140 --> 00:01:18.255
+and we have only seen three relevant
+
+00:01:18.255 --> 00:01:21.245
+documents there, but we can imagine
+
+00:01:21.245 --> 00:01:23.890
+there are other relevant documents in
+
+00:01:23.890 --> 00:01:25.420
+judge before this query.
+
+00:01:26.170 --> 00:01:30.810
+So now intuitively we thought that
+
+00:01:30.810 --> 00:01:34.325
+system A is better because it did not
+
+00:01:34.325 --> 00:01:36.885
+have much noise, and in particular we
+
+00:01:36.885 --> 00:01:41.240
+have seen that among the three results,
+
+00:01:41.240 --> 00:01:42.980
+two of them are relevant.
+
+00:01:43.870 --> 00:01:45.430
+But in system B.
+
+00:01:45.990 --> 00:01:50.380
+We have 5 results and only three of
+
+00:01:50.380 --> 00:01:51.680
+them are relevant.
+
+00:01:52.400 --> 00:01:55.660
+So intuitively it looks like system A is
+
+00:01:55.660 --> 00:01:57.830
+more accurate and this intuition can be
+
+00:01:57.830 --> 00:01:59.850
+captured by a measure called precision
+
+00:01:59.850 --> 00:02:02.650
+where we simply compute: to what
+
+00:02:02.650 --> 00:02:03.147
+extent,
+
+00:02:03.147 --> 00:02:05.990
+all the retrieval results are relevant
+
+00:02:05.990 --> 00:02:08.360
+if you have 100% precision, that would
+
+00:02:08.360 --> 00:02:10.770
+mean all the retrieval documents are
+
+00:02:10.770 --> 00:02:11.360
+relevant.
+
+00:02:11.360 --> 00:02:14.028
+So in this case the system A has a
+
+00:02:14.028 --> 00:02:17.010
+precision of two out of three, system B
+
+00:02:17.010 --> 00:02:19.440
+has 3 / 5.
+
+00:02:20.040 --> 00:02:23.770
+And this shows that system A is better
+
+00:02:23.770 --> 00:02:24.530
+by precision.
+
+00:02:25.360 --> 00:02:28.590
+But we also talked about System B might
+
+00:02:28.590 --> 00:02:30.940
+be preferred by some other users who
+
+00:02:30.940 --> 00:02:33.320
+like to retrieve as many relevant
+
+00:02:33.320 --> 00:02:34.650
+documents as possible.
+
+00:02:34.650 --> 00:02:37.820
+So in that case will have to compare
+
+00:02:37.820 --> 00:02:39.510
+the number of relevant documents, then
+
+00:02:39.510 --> 00:02:41.610
+retrieve and there is another measure
+
+00:02:41.610 --> 00:02:42.580
+called recall.
+
+00:02:42.580 --> 00:02:45.600
+This measures the completeness of
+
+00:02:45.600 --> 00:02:48.350
+coverage of relevant documents in your
+
+00:02:48.350 --> 00:02:49.140
+retrieval.
+
+00:02:49.940 --> 00:02:53.536
+Result, so we just assume that there
+
+00:02:53.536 --> 00:02:56.539
+are 10 relevant documents in the
+
+00:02:56.540 --> 00:02:57.190
+collection.
+
+00:02:57.190 --> 00:03:00.556
+An here we've got two of them in system
+
+00:03:00.556 --> 00:03:04.530
+A, so the record is 2 out of 10 Whereas
+
+00:03:04.530 --> 00:03:06.087
+System B has got three.
+
+00:03:06.087 --> 00:03:08.020
+So it's a 3 out of 10.
+
+00:03:08.020 --> 00:03:10.610
+Now we can see by recall system B is
+
+00:03:10.610 --> 00:03:13.980
+better and these two measures turn out
+
+00:03:13.980 --> 00:03:15.820
+to be the very basic measures for
+
+00:03:15.820 --> 00:03:17.594
+evaluating search engines, and they are
+
+00:03:17.594 --> 00:03:20.320
+very important because they also widely
+
+00:03:20.320 --> 00:03:21.100
+used in.
+
+00:03:21.280 --> 00:03:24.010
+Many other task evaluation problems,
+
+00:03:24.010 --> 00:03:27.370
+for example, if you look at the
+
+00:03:27.370 --> 00:03:29.220
+applications of machine learning, you
+
+00:03:29.220 --> 00:03:31.990
+tend to see precision recall numbers
+
+00:03:31.990 --> 00:03:34.340
+being reported for all kinds of tasks.
+
+00:03:34.340 --> 00:03:37.270
+OK, so now let's define these two
+
+00:03:37.270 --> 00:03:39.060
+measures more precisely, and these
+
+00:03:39.060 --> 00:03:41.900
+measures are to evaluate a set of
+
+00:03:41.900 --> 00:03:42.980
+retrieval documents.
+
+00:03:43.600 --> 00:03:45.900
+So that means we are considering that
+
+00:03:45.900 --> 00:03:48.330
+approximation of the set of relevant
+
+00:03:48.330 --> 00:03:49.000
+documents.
+
+00:03:49.000 --> 00:03:52.180
+We can distinguish it into 4 cases depending
+
+00:03:52.180 --> 00:03:54.049
+on the situation of the document.
+
+00:03:54.050 --> 00:03:57.830
+A document that can be retrieved or not
+
+00:03:57.830 --> 00:03:59.020
+retrieved, right?
+
+00:03:59.020 --> 00:04:01.160
+Because we're talking about the set of
+
+00:04:01.160 --> 00:04:01.680
+results.
+
+00:04:02.580 --> 00:04:05.995
+A document can be also relevant or non
+
+00:04:05.995 --> 00:04:08.330
+relevant depending on whether the user
+
+00:04:08.330 --> 00:04:10.490
+thinks this is useful document.
+
+00:04:11.840 --> 00:04:16.140
+So we can now have counts of documents
+
+00:04:16.140 --> 00:04:18.000
+in each of the four categories.
+
+00:04:18.000 --> 00:04:21.580
+We can have A to represent the number
+
+00:04:21.580 --> 00:04:23.910
+of documents that are retrieved and
+
+00:04:23.910 --> 00:04:24.620
+relevant.
+
+00:04:25.620 --> 00:04:29.380
+B for documents that are not retrieved
+
+00:04:29.380 --> 00:04:30.790
+but relevant, etc.
+
+00:04:31.640 --> 00:04:34.440
+Now with this table, then we could
+
+00:04:34.440 --> 00:04:38.270
+define precision as the.
+
+00:04:38.850 --> 00:04:40.330
+Ratio of.
+
+00:04:41.570 --> 00:04:45.510
+The relevant retrieved documents A to
+
+00:04:45.510 --> 00:04:46.820
+the total number of retrieval
+
+00:04:46.820 --> 00:04:51.405
+documents, so this is just A divided by
+
+00:04:51.405 --> 00:04:54.000
+the sum of A&amp;C.
+
+00:04:55.050 --> 00:04:55.890
+sum of this column.
+
+00:04:56.600 --> 00:05:01.091
+Similarly, recall is defined by dividing A
+
+00:05:01.091 --> 00:05:05.880
+by the sum of A&amp;B, so that's again the
+
+00:05:05.880 --> 00:05:09.553
+divide A by the sum of the rule instead
+
+00:05:09.553 --> 00:05:10.700
+of the column.
+
+00:05:11.290 --> 00:05:13.050
+Right, so we can see precision and
+
+00:05:13.050 --> 00:05:16.130
+recall is all focused on looking at A.
+
+00:05:16.890 --> 00:05:18.800
+That's the number of retrieval relevant
+
+00:05:18.800 --> 00:05:19.380
+documents.
+
+00:05:19.940 --> 00:05:21.690
+But we're going to use different
+
+00:05:21.690 --> 00:05:22.550
+denominators.
+
+00:05:23.460 --> 00:05:27.220
+OK, So what would be an ideal result?
+
+00:05:27.220 --> 00:05:30.415
+You can easily see in the ideal case we
+
+00:05:30.415 --> 00:05:34.816
+have precision and recall, or to be 1.0
+
+00:05:34.816 --> 00:05:38.600
+that means we have got 1% of all the
+
+00:05:38.600 --> 00:05:40.877
+relevant documents in our results and
+
+00:05:40.877 --> 00:05:44.140
+all the results that we return are
+
+00:05:44.140 --> 00:05:44.720
+relevant.
+
+00:05:44.720 --> 00:05:46.760
+At least there's no single nonrelevant
+
+00:05:46.760 --> 00:05:47.700
+document in return.
+
+00:05:48.560 --> 00:05:51.410
+In reality, however, high record tends
+
+00:05:51.410 --> 00:05:53.270
+to be associated with low precision.
+
+00:05:53.820 --> 00:05:55.910
+And you can imagine why that's the case
+
+00:05:55.910 --> 00:05:58.550
+as you go down the list to try to get
+
+00:05:58.550 --> 00:06:00.640
+as many relevant documents as possible,
+
+00:06:00.640 --> 00:06:02.410
+you tend to encounter a lot of non
+
+00:06:02.410 --> 00:06:04.780
+relevant documents, so the precision
+
+00:06:04.780 --> 00:06:05.789
+would go down.
+
+00:06:05.790 --> 00:06:09.720
+Note that this set can also be defined
+
+00:06:09.720 --> 00:06:12.654
+by a cut off in the ranked list.
+
+00:06:12.654 --> 00:06:14.611
+That's why although these two measures
+
+00:06:14.611 --> 00:06:16.438
+are defined for a set of retrieval
+
+00:06:16.438 --> 00:06:17.560
+documents, they are actually very
+
+00:06:17.560 --> 00:06:20.449
+useful for evaluating a ranked list.
+
+00:06:20.450 --> 00:06:22.420
+There are fundamental measures in text
+
+00:06:22.420 --> 00:06:24.010
+retrieval and many other tasks.
+
+00:06:24.230 --> 00:06:26.470
+We often are interested in the
+
+00:06:26.470 --> 00:06:29.070
+precision at 10 documents for web
+
+00:06:29.070 --> 00:06:29.590
+search.
+
+00:06:29.590 --> 00:06:32.864
+This means we look at the how many
+
+00:06:32.864 --> 00:06:35.170
+documents among the top 10 results are
+
+00:06:35.170 --> 00:06:36.550
+actually relevant.
+
+00:06:36.550 --> 00:06:38.180
+Now this is a very meaningful measure
+
+00:06:38.180 --> 00:06:40.986
+because it tells us how many relevant
+
+00:06:40.986 --> 00:06:41.650
+documents the
+
+00:06:41.650 --> 00:06:44.340
+User can expect to see on the first
+
+00:06:44.340 --> 00:06:46.270
+page of search results where they
+
+00:06:46.270 --> 00:06:47.840
+typically show 10 results.
+
+00:06:49.890 --> 00:06:53.460
+So precision and recall are the basic
+
+00:06:53.460 --> 00:06:56.710
+measures and we need to use them to
+
+00:06:56.710 --> 00:06:59.740
+further evaluate search engine.
+
+00:06:59.740 --> 00:07:00.560
+But there are the
+
+00:07:01.170 --> 00:07:02.470
+building blocks really.
+
+00:07:03.340 --> 00:07:05.050
+We just said that there tends to be a
+
+00:07:05.050 --> 00:07:07.250
+tradeoff between precision and recall,
+
+00:07:07.250 --> 00:07:09.400
+so naturally it would be interesting to
+
+00:07:09.400 --> 00:07:10.375
+combine them.
+
+00:07:10.375 --> 00:07:12.440
+And here's one measure that's often
+
+00:07:12.440 --> 00:07:14.360
+used called F measure.
+
+00:07:14.980 --> 00:07:18.320
+And, it's a harmonic mean of precision and
+
+00:07:18.320 --> 00:07:21.220
+recall is defined on this slide.
+
+00:07:22.090 --> 00:07:23.290
+So you can see.
+
+00:07:24.320 --> 00:07:25.330
+It first.
+
+00:07:26.710 --> 00:07:27.790
+Compute the.
+
+00:07:28.810 --> 00:07:33.440
+Inverse of R and P here and then it would
+
+00:07:33.440 --> 00:07:37.620
+interpret the two by using the
+
+00:07:37.620 --> 00:07:38.440
+coefficients.
+
+00:07:39.490 --> 00:07:41.410
+Depending on a parameter beta.
+
+00:07:42.750 --> 00:07:45.080
+And after some transformation you can
+
+00:07:45.080 --> 00:07:47.250
+easily see it would be of this form.
+
+00:07:48.900 --> 00:07:50.250
+And in any case, this is just a
+
+00:07:50.250 --> 00:07:52.370
+combination of precision and recall.
+
+00:07:53.430 --> 00:07:56.073
+Beta is a parameter that's often set to
+
+00:07:56.073 --> 00:07:56.441
+one.
+
+00:07:56.441 --> 00:07:58.660
+It can control the emphasis on
+
+00:07:58.660 --> 00:08:02.480
+precision or recall when we set Beta
+
+00:08:02.480 --> 00:08:05.630
+to one, we end up having a special case
+
+00:08:05.630 --> 00:08:07.880
+of F measure, often called F1.
+
+00:08:07.880 --> 00:08:10.949
+This is a popular measure that's often
+
+00:08:10.950 --> 00:08:12.490
+used little combine precision and
+
+00:08:12.490 --> 00:08:14.460
+recall, and formula looks very simple.
+
+00:08:16.010 --> 00:08:18.230
+It's just this here.
+
+00:08:20.900 --> 00:08:23.050
+Now it's easy to see that if you have a
+
+00:08:23.050 --> 00:08:26.140
+larger precision or larger recall than
+
+00:08:26.140 --> 00:08:27.870
+F measure would be high.
+
+00:08:28.460 --> 00:08:30.150
+But what's interesting is that.
+
+00:08:31.060 --> 00:08:32.900
+The tradeoff between precision and
+
+00:08:32.900 --> 00:08:35.530
+recall is captured in the interesting
+
+00:08:35.530 --> 00:08:36.679
+way in F1.
+
+00:08:38.620 --> 00:08:42.650
+So in order to understand that, we can
+
+00:08:42.650 --> 00:08:45.720
+first look at the natural question, why
+
+00:08:45.720 --> 00:08:49.180
+not just combine them using a simple
+
+00:08:49.180 --> 00:08:52.360
+arithmetic mean as shown here?
+
+00:08:53.030 --> 00:08:55.690
+That would be likely the most natural
+
+00:08:55.690 --> 00:08:56.910
+way of combining them.
+
+00:08:59.360 --> 00:09:00.860
+So what do you think?
+
+00:09:01.770 --> 00:09:05.510
+If you want to think more, you can pause
+
+00:09:05.510 --> 00:09:06.090
+the video.
+
+00:09:07.850 --> 00:09:11.320
+So why is this not as good as F1?
+
+00:09:13.420 --> 00:09:15.240
+Or what's the problem with this?
+
+00:09:18.280 --> 00:09:18.950
+Now.
+
+00:09:20.120 --> 00:09:23.685
+If you think about the arithmetic mean,
+
+00:09:23.685 --> 00:09:27.820
+you can see this is the sum of multiple
+
+00:09:27.820 --> 00:09:28.108
+terms.
+
+00:09:28.108 --> 00:09:30.840
+In this case is a sum of precision and
+
+00:09:30.840 --> 00:09:31.450
+recall.
+
+00:09:31.450 --> 00:09:34.200
+In the case of a sum, the total value
+
+00:09:34.200 --> 00:09:36.210
+tends to be dominated by the large
+
+00:09:36.210 --> 00:09:37.300
+values.
+
+00:09:37.300 --> 00:09:40.093
+That means if you have a very high P or
+
+00:09:40.093 --> 00:09:43.220
+very high R, then you really don't care
+
+00:09:43.220 --> 00:09:44.280
+about the weather.
+
+00:09:44.280 --> 00:09:46.750
+The other value is low, so the whole
+
+00:09:46.750 --> 00:09:48.180
+sum would be high.
+
+00:09:48.880 --> 00:09:50.730
+Now this is not desirable because one
+
+00:09:50.730 --> 00:09:53.899
+can easily have a perfect recall.
+
+00:09:53.900 --> 00:09:56.756
+We can have perfect recall easily.
+
+00:09:56.756 --> 00:09:58.260
+Can you imagine how?
+
+00:09:59.700 --> 00:10:02.040
+It's probably very easy to imagine that
+
+00:10:02.040 --> 00:10:04.515
+we simply retrieve all the document in
+
+00:10:04.515 --> 00:10:05.070
+the collection.
+
+00:10:05.070 --> 00:10:06.610
+Then we have a perfect recall.
+
+00:10:07.280 --> 00:10:09.540
+And this will give us point of five as
+
+00:10:09.540 --> 00:10:10.330
+the average.
+
+00:10:11.080 --> 00:10:13.640
+But such results are clearly not very
+
+00:10:13.640 --> 00:10:17.640
+useful for users, even though the
+
+00:10:17.640 --> 00:10:19.700
+average using this formula would be
+
+00:10:19.700 --> 00:10:20.580
+relatively high.
+
+00:10:21.650 --> 00:10:23.955
+But in contrast, you can see F1
+
+00:10:23.955 --> 00:10:25.790
+would reward the case where precision
+
+00:10:25.790 --> 00:10:28.665
+and recall are roughly similar, so it
+
+00:10:28.665 --> 00:10:31.020
+would penalize a case where you have
+
+00:10:31.020 --> 00:10:33.740
+extremely high value for one of them.
+
+00:10:35.220 --> 00:10:37.410
+So this means F1 encodes different.
+
+00:10:37.410 --> 00:10:38.690
+ tradeoffs between them.
+
+00:10:39.730 --> 00:10:42.410
+For this example, shows actually a very
+
+00:10:42.410 --> 00:10:44.570
+important methodology here.
+
+00:10:44.570 --> 00:10:46.540
+When you try to solve a problem.
+
+00:10:47.100 --> 00:10:49.420
+You might naturally think of 1
+
+00:10:49.420 --> 00:10:51.290
+solution, let's say in this case it's
+
+00:10:51.290 --> 00:10:52.470
+this arithmetic mean.
+
+00:10:53.680 --> 00:10:56.200
+But it's important not to settle on
+
+00:10:56.200 --> 00:10:56.770
+this solution.
+
+00:10:56.770 --> 00:10:58.950
+It's important to think whether you
+
+00:10:58.950 --> 00:11:01.040
+have other ways to combine them.
+
+00:11:02.060 --> 00:11:03.750
+And once you think about multiple
+
+00:11:03.750 --> 00:11:06.000
+variants, it's important to analyze
+
+00:11:06.000 --> 00:11:06.760
+their difference.
+
+00:11:07.310 --> 00:11:10.176
+And then think about which one makes more
+
+00:11:10.176 --> 00:11:11.513
+sense in this case.
+
+00:11:11.513 --> 00:11:13.530
+If you think more carefully, you will
+
+00:11:13.530 --> 00:11:15.553
+feel that F1 probably makes more
+
+00:11:15.553 --> 00:11:18.200
+sense than the simple arithmetic mean,
+
+00:11:18.200 --> 00:11:20.550
+although in other cases there may be
+
+00:11:20.550 --> 00:11:23.492
+different results, but in this case the
+
+00:11:23.492 --> 00:11:25.590
+arithmetic mean seems not reasonable.
+
+00:11:25.590 --> 00:11:27.990
+But if you don't pay attention to these
+
+00:11:27.990 --> 00:11:30.420
+subtle differences, you might just take
+
+00:11:30.420 --> 00:11:32.690
+a easy way to combine them and then go
+
+00:11:32.690 --> 00:11:33.525
+ahead with it.
+
+00:11:33.525 --> 00:11:35.700
+And there later you will find that
+
+00:11:35.700 --> 00:11:36.140
+measure.
+
+00:11:36.140 --> 00:11:37.620
+It doesn't seem to work well.
+
+00:11:38.360 --> 00:11:40.790
+so at this methodology is actually
+
+00:11:40.790 --> 00:11:42.650
+very important in general in solving
+
+00:11:42.650 --> 00:11:45.220
+problem and try to think about the best
+
+00:11:45.220 --> 00:11:45.576
+solution.
+
+00:11:45.576 --> 00:11:49.080
+Try to understand the problem very well
+
+00:11:49.080 --> 00:11:53.030
+and then know why you need this measure
+
+00:11:53.030 --> 00:11:54.715
+and why you need to combine precision
+
+00:11:54.715 --> 00:11:57.290
+and recall and then use that to guide
+
+00:11:57.290 --> 00:11:59.355
+you in finding a good way to solve the
+
+00:11:59.355 --> 00:11:59.640
+problem.
+
+00:12:03.220 --> 00:12:04.640
+To summarize, we talked about
+
+00:12:04.640 --> 00:12:05.230
+precision.
+
+00:12:05.780 --> 00:12:07.750
+Which addresses the question.
+
+00:12:08.380 --> 00:12:11.430
+Are the retrieval results all relevant.
+
+00:12:11.430 --> 00:12:12.930
+We also talked about the recall.
+
+00:12:13.620 --> 00:12:15.450
+Which addresses the question have all
+
+00:12:15.450 --> 00:12:17.180
+the relevant documents being retrieved.
+
+00:12:17.180 --> 00:12:20.270
+These two are the two basic measures in
+
+00:12:20.270 --> 00:12:21.890
+text retrieval evaluation.
+
+00:12:21.890 --> 00:12:24.240
+They are useful for many other tasks as
+
+00:12:24.240 --> 00:12:24.700
+well.
+
+00:12:24.700 --> 00:12:26.820
+We talked about F measure as a way
+
+00:12:26.820 --> 00:12:28.860
+to combine precision and recall.
+
+00:12:29.870 --> 00:12:31.860
+We also talked about the tradeoff
+
+00:12:31.860 --> 00:12:34.020
+between precision and recall and.
+
+00:12:34.020 --> 00:12:36.620
+This turns out to depend on the users
+
+00:12:36.620 --> 00:12:38.590
+search tasks and will discuss this
+
+00:12:38.590 --> 00:12:40.450
+point more in the later lecture.
+
+

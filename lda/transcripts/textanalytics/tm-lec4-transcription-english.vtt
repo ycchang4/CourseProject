@@ -1,0 +1,283 @@
+WEBVTT Kind: captions; Language: en-US
+
+NOTE
+Created on 2021-02-26T23:59:14.5234147Z by ClassTranscribe
+
+00:00:00.290 --> 00:00:02.950
+So, here are some specific examples of
+
+00:00:02.950 --> 00:00:05.710
+what we can't do today, and part of
+
+00:00:05.710 --> 00:00:09.700
+speech tagging is not easy to do
+
+00:00:09.700 --> 00:00:11.750
+one hundred percent correctly.
+
+00:00:11.750 --> 00:00:15.490
+So in the example: "He turned off the
+
+00:00:15.490 --> 00:00:18.230
+highway" versus "He turned off the fan"
+
+
+00:00:18.230 --> 00:00:20.830
+and the two "off"'s actually have
+
+00:00:30.740 --> 00:00:32.200
+somewhat different syntactic
+
+00:00:32.200 --> 00:00:32.920
+categories.
+
+00:00:33.690 --> 00:00:36.400
+And also it's very difficult to get
+
+00:00:36.400 --> 00:00:40.080
+complete parsing correct. Again,
+
+00:00:40.080 --> 00:00:43.230
+the example "A man saw a boy with a
+
+00:00:43.230 --> 00:00:45.345
+telescope" can actually be very
+
+00:00:45.345 --> 00:00:47.650
+difficult to parse depending on the
+
+00:00:47.650 --> 00:00:49.890
+context. Precise deep semantic
+
+00:00:49.890 --> 00:00:51.660
+analysis is also very hard.
+
+00:00:51.660 --> 00:00:55.490
+For example, to define the meaning of
+
+00:00:55.490 --> 00:00:58.050
+"own" precisely is very difficult in a
+
+00:00:58.050 --> 00:01:00.270
+sentence like "John owns a restaurant".
+
+00:01:00.840 --> 00:01:02.620
+So the state of the art can be
+
+00:01:02.620 --> 00:01:04.190
+summarized as follows.
+
+00:01:04.190 --> 00:01:06.620
+Robust and general NLP tends to be
+
+00:01:06.620 --> 00:01:09.650
+shallow, while deep understanding does
+
+00:01:09.650 --> 00:01:10.630
+not scale up.
+
+00:01:12.300 --> 00:01:15.760
+For this reason, in this course, the
+
+00:01:15.760 --> 00:01:18.270
+techniques that we cover are,
+
+00:01:18.980 --> 00:01:22.180
+in general, shallow techniques for
+
+00:01:22.180 --> 00:01:24.860
+analyzing text data, to mine text data.
+
+00:01:25.640 --> 00:01:27.710
+And they are generally based on
+
+00:01:27.710 --> 00:01:30.239
+statistical analysis, so they are
+
+00:01:30.240 --> 00:01:30.970
+robust,
+
+00:01:31.540 --> 00:01:34.700
+and general, and,
+
+00:01:35.530 --> 00:01:37.280
+And they are in the category of shallow
+
+00:01:37.280 --> 00:01:40.690
+analysis, so such techniques have the
+
+00:01:40.690 --> 00:01:43.316
+advantage of being able to be applied
+
+00:01:43.316 --> 00:01:45.730
+to any text data in any natural
+
+00:01:45.730 --> 00:01:47.330
+language about any topic.
+
+00:01:49.080 --> 00:01:52.800
+But the downside is that they don't
+
+00:01:52.800 --> 00:01:55.230
+give us a deeper understanding of text.
+
+00:01:55.230 --> 00:01:58.070
+For that we have to rely on deeper
+
+00:01:58.070 --> 00:02:00.020
+natural language analysis techniques.
+
+00:02:00.810 --> 00:02:03.390
+That typically would require human
+
+00:02:03.390 --> 00:02:07.209
+effort to annotate a lot of examples of
+
+00:02:07.210 --> 00:02:09.360
+analysis that we'd like to do, and
+
+00:02:09.360 --> 00:02:11.540
+then computers can use machine learning
+
+00:02:11.540 --> 00:02:13.785
+techniques to learn from these training
+
+00:02:13.785 --> 00:02:15.350
+examples to do the task.
+
+00:02:16.010 --> 00:02:18.590
+So in practical applications we
+
+00:02:18.590 --> 00:02:20.830
+generally combine the two kinds of
+
+00:02:20.830 --> 00:02:24.260
+techniques with the general statistical
+
+00:02:24.260 --> 00:02:28.620
+and methods as backbone as the basis,
+
+00:02:28.620 --> 00:02:31.150
+since it can be applied to any text
+
+00:02:31.150 --> 00:02:33.922
+data and on top of that we're going to
+
+00:02:33.922 --> 00:02:37.290
+use humans to annotate more data and
+
+00:02:37.290 --> 00:02:40.100
+to use supervised machine learning to do
+
+00:02:40.100 --> 00:02:42.679
+some tasks as well as we can,
+
+00:02:42.680 --> 00:02:44.785
+especially for those important tasks.
+
+00:02:44.785 --> 00:02:46.910
+So to bring humans
+
+00:02:46.970 --> 00:02:49.980
+in, into the loop to analyze, fix,
+
+00:02:49.980 --> 00:02:55.080
+to analyze text data more precisely.
+
+00:02:55.080 --> 00:02:58.290
+But this course will cover the general
+
+00:02:58.290 --> 00:03:00.870
+statistical approaches that generally
+
+00:03:00.870 --> 00:03:03.170
+don't require much human effort.
+
+00:03:04.310 --> 00:03:06.760
+So they are practically more useful
+
+00:03:06.760 --> 00:03:09.100
+than some of the deeper analysis
+
+00:03:09.100 --> 00:03:12.480
+techniques that require a lot of human
+
+00:03:12.480 --> 00:03:14.980
+effort to annotate text data.
+
+00:03:16.500 --> 00:03:19.350
+So to summarize this lecture, the main
+
+00:03:19.350 --> 00:03:22.730
+points to take away are, first NLP
+
+00:03:22.730 --> 00:03:24.407
+is the foundation for text mining.
+
+00:03:24.407 --> 00:03:26.340
+So obviously the better we can
+
+00:03:26.340 --> 00:03:28.227
+understand the text data, the better we
+
+00:03:28.227 --> 00:03:29.190
+can do text mining.
+
+00:03:30.320 --> 00:03:32.390
+Computers today are far from being able
+
+00:03:32.390 --> 00:03:34.080
+to understand the natural language.
+
+00:03:34.080 --> 00:03:34.810
+Deeper NLP requires
+
+00:03:34.810 --> 00:03:36.880
+common sense knowledge
+
+00:03:36.880 --> 00:03:39.040
+and inferences, thus only working for
+
+00:03:39.040 --> 00:03:40.460
+very limited domains.
+
+00:03:41.430 --> 00:03:43.620
+Not feasible for large scale text
+
+00:03:43.620 --> 00:03:44.080
+mining.
+
+00:03:44.670 --> 00:03:46.610
+Shallow NLP based on statistical
+
+00:03:46.610 --> 00:03:48.620
+methods can be done in large scale.
+
+00:03:48.620 --> 00:03:52.655
+And is the main topic of this course
+
+00:03:52.655 --> 00:03:55.770
+and they are generally applicable to a
+
+00:03:55.770 --> 00:03:56.970
+lot of applications.
+
+00:03:57.860 --> 00:04:00.170
+They are in some sense also more useful
+
+00:04:00.170 --> 00:04:00.780
+techniques.
+
+00:04:01.910 --> 00:04:04.810
+In practice, we use statistical NLP
+
+00:04:04.810 --> 00:04:05.940
+as the basis.
+
+00:04:06.630 --> 00:04:09.680
+And we have humans to help as needed
+
+00:04:09.680 --> 00:04:10.830
+in various ways.
+
+

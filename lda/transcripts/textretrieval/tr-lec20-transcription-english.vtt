@@ -1,0 +1,1437 @@
+WEBVTT Kind: captions; Language: en-US
+
+NOTE
+Created on 2021-02-27T00:07:08.9078909Z by ClassTranscribe
+
+00:00:00.280 --> 00:00:02.070
+This lecture is about the statistical
+
+00:00:02.070 --> 00:00:02.960
+language model.
+
+00:00:12.510 --> 00:00:15.660
+In this lecture we're going to
+
+00:00:15.660 --> 00:00:17.510
+give an introduction to statistical
+
+00:00:17.510 --> 00:00:18.270
+language model.
+
+00:00:18.270 --> 00:00:20.650
+This has to do with how do you model
+
+00:00:20.650 --> 00:00:23.660
+text data with probabilistic models so
+
+00:00:23.660 --> 00:00:26.320
+it's related to how we model query
+
+00:00:26.320 --> 00:00:28.400
+based on a document.
+
+00:00:31.470 --> 00:00:33.208
+We're going to talk about what is the
+
+00:00:33.208 --> 00:00:34.970
+language model and then we're going to
+
+00:00:34.970 --> 00:00:36.730
+talk about the simplest language model
+
+00:00:36.730 --> 00:00:38.970
+called a unigram language model, which
+
+00:00:38.970 --> 00:00:40.685
+also happens to be the most useful
+
+00:00:40.685 --> 00:00:42.300
+model for text retrieval.
+
+00:00:42.300 --> 00:00:44.660
+And finally, we discussed possible uses
+
+00:00:44.660 --> 00:00:45.599
+of language model.
+
+00:00:47.120 --> 00:00:49.660
+What is the language model?
+
+00:00:49.660 --> 00:00:51.550
+It's just a probability distribution
+
+00:00:51.550 --> 00:00:52.850
+over word sequences.
+
+00:00:53.460 --> 00:00:54.700
+So here I show 1.
+
+00:00:55.750 --> 00:00:57.050
+This model gives.
+
+00:00:57.620 --> 00:00:59.370
+The sequence today is Wednesday, a
+
+00:00:59.370 --> 00:01:02.620
+probability of 0.001.
+
+00:01:03.210 --> 00:01:04.050
+It gave today.
+
+00:01:04.050 --> 00:01:06.010
+Wednesday is a very very small
+
+00:01:06.010 --> 00:01:06.960
+probability.
+
+00:01:06.960 --> 00:01:08.730
+Becauses amount for the medical.
+
+00:01:11.470 --> 00:01:13.950
+You can see the probability is given to
+
+00:01:13.950 --> 00:01:17.020
+these sentences or sequences of words
+
+00:01:17.020 --> 00:01:19.390
+can vary a lot depending on the model.
+
+00:01:19.390 --> 00:01:21.160
+Therefore it's clearly context
+
+00:01:21.160 --> 00:01:21.800
+dependent.
+
+00:01:22.680 --> 00:01:24.490
+In ordinary conversation, probably
+
+00:01:24.490 --> 00:01:26.260
+today is Wednesday is most popular
+
+00:01:26.260 --> 00:01:28.140
+among these sentences.
+
+00:01:28.140 --> 00:01:30.440
+But imagine in the context of
+
+00:01:30.440 --> 00:01:32.660
+discussing applied math, maybe the
+
+00:01:32.660 --> 00:01:35.150
+eigenvalues positive would have a
+
+00:01:35.150 --> 00:01:36.260
+higher probability.
+
+00:01:36.260 --> 00:01:39.350
+This means it can be used to represent
+
+00:01:39.350 --> 00:01:41.180
+the topic of the text.
+
+00:01:42.170 --> 00:01:43.810
+The Mortal Council be regarded as a
+
+00:01:43.810 --> 00:01:46.570
+probabilistic mechanism for generating
+
+00:01:46.570 --> 00:01:47.110
+text.
+
+00:01:48.070 --> 00:01:50.210
+And This is why it's also often called
+
+00:01:50.210 --> 00:01:51.620
+a generating model.
+
+00:01:51.620 --> 00:01:52.590
+So what does that mean?
+
+00:01:52.590 --> 00:01:56.820
+We can imagine this is a mechanism.
+
+00:01:58.170 --> 00:01:59.860
+That's visualized hands here as a
+
+00:01:59.860 --> 00:02:03.520
+stochastic system that can generate the
+
+00:02:03.520 --> 00:02:05.120
+sequences of words.
+
+00:02:05.120 --> 00:02:08.330
+So we can ask for a sequence and it's
+
+00:02:08.330 --> 00:02:11.380
+too simple sequence from the device if
+
+00:02:11.380 --> 00:02:13.363
+you want, and it might generate.
+
+00:02:13.363 --> 00:02:15.050
+For example, today is Wednesday.
+
+00:02:15.800 --> 00:02:17.500
+But it could have generated any other
+
+00:02:17.500 --> 00:02:18.270
+sequences.
+
+00:02:18.270 --> 00:02:20.410
+So for example there are many
+
+00:02:20.410 --> 00:02:22.010
+possibilities, right?
+
+00:02:24.000 --> 00:02:26.550
+So this in this sense we can view our
+
+00:02:26.550 --> 00:02:29.820
+data as basically a sample observable
+
+00:02:29.820 --> 00:02:31.830
+from such a generating model.
+
+00:02:31.830 --> 00:02:33.810
+So why is such a model useful?
+
+00:02:35.430 --> 00:02:37.310
+So many because it can quantify the
+
+00:02:37.310 --> 00:02:38.870
+uncertainties in natural language.
+
+00:02:39.600 --> 00:02:40.650
+Where do  unvertainties
+
+00:02:40.650 --> 00:02:42.350
+Come from it.
+
+00:02:42.350 --> 00:02:44.790
+One source is simply the ambiguity in
+
+00:02:44.790 --> 00:02:46.580
+natural language that we discussed
+
+00:02:46.580 --> 00:02:48.080
+earlier in Lab 2.
+
+00:02:48.780 --> 00:02:51.060
+Another source is because we don't have
+
+00:02:51.060 --> 00:02:51.865
+complete understanding.
+
+00:02:51.865 --> 00:02:54.630
+We lack all the knowledge to understand
+
+00:02:54.630 --> 00:02:54.966
+language.
+
+00:02:54.966 --> 00:02:57.040
+In that case there will be uncertainties
+
+00:02:57.040 --> 00:02:59.050
+as well, so let me show some
+
+00:02:59.050 --> 00:03:00.610
+examples of questions that we can
+
+00:03:00.610 --> 00:03:01.970
+answer with the language model that
+
+00:03:01.970 --> 00:03:04.240
+would have interesting application in
+
+00:03:04.240 --> 00:03:06.170
+different ways.
+
+00:03:06.170 --> 00:03:08.900
+Given that we see John and Fields.
+
+00:03:09.860 --> 00:03:12.210
+How likely we see happy as opposed to
+
+00:03:12.210 --> 00:03:14.400
+habit as the next word in a sequence
+
+00:03:14.400 --> 00:03:14.860
+of words?
+
+00:03:15.970 --> 00:03:18.030
+Obviously this would be very useful for
+
+00:03:18.030 --> 00:03:19.900
+speech recognition, because happy and
+
+00:03:19.900 --> 00:03:22.460
+happy it would have similar acoustical
+
+00:03:22.460 --> 00:03:24.310
+sound acoustic signals.
+
+00:03:25.120 --> 00:03:27.980
+But if we look at the language model,
+
+00:03:27.980 --> 00:03:30.390
+will know that John feels happy would
+
+00:03:30.390 --> 00:03:32.420
+be far more likely than John feels
+
+00:03:32.420 --> 00:03:32.910
+habit.
+
+00:03:35.700 --> 00:03:38.010
+Another example, given that we observe
+
+00:03:38.010 --> 00:03:40.260
+baseball 3 times and game once in a
+
+00:03:40.260 --> 00:03:42.420
+news article, how likely is it about
+
+00:03:42.420 --> 00:03:43.630
+sports?
+
+00:03:43.630 --> 00:03:45.560
+This obviously is related to text
+
+00:03:45.560 --> 00:03:47.070
+categorization, an information
+
+00:03:47.070 --> 00:03:47.550
+retrieval.
+
+00:03:48.590 --> 00:03:50.470
+Also, given that a user is interested
+
+00:03:50.470 --> 00:03:53.065
+in Sports News, how likely would the
+
+00:03:53.065 --> 00:03:54.790
+user used baseball in a query?
+
+00:03:55.390 --> 00:03:57.190
+Now this is clearly related to the
+
+00:03:57.190 --> 00:03:59.415
+query likelihood that we discussed in
+
+00:03:59.415 --> 00:04:00.380
+the previous matching.
+
+00:04:02.090 --> 00:04:03.933
+So now let's look at the simplicity
+
+00:04:03.933 --> 00:04:06.780
+language model, called a unigram
+
+00:04:06.780 --> 00:04:07.810
+language model.
+
+00:04:07.810 --> 00:04:08.930
+In such a case.
+
+00:04:09.530 --> 00:04:11.590
+We assume that we generate the text by
+
+00:04:11.590 --> 00:04:13.740
+generating each word independently.
+
+00:04:14.660 --> 00:04:16.190
+So this means the probability of a
+
+00:04:16.190 --> 00:04:17.250
+sequence of words.
+
+00:04:17.810 --> 00:04:20.410
+Will be then the product of the
+
+00:04:20.410 --> 00:04:21.690
+probability of each world.
+
+00:04:22.380 --> 00:04:24.690
+And normally they're not independent.
+
+00:04:25.460 --> 00:04:28.030
+Right, so if you have seen a word like
+
+00:04:28.030 --> 00:04:30.280
+language that would make them far more
+
+00:04:30.280 --> 00:04:32.640
+likely to observe model than if you
+
+00:04:32.640 --> 00:04:33.720
+haven't seen the language.
+
+00:04:35.380 --> 00:04:37.070
+So this assumption is not necessarily
+
+00:04:37.070 --> 00:04:38.970
+true, but we make this assumption to
+
+00:04:38.970 --> 00:04:40.050
+simplify the model.
+
+00:04:41.130 --> 00:04:43.770
+So now the model has precisely in
+
+00:04:43.770 --> 00:04:46.200
+parameters wherein is vocabulary size.
+
+00:04:46.940 --> 00:04:48.980
+We have one probability for each word,
+
+00:04:48.980 --> 00:04:50.930
+and all these probabilities must sum to
+
+00:04:50.930 --> 00:04:51.530
+one.
+
+00:04:51.530 --> 00:04:55.570
+So strictly speaking we actually have
+
+00:04:55.570 --> 00:04:57.550
+N-1 parameters.
+
+00:05:00.180 --> 00:05:03.740
+As I said, text can be assumed to be
+
+00:05:03.740 --> 00:05:05.670
+assembled drawn from this world
+
+00:05:05.670 --> 00:05:06.460
+distribution.
+
+00:05:07.980 --> 00:05:10.740
+So for example, now we can ask the
+
+00:05:10.740 --> 00:05:14.500
+device or the model to stochastic in
+
+00:05:14.500 --> 00:05:16.610
+general words for us instead of
+
+00:05:16.610 --> 00:05:17.340
+sequences.
+
+00:05:17.920 --> 00:05:19.660
+So instead of giving a whole sequence
+
+00:05:19.660 --> 00:05:22.290
+like today's Wednesday, it now gives us
+
+00:05:22.290 --> 00:05:24.920
+just one word and we can get all kinds
+
+00:05:24.920 --> 00:05:27.485
+of words, and we can assemble these
+
+00:05:27.485 --> 00:05:28.730
+words in a sequence.
+
+00:05:29.410 --> 00:05:30.680
+So that would still allows little
+
+00:05:30.680 --> 00:05:32.680
+computer the probability of today's
+
+00:05:32.680 --> 00:05:35.560
+Wednesday as the product of the three
+
+00:05:35.560 --> 00:05:36.470
+probabilities.
+
+00:05:37.330 --> 00:05:39.770
+As you can see, even though we have not
+
+00:05:39.770 --> 00:05:41.890
+asked the model to generate the
+
+00:05:41.890 --> 00:05:44.770
+sequence, it actually allows us to
+
+00:05:44.770 --> 00:05:47.169
+compute the probability for all the
+
+00:05:47.170 --> 00:05:48.120
+sequences.
+
+00:05:48.120 --> 00:05:51.200
+But this model now only needs 
+
+00:05:51.200 --> 00:05:53.510
+N parameters to characterize.
+
+00:05:53.510 --> 00:05:55.815
+That means if we specify all the
+
+00:05:55.815 --> 00:05:57.740
+probabilities for all the words, then
+
+00:05:57.740 --> 00:06:00.260
+the models behavior is completely
+
+00:06:00.260 --> 00:06:03.285
+specified, whereas if we don't make
+
+00:06:03.285 --> 00:06:05.557
+this assumption we would have to specify
+
+00:06:05.557 --> 00:06:07.130
+probabilities for all kinds of
+
+00:06:07.130 --> 00:06:08.790
+combinations of words.
+
+00:06:08.840 --> 00:06:09.780
+In sequences.
+
+00:06:11.730 --> 00:06:13.960
+So by making this assumption, it makes
+
+00:06:13.960 --> 00:06:15.520
+it much easier to estimate these
+
+00:06:15.520 --> 00:06:17.930
+parameters, so let's see a specific
+
+00:06:17.930 --> 00:06:18.750
+example here.
+
+00:06:19.720 --> 00:06:22.830
+Here I show two unigram language models
+
+00:06:22.830 --> 00:06:25.920
+with some probabilities and these are
+
+00:06:25.920 --> 00:06:27.630
+high probability words that are shown
+
+00:06:27.630 --> 00:06:28.220
+on top.
+
+00:06:29.710 --> 00:06:32.200
+The first one clearly suggests a topic
+
+00:06:32.200 --> 00:06:33.880
+of text mining, because the high
+
+00:06:33.880 --> 00:06:35.680
+probability words are all related to
+
+00:06:35.680 --> 00:06:36.390
+this topic.
+
+00:06:36.940 --> 00:06:38.460
+The second one is more related to
+
+00:06:38.460 --> 00:06:38.880
+health.
+
+00:06:39.670 --> 00:06:41.450
+We can then ask the question, how
+
+00:06:41.450 --> 00:06:44.240
+likely will observe a particular text
+
+00:06:44.240 --> 00:06:45.880
+from each of these three models?
+
+00:06:46.430 --> 00:06:47.995
+I suppose we sample words.
+
+00:06:47.995 --> 00:06:49.800
+The former document.
+
+00:06:49.800 --> 00:06:51.460
+Let's say we take the first
+
+00:06:51.460 --> 00:06:53.110
+distribution, which had a simple words.
+
+00:06:53.110 --> 00:06:54.450
+What words do you think it would be
+
+00:06:54.450 --> 00:06:54.990
+generated?
+
+00:06:54.990 --> 00:06:56.890
+Well, maybe text or maybe mining.
+
+00:06:56.890 --> 00:06:59.070
+Maybe another word even fooled, which
+
+00:06:59.070 --> 00:07:01.170
+has a very small probability, might
+
+00:07:01.170 --> 00:07:02.470
+still be able to show up.
+
+00:07:03.810 --> 00:07:05.520
+But in general, high probability words
+
+00:07:05.520 --> 00:07:07.090
+with likely show up more often.
+
+00:07:08.040 --> 00:07:09.990
+So we can imagine what gender the text
+
+00:07:09.990 --> 00:07:11.300
+that looks like a text mining.
+
+00:07:12.120 --> 00:07:14.779
+In fact, there was a small probability
+
+00:07:14.780 --> 00:07:16.790
+you might be able to actually generate
+
+00:07:16.790 --> 00:07:20.400
+the actual text mining paper that would
+
+00:07:20.400 --> 00:07:22.345
+actually be meaningful, although the
+
+00:07:22.345 --> 00:07:24.520
+probability would be very very small.
+
+00:07:25.980 --> 00:07:28.600
+In the extreme case, you might imagine
+
+00:07:28.600 --> 00:07:30.340
+we might be able to generate the
+
+00:07:30.340 --> 00:07:33.060
+attacks paper text mining paper that
+
+00:07:33.060 --> 00:07:34.620
+would be accepted by a major
+
+00:07:34.620 --> 00:07:35.220
+conference.
+
+00:07:35.860 --> 00:07:37.290
+And in that case, the public in it
+
+00:07:37.290 --> 00:07:39.070
+would be even smaller.
+
+00:07:39.660 --> 00:07:42.480
+But it's a non zero probability if we
+
+00:07:42.480 --> 00:07:45.545
+assume none of the words have non zero
+
+00:07:45.545 --> 00:07:46.070
+probability.
+
+00:07:47.320 --> 00:07:49.740
+Similarly from the second topic, we can
+
+00:07:49.740 --> 00:07:51.180
+imagine we can generate the folder
+
+00:07:51.180 --> 00:07:52.020
+nutrition paper.
+
+00:07:52.580 --> 00:07:54.490
+That doesn't mean we cannot generate
+
+00:07:54.490 --> 00:07:56.580
+this paper from text mining.
+
+00:07:57.360 --> 00:07:58.340
+Distribution.
+
+00:07:59.240 --> 00:08:01.965
+We can, but the probability would be
+
+00:08:01.965 --> 00:08:04.750
+very, very small, maybe smaller than
+
+00:08:04.750 --> 00:08:07.119
+even generating a paper that can be
+
+00:08:07.120 --> 00:08:09.060
+accepted by a major conference on text
+
+00:08:09.060 --> 00:08:09.420
+mine.
+
+00:08:10.290 --> 00:08:11.800
+So the point here is that given
+
+00:08:11.800 --> 00:08:12.710
+distribution.
+
+00:08:13.510 --> 00:08:15.760
+We can talk about the probability of
+
+00:08:15.760 --> 00:08:18.350
+observing a certain kind of text.
+
+00:08:18.350 --> 00:08:19.540
+Some text will have higher
+
+00:08:19.540 --> 00:08:20.820
+probabilities than others.
+
+00:08:21.620 --> 00:08:22.960
+Now let's look at the problem in a
+
+00:08:22.960 --> 00:08:23.740
+different way.
+
+00:08:23.740 --> 00:08:25.920
+Suppose we now have available of
+
+00:08:25.920 --> 00:08:27.260
+particular document.
+
+00:08:27.260 --> 00:08:30.823
+In this case, maybe the abstract of a
+
+00:08:30.823 --> 00:08:31.790
+text reminding payroll.
+
+00:08:31.790 --> 00:08:33.930
+And we see these world accounts here.
+
+00:08:33.930 --> 00:08:36.332
+The total number of words is 100.
+
+00:08:36.332 --> 00:08:38.200
+Now the question will ask here is
+
+00:08:38.200 --> 00:08:39.180
+estimation question.
+
+00:08:39.180 --> 00:08:42.030
+We can ask the question which model
+
+00:08:42.030 --> 00:08:44.670
+which word distribution has been used
+
+00:08:44.670 --> 00:08:46.250
+to generate this text.
+
+00:08:46.250 --> 00:08:47.760
+Assuming that the text that has been
+
+00:08:47.760 --> 00:08:49.890
+generated by sampling words from the
+
+00:08:49.890 --> 00:08:50.290
+distribution.
+
+00:08:51.880 --> 00:08:53.180
+So what would be your guess?
+
+00:08:54.130 --> 00:08:56.790
+Have to decide what probability is.
+
+00:08:56.790 --> 00:08:59.040
+Text mining etc would have.
+
+00:09:01.800 --> 00:09:03.620
+So pause the video for a second and try to
+
+00:09:03.620 --> 00:09:05.290
+think about your best guess.
+
+00:09:09.270 --> 00:09:11.060
+If you're like a lot of people, you
+
+00:09:11.060 --> 00:09:13.790
+would have guessed that my best guess
+
+00:09:13.790 --> 00:09:14.370
+is.
+
+00:09:14.970 --> 00:09:16.506
+text has a probability of
+
+00:09:16.506 --> 00:09:19.490
+10 out of 100 because I've seen text 10
+
+00:09:19.490 --> 00:09:22.770
+times an there are in total 100 words,
+
+00:09:22.770 --> 00:09:25.590
+so we simply not simply normalize these
+
+00:09:25.590 --> 00:09:26.060
+counts.
+
+00:09:27.070 --> 00:09:29.560
+That's in fact the word justified, and
+
+00:09:29.560 --> 00:09:31.620
+your intuition is consistent with
+
+00:09:31.620 --> 00:09:34.060
+mathematical derivation, and this is
+
+00:09:34.060 --> 00:09:35.855
+called a maximum likelihood estimator.
+
+00:09:35.855 --> 00:09:38.639
+In this estimator we assume that the
+
+00:09:38.640 --> 00:09:41.179
+parameter settings are those that would
+
+00:09:41.180 --> 00:09:43.896
+give our observed data the maximum
+
+00:09:43.896 --> 00:09:44.378
+probability.
+
+00:09:44.378 --> 00:09:46.190
+That means if we change these
+
+00:09:46.190 --> 00:09:49.000
+probabilities, then the probability of
+
+00:09:49.000 --> 00:09:52.010
+observing the particular text data
+
+00:09:52.010 --> 00:09:53.500
+would be somewhat smaller.
+
+00:09:55.090 --> 00:09:57.850
+So you can see this has a very simple
+
+00:09:57.850 --> 00:09:58.530
+formula.
+
+00:09:58.530 --> 00:10:02.170
+Basically we just need to look at the
+
+00:10:02.170 --> 00:10:05.140
+count of a word in the document and
+
+00:10:05.140 --> 00:10:06.790
+then divided by the total number of
+
+00:10:06.790 --> 00:10:08.230
+words in the document or document
+
+00:10:08.230 --> 00:10:08.640
+length.
+
+00:10:09.330 --> 00:10:10.460
+Normalized frequency.
+
+00:10:11.560 --> 00:10:13.850
+Or consequences of this is, of course
+
+00:10:13.850 --> 00:10:15.320
+we're going to assign zero
+
+00:10:15.320 --> 00:10:17.320
+probabilities to unseen words.
+
+00:10:18.090 --> 00:10:20.080
+if we have not oveserve a word
+
+00:10:20.080 --> 00:10:22.460
+there will be no incentive to assign a
+
+00:10:22.460 --> 00:10:24.430
+non zero probability using this
+
+00:10:24.430 --> 00:10:25.090
+approach.
+
+00:10:25.090 --> 00:10:27.700
+Why 'cause that would take away
+
+00:10:27.700 --> 00:10:29.770
+probability mass for these ovbserved
+
+00:10:29.770 --> 00:10:30.330
+words?
+
+00:10:30.330 --> 00:10:33.560
+And that obviously wouldn't maximize
+
+00:10:33.560 --> 00:10:35.360
+the probability of this particular
+
+00:10:35.360 --> 00:10:36.560
+observer text data.
+
+00:10:37.380 --> 00:10:39.870
+But one can still question whether this
+
+00:10:39.870 --> 00:10:41.570
+is our best estimate.
+
+00:10:41.570 --> 00:10:44.427
+Well, the answer depends on what kind
+
+00:10:44.427 --> 00:10:47.280
+of model you want to find, right?
+
+00:10:47.280 --> 00:10:48.590
+This is made.
+
+00:10:48.590 --> 00:10:51.220
+It gives the best model based on this
+
+00:10:51.220 --> 00:10:52.050
+particular data.
+
+00:10:52.050 --> 00:10:53.940
+But if you're interested in a model
+
+00:10:53.940 --> 00:10:56.520
+that can explain the content of the
+
+00:10:56.520 --> 00:11:00.460
+four paper of this abstract, then you
+
+00:11:00.460 --> 00:11:01.980
+might have a second thought, right?
+
+00:11:01.980 --> 00:11:05.330
+So for one thing, there should be other
+
+00:11:05.330 --> 00:11:08.310
+words in the body of that article.
+
+00:11:08.650 --> 00:11:11.150
+So they should not have zero
+
+00:11:11.150 --> 00:11:12.910
+probabilities even though they are not
+
+00:11:12.910 --> 00:11:14.090
+observed in abstract.
+
+00:11:14.090 --> 00:11:16.540
+So we're going to cover this a little
+
+00:11:16.540 --> 00:11:21.670
+more later in discussing the query likelihood
+
+00:11:21.670 --> 00:11:22.710
+retrieval model model.
+
+00:11:24.269 --> 00:11:26.809
+So let's take a look at the some
+
+00:11:26.809 --> 00:11:28.509
+possible uses of this language.
+
+00:11:28.509 --> 00:11:31.429
+One use is simply to use it to
+
+00:11:31.429 --> 00:11:32.649
+represent the topics.
+
+00:11:32.649 --> 00:11:35.109
+So here I show some general English
+
+00:11:35.109 --> 00:11:36.959
+background text.
+
+00:11:36.959 --> 00:11:39.229
+We can use this text to estimate the
+
+00:11:39.229 --> 00:11:40.939
+language model and the model might look
+
+00:11:40.939 --> 00:11:41.609
+like this.
+
+00:11:42.599 --> 00:11:45.069
+So on the top will have those all
+
+00:11:45.069 --> 00:11:49.195
+common words like the is way etc and
+
+00:11:49.195 --> 00:11:51.519
+then we'll see some common words like
+
+00:11:51.519 --> 00:11:54.169
+these and then some very very rare
+
+00:11:54.169 --> 00:11:55.239
+words in the bottom.
+
+00:11:55.239 --> 00:11:57.159
+This is the background language model.
+
+00:11:57.159 --> 00:12:00.108
+It represents the frequency of words in
+
+00:12:00.109 --> 00:12:01.219
+English in general.
+
+00:12:01.819 --> 00:12:04.049
+Right, this is the background model.
+
+00:12:04.049 --> 00:12:06.829
+Now let's look at the another text.
+
+00:12:06.829 --> 00:12:08.539
+Maybe this time we'll look at the
+
+00:12:08.539 --> 00:12:10.209
+computer science research papers.
+
+00:12:10.919 --> 00:12:12.649
+So we have a collection of computer
+
+00:12:12.649 --> 00:12:14.359
+science research papers we do estimation
+
+00:12:14.359 --> 00:12:14.689
+again.
+
+00:12:14.689 --> 00:12:16.229
+Again, we can just use the maximum
+
+00:12:16.229 --> 00:12:18.369
+microarrays better, where we simply
+
+00:12:18.369 --> 00:12:19.759
+normalize the frequencies.
+
+00:12:20.559 --> 00:12:21.919
+Now, in this case we will get the
+
+00:12:21.919 --> 00:12:23.729
+distribution that looks like this.
+
+00:12:23.729 --> 00:12:24.809
+On the top.
+
+00:12:24.809 --> 00:12:27.279
+It looks similar because these words
+
+00:12:27.279 --> 00:12:28.079
+occur everywhere.
+
+00:12:28.079 --> 00:12:30.532
+They are very common, but as we go down
+
+00:12:30.532 --> 00:12:33.579
+we will see words that are more related
+
+00:12:33.579 --> 00:12:36.039
+to computer science, computer software,
+
+00:12:36.039 --> 00:12:37.079
+text, etc.
+
+00:12:37.859 --> 00:12:40.959
+And so, although here we might also see
+
+00:12:40.959 --> 00:12:42.979
+these words, for example computer.
+
+00:12:42.979 --> 00:12:45.239
+But we can imagine the probability here
+
+00:12:45.239 --> 00:12:46.943
+is much smaller than the probability
+
+00:12:46.943 --> 00:12:49.594
+here, and we will see many other words
+
+00:12:49.594 --> 00:12:52.329
+here that would be more common in
+
+00:12:52.329 --> 00:12:53.519
+General English.
+
+00:12:55.029 --> 00:12:56.999
+So you can see this distribution
+
+00:12:56.999 --> 00:12:59.249
+characterizes the topic of the
+
+00:12:59.249 --> 00:13:00.539
+corresponding tents.
+
+00:13:00.539 --> 00:13:02.489
+We can look at the even the smaller
+
+00:13:02.489 --> 00:13:02.999
+text.
+
+00:13:03.719 --> 00:13:05.359
+So in this case, let's look at the text
+
+00:13:05.359 --> 00:13:06.129
+mining paper.
+
+00:13:06.759 --> 00:13:09.049
+Now if we do the same, we have another
+
+00:13:09.049 --> 00:13:10.289
+distribution again.
+
+00:13:10.289 --> 00:13:12.499
+There can be expected to occur on the
+
+00:13:12.499 --> 00:13:15.139
+top, but soon we will see text mining
+
+00:13:15.139 --> 00:13:16.119
+Association clustering.
+
+00:13:16.119 --> 00:13:17.999
+These words have.
+
+00:13:18.819 --> 00:13:20.559
+Relatively higher probabilities, in
+
+00:13:20.559 --> 00:13:23.309
+contrast in this distribution, will
+
+00:13:23.309 --> 00:13:26.739
+text has relatively small probability.
+
+00:13:27.379 --> 00:13:31.459
+So this means again based on different
+
+00:13:31.459 --> 00:13:33.129
+attacks today or we can have a
+
+00:13:33.129 --> 00:13:35.959
+different model and model captures the
+
+00:13:35.959 --> 00:13:36.489
+topic.
+
+00:13:37.939 --> 00:13:39.629
+So we call this document language
+
+00:13:39.629 --> 00:13:41.909
+model and we call this collection
+
+00:13:41.909 --> 00:13:42.739
+language model.
+
+00:13:43.349 --> 00:13:44.819
+And later you will see how they are
+
+00:13:44.819 --> 00:13:46.659
+used in retrieval function.
+
+00:13:47.219 --> 00:13:49.169
+But now let's look at the another use
+
+00:13:49.169 --> 00:13:50.559
+of this model.
+
+00:13:50.559 --> 00:13:53.609
+Can we statistically find what words
+
+00:13:53.609 --> 00:13:55.369
+are semantically related to computer?
+
+00:13:56.749 --> 00:13:58.749
+Now how do we find the such words?
+
+00:13:58.749 --> 00:14:00.437
+Well, our first thought is that let's
+
+00:14:00.437 --> 00:14:02.499
+take a look at the text that match
+
+00:14:02.499 --> 00:14:05.359
+computer so we can take a look at all
+
+00:14:05.359 --> 00:14:07.899
+the documents that contain the word
+
+00:14:07.899 --> 00:14:08.474
+computer.
+
+00:14:08.474 --> 00:14:10.179
+Let's build a language model.
+
+00:14:10.819 --> 00:14:12.599
+We can see what would we see there.
+
+00:14:12.599 --> 00:14:15.779
+Not surprisingly, we see these common
+
+00:14:15.779 --> 00:14:16.739
+words on top.
+
+00:14:17.729 --> 00:14:20.429
+As we always do so in this case, this
+
+00:14:20.429 --> 00:14:22.429
+language model gives us the conditional
+
+00:14:22.429 --> 00:14:24.209
+probability of seeing the world in the
+
+00:14:24.209 --> 00:14:26.939
+context of computer and these common
+
+00:14:26.939 --> 00:14:28.563
+words will naturally have high
+
+00:14:28.563 --> 00:14:28.925
+probabilities.
+
+00:14:28.925 --> 00:14:31.809
+But we also see computer itself and
+
+00:14:31.809 --> 00:14:34.449
+software will have relatively high
+
+00:14:34.449 --> 00:14:35.219
+probabilities.
+
+00:14:35.219 --> 00:14:37.428
+But if we just use this model, we
+
+00:14:37.429 --> 00:14:40.589
+cannot just say all these words are
+
+00:14:40.589 --> 00:14:42.209
+semantically related to computer.
+
+00:14:43.109 --> 00:14:45.769
+So intuitively we would like to get rid of
+
+00:14:45.769 --> 00:14:46.349
+these.
+
+00:14:46.919 --> 00:14:47.369
+Help.
+
+00:14:48.359 --> 00:14:50.529
+These common words.
+
+00:14:50.529 --> 00:14:51.629
+How can we do that?
+
+00:14:52.649 --> 00:14:54.529
+It turns out that it's possible to use,
+
+00:14:54.529 --> 00:14:55.769
+langage model to do that.
+
+00:14:57.529 --> 00:14:59.189
+I suggested you don't think about that.
+
+00:14:59.919 --> 00:15:03.169
+So how can we know what words are very
+
+00:15:03.169 --> 00:15:05.669
+common so that we want to kind of get
+
+00:15:05.669 --> 00:15:06.289
+rid of them?
+
+00:15:07.629 --> 00:15:09.509
+What model would tell us that?
+
+00:15:10.109 --> 00:15:10.749
+
+
+00:15:12.709 --> 00:15:14.199
+Maybe you can think about that.
+
+00:15:14.199 --> 00:15:15.779
+So the background language model
+
+00:15:15.779 --> 00:15:17.059
+precisely tells us this.
+
+00:15:17.059 --> 00:15:19.439
+Information tells us what words are
+
+00:15:19.439 --> 00:15:20.519
+common in general.
+
+00:15:21.150 --> 00:15:24.520
+So if we use this background model, we
+
+00:15:24.520 --> 00:15:27.258
+would know that these words are common
+
+00:15:27.258 --> 00:15:28.920
+words in general, so it's not
+
+00:15:28.920 --> 00:15:30.530
+surprising to observe them in the
+
+00:15:30.530 --> 00:15:31.800
+context of computer.
+
+00:15:31.800 --> 00:15:34.430
+Where is the computer has a very small
+
+00:15:34.430 --> 00:15:36.896
+probability in general, so it's very
+
+00:15:36.896 --> 00:15:39.630
+surprising that we have seen computer
+
+00:15:39.630 --> 00:15:41.850
+with this probability, and the same is
+
+00:15:41.850 --> 00:15:43.010
+true for software.
+
+00:15:44.130 --> 00:15:47.370
+So then we can use these two models to
+
+00:15:47.370 --> 00:15:50.570
+somehow figure out the words that are
+
+00:15:50.570 --> 00:15:52.490
+related to the computer.
+
+00:15:52.490 --> 00:15:54.856
+For example, we can simply take the
+
+00:15:54.856 --> 00:15:57.190
+ratio of these two probabilities or
+
+00:15:57.190 --> 00:15:59.305
+normalize the topic language model by
+
+00:15:59.305 --> 00:16:01.170
+the probability of the world in the
+
+00:16:01.170 --> 00:16:02.543
+background language model.
+
+00:16:02.543 --> 00:16:04.450
+So if we do that, we take the ratio,
+
+00:16:04.450 --> 00:16:07.250
+will see that, then on the top computer
+
+00:16:07.250 --> 00:16:09.840
+is ranked and then followed by software
+
+00:16:09.840 --> 00:16:10.520
+program.
+
+00:16:10.520 --> 00:16:13.638
+All these words are related to
+
+00:16:13.638 --> 00:16:14.209
+computer.
+
+00:16:14.260 --> 00:16:16.500
+Because they occur frequently in the
+
+00:16:16.500 --> 00:16:18.615
+context of computer, but not frequently
+
+00:16:18.615 --> 00:16:20.190
+in the whole collection.
+
+00:16:20.190 --> 00:16:22.965
+Whereas these common words will not
+
+00:16:22.965 --> 00:16:24.090
+have a high probability.
+
+00:16:24.090 --> 00:16:27.180
+In fact they have ratio about one down
+
+00:16:27.180 --> 00:16:29.440
+there because they are not really
+
+00:16:29.440 --> 00:16:30.710
+related to computer.
+
+00:16:30.710 --> 00:16:32.580
+By taking the sample of text that
+
+00:16:32.580 --> 00:16:35.980
+contains the computer, we don't really
+
+00:16:35.980 --> 00:16:38.800
+see more occurrences of them than in
+
+00:16:38.800 --> 00:16:39.400
+general.
+
+00:16:40.150 --> 00:16:42.030
+So this shows that the even with these
+
+00:16:42.030 --> 00:16:44.280
+simple language models we can do some
+
+00:16:44.280 --> 00:16:46.530
+limited analysis of semantics.
+
+00:16:48.280 --> 00:16:51.100
+So in this lecture we talked about.
+
+00:16:51.780 --> 00:16:53.830
+Language model, which is basically
+
+00:16:53.830 --> 00:16:56.200
+probability distribution over text.
+
+00:16:56.200 --> 00:16:58.315
+We talked about the simplest language
+
+00:16:58.315 --> 00:17:00.210
+model called unigram them model which
+
+00:17:00.210 --> 00:17:02.010
+is also just a word distribution.
+
+00:17:02.650 --> 00:17:04.350
+We talked about the two uses of a
+
+00:17:04.350 --> 00:17:06.930
+language model one is represented topic
+
+00:17:06.930 --> 00:17:09.190
+in a document in the collection or in
+
+00:17:09.190 --> 00:17:11.840
+general the other is rediscovered water
+
+00:17:11.840 --> 00:17:12.720
+associations.
+
+00:17:15.940 --> 00:17:17.400
+In the next lecture, we're going to
+
+00:17:17.400 --> 00:17:19.420
+talk about how, then which model can be
+
+00:17:19.420 --> 00:17:21.600
+used to design retrieval function.
+
+00:17:22.550 --> 00:17:24.390
+Here are two additional readings.
+
+00:17:24.390 --> 00:17:26.970
+The first is textbook on statistical
+
+00:17:26.970 --> 00:17:28.390
+natural language processing.
+
+00:17:30.040 --> 00:17:33.180
+The second is article that has a survey
+
+00:17:33.180 --> 00:17:35.770
+of statistical language models with a
+
+00:17:35.770 --> 00:17:38.750
+lot of pointers to research work.
+
+

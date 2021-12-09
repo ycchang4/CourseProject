@@ -1,0 +1,795 @@
+WEBVTT Kind: captions; Language: en-US
+
+NOTE
+Created on 2021-02-27T00:07:07.9483298Z by ClassTranscribe
+
+00:00:00.280 --> 00:00:03.380
+This lecture is about the how to evaluate
+
+00:00:03.380 --> 00:00:05.650
+the text retrieval system when we have
+
+00:00:05.650 --> 00:00:07.460
+multiple levels of judgments.
+
+00:00:15.440 --> 00:00:17.800
+In this lecture we will continue the
+
+00:00:17.800 --> 00:00:19.200
+discussion of evaluation.
+
+00:00:19.900 --> 00:00:21.140
+We're going to look at the how to
+
+00:00:21.140 --> 00:00:23.580
+evaluate the text retrieval system when
+
+00:00:23.580 --> 00:00:26.250
+we have multiple level of judgments.
+
+00:00:27.380 --> 00:00:30.480
+So, so far we have talked the about binary
+
+00:00:30.480 --> 00:00:31.130
+judgments.
+
+00:00:31.130 --> 00:00:32.820
+That means a document is judged as
+
+00:00:32.820 --> 00:00:34.460
+being relevant or non relevant.
+
+00:00:35.190 --> 00:00:37.170
+But earlier we also talk about the
+
+00:00:37.170 --> 00:00:40.930
+relevance as a matter of degree, so we
+
+00:00:40.930 --> 00:00:42.600
+often can distinguishing
+
+00:00:43.210 --> 00:00:45.540
+very high relative documents.
+
+00:00:45.540 --> 00:00:47.890
+Those are very useful documents from
+
+00:00:47.890 --> 00:00:50.170
+your moderately relevant documents.
+
+00:00:50.170 --> 00:00:50.420
+They are ok,
+
+00:00:50.420 --> 00:00:52.240
+ they are useful perhaps.
+
+00:00:52.850 --> 00:00:54.480
+And further from non relevant
+
+00:00:54.480 --> 00:00:56.300
+documents, those are not useful.
+
+00:00:56.970 --> 00:00:59.572
+So imagine you can have ratings for
+
+00:00:59.572 --> 00:01:00.730
+these pages.
+
+00:01:00.730 --> 00:01:04.252
+Then you would have multiple levels of
+
+00:01:04.252 --> 00:01:04.678
+ratings.
+
+00:01:04.678 --> 00:01:07.453
+For example here I show example of
+
+00:01:07.453 --> 00:01:10.595
+three levels, 3 for relevant
+
+00:01:10.595 --> 00:01:13.180
+sorry 3 for very relevant, two for marginally
+
+00:01:13.180 --> 00:01:15.360
+relevant and one for non relevant.
+
+00:01:15.360 --> 00:01:16.900
+Now how do we evaluate search engine
+
+00:01:16.900 --> 00:01:18.580
+system using these judgments?
+
+00:01:18.580 --> 00:01:20.910
+Obviously the map doesn't work.
+
+00:01:20.910 --> 00:01:22.460
+Average precision doesn't work.
+
+00:01:22.460 --> 00:01:24.469
+Precision and recall doesn't work
+
+00:01:24.470 --> 00:01:26.980
+because they rely on binary judgments.
+
+00:01:28.100 --> 00:01:31.015
+So let's look at some top ranked
+
+00:01:31.015 --> 00:01:33.300
+results when using these judgments,
+
+00:01:33.300 --> 00:01:33.510
+right?
+
+00:01:33.510 --> 00:01:36.420
+Imagine the user would be mostly care
+
+00:01:36.420 --> 00:01:38.300
+about the top 10 results here.
+
+00:01:39.420 --> 00:01:39.820
+Right?
+
+00:01:42.500 --> 00:01:44.520
+And we marked the
+
+00:01:46.630 --> 00:01:49.280
+reading levels or relevance levels for
+
+00:01:49.280 --> 00:01:54.150
+these documents as shown here, 32113,
+
+00:01:54.150 --> 00:01:54.890
+etc.
+
+00:01:54.890 --> 00:01:56.400
+And we call these "Gain".
+
+00:01:57.250 --> 00:01:59.440
+And the reason why we call it "Gain"
+
+00:02:00.140 --> 00:02:03.430
+is because the measure that we're
+
+00:02:03.430 --> 00:02:07.270
+introducing is called nDCG(Normalized
+
+00:02:07.270 --> 00:02:08.860
+Discounted Cumulative Gain).
+
+00:02:09.990 --> 00:02:12.990
+So this gain basically can measure how
+
+00:02:12.990 --> 00:02:15.730
+much gain of relevant information the
+
+00:02:15.730 --> 00:02:18.380
+user can obtain by looking at each
+
+00:02:18.380 --> 00:02:18.840
+document.
+
+00:02:19.520 --> 00:02:20.850
+Alright, so looking at the first
+
+00:02:20.850 --> 00:02:22.890
+document that the user can gain three
+
+00:02:22.890 --> 00:02:23.382
+points.
+
+00:02:23.382 --> 00:02:26.156
+Looking at the non random document,
+
+00:02:26.156 --> 00:02:28.200
+the user would only gain one point.
+
+00:02:28.840 --> 00:02:31.180
+By looking at the moderately relevant
+
+00:02:31.180 --> 00:02:32.650
+or marginal relevant documents, the
+
+00:02:32.650 --> 00:02:33.900
+user would get two points.
+
+00:02:34.600 --> 00:02:38.440
+Etc. So this gain intuitively matches
+
+00:02:38.440 --> 00:02:40.939
+the utility of a document from a user's
+
+00:02:40.940 --> 00:02:41.760
+perspective.
+
+00:02:41.760 --> 00:02:43.870
+Of course, if we assume the user stops
+
+00:02:43.870 --> 00:02:46.406
+at the 10 documents and we're looking
+
+00:02:46.406 --> 00:02:48.546
+at the cut off at 10, we can look at
+
+00:02:48.546 --> 00:02:50.230
+the total game of the user.
+
+00:02:50.950 --> 00:02:51.910
+And what's that?
+
+00:02:51.910 --> 00:02:53.700
+Well, that's simply the sum of these
+
+00:02:53.700 --> 00:02:55.699
+and we call it a cumulative gain.
+
+00:02:55.700 --> 00:02:57.680
+So if the user stops at the position one
+
+00:02:57.680 --> 00:03:00.394
+where there's just three, if the user
+
+00:03:00.394 --> 00:03:02.962
+looks at the another document, that's  3 +
+
+00:03:02.962 --> 00:03:03.227
+2.
+
+00:03:03.227 --> 00:03:05.530
+If the user looks at the more documents,
+
+00:03:05.530 --> 00:03:07.930
+then the cumulative gain is more.
+
+00:03:07.930 --> 00:03:10.070
+Of course, this is at the cost of
+
+00:03:10.070 --> 00:03:12.510
+spending more time to examine the list.
+
+00:03:13.110 --> 00:03:15.520
+So cumulative gain gives us some idea
+
+00:03:15.520 --> 00:03:17.273
+about the how much total gain
+
+00:03:17.273 --> 00:03:19.450
+the user would have if the user
+
+00:03:19.450 --> 00:03:21.270
+examines all these documents.
+
+00:03:21.270 --> 00:03:24.890
+Now in nDCG we also have another letter
+
+00:03:24.890 --> 00:03:26.460
+here, D discounted.
+
+00:03:27.020 --> 00:03:28.110
+Cumulative gain.
+
+00:03:28.640 --> 00:03:31.740
+So why do we want to do discounting?
+
+00:03:31.740 --> 00:03:33.480
+Well, if you look at this cumulative
+
+00:03:33.480 --> 00:03:36.410
+gain, there is one deficiency, which is
+
+00:03:36.410 --> 00:03:38.370
+it did not consider the rank position
+
+00:03:38.370 --> 00:03:40.920
+of these documents.
+
+00:03:41.900 --> 00:03:45.760
+So, for example, looking at the this sum
+
+00:03:45.760 --> 00:03:46.430
+here.
+
+00:03:47.990 --> 00:03:50.560
+And we only know there is one highly
+
+00:03:50.560 --> 00:03:52.510
+relevant document one marginally
+
+00:03:52.510 --> 00:03:54.230
+relevant document, two non relevant
+
+00:03:54.230 --> 00:03:54.760
+documents.
+
+00:03:54.760 --> 00:03:57.060
+We don't really care where they are
+
+00:03:57.060 --> 00:03:57.420
+ranked.
+
+00:03:57.420 --> 00:04:00.010
+Ideally we want these two to be ranked
+
+00:04:00.010 --> 00:04:02.360
+on the top and which is the case here.
+
+00:04:02.970 --> 00:04:05.923
+But how can we capture that intuition?
+
+00:04:05.923 --> 00:04:08.789
+Well, we have to say this is 3 here.
+
+00:04:08.790 --> 00:04:12.210
+is not as good as this three on
+
+00:04:12.210 --> 00:04:12.800
+the top.
+
+00:04:13.460 --> 00:04:16.800
+And that means the contribution of the
+
+00:04:16.800 --> 00:04:20.490
+gain from different positions has to be
+
+00:04:20.490 --> 00:04:23.170
+weighted by their position, and this is
+
+00:04:23.170 --> 00:04:25.040
+the idea of discounting, basically.
+
+00:04:25.040 --> 00:04:27.880
+So we're going to say well, the first one
+
+00:04:27.880 --> 00:04:29.737
+doesn't need to be discounted, because
+
+00:04:29.737 --> 00:04:32.520
+the user can be assumed to always see
+
+00:04:32.520 --> 00:04:35.523
+this document, but the second one, this
+
+00:04:35.523 --> 00:04:37.850
+one will be discounted a little bit
+
+00:04:37.850 --> 00:04:39.662
+because there's a small possibility
+
+00:04:39.662 --> 00:04:41.580
+that the user wouldn't notice it.
+
+00:04:42.280 --> 00:04:46.990
+So we divide this gain by the weight
+
+00:04:46.990 --> 00:04:49.760
+based on the position, so log of 2. Two
+
+00:04:49.760 --> 00:04:51.730
+is the rank position of this document.
+
+00:04:52.520 --> 00:04:54.910
+And when we go to the third position,
+
+00:04:54.910 --> 00:04:57.680
+we discount even more because the
+
+00:04:57.680 --> 00:05:00.360
+normalizes log of three and so on, so
+
+00:05:00.360 --> 00:05:00.810
+forth.
+
+00:05:00.810 --> 00:05:03.760
+So when we take a such a sum than a
+
+00:05:03.760 --> 00:05:06.520
+lower rank document will not contribute
+
+00:05:06.520 --> 00:05:08.880
+contribute that much as a highly ranked
+
+00:05:08.880 --> 00:05:09.350
+document.
+
+00:05:09.900 --> 00:05:11.970
+So that means if you for example switch
+
+00:05:11.970 --> 00:05:15.030
+the position of this, let's say this
+
+00:05:15.030 --> 00:05:18.320
+position and this one, and then you
+
+00:05:18.320 --> 00:05:20.980
+would get more discount if you put.
+
+00:05:22.290 --> 00:05:24.206
+For example, very relevant document
+
+00:05:24.206 --> 00:05:26.410
+here, as opposed to here.
+
+00:05:26.410 --> 00:05:29.290
+Imagine if you put three here, then
+
+00:05:29.290 --> 00:05:31.200
+it would have to be discounted, so it's
+
+00:05:31.200 --> 00:05:33.056
+not as good as if we would put the
+
+00:05:33.056 --> 00:05:33.540
+three here.
+
+00:05:34.530 --> 00:05:36.770
+So this is the idea of discounting.
+
+00:05:37.790 --> 00:05:40.270
+OK, so now at this point that we have
+
+00:05:40.270 --> 00:05:43.150
+got that discounted cumulative gain for
+
+00:05:43.150 --> 00:05:46.340
+measuring the utility of this ranked
+
+00:05:46.340 --> 00:05:50.070
+list with multiple levels of judgments.
+
+00:05:51.400 --> 00:05:53.223
+So are we happy with this?
+
+00:05:53.223 --> 00:05:56.260
+Well, We can use this rank systems.
+
+00:05:56.260 --> 00:05:58.460
+Now, We still need to do a little bit more
+
+00:05:58.460 --> 00:06:00.550
+in order to make this measure
+
+00:06:00.550 --> 00:06:02.900
+comfortable across different topics.
+
+00:06:02.900 --> 00:06:04.980
+And this is the last step.
+
+00:06:05.580 --> 00:06:06.080
+And,
+
+00:06:07.390 --> 00:06:09.586
+By the way, here we just showed the DCG
+
+00:06:09.586 --> 00:06:10.996
+at the ten right?
+
+00:06:10.996 --> 00:06:14.460
+So this is the total sum of DCG.
+
+00:06:14.460 --> 00:06:16.340
+Overall these 10 documents.
+
+00:06:16.340 --> 00:06:19.380
+So the last step is called the N
+
+00:06:19.380 --> 00:06:22.950
+normalization and if we do that then we
+
+00:06:22.950 --> 00:06:24.610
+will get a normalized DCG.
+
+00:06:24.610 --> 00:06:26.546
+So how do we do that?
+
+00:06:26.546 --> 00:06:28.630
+Well the idea here is we're going to
+
+00:06:28.630 --> 00:06:33.610
+normalize DCG by the ideal DCG at the
+
+00:06:33.610 --> 00:06:34.610
+same cut off.
+
+00:06:34.610 --> 00:06:36.782
+What is the ideal DCG?
+
+00:06:36.782 --> 00:06:38.519
+This is the DCG
+
+00:06:38.570 --> 00:06:40.740
+of ideal ranking.
+
+00:06:40.740 --> 00:06:44.910
+So imagine if we have 9 documents in
+
+00:06:44.910 --> 00:06:45.970
+the whole collection.
+
+00:06:45.970 --> 00:06:48.100
+Rated 3 here.
+
+00:06:49.180 --> 00:06:51.956
+And that means in total we have 9
+
+00:06:51.956 --> 00:06:53.695
+documents rated 3.
+
+00:06:53.695 --> 00:06:56.875
+Then our ideal rank, the Lister would
+
+00:06:56.875 --> 00:06:59.030
+have put all these nine documents on
+
+00:06:59.030 --> 00:07:00.280
+the very top.
+
+00:07:00.280 --> 00:07:03.607
+So all these would have to be 3 and
+
+00:07:03.607 --> 00:07:05.500
+then this will be followed by a two
+
+00:07:05.500 --> 00:07:07.130
+here because that's the best we could
+
+00:07:07.130 --> 00:07:09.970
+do after we have run out of threes.
+
+00:07:09.970 --> 00:07:11.700
+But all these positions would be
+
+00:07:11.700 --> 00:07:12.250
+threes.
+
+00:07:13.020 --> 00:07:13.520
+Right?
+
+00:07:14.070 --> 00:07:16.170
+So this will be an ideal ranked list.
+
+00:07:17.960 --> 00:07:20.310
+And then we can compute the DCG for
+
+00:07:20.310 --> 00:07:21.830
+this ideal ranked list.
+
+00:07:23.140 --> 00:07:25.670
+So this would be given by this formula
+
+00:07:25.670 --> 00:07:28.870
+that you see here, and so this ideal DCG
+
+00:07:28.870 --> 00:07:31.350
+would then be used as the
+
+00:07:31.350 --> 00:07:34.480
+normalizer DCG..., here.
+
+00:07:35.400 --> 00:07:38.590
+And this ideal DCG will be used as
+
+00:07:38.590 --> 00:07:39.240
+a normalizer.
+
+00:07:39.890 --> 00:07:42.480
+So you can imagine now normalization
+
+00:07:42.480 --> 00:07:44.240
+essentially is to compare the actual
+
+00:07:44.240 --> 00:07:47.630
+DCG with the best DCG you can possibly
+
+00:07:47.630 --> 00:07:48.790
+get for this topic.
+
+00:07:49.490 --> 00:07:51.070
+Now, why do we want to do this?
+
+00:07:51.070 --> 00:07:53.280
+Well, by doing this will map the DCG
+
+00:07:53.280 --> 00:07:56.725
+values into a range of zero through
+
+00:07:56.725 --> 00:07:59.000
+one, so the best value or the highest
+
+00:07:59.000 --> 00:08:01.950
+value for every query would be one.
+
+00:08:01.950 --> 00:08:05.650
+That's when your ranked list is in fact the
+
+00:08:05.650 --> 00:08:06.410
+ideal list.
+
+00:08:07.230 --> 00:08:11.640
+But otherwise, in general you will be
+
+00:08:11.640 --> 00:08:12.640
+lower than one.
+
+00:08:13.280 --> 00:08:14.740
+Now, what if we don't do that?
+
+00:08:14.740 --> 00:08:17.350
+Well, you can see this transformation
+
+00:08:17.350 --> 00:08:19.560
+or this normalization doesn't really
+
+00:08:19.560 --> 00:08:21.910
+affect the relative comparison of
+
+00:08:21.910 --> 00:08:24.675
+systems for just one topic, because
+
+00:08:24.675 --> 00:08:28.080
+this ideal DCG is the same for all the
+
+00:08:28.080 --> 00:08:30.260
+systems, so the ranking of systems
+
+00:08:30.260 --> 00:08:32.875
+based on only DCG would be exactly the
+
+00:08:32.875 --> 00:08:35.460
+same as if you rank them based on the
+
+00:08:35.460 --> 00:08:36.720
+normalized DCG.
+
+00:08:36.720 --> 00:08:39.310
+The difference however is when we have
+
+00:08:39.310 --> 00:08:40.300
+multiple topics.
+
+00:08:40.940 --> 00:08:43.120
+because if we don't do normalization,
+
+00:08:43.120 --> 00:08:44.700
+different topics will have different
+
+00:08:44.700 --> 00:08:46.265
+scales of DCG.
+
+00:08:46.265 --> 00:08:50.550
+For a topic like this one we have 9
+
+00:08:50.550 --> 00:08:52.265
+highly relevant documents.
+
+00:08:52.265 --> 00:08:55.410
+The DCG can get really high, but
+
+00:08:55.410 --> 00:08:56.820
+imagine in another case,
+
+00:08:56.820 --> 00:08:59.440
+There are only two very relevant
+
+00:08:59.440 --> 00:09:01.570
+documents in total, in the whole
+
+00:09:01.570 --> 00:09:02.600
+collection.
+
+00:09:02.600 --> 00:09:05.590
+Then the highest DCG that any system
+
+00:09:05.590 --> 00:09:07.410
+could achieve for such a topic will
+
+00:09:07.410 --> 00:09:08.449
+not be very high.
+
+00:09:09.100 --> 00:09:11.600
+So again, we face the problem of
+
+00:09:11.600 --> 00:09:16.000
+different scales of DCG values, and we
+
+00:09:16.000 --> 00:09:16.643
+take an average.
+
+00:09:16.643 --> 00:09:18.490
+We don't want the average to be
+
+00:09:18.490 --> 00:09:20.765
+dominated by those high values.
+
+00:09:20.765 --> 00:09:23.639
+Those are again easy queries, so by
+
+00:09:23.640 --> 00:09:25.462
+doing the normalization we can avoid
+
+00:09:25.462 --> 00:09:28.176
+the avoid the problem making all the
+
+00:09:28.176 --> 00:09:30.816
+queries contribute equally to the
+
+00:09:30.816 --> 00:09:31.328
+average.
+
+00:09:31.328 --> 00:09:33.880
+So this is the idea of nDCG.
+
+00:09:33.880 --> 00:09:37.450
+It's useful for measuring ranked list
+
+00:09:37.450 --> 00:09:39.230
+based on multiple level
+
+00:09:39.330 --> 00:09:40.510
+relevance judgments.
+
+00:09:41.440 --> 00:09:46.240
+So more in the more general way, this is
+
+00:09:46.240 --> 00:09:49.610
+basically a measure that can be applied
+
+00:09:49.610 --> 00:09:51.280
+to any rank
+
+00:09:51.280 --> 00:09:54.580
+the task with multiple level of
+
+00:09:54.580 --> 00:09:55.260
+judgments.
+
+00:09:55.840 --> 00:09:56.380
+And
+
+00:09:57.400 --> 00:09:59.870
+The scale of the judgments can be
+
+00:09:59.870 --> 00:10:02.030
+multiple.
+
+00:10:03.100 --> 00:10:05.315
+Can be more than binary, not only more
+
+00:10:05.315 --> 00:10:05.840
+than binary.
+
+00:10:05.840 --> 00:10:07.500
+They can be multiple levels like a 1 through
+
+00:10:07.500 --> 00:10:10.090
+5 or even more depending on your
+
+00:10:10.090 --> 00:10:10.690
+application.
+
+00:10:11.380 --> 00:10:14.030
+And the main idea of this measure I
+
+00:10:14.030 --> 00:10:16.720
+just to summarize is to measure the
+
+00:10:16.720 --> 00:10:20.230
+total utility of the top K documents.
+
+00:10:20.230 --> 00:10:22.270
+So you always choose a cut off and then
+
+00:10:22.270 --> 00:10:24.860
+you measure the total utility and it
+
+00:10:24.860 --> 00:10:27.460
+would discount the contribution from a
+
+00:10:27.460 --> 00:10:29.030
+lower ranked document.
+
+00:10:29.030 --> 00:10:31.550
+And finally it will do normalization to
+
+00:10:31.550 --> 00:10:34.520
+ensure comparability across queries.
+
+

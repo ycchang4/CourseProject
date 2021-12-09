@@ -1,0 +1,828 @@
+WEBVTT Kind: captions; Language: en-US
+
+NOTE
+Created on 2021-02-26T23:59:27.5970798Z by ClassTranscribe
+
+00:00:00.300 --> 00:00:03.200
+This lecture is continued discussion of
+
+00:00:03.200 --> 00:00:05.170
+evaluation of textual categorisation.
+
+00:00:12.560 --> 00:00:15.450
+Earlier we have introduced measures
+
+00:00:15.450 --> 00:00:17.520
+that can be used to compute the
+
+00:00:17.520 --> 00:00:21.590
+precision and recall for each category
+
+00:00:22.420 --> 00:00:25.460
+and each document. Now in this lecture
+
+00:00:25.460 --> 00:00:26.290
+we're going to do
+
+00:00:27.500 --> 00:00:30.320
+further  examine how to combine the
+
+00:00:30.320 --> 00:00:31.990
+performance on these different
+
+00:00:31.990 --> 00:00:33.520
+categories or different documents.
+
+00:00:33.520 --> 00:00:34.812
+How do we aggregate them?
+
+00:00:34.812 --> 00:00:37.679
+How do we take average? You see on the
+
+00:00:37.680 --> 00:00:38.420
+title here,
+
+00:00:38.420 --> 00:00:41.070
+I indicated it's called a macro average
+
+00:00:41.070 --> 00:00:44.310
+and this is in contrast to micro
+
+00:00:44.310 --> 00:00:45.910
+average that will talk more about that
+
+00:00:45.910 --> 00:00:46.410
+later.
+
+00:00:46.970 --> 00:00:47.810
+So.
+
+00:00:49.670 --> 00:00:51.626
+Again, for each category, we can
+
+00:00:51.626 --> 00:00:53.741
+compute the precision recall and F1 so
+
+00:00:53.741 --> 00:00:55.445
+for example, for category C one.
+
+00:00:55.445 --> 00:00:56.823
+We have precision 
+
+00:00:56.823 --> 00:01:02.050
+P1 recall R1 and F value F1 and
+
+00:01:02.050 --> 00:01:04.191
+similarly we can do that for Category 2
+
+00:01:04.191 --> 00:01:06.230
+and all the other categories.
+
+00:01:06.230 --> 00:01:09.900
+Once we compute that, then we can
+
+00:01:09.900 --> 00:01:12.201
+aggregate them. So for example, we can
+
+00:01:12.201 --> 00:01:14.187
+aggregate all the precision values for
+
+00:01:14.187 --> 00:01:16.150
+all the categories to compute the
+
+00:01:16.150 --> 00:01:18.480
+overall precision and this is often
+
+00:01:18.480 --> 00:01:19.550
+very useful.
+
+00:01:19.710 --> 00:01:22.410
+To summarize what we have seen in the
+
+00:01:22.410 --> 00:01:25.160
+whole data set and the aggregation can
+
+00:01:25.160 --> 00:01:26.450
+be done in many different ways.
+
+00:01:26.450 --> 00:01:30.130
+Again, as I said, in case when you need to
+
+00:01:30.130 --> 00:01:32.220
+to aggregate different values.
+
+00:01:32.220 --> 00:01:33.750
+It's always good to think about what's
+
+00:01:33.750 --> 00:01:35.969
+the best way of doing the aggregation.
+
+00:01:35.970 --> 00:01:37.680
+For example, you can consider
+
+00:01:37.680 --> 00:01:39.820
+arithmetic mean, which is very commonly
+
+00:01:39.820 --> 00:01:40.810
+used.
+
+00:01:40.810 --> 00:01:43.829
+Or you can use geometric mean which
+
+00:01:43.830 --> 00:01:46.370
+would have different behavior depending
+
+00:01:46.370 --> 00:01:47.720
+on the way you aggregate.
+
+00:01:47.720 --> 00:01:49.060
+You might have got different
+
+00:01:49.060 --> 00:01:49.970
+conclusions.
+
+00:01:50.420 --> 00:01:52.360
+In terms of which method works better,
+
+00:01:52.360 --> 00:01:54.340
+so it's important to consider these
+
+00:01:54.340 --> 00:01:57.726
+differences and choosing the right one
+
+00:01:57.726 --> 00:02:00.260
+or more suitable one for your task.
+
+00:02:00.260 --> 00:02:02.678
+So the difference, for example between
+
+00:02:02.678 --> 00:02:05.130
+arithmetic mean and geometric mean is
+
+00:02:05.130 --> 00:02:07.299
+that the arithmetic mean would be
+
+00:02:07.300 --> 00:02:09.730
+dominated by high values, whereas
+
+00:02:09.730 --> 00:02:11.310
+geometric mean would be more affected
+
+00:02:11.310 --> 00:02:14.190
+by low values, and so whether you want
+
+00:02:14.190 --> 00:02:17.342
+to emphasize low values or high values
+
+00:02:17.342 --> 00:02:20.290
+would be a question related to your
+
+00:02:20.290 --> 00:02:20.860
+application.
+
+00:02:21.420 --> 00:02:23.600
+And similar we can do that for recall
+
+00:02:23.600 --> 00:02:25.990
+and F score, so that's how we can then
+
+00:02:25.990 --> 00:02:28.465
+generate the overall precision, recall
+
+00:02:28.465 --> 00:02:29.620
+and F score.
+
+00:02:30.230 --> 00:02:34.320
+Now we can do the same for aggregation
+
+00:02:34.320 --> 00:02:35.710
+over all the documents, right?
+
+00:02:35.710 --> 00:02:37.920
+So it's exactly the same situation for
+
+00:02:37.920 --> 00:02:39.460
+each document or computer precision.
+
+00:02:39.460 --> 00:02:40.735
+Recall and F.
+
+00:02:40.735 --> 00:02:43.840
+And then after we have completed the
+
+00:02:43.840 --> 00:02:45.730
+computations for all these documents
+
+00:02:45.730 --> 00:02:47.220
+we were going to aggregate them to
+
+00:02:47.220 --> 00:02:49.240
+generate the overall precision, overall
+
+00:02:49.240 --> 00:02:51.400
+recall and overall F score.
+
+00:02:51.400 --> 00:02:54.410
+These are again examining the results
+
+00:02:54.410 --> 00:02:56.610
+from different angles and which one is
+
+00:02:56.610 --> 00:02:58.070
+more useful would depend on your
+
+00:02:58.070 --> 00:02:58.750
+application.
+
+00:03:00.320 --> 00:03:03.280
+In general, it's beneficial to look at
+
+00:03:03.280 --> 00:03:04.800
+the results from all these
+
+00:03:04.800 --> 00:03:07.230
+perspectives, and especially if you
+
+00:03:07.230 --> 00:03:09.570
+compare different methods in different
+
+00:03:09.570 --> 00:03:10.650
+dimensions.
+
+00:03:10.650 --> 00:03:14.333
+It might reveal which method is better,
+
+00:03:14.333 --> 00:03:17.320
+in which measure or in what situations,
+
+00:03:17.320 --> 00:03:19.670
+and this provides insight for
+
+00:03:19.670 --> 00:03:21.795
+understanding the strength of a method
+
+00:03:21.795 --> 00:03:23.910
+or weakness, and this provides further
+
+00:03:23.910 --> 00:03:25.280
+insight for improving them.
+
+00:03:28.130 --> 00:03:31.340
+So as I mentioned, there is also micro
+
+00:03:31.340 --> 00:03:33.360
+averaging in contrast to the macro
+
+00:03:33.360 --> 00:03:35.260
+average that we talked about earlier.
+
+00:03:35.260 --> 00:03:38.500
+In this case, what we do is to pull
+
+00:03:38.500 --> 00:03:40.170
+together all the decisions.
+
+00:03:40.990 --> 00:03:43.900
+An then compute the precision and
+
+00:03:43.900 --> 00:03:44.560
+recall.
+
+00:03:45.330 --> 00:03:47.543
+So we can compute the overall precision
+
+00:03:47.543 --> 00:03:51.280
+and recall by just counting how many
+
+00:03:51.280 --> 00:03:53.846
+cases are in true positive, how many
+
+00:03:53.846 --> 00:03:56.380
+cases in false positive, etc.
+
+00:03:56.380 --> 00:03:59.420
+Basically computing the values to fill
+
+00:03:59.420 --> 00:04:02.325
+in this contingency table and then we
+
+00:04:02.325 --> 00:04:04.190
+can compute precision recall just once.
+
+00:04:04.810 --> 00:04:07.750
+Now, in contrast, in macro averaging
+
+00:04:07.750 --> 00:04:09.370
+we're going to do that for each
+
+00:04:09.370 --> 00:04:13.410
+category 1st and then aggregate over
+
+00:04:13.410 --> 00:04:14.170
+these categories.
+
+00:04:14.170 --> 00:04:16.160
+Or we do that for each document and
+
+00:04:16.160 --> 00:04:18.280
+then aggregate over all the documents.
+
+00:04:18.280 --> 00:04:20.150
+But here we pulled them together.
+
+00:04:20.980 --> 00:04:22.980
+Now this will be very similar to the
+
+00:04:22.980 --> 00:04:24.420
+classification accuracy that we
+
+00:04:24.420 --> 00:04:27.110
+introduced earlier, and one problem
+
+00:04:27.110 --> 00:04:29.140
+here of course, is to treat all the
+
+00:04:29.140 --> 00:04:31.450
+instances, all the decisions equally.
+
+00:04:32.260 --> 00:04:35.300
+And, this may not be desirable.
+
+00:04:36.120 --> 00:04:37.910
+But it may be appropriate for some
+
+00:04:37.910 --> 00:04:39.970
+applications, especially if we
+
+00:04:39.970 --> 00:04:43.320
+associate, for example, the cost for
+
+00:04:43.320 --> 00:04:44.840
+each combination.
+
+00:04:45.420 --> 00:04:47.880
+Then we can actually compute, for
+
+00:04:47.880 --> 00:04:49.550
+example, weighted classification
+
+00:04:49.550 --> 00:04:51.420
+accuracy where you associate the
+
+00:04:51.420 --> 00:04:54.080
+different cost or utility for each
+
+00:04:54.080 --> 00:04:55.300
+specific decision.
+
+00:04:56.110 --> 00:04:58.060
+So there could be variations of these
+
+00:04:58.060 --> 00:04:59.800
+methods that would be more useful, but
+
+00:04:59.800 --> 00:05:03.355
+in general macro average tends to be
+
+00:05:03.355 --> 00:05:07.290
+more informative than micro averaging
+
+00:05:07.290 --> 00:05:12.450
+just because it might reflect the need
+
+00:05:12.450 --> 00:05:15.210
+for understanding performance on each
+
+00:05:15.210 --> 00:05:16.630
+category or performance on each
+
+00:05:16.630 --> 00:05:19.050
+document which are needed in many
+
+00:05:19.050 --> 00:05:19.960
+applications.
+
+00:05:20.540 --> 00:05:24.240
+But the macro averaging and micro
+
+00:05:24.240 --> 00:05:27.530
+averaging, they're both very common and
+
+00:05:27.530 --> 00:05:30.930
+you might see both reported in research
+
+00:05:30.930 --> 00:05:32.690
+papers on text categorisation.
+
+00:05:32.690 --> 00:05:34.850
+Also, sometimes categorisation results
+
+00:05:34.850 --> 00:05:38.260
+might actually be evaluated from
+
+00:05:38.260 --> 00:05:39.390
+ranking perspective.
+
+00:05:40.270 --> 00:05:41.740
+Now this is because.
+
+00:05:41.740 --> 00:05:44.010
+Categorisation results are sometimes or
+
+00:05:44.010 --> 00:05:48.100
+often indeed passed to human for
+
+00:05:48.100 --> 00:05:49.406
+various purposes.
+
+00:05:49.406 --> 00:05:51.510
+For example, it might be passed to
+
+00:05:51.510 --> 00:05:53.196
+humans for further editing.
+
+00:05:53.196 --> 00:05:56.530
+For example, news articles can be
+
+00:05:56.530 --> 00:05:58.110
+tentatively categorized by using the
+
+00:05:58.110 --> 00:06:00.085
+system and then human editors would
+
+00:06:00.085 --> 00:06:01.280
+then correct them.
+
+00:06:01.930 --> 00:06:05.120
+And all the email messages might be
+
+00:06:05.120 --> 00:06:07.550
+routed to the right person for handling
+
+00:06:07.550 --> 00:06:10.470
+in the help desk, and in such a case
+
+00:06:10.470 --> 00:06:12.160
+the categorizations do help
+
+00:06:12.160 --> 00:06:16.570
+prioritizing the task for a particular
+
+00:06:16.570 --> 00:06:18.870
+customer service person.
+
+00:06:18.870 --> 00:06:23.959
+So in this case, the results have to be
+
+00:06:23.960 --> 00:06:24.990
+prioritized.
+
+00:06:26.260 --> 00:06:30.355
+And if the system can give a score to
+
+00:06:30.355 --> 00:06:32.450
+the categorisation decision or
+
+00:06:32.450 --> 00:06:35.130
+confidence, then we can use the
+
+00:06:36.200 --> 00:06:40.370
+scores to rank these decisions and then
+
+00:06:40.370 --> 00:06:42.360
+evaluate the results as a ranked list,
+
+00:06:42.360 --> 00:06:45.260
+just as in search engine evaluation,
+
+00:06:45.260 --> 00:06:47.190
+where you rank the documents in
+
+00:06:47.190 --> 00:06:48.130
+response to the query.
+
+00:06:48.940 --> 00:06:51.470
+So for example, discovery of spam
+
+00:06:51.470 --> 00:06:54.230
+emails can be evaluated,
+
+00:06:55.700 --> 00:06:59.000
+based on ranking emails for the spam
+
+00:06:59.000 --> 00:07:02.420
+category and this is useful if you want
+
+00:07:02.420 --> 00:07:04.710
+people to verify whether this is really
+
+00:07:04.710 --> 00:07:05.770
+spam, right?
+
+00:07:05.770 --> 00:07:07.950
+The person would then take the ranked
+
+00:07:07.950 --> 00:07:10.789
+list to check one by one and then
+
+00:07:12.020 --> 00:07:14.270
+verify whether this is indeed a spam.
+
+00:07:14.270 --> 00:07:17.600
+So to reflect the utility for humans in
+
+00:07:17.600 --> 00:07:20.250
+such a task, it's better to evaluate
+
+00:07:20.250 --> 00:07:22.130
+the ranking accuracy, and this is
+
+00:07:22.130 --> 00:07:24.020
+basically similar to search again.
+
+00:07:24.910 --> 00:07:27.002
+And in such a case, often the problem
+
+00:07:27.002 --> 00:07:29.312
+can be better formulated as a ranking
+
+00:07:29.312 --> 00:07:30.955
+problem instead of categorization
+
+00:07:30.955 --> 00:07:31.452
+problem.
+
+00:07:31.452 --> 00:07:33.376
+So for example, ranking documents in
+
+00:07:33.376 --> 00:07:35.935
+the search engine can also be framed as
+
+00:07:35.935 --> 00:07:37.690
+a binary categorization problem,
+
+00:07:37.690 --> 00:07:39.246
+distinguishing relevant documents that
+
+00:07:39.246 --> 00:07:41.410
+are useful to users from those that are
+
+00:07:41.410 --> 00:07:42.310
+not useful.
+
+00:07:42.310 --> 00:07:44.411
+But typically we frame this as a
+
+00:07:44.411 --> 00:07:46.250
+ranking problem and we evaluated as a
+
+00:07:46.250 --> 00:07:46.990
+ranked list.
+
+00:07:46.990 --> 00:07:49.500
+That's be cause people tend to examine
+
+00:07:49.500 --> 00:07:52.639
+the results sequentially, so ranking
+
+00:07:52.640 --> 00:07:55.060
+evaluation more reflects the utility
+
+00:07:55.060 --> 00:07:56.760
+from users perspective.
+
+00:07:58.060 --> 00:08:01.010
+So, to summarize, categorization
+
+00:08:01.010 --> 00:08:03.560
+evaluation, first evaluation is always
+
+00:08:03.560 --> 00:08:05.440
+very important for all these tasks, so
+
+00:08:05.440 --> 00:08:06.210
+get it right.
+
+00:08:06.880 --> 00:08:08.905
+If you don't get it right, you might
+
+00:08:08.905 --> 00:08:10.890
+get misleading results an you might be
+
+00:08:10.890 --> 00:08:12.830
+misled to believe one method is better
+
+00:08:12.830 --> 00:08:15.220
+than the other, which is in fact not
+
+00:08:15.220 --> 00:08:15.730
+true.
+
+00:08:15.730 --> 00:08:17.610
+So it's very important to get it right.
+
+00:08:18.500 --> 00:08:20.890
+Measures must also reflect the intended
+
+00:08:20.890 --> 00:08:22.490
+use of the results for particular
+
+00:08:22.490 --> 00:08:23.245
+application.
+
+00:08:23.245 --> 00:08:25.860
+For example, in spam filtering and news
+
+00:08:25.860 --> 00:08:28.490
+categorization results are used in maybe
+
+00:08:28.490 --> 00:08:29.500
+ different ways.
+
+00:08:30.560 --> 00:08:33.130
+So then we would need to consider the
+
+00:08:33.130 --> 00:08:34.780
+difference and design measures
+
+00:08:34.780 --> 00:08:35.650
+appropriately.
+
+00:08:36.510 --> 00:08:38.970
+We generally need to consider how will
+
+00:08:38.970 --> 00:08:41.106
+the results be further processed by a
+
+00:08:41.106 --> 00:08:42.769
+user and then think from a user's
+
+00:08:42.770 --> 00:08:46.090
+perspective what quality is important.
+
+00:08:46.090 --> 00:08:47.939
+What aspect of quality is important.
+
+00:08:48.930 --> 00:08:50.650
+Sometimes there are tradeoffs between
+
+00:08:50.650 --> 00:08:52.155
+multiple aspects, like precision and
+
+00:08:52.155 --> 00:08:53.880
+recall, and then, so we need to know
+
+00:08:53.880 --> 00:08:56.570
+for this application is high recall
+
+00:08:56.570 --> 00:08:58.208
+more important or high precision is
+
+00:08:58.208 --> 00:08:58.720
+more important.
+
+00:08:59.770 --> 00:09:01.700
+Ideally we associate the different cost
+
+00:09:01.700 --> 00:09:03.660
+with each different decision error and
+
+00:09:03.660 --> 00:09:05.560
+this of course has to be designed in
+
+00:09:05.560 --> 00:09:06.930
+application specific away.
+
+00:09:07.950 --> 00:09:09.950
+Some commonly used measures for
+
+00:09:09.950 --> 00:09:11.430
+relative comparison of different
+
+00:09:11.430 --> 00:09:13.500
+methods or the following classification
+
+00:09:13.500 --> 00:09:16.070
+accuracy is very commonly used for
+
+00:09:16.070 --> 00:09:17.440
+especially balanced
+
+00:09:18.740 --> 00:09:19.450
+tester set.
+
+00:09:20.000 --> 00:09:21.840
+Precision, recall, and F scores are
+
+00:09:21.840 --> 00:09:23.620
+commonly reported to characterize the
+
+00:09:23.620 --> 00:09:26.820
+performances in different angles, and
+
+00:09:26.820 --> 00:09:28.520
+there are some also variations like per
+
+00:09:28.520 --> 00:09:30.280
+document based evaluation, per
+
+00:09:30.280 --> 00:09:32.680
+category evaluation and then take
+
+00:09:32.680 --> 00:09:34.620
+average of all of them in different
+
+00:09:34.620 --> 00:09:35.160
+ways.
+
+00:09:35.160 --> 00:09:37.220
+Micro versus macro averaging.
+
+00:09:37.220 --> 00:09:40.550
+In general, you want to look at the
+
+00:09:40.550 --> 00:09:42.483
+results from multiple perspectives and
+
+00:09:42.483 --> 00:09:44.297
+for particular application in some
+
+00:09:44.297 --> 00:09:45.580
+perspectives would be more important
+
+00:09:45.580 --> 00:09:47.630
+than others, but for diagnosis,
+
+00:09:47.630 --> 00:09:50.030
+analysis of categorization methods and
+
+00:09:50.030 --> 00:09:51.680
+it's generally useful to look at
+
+00:09:51.680 --> 00:09:52.280
+as
+
+00:09:52.330 --> 00:09:55.600
+many perspectives as possible to see
+
+00:09:55.600 --> 00:09:57.580
+subtle differences between methods or
+
+00:09:57.580 --> 00:09:59.950
+to see where a method might be weak,
+
+00:09:59.950 --> 00:10:02.240
+from which you can obtain insights for
+
+00:10:02.240 --> 00:10:03.250
+improving a method.
+
+00:10:04.580 --> 00:10:06.550
+Finally, sometimes ranking may be more
+
+00:10:06.550 --> 00:10:07.890
+appropriate, so be careful.
+
+00:10:07.890 --> 00:10:09.700
+Sometimes categorisation, task and
+
+00:10:09.700 --> 00:10:11.770
+maybe better frame as a ranking task
+
+00:10:11.770 --> 00:10:13.680
+and there are machine learning methods
+
+00:10:13.680 --> 00:10:16.200
+for optimizing ranking measures as
+
+00:10:16.200 --> 00:10:16.570
+well.
+
+00:10:17.380 --> 00:10:19.900
+So here are two suggested readings are
+
+00:10:19.900 --> 00:10:22.950
+one is some chapters of this book where
+
+00:10:22.950 --> 00:10:24.940
+you can find more discussion about
+
+00:10:24.940 --> 00:10:26.340
+evaluation measures.
+
+00:10:27.010 --> 00:10:29.670
+The second is a paper about the
+
+00:10:29.670 --> 00:10:31.683
+comparison of different approaches to
+
+00:10:31.683 --> 00:10:34.410
+text categorization and it also has
+
+00:10:34.410 --> 00:10:36.220
+excellent discussion of how to evaluate
+
+00:10:36.220 --> 00:10:37.620
+the text categorisation.
+
+

@@ -1,0 +1,1074 @@
+WEBVTT Kind: captions; Language: en-US
+
+NOTE
+Created on 2021-02-26T23:58:17.0968106Z by ClassTranscribe
+
+00:00:00.300 --> 00:00:02.390
+This lecture is about the probabilistic
+
+00:00:02.390 --> 00:00:04.800
+topic models for topic mining and
+
+00:00:04.800 --> 00:00:05.630
+analysis.
+
+00:00:12.710 --> 00:00:14.440
+In this lecture we're going to continue
+
+00:00:14.440 --> 00:00:16.850
+talking about the top mining and analysis.
+
+00:00:18.070 --> 00:00:19.730
+We're going to introduce probabilistic
+
+00:00:19.730 --> 00:00:20.580
+topic models.
+
+00:00:22.310 --> 00:00:24.840
+So this is a slide that you have seen
+
+00:00:24.840 --> 00:00:28.070
+earlier where we discussed the problems
+
+00:00:28.070 --> 00:00:30.414
+with using a term as a topic.
+
+00:00:30.414 --> 00:00:33.800
+So to solve these problems intuitively
+
+00:00:33.800 --> 00:00:37.048
+we need to use more words to describe
+
+00:00:37.048 --> 00:00:39.215
+the topic and this would address the
+
+00:00:39.215 --> 00:00:43.000
+problem of lack of expressive power.
+
+00:00:43.000 --> 00:00:46.038
+When we have more words that we can use
+
+00:00:46.038 --> 00:00:47.500
+to describe the topic, we can
+
+00:00:47.500 --> 00:00:50.157
+describe complicated topics, to address
+
+00:00:50.157 --> 00:00:52.320
+the second problem, we need to
+
+00:00:52.320 --> 00:00:54.000
+introduce weights of words.
+
+00:00:54.050 --> 00:00:56.230
+This would allow you to distinguish
+
+00:00:56.230 --> 00:00:59.280
+subtle differences in topics and to
+
+00:00:59.280 --> 00:01:02.566
+introduce semantically related words in
+
+00:01:02.566 --> 00:01:04.380
+the fuzzy manner.
+
+00:01:04.380 --> 00:01:06.720
+Finally, to solve the problem of word
+
+00:01:06.720 --> 00:01:09.370
+ambiguity, we need to split an
+
+00:01:09.370 --> 00:01:11.940
+ambiguous word so that we can
+
+00:01:11.940 --> 00:01:14.810
+disambiguate its topic.
+
+00:01:15.600 --> 00:01:17.760
+It turns out that all these can be
+
+00:01:17.760 --> 00:01:20.020
+done by using a probabilistic topic
+
+00:01:20.020 --> 00:01:22.360
+model, and that's why we're going to
+
+00:01:22.360 --> 00:01:24.220
+spend a lot of lectures to talk about
+
+00:01:24.220 --> 00:01:24.886
+this topic.
+
+00:01:24.886 --> 00:01:28.767
+So the basic idea here is improved
+
+00:01:28.767 --> 00:01:31.320
+representation of topic as a word
+
+00:01:31.320 --> 00:01:32.050
+distribution.
+
+00:01:32.050 --> 00:01:34.990
+So what you see now is the old
+
+00:01:34.990 --> 00:01:36.740
+representation, where we represent each
+
+00:01:36.740 --> 00:01:39.210
+topic with just one word or one term or
+
+00:01:39.210 --> 00:01:39.970
+one phrase.
+
+00:01:40.640 --> 00:01:43.012
+But now we're going to use a word
+
+00:01:43.012 --> 00:01:45.100
+distribution to describe the topic.
+
+00:01:45.100 --> 00:01:47.162
+So here you see that for sports, we're
+
+00:01:47.162 --> 00:01:49.640
+going to use a word distribution over
+
+00:01:49.640 --> 00:01:51.210
+theoretical speaking
+
+00:01:51.210 --> 00:01:53.350
+all the words in our vocabulary.
+
+00:01:54.340 --> 00:01:56.250
+So for example, the high probability
+
+00:01:56.250 --> 00:02:00.970
+words here are sports, game, basketball,
+
+00:02:00.970 --> 00:02:03.640
+football, play, star, etc.
+
+00:02:03.640 --> 00:02:06.110
+These are sports-related terms and of
+
+00:02:06.110 --> 00:02:08.250
+course it would also give a non zero
+
+00:02:08.250 --> 00:02:10.480
+probability to some other words like
+
+00:02:10.480 --> 00:02:13.300
+"travel" which might be related to
+
+00:02:13.300 --> 00:02:13.590
+sports.
+
+00:02:13.590 --> 00:02:16.723
+But in general not so much related to
+
+00:02:16.723 --> 00:02:17.410
+the topic.
+
+00:02:18.760 --> 00:02:20.970
+In general, we can imagine a non zero
+
+00:02:20.970 --> 00:02:23.450
+probability for all the words and some
+
+00:02:23.450 --> 00:02:25.603
+words that are not relevant would have
+
+00:02:25.603 --> 00:02:28.210
+very very small probabilities and these
+
+00:02:28.210 --> 00:02:30.040
+probabilities will sum to one.
+
+00:02:30.990 --> 00:02:33.240
+So that it forms a distribution of all
+
+00:02:33.240 --> 00:02:33.880
+the words.
+
+00:02:36.530 --> 00:02:38.810
+Now intuitively, this distribution
+
+00:02:38.810 --> 00:02:41.480
+represents a topic in that if we sample
+
+00:02:41.480 --> 00:02:44.670
+words from the distribution, we tend to
+
+00:02:44.670 --> 00:02:46.850
+see words that already do sports.
+
+00:02:48.350 --> 00:02:50.770
+You can also see it as a very special
+
+00:02:50.770 --> 00:02:52.880
+case if the probability mass is
+
+00:02:52.880 --> 00:02:55.330
+concentrated entire of just one word.
+
+00:02:55.330 --> 00:02:57.950
+Let's sports, and this basically
+
+00:02:57.950 --> 00:03:00.540
+degenerates to the simple
+
+00:03:00.540 --> 00:03:03.220
+representation of topic with just one
+
+00:03:03.220 --> 00:03:03.510
+word.
+
+00:03:04.570 --> 00:03:08.690
+But as a distribution, this topic
+
+00:03:08.690 --> 00:03:11.430
+representation can in general involve
+
+00:03:11.430 --> 00:03:14.186
+many words to describe the topic and
+
+00:03:14.186 --> 00:03:16.430
+can model subtle differences in
+
+00:03:16.430 --> 00:03:17.879
+semantics of the topic.
+
+00:03:17.880 --> 00:03:19.810
+Similarly, we can model travel and
+
+00:03:19.810 --> 00:03:23.290
+science with their respective
+
+00:03:23.290 --> 00:03:24.250
+distributions.
+
+00:03:24.250 --> 00:03:26.030
+So in the distribution for travel we
+
+00:03:26.030 --> 00:03:29.320
+see top words like "attraction, trip,
+
+00:03:29.320 --> 00:03:30.980
+flight, hotel etc."
+
+00:03:31.590 --> 00:03:34.160
+Whereas in science, we see "scientist,
+
+00:03:34.160 --> 00:03:37.560
+spaceship, telescope or genomics" and new
+
+00:03:37.560 --> 00:03:40.440
+science-related terms, now, that
+
+00:03:40.440 --> 00:03:42.950
+doesn't mean sports-related terms
+
+00:03:42.950 --> 00:03:45.199
+ necessary have zero probabilities
+
+00:03:45.199 --> 00:03:48.030
+for science in general, we can imagine
+
+00:03:48.030 --> 00:03:48.955
+all these words.
+
+00:03:48.955 --> 00:03:52.010
+We have non zero probabilities, it's
+
+00:03:52.010 --> 00:03:53.950
+just that for a particular topic of
+
+00:03:53.950 --> 00:03:55.820
+some words we have very very small
+
+00:03:55.820 --> 00:03:56.660
+probabilities.
+
+00:03:58.090 --> 00:04:00.010
+Now you can also see there are some
+
+00:04:00.010 --> 00:04:02.690
+words that are shared by these topics.
+
+00:04:02.690 --> 00:04:04.830
+Well, when I say shared, that just means
+
+00:04:04.830 --> 00:04:06.950
+even with some probability threshold
+
+00:04:06.950 --> 00:04:09.830
+you can still see one word to occur in
+
+00:04:09.830 --> 00:04:10.675
+multiple topics.
+
+00:04:10.675 --> 00:04:13.212
+In this case I marked them in black so
+
+00:04:13.212 --> 00:04:14.240
+you can see "travel",
+
+00:04:14.240 --> 00:04:16.100
+for example, occured in all the three
+
+00:04:16.100 --> 00:04:17.710
+topics here, but with different
+
+00:04:17.710 --> 00:04:18.570
+probabilities.
+
+00:04:19.290 --> 00:04:21.290
+It has the highest probability for the
+
+00:04:21.290 --> 00:04:23.270
+travel topic 0.05.
+
+00:04:23.820 --> 00:04:26.330
+But with much smaller probabilities for
+
+00:04:26.330 --> 00:04:28.740
+sports and science, which makes sense.
+
+00:04:29.290 --> 00:04:31.120
+And similarly you can see "star" also
+
+00:04:31.120 --> 00:04:33.620
+occurred in sports and science with
+
+00:04:33.620 --> 00:04:35.790
+reasonably high probabilities, because
+
+00:04:35.790 --> 00:04:38.130
+they might be actually related to the
+
+00:04:38.130 --> 00:04:38.736
+two topics.
+
+00:04:38.736 --> 00:04:40.740
+So with this representation it
+
+00:04:40.740 --> 00:04:42.350
+addresses the three problems that
+
+00:04:42.350 --> 00:04:43.320
+mentioned earlier.
+
+00:04:43.320 --> 00:04:45.887
+First, it now uses multiple words that
+
+00:04:45.887 --> 00:04:48.233
+describe topic, so it allows us to
+
+00:04:48.233 --> 00:04:50.620
+describe fairly complicated topics.
+
+00:04:50.620 --> 00:04:53.805
+Second, it assigns weights to terms, so
+
+00:04:53.805 --> 00:04:55.740
+now we can model several differences of
+
+00:04:55.740 --> 00:04:59.230
+semantics and you can bring in related words
+
+00:04:59.230 --> 00:05:02.910
+together to model topic. Third,
+
+00:05:03.180 --> 00:05:05.460
+because we have probabilities for the
+
+00:05:05.460 --> 00:05:07.575
+same word in different topics.
+
+00:05:07.575 --> 00:05:11.595
+We can disambiguate the sense of word
+
+00:05:11.595 --> 00:05:15.720
+in the text to decode its underlying
+
+00:05:15.720 --> 00:05:18.430
+topic, so we address all these three
+
+00:05:18.430 --> 00:05:20.860
+problems with this new way of
+
+00:05:20.860 --> 00:05:22.246
+representing a topic.
+
+00:05:22.246 --> 00:05:24.110
+So now, of course, our problem
+
+00:05:24.110 --> 00:05:26.980
+definition has been refined just
+
+00:05:26.980 --> 00:05:27.570
+slightly.
+
+00:05:27.570 --> 00:05:29.665
+The slide is very similar to what you
+
+00:05:29.665 --> 00:05:31.969
+have seen before, except that we have
+
+00:05:31.970 --> 00:05:33.470
+added refinement for
+
+00:05:33.540 --> 00:05:34.600
+what the topic is.
+
+00:05:34.600 --> 00:05:37.130
+So now each topic is word
+
+00:05:37.130 --> 00:05:37.880
+distribution.
+
+00:05:38.850 --> 00:05:41.220
+And for each word distribution, we know
+
+00:05:41.220 --> 00:05:43.050
+that all the probabilities should
+
+00:05:43.050 --> 00:05:44.770
+sum to one over all the words in the
+
+00:05:44.770 --> 00:05:45.420
+vocabulary.
+
+00:05:45.420 --> 00:05:47.870
+So you see a constraint here and we
+
+00:05:47.870 --> 00:05:50.320
+still have another constraint on the
+
+00:05:50.320 --> 00:05:52.547
+topic coverage, namely pis.
+
+00:05:52.547 --> 00:05:56.770
+So all the pis of ij's must sum to one
+
+00:05:56.770 --> 00:05:58.350
+for the same document.
+
+00:05:59.500 --> 00:06:01.200
+So how do we solve this problem?
+
+00:06:01.200 --> 00:06:03.640
+Well, let's look at this problem as a
+
+00:06:03.640 --> 00:06:05.190
+computation problem now.
+
+00:06:05.190 --> 00:06:07.650
+So we clearly specify the input and
+
+00:06:07.650 --> 00:06:10.490
+output as illustrated here on this
+
+00:06:10.490 --> 00:06:11.020
+side.
+
+00:06:11.020 --> 00:06:13.010
+The input, of course is our text data
+
+00:06:13.010 --> 00:06:15.630
+C is the collection, but we also
+
+00:06:15.630 --> 00:06:17.864
+generally assume we know the number of
+
+00:06:17.864 --> 00:06:21.059
+topics K or we hypothesize a number and
+
+00:06:21.060 --> 00:06:23.220
+then try to mine K topics, even though
+
+00:06:23.220 --> 00:06:26.160
+we don't know the exact topics that
+
+00:06:26.160 --> 00:06:28.510
+exist in the collection and these
+
+00:06:28.510 --> 00:06:29.650
+vocabulary set.
+
+00:06:29.700 --> 00:06:32.930
+As a set of words that determines what
+
+00:06:32.930 --> 00:06:35.140
+units would be treated as
+
+00:06:36.380 --> 00:06:38.110
+the basic units for analysis.
+
+00:06:38.750 --> 00:06:41.010
+In most cases, we use words as the
+
+00:06:41.010 --> 00:06:41.720
+basis.
+
+00:06:43.340 --> 00:06:46.030
+For analysis, and that means each word
+
+00:06:46.030 --> 00:06:46.710
+is a unit.
+
+00:06:46.710 --> 00:06:50.860
+Now the output would consist of as first
+
+00:06:50.860 --> 00:06:53.000
+a set of topics represented by Theta
+
+00:06:53.000 --> 00:06:53.480
+i's
+
+00:06:53.480 --> 00:06:55.460
+Each theta_i is a word distribution.
+
+00:06:56.310 --> 00:06:57.060
+And
+
+00:06:58.590 --> 00:07:01.820
+We also want to know the coverage of topics
+
+00:07:01.820 --> 00:07:03.910
+in each document so that that's the
+
+00:07:03.910 --> 00:07:06.490
+same pi_ij's that we have seen before.
+
+00:07:06.490 --> 00:07:10.640
+So given a set of text data, we would
+
+00:07:10.640 --> 00:07:13.280
+like to compute all these distributions
+
+00:07:13.280 --> 00:07:16.075
+and all these coverages as you have
+
+00:07:16.075 --> 00:07:17.080
+seen on this slide.
+
+00:07:18.000 --> 00:07:19.750
+Now of course, there may be many
+
+00:07:19.750 --> 00:07:21.760
+different ways of solving this problem.
+
+00:07:21.760 --> 00:07:23.220
+Indeed, you can write a heuristic
+
+00:07:23.220 --> 00:07:25.660
+program to solve this problem, but here
+
+00:07:25.660 --> 00:07:28.507
+we're going to introduce a general way of
+
+00:07:28.507 --> 00:07:30.320
+solving this problem called 
+
+00:07:30.320 --> 00:07:33.650
+generative model, and this is in fact
+
+00:07:33.650 --> 00:07:36.570
+very general idea, and it's a
+
+00:07:36.570 --> 00:07:39.180
+principle way of using statistical
+
+00:07:39.180 --> 00:07:41.780
+modeling to solve text mining problems,
+
+00:07:41.780 --> 00:07:45.050
+and here I dim the picture that you
+
+00:07:45.050 --> 00:07:47.640
+have seen before in order to show the
+
+00:07:47.640 --> 00:07:48.840
+generation process.
+
+00:07:49.390 --> 00:07:52.110
+So the idea of this approach is
+
+00:07:52.110 --> 00:07:55.316
+actually to 1st design a model for our
+
+00:07:55.316 --> 00:07:55.803
+data.
+
+00:07:55.803 --> 00:07:58.866
+So we design a probabilistic model to
+
+00:07:58.866 --> 00:08:01.370
+model how the data are generated.
+
+00:08:01.950 --> 00:08:03.560
+Of course this is based on our
+
+00:08:03.560 --> 00:08:03.935
+assumption.
+
+00:08:03.935 --> 00:08:06.645
+The actual data aren't necessary generated
+
+00:08:06.645 --> 00:08:09.790
+this way, so that would give us a
+
+00:08:09.790 --> 00:08:11.661
+probability distribution of the data
+
+00:08:11.661 --> 00:08:14.105
+that you are seeing on this slide given
+
+00:08:14.105 --> 00:08:16.483
+a particular model and parameters that
+
+00:08:16.483 --> 00:08:18.460
+are denoted by Lambda.
+
+00:08:18.460 --> 00:08:21.560
+So this capital lambda actually consists
+
+00:08:21.560 --> 00:08:23.740
+of all the parameters that we're
+
+00:08:23.740 --> 00:08:25.175
+interested in. And these parameters
+
+00:08:25.175 --> 00:08:27.945
+in general, will control the behavior of
+
+00:08:27.945 --> 00:08:29.850
+the probabilistic model, meaning that
+
+00:08:29.850 --> 00:08:31.120
+if you set these parameters for
+
+00:08:31.120 --> 00:08:32.260
+different values,
+
+00:08:32.310 --> 00:08:34.250
+it will give some data points
+
+00:08:34.250 --> 00:08:36.740
+higher probabilities than others.
+
+00:08:36.740 --> 00:08:38.640
+Now in this case, of course, for our
+
+00:08:38.640 --> 00:08:40.840
+tax mining problem, or more precisely
+
+00:08:40.840 --> 00:08:43.060
+topic mining problem, we have the
+
+00:08:43.060 --> 00:08:44.010
+following parameters.
+
+00:08:44.010 --> 00:08:45.445
+First, we have theta_i's
+
+00:08:45.445 --> 00:08:48.900
+Each is a word distribution and then we
+
+00:08:48.900 --> 00:08:51.830
+have a set of pi's for each document.
+
+00:08:51.830 --> 00:08:54.375
+And since we have N documents so we
+
+00:08:54.375 --> 00:08:56.449
+have N sets of pis.
+
+00:08:57.410 --> 00:09:00.000
+And each set of the pi values
+
+00:09:00.000 --> 00:09:00.840
+will sum to one.
+
+00:09:00.840 --> 00:09:05.605
+So this is to say that we first pretend
+
+00:09:05.605 --> 00:09:07.570
+we already have these word
+
+00:09:07.570 --> 00:09:10.770
+distributions and coverage numbers, and
+
+00:09:10.770 --> 00:09:13.260
+then we're going to see how we can
+
+00:09:13.260 --> 00:09:16.345
+generate data by using such
+
+00:09:16.345 --> 00:09:17.090
+distributions.
+
+00:09:17.780 --> 00:09:20.720
+So how do we model the data in this
+
+00:09:20.720 --> 00:09:21.640
+way?
+
+00:09:21.640 --> 00:09:24.020
+And we assume that data are actually
+
+00:09:24.020 --> 00:09:27.930
+samples drawn from such a model that
+
+00:09:27.930 --> 00:09:29.145
+depends on these parameters.
+
+00:09:29.145 --> 00:09:31.330
+Now one interesting question here is to
+
+00:09:31.330 --> 00:09:34.330
+think about how many parameters are
+
+00:09:34.330 --> 00:09:35.320
+there in total.
+
+00:09:35.320 --> 00:09:40.010
+Now obviously we can already see N * K
+
+00:09:40.010 --> 00:09:41.905
+parameters for pi's.
+
+00:09:41.905 --> 00:09:45.935
+We also see K theta_i's, but each theta_i is
+
+00:09:45.935 --> 00:09:48.500
+actually a set of probability values.
+
+00:09:48.630 --> 00:09:50.650
+Right? It's a distribution over words.
+
+00:09:51.480 --> 00:09:55.580
+So I leave this as exercise for you to
+
+00:09:55.580 --> 00:09:58.160
+figure out exactly how many parameters
+
+00:09:58.160 --> 00:09:58.980
+there are here.
+
+00:09:59.830 --> 00:10:01.880
+Now, once we set up with a model, then
+
+00:10:01.880 --> 00:10:04.600
+we can fit the model to our data,
+
+00:10:04.600 --> 00:10:07.215
+meaning that we can estimate the
+
+00:10:07.215 --> 00:10:09.330
+parameters or infer the parameters
+
+00:10:09.330 --> 00:10:10.762
+based on the data.
+
+00:10:10.762 --> 00:10:13.000
+In other words, we would like to adjust
+
+00:10:13.000 --> 00:10:16.330
+these parameter values until we give
+
+00:10:16.330 --> 00:10:19.580
+our data set the maximum probability.
+
+00:10:20.180 --> 00:10:22.190
+I just say that depending on the
+
+00:10:22.190 --> 00:10:23.840
+parameter values, some data points will
+
+00:10:23.840 --> 00:10:26.200
+have higher probabilities than others.
+
+00:10:26.200 --> 00:10:29.397
+What we're interested in here is what
+
+00:10:29.397 --> 00:10:32.160
+parameter values will give our data set
+
+00:10:32.160 --> 00:10:33.400
+the highest probability.
+
+00:10:33.400 --> 00:10:35.630
+So I also illustrate the problem with
+
+00:10:35.630 --> 00:10:38.290
+the picture that you see here. On the X
+
+00:10:38.290 --> 00:10:38.640
+axis,
+
+00:10:38.640 --> 00:10:41.060
+I just illustrate the Lambda, the
+
+00:10:41.060 --> 00:10:43.950
+parameters as one dimensional variable.
+
+00:10:43.950 --> 00:10:46.070
+It's oversimplification obviously, but
+
+00:10:46.070 --> 00:10:49.560
+it suffices is to show the idea and the
+
+00:10:49.560 --> 00:10:51.815
+Y axis shows the probability of the
+
+00:10:51.815 --> 00:10:52.140
+data
+
+00:10:52.190 --> 00:10:54.820
+observe. This probability obviously
+
+00:10:54.820 --> 00:10:57.940
+depends on the setting of Lambda, so
+
+00:10:57.940 --> 00:11:00.070
+that's why it varies as you change the
+
+00:11:00.070 --> 00:11:01.160
+value of Lambda.
+
+00:11:01.160 --> 00:11:02.880
+What we're interested in here is
+
+00:11:02.880 --> 00:11:06.300
+to find the Lambda star that would
+
+00:11:06.300 --> 00:11:08.641
+maximize the probability of the
+
+00:11:08.641 --> 00:11:09.500
+observed data.
+
+00:11:10.340 --> 00:11:14.420
+So this would be then our estimate of
+
+00:11:14.420 --> 00:11:16.970
+the parameters and these parameters
+
+00:11:16.970 --> 00:11:20.260
+note that are precisely what we hope to
+
+00:11:20.260 --> 00:11:22.510
+discover from text data, so would treat
+
+00:11:22.510 --> 00:11:24.790
+these parameters as actually the
+
+00:11:24.790 --> 00:11:27.165
+outcome or the output of the data
+
+00:11:27.165 --> 00:11:28.070
+mining algorithm.
+
+00:11:28.070 --> 00:11:29.940
+So this is a general idea of using a
+
+00:11:29.940 --> 00:11:31.770
+generative model for text mining.
+
+00:11:31.770 --> 00:11:33.908
+First, we design a model with some
+
+00:11:33.908 --> 00:11:35.701
+parameters that we are interested in,
+
+00:11:35.701 --> 00:11:37.208
+and then we model the data.
+
+00:11:37.208 --> 00:11:39.370
+We adjust the parameters to fit the
+
+00:11:39.370 --> 00:11:41.360
+data as well as we can.
+
+00:11:41.820 --> 00:11:43.820
+After we have fitted data then we will
+
+00:11:43.820 --> 00:11:45.930
+recover some parameter values will get
+
+00:11:45.930 --> 00:11:47.867
+this specific parameter values and
+
+00:11:47.867 --> 00:11:50.050
+those would be the output of the
+
+00:11:50.050 --> 00:11:52.250
+algorithm and we treat those as
+
+00:11:52.250 --> 00:11:54.450
+actually the discovered knowledge from
+
+00:11:54.450 --> 00:11:55.180
+text data.
+
+00:11:55.800 --> 00:11:57.690
+By varying the model, of course we can
+
+00:11:57.690 --> 00:11:59.240
+discover different knowledge.
+
+00:11:59.240 --> 00:12:02.350
+So to summarize, we introduced a new
+
+00:12:02.350 --> 00:12:05.020
+way of representing a topic, namely
+
+00:12:05.020 --> 00:12:07.760
+represented as word distribution, and
+
+00:12:07.760 --> 00:12:10.480
+this has advantage of using multiple
+
+00:12:10.480 --> 00:12:12.720
+words to describe a complicated topic.
+
+00:12:13.380 --> 00:12:15.570
+It also allows us to assign weights on
+
+00:12:15.570 --> 00:12:17.420
+words so we can model subtle
+
+00:12:17.420 --> 00:12:18.960
+variations of semantics.
+
+00:12:18.960 --> 00:12:21.280
+We talked about the task of topic
+
+00:12:21.280 --> 00:12:24.610
+mining and analysis when we define a topic
+
+00:12:24.610 --> 00:12:27.320
+as a distribution, so the input is a
+
+00:12:27.320 --> 00:12:28.765
+collection of text articles.
+
+00:12:28.765 --> 00:12:30.940
+The number of topics and vocabulary set
+
+00:12:30.940 --> 00:12:32.900
+and the output is a set of topics.
+
+00:12:32.900 --> 00:12:34.590
+Each is word distribution.
+
+00:12:35.200 --> 00:12:37.820
+And also the coverage of all the topics
+
+00:12:37.820 --> 00:12:39.700
+in each document and these are formally
+
+00:12:39.700 --> 00:12:44.930
+represented by theta_i's and pi_i's and we
+
+00:12:44.930 --> 00:12:47.340
+have two constraints here
+
+00:12:47.340 --> 00:12:50.196
+for these parameters. The first is the
+
+00:12:50.196 --> 00:12:53.000
+constraint on the word distributions.
+
+00:12:53.000 --> 00:12:54.580
+In each world distribution, the
+
+00:12:54.580 --> 00:12:57.285
+probabilities on all the words must sum
+
+00:12:57.285 --> 00:12:58.920
+to one over all the words in the
+
+00:12:58.920 --> 00:12:59.690
+vocabulary.
+
+00:12:59.690 --> 00:13:01.910
+The second constraint is on the topic
+
+00:13:01.910 --> 00:13:03.870
+coverage in each document.
+
+00:13:03.870 --> 00:13:05.950
+A document is not allowed to cover
+
+00:13:06.010 --> 00:13:08.580
+a topic outside the set of topics that
+
+00:13:08.580 --> 00:13:10.100
+we are discovering.
+
+00:13:10.100 --> 00:13:13.880
+So the coverage of each of these K
+
+00:13:13.880 --> 00:13:16.800
+topics would sum to one for a document.
+
+00:13:16.800 --> 00:13:18.950
+We also introduce the general idea of
+
+00:13:18.950 --> 00:13:21.490
+using a generative model for text mining
+
+00:13:21.490 --> 00:13:24.346
+and the idea here is to first design a
+
+00:13:24.346 --> 00:13:27.230
+model to model the generation of data.
+
+00:13:27.830 --> 00:13:29.350
+We simply assume that they are
+
+00:13:29.350 --> 00:13:31.550
+generated this way and inside the
+
+00:13:31.550 --> 00:13:33.750
+model, we embed some parameters that
+
+00:13:33.750 --> 00:13:35.900
+were interested in denoted by Lambda.
+
+00:13:36.650 --> 00:13:38.740
+And then we can infer the most likely
+
+00:13:38.740 --> 00:13:40.870
+parameter values lambda star given
+
+00:13:40.870 --> 00:13:43.750
+a particular data set, and we can then
+
+00:13:43.750 --> 00:13:46.390
+take the Lambda star as knowledge
+
+00:13:46.390 --> 00:13:49.200
+discovered from the text for our
+
+00:13:49.200 --> 00:13:51.940
+problem, and we can adjust the design
+
+00:13:51.940 --> 00:13:54.160
+of the model and parameters with this
+
+00:13:54.160 --> 00:13:57.460
+discover various kinds of knowledge
+
+00:13:57.460 --> 00:13:58.130
+from text.
+
+00:13:58.750 --> 00:14:00.030
+As you will see later
+
+00:14:01.140 --> 00:14:03.060
+in the other lectures.
+
+

@@ -1,0 +1,1197 @@
+WEBVTT Kind: captions; Language: en-US
+
+NOTE
+Created on 2021-02-27T00:00:22.8415259Z by ClassTranscribe
+
+00:00:00.290 --> 00:00:02.750
+In this lecture, we continue discussing
+
+00:00:02.750 --> 00:00:05.010
+paradigmatic relation discovery.
+
+00:00:05.010 --> 00:00:07.610
+Earlier, we introduced a method called
+
+00:00:07.610 --> 00:00:10.176
+expected overlap of words in context.
+
+00:00:10.176 --> 00:00:13.400
+In this method, we represent each
+
+00:00:13.400 --> 00:00:16.430
+context by a word vector that represents
+
+00:00:16.430 --> 00:00:18.340
+the probability of word
+
+00:00:18.340 --> 00:00:20.880
+in the context and we measure the
+
+00:00:20.880 --> 00:00:23.570
+similarity by using the DOT product.
+
+00:00:30.640 --> 00:00:33.020
+Which can be interpreted as the
+
+00:00:33.020 --> 00:00:35.240
+probability that to randomly pick the
+
+00:00:35.240 --> 00:00:37.830
+words from the two contexts 
+
+00:00:37.830 --> 00:00:39.939
+are identical, we also discuss the two
+
+00:00:39.940 --> 00:00:42.340
+problems of this method.
+
+00:00:42.340 --> 00:00:45.980
+The first is that it favors matching
+
+00:00:45.980 --> 00:00:47.995
+one frequent term very well over
+
+00:00:47.995 --> 00:00:49.890
+matching more distinct terms.
+
+00:00:50.890 --> 00:00:53.510
+It put too much emphasis on matching
+
+00:00:53.510 --> 00:00:54.790
+one term very well.
+
+00:00:55.350 --> 00:00:58.840
+The second is that it treats every word
+
+00:00:58.840 --> 00:00:59.480
+equally.
+
+00:01:00.930 --> 00:01:03.090
+Even a common word like 'the' would
+
+00:01:03.090 --> 00:01:08.010
+contribute equally as content word like
+
+00:01:08.010 --> 00:01:08.480
+'eats'.
+
+00:01:09.210 --> 00:01:12.320
+So now we are going to talk about how
+
+00:01:12.320 --> 00:01:13.960
+to solve these problems.
+
+00:01:13.960 --> 00:01:15.440
+Most specifically, we're going to
+
+00:01:15.440 --> 00:01:18.100
+introduce some retrieval heuristics
+
+00:01:18.100 --> 00:01:21.005
+used in text retrieval, and these
+
+00:01:21.005 --> 00:01:23.465
+heuristics can effectively solve these
+
+00:01:23.465 --> 00:01:25.815
+problems, as these problems also occur
+
+00:01:25.815 --> 00:01:28.270
+in text retrieval when we match a query
+
+00:01:28.270 --> 00:01:30.370
+vector with document vector.
+
+00:01:31.080 --> 00:01:33.192
+So to address the first problem, we can
+
+00:01:33.192 --> 00:01:35.886
+use a sub linear transformation of term
+
+00:01:35.886 --> 00:01:36.214
+frequency.
+
+00:01:36.214 --> 00:01:38.798
+That is, we don't have to use the raw
+
+00:01:38.798 --> 00:01:40.980
+frequency count of term to represent
+
+00:01:40.980 --> 00:01:41.960
+the context.
+
+00:01:41.960 --> 00:01:45.250
+We can transform it into some form that
+
+00:01:45.250 --> 00:01:47.622
+wouldn't emphasize so much on the raw
+
+00:01:47.622 --> 00:01:49.440
+frequency. To address the second
+
+00:01:49.440 --> 00:01:52.470
+problem, we can put more weight on rare
+
+00:01:52.470 --> 00:01:52.812
+terms.
+
+00:01:52.812 --> 00:01:55.240
+That is, we can reward matching a
+
+00:01:55.240 --> 00:01:58.030
+rare word and this heuristic is called
+
+00:01:58.030 --> 00:02:01.060
+IDF term weighting in text retrieval.
+
+00:02:01.330 --> 00:02:03.850
+IDF stands for inverse document
+
+00:02:03.850 --> 00:02:04.320
+frequency.
+
+00:02:05.850 --> 00:02:07.130
+So now we're going to talk about the
+
+00:02:07.130 --> 00:02:10.190
+two heuristics in more detail.
+
+00:02:10.190 --> 00:02:12.960
+First, let's talk about the TF
+
+00:02:12.960 --> 00:02:13.735
+transformation.
+
+00:02:13.735 --> 00:02:16.420
+That is, to convert the raw count of
+
+00:02:16.420 --> 00:02:19.490
+word in the document into some weight
+
+00:02:19.490 --> 00:02:23.900
+that reflects our belief about how
+
+00:02:23.900 --> 00:02:26.560
+important this word in the document.
+
+00:02:27.110 --> 00:02:31.497
+And so that will be denoted by TF of
+
+00:02:31.497 --> 00:02:36.250
+W&amp;D as shown in the Y axis.
+
+00:02:36.250 --> 00:02:38.190
+Now in general there are many ways to
+
+00:02:38.190 --> 00:02:41.380
+map that, and let's first look at the
+
+00:02:41.380 --> 00:02:44.410
+simple way of mapping.
+
+00:02:44.410 --> 00:02:48.170
+In this case, we're going to say, any
+
+00:02:48.170 --> 00:02:51.530
+non zero counts will be mapped to one.
+
+00:02:53.120 --> 00:02:55.298
+And then zero count will be mapped to
+
+00:02:55.298 --> 00:02:55.600
+0.
+
+00:02:55.600 --> 00:02:58.230
+So with this mapping, all the
+
+00:02:58.230 --> 00:03:00.690
+frequencies will be mapped to only two
+
+00:03:00.690 --> 00:03:04.120
+values, zero or one, and the mapping
+
+00:03:04.120 --> 00:03:09.055
+function is shown here as a flat line
+
+00:03:09.055 --> 00:03:10.130
+here.
+
+00:03:10.910 --> 00:03:14.640
+Now this is naive because it
+
+00:03:14.640 --> 00:03:16.790
+ignored the frequency of words.
+
+00:03:16.790 --> 00:03:18.640
+However, this actually has the
+
+00:03:18.640 --> 00:03:23.650
+advantage of emphasizing matching all
+
+00:03:23.650 --> 00:03:26.730
+the words in the context, so it does
+
+00:03:26.730 --> 00:03:29.506
+not allow a frequent word to dominate
+
+00:03:29.506 --> 00:03:30.399
+the matching.
+
+00:03:30.399 --> 00:03:32.990
+Now the approach that we have taken
+
+00:03:32.990 --> 00:03:35.880
+earlier in the expected overlap account
+
+00:03:35.880 --> 00:03:38.005
+approach is a linear transformation.
+
+00:03:38.005 --> 00:03:41.830
+We basically take Y as the same as X.
+
+00:03:41.980 --> 00:03:43.920
+So we use the raw count as
+
+00:03:43.920 --> 00:03:44.770
+representation.
+
+00:03:45.780 --> 00:03:48.670
+And that created the problem that we
+
+00:03:48.670 --> 00:03:49.640
+just talked about.
+
+00:03:49.640 --> 00:03:52.690
+Namely it answers too much on just
+
+00:03:52.690 --> 00:03:55.760
+matching one frequent term. Matching one
+
+00:03:55.760 --> 00:03:57.800
+frequent term can contribute a lot.
+
+00:03:59.330 --> 00:04:03.280
+So we can have a lot of other
+
+00:04:03.280 --> 00:04:05.400
+interesting transformations in between
+
+00:04:05.400 --> 00:04:06.470
+the two extremes.
+
+00:04:07.230 --> 00:04:09.440
+And they generally form a sub linear
+
+00:04:09.440 --> 00:04:10.170
+transformation.
+
+00:04:10.980 --> 00:04:13.180
+So for example, one possibility is to
+
+00:04:13.180 --> 00:04:16.390
+take logarithm of the raw count, and
+
+00:04:16.390 --> 00:04:18.920
+this will give us curve that looks like
+
+00:04:18.920 --> 00:04:19.710
+this, right?
+
+00:04:19.710 --> 00:04:20.780
+That you're seeing here.
+
+00:04:21.510 --> 00:04:23.710
+In this case, you can see the high
+
+00:04:23.710 --> 00:04:24.836
+frequency counts,
+
+00:04:24.836 --> 00:04:28.480
+the high counts are penalized a little
+
+00:04:28.480 --> 00:04:29.460
+bit right?
+
+00:04:29.460 --> 00:04:31.940
+So the curve is a sub linear curve, an
+
+00:04:31.940 --> 00:04:35.085
+it brings down the weight of
+
+00:04:35.085 --> 00:04:38.429
+really those really high counts.
+
+00:04:39.660 --> 00:04:41.370
+And this is what we want, because it
+
+00:04:41.370 --> 00:04:44.110
+prevents that kind of terms from
+
+00:04:44.110 --> 00:04:46.460
+dominating the scoring function.
+
+00:04:49.610 --> 00:04:51.960
+Now there is also another interesting
+
+00:04:51.960 --> 00:04:54.170
+transformation called a BM25
+
+00:04:54.170 --> 00:04:57.660
+transformation which has been shown to
+
+00:04:57.660 --> 00:05:00.600
+be very effective for retrieval and in
+
+00:05:00.600 --> 00:05:03.620
+this transformation we have a form
+
+00:05:03.620 --> 00:05:04.540
+that.
+
+00:05:06.000 --> 00:05:07.330
+Looks like this.
+
+00:05:07.330 --> 00:05:12.570
+I saw it's (K + 1) * X /( X + K) where K is
+
+00:05:12.570 --> 00:05:13.290
+a parameter.
+
+00:05:13.990 --> 00:05:17.920
+X is the count, the raw count of word.
+
+00:05:19.180 --> 00:05:21.180
+Now the transformation is very
+
+00:05:21.180 --> 00:05:23.890
+interesting in that it can actually
+
+00:05:23.890 --> 00:05:27.520
+kind of go from one extreme to the
+
+00:05:27.520 --> 00:05:29.400
+other extreme by varying K.
+
+00:05:31.040 --> 00:05:33.670
+And it also is interesting that it has
+
+00:05:33.670 --> 00:05:34.420
+upper bound
+
+00:05:35.140 --> 00:05:36.760
+K +1 in this case.
+
+00:05:37.450 --> 00:05:41.470
+So this puts a very strict constraint
+
+00:05:41.470 --> 00:05:43.890
+on high frequency terms, because their
+
+00:05:43.890 --> 00:05:46.740
+weight would never exceed K+1.
+
+00:05:46.740 --> 00:05:48.070
+As we vary K,
+
+00:05:48.070 --> 00:05:50.616
+if we can simulate the two extremes.
+
+00:05:50.616 --> 00:05:52.540
+So one case is set to zero.
+
+00:05:52.540 --> 00:05:55.270
+We roughly have the 01 vector.
+
+00:05:56.180 --> 00:05:58.320
+Whereas when we set the key to a very
+
+00:05:58.320 --> 00:06:00.350
+large value, it would behave more like
+
+00:06:00.350 --> 00:06:01.580
+the linear transformation.
+
+00:06:02.690 --> 00:06:05.330
+So this transformation function is by
+
+00:06:05.330 --> 00:06:06.985
+far the most effective transformation
+
+00:06:06.985 --> 00:06:10.430
+function for text retrieval, and it
+
+00:06:10.430 --> 00:06:13.720
+also makes sense for our problem set
+
+00:06:13.720 --> 00:06:14.040
+up.
+
+00:06:14.610 --> 00:06:16.560
+So we just talk about how to solve the
+
+00:06:16.560 --> 00:06:18.870
+problem of over emphasizing a
+
+00:06:18.870 --> 00:06:20.580
+frequently frequent term.
+
+00:06:20.580 --> 00:06:22.950
+Now let's look at the second problem,
+
+00:06:22.950 --> 00:06:25.580
+and that is how we can penalize popular
+
+00:06:25.580 --> 00:06:26.140
+terms.
+
+00:06:26.780 --> 00:06:28.925
+Matching 'the' is not surprising because
+
+00:06:28.925 --> 00:06:31.050
+'the' occurs everywhere, but matching
+
+00:06:31.050 --> 00:06:32.760
+'eats' will account a lot.
+
+00:06:32.760 --> 00:06:34.955
+So how can we address that problem?
+
+00:06:34.955 --> 00:06:37.469
+In this case we can use the 
+
+00:06:37.470 --> 00:06:41.130
+IDF weighting that's commonly used in
+
+00:06:41.130 --> 00:06:43.540
+retrieval. IDF stands for inverse
+
+00:06:43.540 --> 00:06:44.652
+document frequency.
+
+00:06:44.652 --> 00:06:47.360
+Document frequency means the count
+
+00:06:47.360 --> 00:06:49.710
+of the total number of documents that
+
+00:06:49.710 --> 00:06:51.340
+contain a particular word.
+
+00:06:52.900 --> 00:06:55.820
+So here we show that the IDF
+
+00:06:55.820 --> 00:06:58.000
+measure is defined as a logarithm
+
+00:06:58.000 --> 00:07:01.450
+function of the number of documents
+
+00:07:01.450 --> 00:07:02.420
+that match the term,
+
+00:07:03.060 --> 00:07:04.390
+or document frequency.
+
+00:07:05.790 --> 00:07:07.890
+So K is the number of documents
+
+00:07:07.890 --> 00:07:10.070
+containing word or document frequency
+
+00:07:10.740 --> 00:07:11.660
+and M
+
+00:07:11.660 --> 00:07:13.480
+here is the total number of documents
+
+00:07:13.480 --> 00:07:14.200
+in the collection.
+
+00:07:15.160 --> 00:07:19.330
+The IDF function is giving a higher
+
+00:07:19.330 --> 00:07:22.420
+value for a lower K, meaning that it
+
+00:07:22.420 --> 00:07:24.330
+rewards a rare term.
+
+00:07:25.190 --> 00:07:29.040
+And the maximum value is log of M + 1.
+
+00:07:29.040 --> 00:07:32.070
+That's when the word occurs just once
+
+00:07:32.070 --> 00:07:33.000
+in the context.
+
+00:07:34.130 --> 00:07:36.800
+So that's a very rare term,
+
+00:07:37.690 --> 00:07:39.580
+the rarest term in the whole
+
+00:07:39.580 --> 00:07:40.160
+collection.
+
+00:07:41.160 --> 00:07:44.370
+The lowest value you can see here is
+
+00:07:44.370 --> 00:07:48.100
+when K reaches its maximum, which would
+
+00:07:48.100 --> 00:07:48.690
+be M.
+
+00:07:49.500 --> 00:07:52.970
+That would be a very low value
+
+00:07:54.960 --> 00:07:56.440
+close to 0 in fact.
+
+00:07:58.290 --> 00:07:59.520
+Right so this.
+
+00:08:01.300 --> 00:08:04.120
+This of course measure is used in
+
+00:08:04.120 --> 00:08:05.800
+search where we naturally have a
+
+00:08:05.800 --> 00:08:06.390
+collection.
+
+00:08:07.140 --> 00:08:09.938
+In our case, what will be our
+
+00:08:09.938 --> 00:08:10.412
+collection?
+
+00:08:10.412 --> 00:08:13.339
+We can also use the context that we can
+
+00:08:13.340 --> 00:08:16.226
+collect for all the words as our
+
+00:08:16.226 --> 00:08:19.410
+collection and that is to say, a word
+
+00:08:19.410 --> 00:08:21.000
+that's popular in the collection in
+
+00:08:21.000 --> 00:08:21.770
+general
+
+00:08:22.510 --> 00:08:25.330
+would also have a low IDF.
+
+00:08:25.930 --> 00:08:29.810
+Because depending on the data set, we
+
+00:08:29.810 --> 00:08:30.840
+can
+
+00:08:31.960 --> 00:08:34.060
+construct the context vectors in
+
+00:08:34.060 --> 00:08:37.110
+different ways, but in the end, if a
+
+00:08:37.110 --> 00:08:39.950
+term is very frequently in the original
+
+00:08:39.950 --> 00:08:42.492
+data set, then it would still be
+
+00:08:42.492 --> 00:08:45.390
+frequently in the collected context
+
+00:08:45.390 --> 00:08:46.200
+documents.
+
+00:08:48.640 --> 00:08:52.350
+So how can we add these heuristics to
+
+00:08:52.350 --> 00:08:53.890
+improve our.....
+
+00:08:55.620 --> 00:08:57.340
+Our similarity function.
+
+00:08:57.340 --> 00:08:59.190
+Here's one way, and there are many
+
+00:08:59.190 --> 00:09:00.860
+other ways that are possible.
+
+00:09:00.860 --> 00:09:02.990
+But this is a reasonable way where we
+
+00:09:02.990 --> 00:09:06.250
+can adapt the BM25 retrieval model for
+
+00:09:06.250 --> 00:09:08.620
+paradigmatic relation mining.
+
+00:09:10.090 --> 00:09:12.300
+So here
+
+00:09:13.710 --> 00:09:17.400
+we define in this case we define the
+
+00:09:17.400 --> 00:09:18.650
+document vector.
+
+00:09:19.440 --> 00:09:21.250
+As containing elements
+
+00:09:22.110 --> 00:09:26.040
+representing normalized BM 25 values.
+
+00:09:27.450 --> 00:09:29.690
+So in this normalization function we
+
+00:09:29.690 --> 00:09:33.760
+see we take sum over some of all the
+
+00:09:33.760 --> 00:09:36.550
+words and then we
+
+00:09:37.610 --> 00:09:41.600
+normalize the weight of each word by
+
+00:09:41.600 --> 00:09:44.170
+the sum of the weights of 
+
+00:09:46.140 --> 00:09:47.510
+all the words.
+
+00:09:48.650 --> 00:09:51.310
+This is to again ensure all the
+
+00:09:51.310 --> 00:09:53.698
+x(i) will sum to one in this
+
+00:09:53.698 --> 00:09:54.070
+vector.
+
+00:09:54.070 --> 00:09:56.740
+So this would be very similar to what
+
+00:09:56.740 --> 00:09:59.490
+we had before in that this vector is
+
+00:09:59.490 --> 00:10:02.930
+actually something similar to word
+
+00:10:02.930 --> 00:10:05.760
+distribution or the exercise with sum
+
+00:10:05.760 --> 00:10:06.260
+to one.
+
+00:10:07.290 --> 00:10:10.970
+Now the weight of BM25 for each word is
+
+00:10:10.970 --> 00:10:12.650
+defined here.
+
+00:10:15.120 --> 00:10:17.370
+And if you compare this with our old
+
+00:10:17.370 --> 00:10:19.470
+definition where we just have a
+
+00:10:19.470 --> 00:10:21.410
+normalized count.
+
+00:10:22.070 --> 00:10:23.000
+On this one, right?
+
+00:10:23.000 --> 00:10:25.180
+So we only have this one and the
+
+00:10:25.180 --> 00:10:28.100
+document length or the total count of
+
+00:10:28.100 --> 00:10:30.790
+words in that context document.
+
+00:10:31.420 --> 00:10:33.470
+And that's what we had before.
+
+00:10:33.470 --> 00:10:36.080
+But now with the BM 25 transformation,
+
+00:10:36.080 --> 00:10:37.660
+we introduced something else.
+
+00:10:38.760 --> 00:10:41.543
+First, of course, this extra occurrence
+
+00:10:41.543 --> 00:10:43.950
+of this count is just to achieve the
+
+00:10:43.950 --> 00:10:45.740
+sub linear normalization.
+
+00:10:46.510 --> 00:10:48.110
+But we also see we introduce the
+
+00:10:48.110 --> 00:10:49.650
+parameter K here.
+
+00:10:50.760 --> 00:10:54.680
+And this parameter is generally non
+
+00:10:54.680 --> 00:10:57.410
+negetive number, although zero is also
+
+00:10:57.410 --> 00:10:58.080
+possible.
+
+00:10:59.600 --> 00:11:03.230
+This controls the upper bound and
+
+00:11:03.230 --> 00:11:05.640
+the kinds controls can choose
+
+00:11:05.640 --> 00:11:09.530
+To what extent is simulates the linear
+
+00:11:09.530 --> 00:11:10.340
+transformation.
+
+00:11:11.420 --> 00:11:14.890
+And so this is 1 parameter.
+
+00:11:14.890 --> 00:11:16.520
+But we also see there is another
+
+00:11:16.520 --> 00:11:19.310
+parameter here b and this will be
+
+00:11:19.310 --> 00:11:20.739
+within zero and one.
+
+00:11:20.739 --> 00:11:23.800
+And this is a parameter to control  length
+
+00:11:23.800 --> 00:11:24.700
+normalization.
+
+00:11:25.500 --> 00:11:28.400
+And, and in this case the normalizing
+
+00:11:28.400 --> 00:11:30.920
+formula has average document length
+
+00:11:30.920 --> 00:11:31.450
+here.
+
+00:11:32.160 --> 00:11:35.220
+And this is the computed by taking the
+
+00:11:35.220 --> 00:11:38.313
+average of the lengths of all the
+
+00:11:38.313 --> 00:11:39.930
+documents in the collection.
+
+00:11:39.930 --> 00:11:42.020
+In this case, all the lengths of all the
+
+00:11:42.020 --> 00:11:43.950
+context documents that we are
+
+00:11:43.950 --> 00:11:44.620
+considering.
+
+00:11:45.450 --> 00:11:48.010
+So this average documents will be a
+
+00:11:48.010 --> 00:11:50.250
+constant for any given collection, so
+
+00:11:50.250 --> 00:11:53.950
+it actually is only affecting the
+
+00:11:53.950 --> 00:11:56.970
+effect of the parameter B here.
+
+00:11:58.930 --> 00:12:00.680
+Because this is a constant.
+
+00:12:01.750 --> 00:12:05.960
+But I kept it here because it's
+
+00:12:05.960 --> 00:12:09.440
+constant that's useful in retrieval,
+
+00:12:09.440 --> 00:12:12.860
+where it would give us a stabilized
+
+00:12:12.860 --> 00:12:14.843
+interpretation of parameter b.
+
+00:12:14.843 --> 00:12:17.580
+But for our purpose this will be a
+
+00:12:17.580 --> 00:12:19.430
+constant, so it would only be
+
+00:12:20.770 --> 00:12:23.940
+affecting the length formalization
+
+00:12:25.240 --> 00:12:27.790
+together with parameter B.
+
+00:12:28.670 --> 00:12:32.487
+Now with this definition, then we have
+
+00:12:32.487 --> 00:12:35.710
+a new way to define our document
+
+00:12:35.710 --> 00:12:38.720
+vectors and we can compute the vector
+
+00:12:38.720 --> 00:12:40.135
+D2 in the same way.
+
+00:12:40.135 --> 00:12:42.405
+The difference is that the high
+
+00:12:42.405 --> 00:12:43.850
+frequency terms will now have a
+
+00:12:43.850 --> 00:12:46.090
+somewhat lower weights and this would
+
+00:12:46.090 --> 00:12:50.180
+help control the influence of these
+
+00:12:50.180 --> 00:12:51.599
+high frequency terms.
+
+00:12:53.930 --> 00:12:56.840
+Now the IDF can be added here in
+
+00:12:56.840 --> 00:12:57.945
+the scoring function.
+
+00:12:57.945 --> 00:13:00.240
+That means we'll introduce weight for
+
+00:13:00.240 --> 00:13:03.290
+matching each term. So you may recall
+
+00:13:03.290 --> 00:13:07.020
+this sum indicates all the possible
+
+00:13:07.020 --> 00:13:09.650
+words that can be a overlap between the
+
+00:13:09.650 --> 00:13:10.780
+two contexts.
+
+00:13:11.420 --> 00:13:16.510
+And the Xi and Yi probabilities of
+
+00:13:17.660 --> 00:13:20.270
+picking the word from both contexts,
+
+00:13:20.270 --> 00:13:22.720
+therefore it indicates how likely will
+
+00:13:22.720 --> 00:13:24.975
+see a match on this word.
+
+00:13:24.975 --> 00:13:27.590
+Now IDF would give us the importance
+
+00:13:27.590 --> 00:13:29.246
+of matching this word.
+
+00:13:29.246 --> 00:13:32.870
+A common word will be worth less than
+
+00:13:32.870 --> 00:13:35.243
+rare word, so we emphasize more on
+
+00:13:35.243 --> 00:13:36.770
+matching rare words now.
+
+00:13:36.770 --> 00:13:39.610
+So with this modification, then the new
+
+00:13:39.610 --> 00:13:42.230
+function will likely address those two
+
+00:13:42.230 --> 00:13:42.975
+problems.
+
+00:13:42.975 --> 00:13:44.475
+Now interestingly
+
+00:13:44.475 --> 00:13:47.060
+we can also use this approach to
+
+00:13:47.060 --> 00:13:49.310
+discover syntagmatic relations.
+
+00:13:49.440 --> 00:13:51.930
+In general, when we represent a
+
+00:13:51.930 --> 00:13:56.080
+term vector to represent the sorry to
+
+00:13:56.080 --> 00:13:59.300
+represent context with the term vector, we
+
+00:13:59.300 --> 00:14:02.740
+would likely see some terms have
+
+00:14:02.740 --> 00:14:04.730
+higher weights and other terms have lower
+
+00:14:04.730 --> 00:14:07.450
+weights depending on how we assign
+
+00:14:07.450 --> 00:14:09.550
+weights to these terms, we might be
+
+00:14:09.550 --> 00:14:11.920
+able to use these weights to discover
+
+00:14:11.920 --> 00:14:14.590
+the words that are strongly associated
+
+00:14:14.590 --> 00:14:16.797
+with the candidate word in the
+
+00:14:16.797 --> 00:14:17.180
+context.
+
+00:14:18.910 --> 00:14:21.720
+So let's take a look at the term vector
+
+00:14:21.720 --> 00:14:23.120
+in more detail here.
+
+00:14:23.690 --> 00:14:27.120
+And we have each
+
+00:14:27.720 --> 00:14:31.920
+Xi, defined as a normalized weight of
+
+00:14:31.920 --> 00:14:32.920
+BM 25.
+
+00:14:33.860 --> 00:14:37.930
+Now this weight alone only reflects how
+
+00:14:37.930 --> 00:14:39.610
+frequently the word occurs in the
+
+00:14:39.610 --> 00:14:40.230
+context.
+
+00:14:41.570 --> 00:14:43.850
+But we can't just say any
+
+00:14:43.850 --> 00:14:45.270
+frequent term in the context that would
+
+00:14:45.270 --> 00:14:47.820
+be correlated with the candidate word.
+
+00:14:49.190 --> 00:14:52.070
+Because many common words like 'the' will
+
+00:14:52.070 --> 00:14:53.760
+occur frequently in all the context.
+
+00:14:55.310 --> 00:14:58.750
+But if we apply IDF weighting as you
+
+00:14:58.750 --> 00:15:01.510
+see here, we can then
+
+00:15:03.490 --> 00:15:07.106
+we weight these terms based on IDF
+
+00:15:07.106 --> 00:15:09.750
+That means the words that are common,
+
+00:15:09.750 --> 00:15:11.685
+like 'the' will get penalized.
+
+00:15:11.685 --> 00:15:14.231
+So now the highest weighted terms will
+
+00:15:14.231 --> 00:15:16.580
+not be those common terms because they
+
+00:15:16.580 --> 00:15:18.430
+have lower IDFs.
+
+00:15:18.430 --> 00:15:21.814
+Instead, those terms would be the terms
+
+00:15:21.814 --> 00:15:24.380
+that are frequent in the context, but
+
+00:15:24.380 --> 00:15:26.100
+not frequently in the collection.
+
+00:15:26.100 --> 00:15:28.529
+So those are clearly the words that
+
+00:15:28.530 --> 00:15:31.270
+tend to occur in the context of the
+
+00:15:31.270 --> 00:15:33.710
+candidate word, for example, cat.
+
+00:15:34.040 --> 00:15:36.380
+So for this reason, the highly weighted
+
+00:15:36.380 --> 00:15:39.560
+terms in this IDF weighted vector
+
+00:15:40.240 --> 00:15:44.400
+can also be assumed to be candidate for
+
+00:15:44.400 --> 00:15:45.970
+Syntagmatic relations.
+
+00:15:45.970 --> 00:15:48.280
+Now of course, this is only a bi-product
+
+00:15:48.280 --> 00:15:51.480
+of our approach for discovering
+
+00:15:51.480 --> 00:15:53.040
+paradigmatic relations.
+
+00:15:53.630 --> 00:15:55.390
+And in the next lecture, we're going to
+
+00:15:55.390 --> 00:15:58.860
+talk more about how to discover
+
+00:15:58.860 --> 00:16:00.780
+Syntagmatic relations.
+
+00:16:03.280 --> 00:16:05.330
+But it clearly shows the relation
+
+00:16:05.330 --> 00:16:09.030
+between discovering the two relations.
+
+00:16:09.030 --> 00:16:11.540
+And indeed they can be discussed,
+
+00:16:11.540 --> 00:16:14.000
+discovered in a joint manner by
+
+00:16:14.000 --> 00:16:17.730
+leveraging such associations.
+
+00:16:18.900 --> 00:16:20.220
+So to summarize,
+
+00:16:21.070 --> 00:16:23.080
+the main idea for discovering 
+
+00:16:23.080 --> 00:16:26.930
+paradigmatic relations is to collect the
+
+00:16:26.930 --> 00:16:29.390
+context of a candidate word to form a
+
+00:16:29.390 --> 00:16:31.400
+pseudo document, and this is typically
+
+00:16:31.400 --> 00:16:33.330
+represented as a bag of words.
+
+00:16:33.910 --> 00:16:36.030
+And then compute the similarity of the
+
+00:16:36.030 --> 00:16:38.560
+corresponding context documents of two
+
+00:16:38.560 --> 00:16:39.570
+candidate words.
+
+00:16:40.870 --> 00:16:44.490
+An then we can take the highly similar
+
+00:16:44.490 --> 00:16:48.430
+word pairs and treat them as having
+
+00:16:48.430 --> 00:16:49.920
+paradigmatic relations.
+
+00:16:50.690 --> 00:16:52.300
+These are the words that share similar
+
+00:16:52.300 --> 00:16:52.850
+context.
+
+00:16:53.880 --> 00:16:55.590
+And there are many different ways to
+
+00:16:55.590 --> 00:16:58.920
+implement this general idea and we just
+
+00:16:58.920 --> 00:17:00.960
+talk about some of the approaches.
+
+00:17:01.610 --> 00:17:04.020
+And more specifically, we talked about
+
+00:17:04.020 --> 00:17:07.790
+using text retrieval models to help us
+
+00:17:07.790 --> 00:17:10.750
+design effective similarity function to
+
+00:17:10.750 --> 00:17:13.550
+compute the paradigmatic
+
+00:17:13.550 --> 00:17:14.210
+relations.
+
+00:17:16.910 --> 00:17:20.095
+More specifically, we have used the 
+
+00:17:20.095 --> 00:17:22.760
+BM25 and IDF weighting to
+
+00:17:24.160 --> 00:17:27.490
+discover paradigmatic relation and
+
+00:17:27.490 --> 00:17:30.370
+these approaches also represent the
+
+00:17:30.370 --> 00:17:32.500
+state of the art in text retrieval
+
+00:17:32.500 --> 00:17:33.200
+techniques.
+
+00:17:33.200 --> 00:17:36.040
+Finally, Syntagmatic relations can also
+
+00:17:36.040 --> 00:17:38.290
+be discovered as a bi-product
+
+00:17:38.290 --> 00:17:40.570
+when we discover paradigmatic
+
+00:17:40.570 --> 00:17:41.170
+relations.
+
+

@@ -1,0 +1,864 @@
+WEBVTT Kind: captions; Language: en-US
+
+NOTE
+Created on 2021-02-27T00:00:45.5134627Z by ClassTranscribe
+
+00:00:00.280 --> 00:00:02.720
+This lecture is about the smoothing of
+
+00:00:02.720 --> 00:00:03.770
+language models.
+
+00:00:11.560 --> 00:00:12.870
+In this lecture, we're going to
+
+00:00:12.870 --> 00:00:15.070
+continue talking about probabilistic
+
+00:00:15.070 --> 00:00:15.830
+retrieval model.
+
+00:00:15.830 --> 00:00:17.520
+In particular, we're going to talk
+
+00:00:17.520 --> 00:00:20.490
+about the smoothing of language model in
+
+00:00:20.490 --> 00:00:22.740
+the query likelihood retrieval method.
+
+00:00:23.680 --> 00:00:25.970
+So you have seen this slide from the
+
+00:00:25.970 --> 00:00:27.050
+previous lecture.
+
+00:00:27.770 --> 00:00:29.565
+This is the ranking function based on
+
+00:00:29.565 --> 00:00:30.830
+the query likelihood.
+
+00:00:32.370 --> 00:00:34.420
+Here we assume that the independence of
+
+00:00:34.420 --> 00:00:35.910
+generating each query word. 
+
+00:00:38.800 --> 00:00:40.980
+And the formula would look like the
+
+00:00:40.980 --> 00:00:43.440
+following where we take a sum over
+
+00:00:43.440 --> 00:00:46.870
+all the query words and inside the sum.
+
+00:00:46.870 --> 00:00:50.050
+There is a log of probability of word 
+
+00:00:50.050 --> 00:00:52.140
+given by the document or document
+
+00:00:52.140 --> 00:00:53.030
+language model.
+
+00:00:53.700 --> 00:00:57.370
+So the main task now is to estimate
+
+00:00:57.370 --> 00:00:58.970
+this document language model.
+
+00:00:59.800 --> 00:01:01.940
+As we said before, different methods
+
+00:01:01.940 --> 00:01:04.130
+for estimating this model would lead to
+
+00:01:04.130 --> 00:01:05.657
+different retrieval functions.
+
+00:01:05.657 --> 00:01:08.430
+So in this lecture we're going to look
+
+00:01:08.430 --> 00:01:10.325
+into this in more detail.
+
+00:01:10.325 --> 00:01:12.370
+So how do we estimate this language
+
+00:01:12.370 --> 00:01:13.065
+model?
+
+00:01:13.065 --> 00:01:15.450
+The obvious choice would be the maximum
+
+00:01:15.450 --> 00:01:17.355
+likelihood estimate that we have seen
+
+00:01:17.355 --> 00:01:18.909
+before, and that is we're going to
+
+00:01:18.910 --> 00:01:21.679
+normalize the word frequencies in the
+
+00:01:21.680 --> 00:01:22.330
+document.
+
+00:01:23.990 --> 00:01:26.130
+And the estimated probability would
+
+00:01:26.130 --> 00:01:27.000
+look like this.
+
+00:01:30.250 --> 00:01:33.180
+But this is a step function here.
+
+00:01:35.980 --> 00:01:38.279
+Which means all the words that have the
+
+00:01:38.280 --> 00:01:40.600
+same frequency count will have
+
+00:01:40.600 --> 00:01:42.140
+identical probability.
+
+00:01:42.710 --> 00:01:47.070
+Right, this is another frequent account that
+
+00:01:47.070 --> 00:01:48.439
+has a different probability.
+
+00:01:48.440 --> 00:01:50.420
+Note that for words that have not
+
+00:01:50.420 --> 00:01:52.960
+occurred in the document here they all
+
+00:01:52.960 --> 00:01:55.970
+have zero probability, so we this know this is
+
+00:01:55.970 --> 00:01:58.590
+just like the model that we assumed
+
+00:01:58.590 --> 00:02:01.746
+earlier in the lecture, where we assume
+
+00:02:01.746 --> 00:02:05.030
+that the user would sample word from
+
+00:02:05.030 --> 00:02:05.860
+the document.
+
+00:02:06.510 --> 00:02:07.830
+To formulate a query.
+
+00:02:09.070 --> 00:02:11.260
+And there's no chance of sampling any
+
+00:02:11.260 --> 00:02:13.610
+word that's not in the document, and we
+
+00:02:13.610 --> 00:02:14.640
+know that's not good.
+
+00:02:15.240 --> 00:02:17.740
+So how do we improve this, well?
+
+00:02:19.120 --> 00:02:21.510
+In order to assign a non zero
+
+00:02:21.510 --> 00:02:24.120
+probability to words that have not been
+
+00:02:24.120 --> 00:02:25.490
+observed in the document.
+
+00:02:26.970 --> 00:02:29.847
+We would have to take away some
+
+00:02:29.847 --> 00:02:32.580
+probability mass from the words that
+
+00:02:32.580 --> 00:02:34.750
+are observed in the document.
+
+00:02:34.750 --> 00:02:36.780
+So for example here we have to take
+
+00:02:36.780 --> 00:02:38.520
+away some probability mass because
+
+00:02:38.520 --> 00:02:41.540
+we need some extra probability mass for
+
+00:02:41.540 --> 00:02:43.340
+the unseen words.
+
+00:02:43.340 --> 00:02:45.107
+Otherwise they want to sum to one.
+
+00:02:45.107 --> 00:02:47.576
+So all these probabilities must sum to
+
+00:02:47.576 --> 00:02:47.934
+one.
+
+00:02:47.934 --> 00:02:51.320
+So to make this transformation and to
+
+00:02:51.320 --> 00:02:53.970
+improve the maximum likelihood estimate by
+
+00:02:53.970 --> 00:02:57.410
+assigning non zero probabilities to
+
+00:02:57.560 --> 00:03:00.120
+words that are not observed in the
+
+00:03:00.120 --> 00:03:00.670
+data.
+
+00:03:01.840 --> 00:03:04.380
+We have to do smoothing and smoothing
+
+00:03:04.380 --> 00:03:07.380
+has to do with improving the estimate
+
+00:03:07.380 --> 00:03:10.670
+by considering the possibility that if the
+
+00:03:10.670 --> 00:03:15.040
+author had been written had been asked
+
+00:03:15.040 --> 00:03:16.330
+to write more words.
+
+00:03:16.900 --> 00:03:20.830
+For the document, the author might have
+
+00:03:20.830 --> 00:03:22.060
+written other words.
+
+00:03:22.770 --> 00:03:25.470
+If you think about this factor, then a
+
+00:03:25.470 --> 00:03:27.730
+smoother language model would be more
+
+00:03:27.730 --> 00:03:29.580
+accurate representation of the actual
+
+00:03:29.580 --> 00:03:30.290
+topic.
+
+00:03:30.290 --> 00:03:33.680
+Imagine you have seen an abstract
+
+00:03:33.680 --> 00:03:35.120
+of a research article.
+
+00:03:35.120 --> 00:03:37.550
+Let's say this document is abstract.
+
+00:03:38.340 --> 00:03:40.270
+Right, if we assume.
+
+00:03:42.030 --> 00:03:43.720
+unseen words in this abstract.
+
+00:03:43.720 --> 00:03:47.240
+We have all probability of zero.
+
+00:03:47.240 --> 00:03:52.610
+That would mean there is no chance of
+
+00:03:52.610 --> 00:03:55.670
+sampling a word outside the abstract
+
+00:03:55.670 --> 00:03:56.850
+to formulate a query.
+
+00:03:56.850 --> 00:03:59.295
+But imagine a user who is interested in
+
+00:03:59.295 --> 00:04:00.990
+the topic of this subject.
+
+00:04:02.470 --> 00:04:04.940
+The user might actually choose a word
+
+00:04:04.940 --> 00:04:08.020
+that's not in the abstract to use as
+
+00:04:08.020 --> 00:04:08.600
+query.
+
+00:04:09.870 --> 00:04:13.230
+So obviously if we had asked this
+
+00:04:13.230 --> 00:04:15.680
+author to write more, the author would have
+
+00:04:15.680 --> 00:04:18.220
+written the full text of that article.
+
+00:04:18.830 --> 00:04:21.239
+So smoothing of the language model is
+
+00:04:21.240 --> 00:04:24.940
+attempt to try to recover the model for
+
+00:04:24.940 --> 00:04:29.220
+the whole article and then of course we
+
+00:04:29.220 --> 00:04:32.530
+don't have really knowledge about any
+
+00:04:32.530 --> 00:04:35.740
+words that are not observed in the
+
+00:04:35.740 --> 00:04:36.355
+abstract there.
+
+00:04:36.355 --> 00:04:38.060
+So that's why smoothing is actually
+
+00:04:38.060 --> 00:04:39.010
+tricky problem.
+
+00:04:39.010 --> 00:04:40.970
+So let's talk a little more about how
+
+00:04:40.970 --> 00:04:42.360
+to smooth the language model.
+
+00:04:43.040 --> 00:04:44.960
+And the key question here is what
+
+00:04:44.960 --> 00:04:47.510
+probability should be assigned to those
+
+00:04:47.510 --> 00:04:48.540
+unseen words.
+
+00:04:49.950 --> 00:04:51.350
+And there are many different ways of
+
+00:04:51.350 --> 00:04:52.720
+doing that.
+
+00:04:52.720 --> 00:04:55.660
+One idea here that's very useful for
+
+00:04:55.660 --> 00:04:58.606
+retrieval is let the probability of
+
+00:04:58.606 --> 00:05:00.812
+unseen word be proportional to its
+
+00:05:00.812 --> 00:05:02.746
+probability given by reference language
+
+00:05:02.746 --> 00:05:03.148
+model.
+
+00:05:03.148 --> 00:05:05.106
+That means if we don't observe the
+
+00:05:05.106 --> 00:05:08.860
+word in the data set, we're going to
+
+00:05:08.860 --> 00:05:11.900
+assume that it's probability is kind of
+
+00:05:11.900 --> 00:05:13.566
+governed by another reference language
+
+00:05:13.566 --> 00:05:15.270
+model that we will construct.
+
+00:05:15.270 --> 00:05:17.660
+It will tell us which unseen words will
+
+00:05:17.660 --> 00:05:20.230
+have likely higher probability.
+
+00:05:22.320 --> 00:05:24.050
+In the case of retrieval, a natural
+
+00:05:24.050 --> 00:05:27.080
+choice would be to take the collection
+
+00:05:27.080 --> 00:05:29.090
+language model as the reference
+
+00:05:29.090 --> 00:05:29.856
+language model.
+
+00:05:29.856 --> 00:05:32.417
+That is to say if we don't observe a word
+
+00:05:32.417 --> 00:05:33.340
+in the document.
+
+00:05:33.340 --> 00:05:34.935
+We're going to assume that the
+
+00:05:34.935 --> 00:05:37.759
+probability of this word would be
+
+00:05:37.760 --> 00:05:39.533
+proportional to the probability of the
+
+00:05:39.533 --> 00:05:41.550
+word in the whole collection.
+
+00:05:41.550 --> 00:05:43.990
+So more formally, we will be estimating
+
+00:05:43.990 --> 00:05:45.793
+the probability of a word given 
+
+00:05:45.793 --> 00:05:46.860
+a document as follows.
+
+00:05:47.830 --> 00:05:52.090
+If the word is seen in the document.
+
+00:05:53.220 --> 00:05:55.920
+Then the probability would be a
+
+00:05:55.920 --> 00:05:56.710
+discounted.
+
+00:05:56.710 --> 00:06:00.590
+maximum likelihood estimate P sub
+
+00:06:00.590 --> 00:06:01.590
+seen here.
+
+00:06:02.250 --> 00:06:03.170
+Otherwise.
+
+00:06:03.920 --> 00:06:05.240
+If the word is not seen in the
+
+00:06:05.240 --> 00:06:07.130
+document, we're going to let its
+
+00:06:07.130 --> 00:06:09.407
+probability be proportional to the
+
+00:06:09.407 --> 00:06:10.820
+probability of the word in the
+
+00:06:10.820 --> 00:06:11.420
+collection.
+
+00:06:12.110 --> 00:06:14.380
+And here the coefficient Alpha.
+
+00:06:15.050 --> 00:06:19.340
+Is to control the amount of probability
+
+00:06:19.340 --> 00:06:21.410
+mass that we assign to unseen words.
+
+00:06:22.320 --> 00:06:24.440
+Obviously, all these probabilities must
+
+00:06:24.440 --> 00:06:27.120
+sum to one, so Alpha sub D is
+
+00:06:27.120 --> 00:06:28.500
+constrained in some way.
+
+00:06:29.220 --> 00:06:31.560
+So what if we plug in this smoothing
+
+00:06:31.560 --> 00:06:34.420
+formula into our query likelihood running
+
+00:06:34.420 --> 00:06:34.865
+function?
+
+00:06:34.865 --> 00:06:36.420
+This is what we will get.
+
+00:06:37.450 --> 00:06:39.590
+Right, in this formula you can see.
+
+00:06:40.890 --> 00:06:42.370
+Right, we have.
+
+00:06:43.320 --> 00:06:48.650
+This as a sum over all the query words
+
+00:06:48.650 --> 00:06:50.280
+and note that we have written in the
+
+00:06:50.280 --> 00:06:52.550
+form of a sum over all the vocabulary.
+
+00:06:53.160 --> 00:06:55.494
+Can see here this is a sum over all the
+
+00:06:55.494 --> 00:06:57.585
+words in the vocabulary, but note that
+
+00:06:57.585 --> 00:06:59.810
+we have a count of the word in the
+
+00:06:59.810 --> 00:07:00.140
+query.
+
+00:07:00.140 --> 00:07:03.275
+So in effect we are just taking sum of
+
+00:07:03.275 --> 00:07:04.530
+query words right?
+
+00:07:04.530 --> 00:07:06.920
+This is now.
+
+00:07:08.600 --> 00:07:11.100
+A common way that we will use.
+
+00:07:11.700 --> 00:07:14.180
+Because of its convenience.
+
+00:07:14.850 --> 00:07:16.230
+In some transformations.
+
+00:07:18.590 --> 00:07:20.810
+So this is as I said, this is some
+
+00:07:20.810 --> 00:07:22.140
+of all the query words.
+
+00:07:23.020 --> 00:07:25.995
+In our smoothing method, we assume that
+
+00:07:25.995 --> 00:07:28.040
+the words that are not observed in the
+
+00:07:28.040 --> 00:07:29.970
+document we have somewhat different
+
+00:07:29.970 --> 00:07:32.590
+form of probability namely it's for this
+
+00:07:32.590 --> 00:07:33.070
+form.
+
+00:07:33.720 --> 00:07:35.460
+So we're going to then decompose this
+
+00:07:35.460 --> 00:07:36.770
+sum into two parts.
+
+00:07:38.420 --> 00:07:41.470
+One sum is over all the query words that
+
+00:07:41.470 --> 00:07:43.750
+are matching the document. That means in this sum, all the words have a non-zero probability
+
+00:07:53.560 --> 00:07:57.300
+in the document, sorry it's the non 0 count
+
+00:07:57.300 --> 00:07:59.579
+of the word in the document.
+
+00:07:59.580 --> 00:08:01.330
+They all occurred in the document.
+
+00:08:02.110 --> 00:08:04.180
+And they also have to of course have a
+
+00:08:04.180 --> 00:08:08.560
+non 0 count in the query, so these are
+
+00:08:08.560 --> 00:08:10.100
+the words that are matched.
+
+00:08:11.440 --> 00:08:12.560
+These are the query words that are
+
+00:08:12.560 --> 00:08:13.620
+matching the document.
+
+00:08:14.580 --> 00:08:16.850
+But on the other hand, in this sum
+
+00:08:16.850 --> 00:08:19.420
+we are taking sum over all the words
+
+00:08:19.420 --> 00:08:20.995
+that are not.
+
+00:08:20.995 --> 00:08:23.483
+All query words that are not matched in
+
+00:08:23.483 --> 00:08:24.280
+the document.
+
+00:08:25.100 --> 00:08:27.180
+So they occur in the query.
+
+00:08:28.820 --> 00:08:32.070
+Due to this this term, but they don't occur
+
+00:08:32.070 --> 00:08:32.910
+in the document.
+
+00:08:32.910 --> 00:08:35.100
+In this case, these words have this
+
+00:08:35.100 --> 00:08:38.480
+probability because of our assumption
+
+00:08:38.480 --> 00:08:39.450
+about the smoothing.
+
+00:08:40.200 --> 00:08:41.550
+But that here.
+
+00:08:42.440 --> 00:08:44.290
+These seen words have a different
+
+00:08:44.290 --> 00:08:45.050
+probability.
+
+00:08:47.330 --> 00:08:50.880
+Now we can go further by rewriting the
+
+00:08:50.880 --> 00:08:51.810
+second sum.
+
+00:08:52.450 --> 00:08:54.740
+As a difference of two other sums,
+
+00:08:54.740 --> 00:08:57.490
+basically the first sum is actually
+
+00:08:57.490 --> 00:08:57.790
+sum,
+
+00:08:57.790 --> 00:08:59.160
+over all the query words.
+
+00:08:59.940 --> 00:09:03.010
+We know that the original sum is not
+
+00:09:03.010 --> 00:09:04.960
+over all the query words.
+
+00:09:04.960 --> 00:09:07.160
+This is over all the 
+
+00:09:07.840 --> 00:09:10.470
+query words that are not matched in the
+
+00:09:10.470 --> 00:09:11.160
+document.
+
+00:09:12.300 --> 00:09:14.560
+So here we pretend that they are
+
+00:09:14.560 --> 00:09:15.380
+actually.
+
+00:09:16.090 --> 00:09:19.058
+Over all the query words, so we take a
+
+00:09:19.058 --> 00:09:20.489
+sum over all the query words.
+
+00:09:20.490 --> 00:09:23.237
+Obviously this sum has extra terms that
+
+00:09:23.237 --> 00:09:23.613
+are.
+
+00:09:23.613 --> 00:09:26.680
+This sum has extra terms that are not
+
+00:09:26.680 --> 00:09:27.640
+in this sum.
+
+00:09:30.640 --> 00:09:32.385
+Because here we are taking sum over all
+
+00:09:32.385 --> 00:09:34.360
+the query words there.
+
+00:09:34.360 --> 00:09:37.120
+It's not matched in the document.
+
+00:09:37.760 --> 00:09:40.700
+So in order to make them equal, we will
+
+00:09:40.700 --> 00:09:43.040
+have to then subtract another sum
+
+00:09:43.040 --> 00:09:43.700
+here.
+
+00:09:44.270 --> 00:09:47.120
+And this is the sum over all the query
+
+00:09:47.120 --> 00:09:48.880
+words that are matching the document.
+
+00:09:51.120 --> 00:09:53.275
+And this makes sense, because here we
+
+00:09:53.275 --> 00:09:55.720
+are considering all query words and
+
+00:09:55.720 --> 00:09:57.796
+then we subtract the query words that
+
+00:09:57.796 --> 00:09:59.266
+are matched in the document.
+
+00:09:59.266 --> 00:10:01.580
+That would give us the query words that
+
+00:10:01.580 --> 00:10:04.130
+not matched in the document.
+
+00:10:05.770 --> 00:10:09.010
+And this is almost reverse process of
+
+00:10:09.010 --> 00:10:11.440
+the first step here.
+
+00:10:12.640 --> 00:10:14.040
+And you might want to, why do we want
+
+00:10:14.040 --> 00:10:14.690
+to do that?
+
+00:10:14.690 --> 00:10:16.530
+Well, that's cause.
+
+00:10:17.130 --> 00:10:21.310
+If we do this, then we have different
+
+00:10:21.310 --> 00:10:24.400
+forms of terms inside these sums.
+
+00:10:24.400 --> 00:10:27.590
+So now you can see in this sum we
+
+00:10:27.590 --> 00:10:28.180
+have.
+
+00:10:29.940 --> 00:10:31.195
+All the words match
+
+00:10:31.195 --> 00:10:33.220
+the query words matched in the document
+
+00:10:33.220 --> 00:10:35.910
+and with this kind of terms.
+
+00:10:36.630 --> 00:10:39.590
+Here we have another sum.
+
+00:10:40.420 --> 00:10:42.290
+Over the same set of terms.
+
+00:10:43.240 --> 00:10:46.070
+match the query terms in document but
+
+00:10:46.070 --> 00:10:48.140
+inside the sum it's different.
+
+00:10:49.070 --> 00:10:52.030
+But these two sums can clearly be
+
+00:10:52.030 --> 00:10:52.750
+merged.
+
+00:10:54.190 --> 00:10:56.300
+So if we do that, we'll get another
+
+00:10:56.300 --> 00:10:59.900
+form of the formula that looks like the
+
+00:10:59.900 --> 00:11:00.410
+following.
+
+00:11:01.150 --> 00:11:02.280
+At the bottom here.
+
+00:11:04.210 --> 00:11:06.150
+And note that this is a very
+
+00:11:06.150 --> 00:11:07.940
+interesting formula because here we
+
+00:11:07.940 --> 00:11:09.780
+combined these two.
+
+00:11:10.490 --> 00:11:11.910
+That our sum.
+
+00:11:12.460 --> 00:11:13.980
+Over the query words matched in the
+
+00:11:13.980 --> 00:11:16.850
+document in the one sum here.
+
+00:11:18.580 --> 00:11:21.750
+And the other sum now is decomposed
+
+00:11:21.750 --> 00:11:22.720
+into two parts.
+
+00:11:24.060 --> 00:11:26.650
+And these two parts look much simpler
+
+00:11:26.650 --> 00:11:27.800
+just because these are the
+
+00:11:27.800 --> 00:11:30.160
+probabilities of unseen worlds.
+
+00:11:31.450 --> 00:11:33.540
+Now this formula is very interesting
+
+00:11:33.540 --> 00:11:36.570
+because you can see the sum is now over
+
+00:11:36.570 --> 00:11:40.070
+all the matched query terms.
+
+00:11:41.210 --> 00:11:43.220
+And just like in the vector space
+
+00:11:43.220 --> 00:11:47.460
+model, we take a sum of terms that are
+
+00:11:47.460 --> 00:11:49.163
+in the intersection of query vector and
+
+00:11:49.163 --> 00:11:50.320
+the document vector.
+
+00:11:51.180 --> 00:11:54.400
+So it all already looks a little bit like the
+
+00:11:54.400 --> 00:11:55.510
+vector space model.
+
+00:11:55.510 --> 00:11:58.870
+In fact, there's even more similarity
+
+00:11:58.870 --> 00:12:01.660
+here as we explain on this slide.
+
+

@@ -1,0 +1,996 @@
+WEBVTT Kind: captions; Language: en-US
+
+NOTE
+Created on 2021-03-24T18:13:54.7611451Z by ClassTranscribe
+
+00:00:00.280 --> 00:00:02.010
+This lecture is about the recommender
+
+00:00:02.010 --> 00:00:02.630
+systems.
+
+00:00:12.850 --> 00:00:16.380
+So far we have talked about a lot of
+
+00:00:16.380 --> 00:00:18.290
+aspects of search engines.
+
+00:00:19.260 --> 00:00:22.095
+We have talked about the problem of
+
+00:00:22.095 --> 00:00:24.330
+search and ranking problem, different
+
+00:00:24.330 --> 00:00:27.357
+methods for ranking implementation of a&lt;br&gt;
+
+00:00:27.357 --> 00:00:31.316
+search engine and how to evaluate the
+
+00:00:31.316 --> 00:00:33.280
+search engine etc.
+
+00:00:34.340 --> 00:00:34.900
+The.
+
+00:00:36.210 --> 00:00:39.960
+This is probably because of we know that
+
+00:00:39.960 --> 00:00:42.409
+web search engines are by far the most
+
+00:00:42.410 --> 00:00:43.960
+important applications of text
+
+00:00:43.960 --> 00:00:46.200
+retrieval and they are the most useful
+
+00:00:46.200 --> 00:00:49.430
+tools to help people convert big raw
+
+00:00:49.430 --> 00:00:53.460
+text data into a small set of relevant
+
+00:00:53.460 --> 00:00:54.320
+documents.
+
+00:00:55.950 --> 00:00:57.840
+Another reason why we spend so many
+
+00:00:57.840 --> 00:01:01.050
+lectures on search engines is because
+
+00:01:01.050 --> 00:01:03.680
+many techniques used in search engines
+
+00:01:04.710 --> 00:01:07.550
+are actually also very useful for recommender
+
+00:01:07.550 --> 00:01:09.700
+systems, which is the topic of this
+
+00:01:09.700 --> 00:01:10.210
+lecture.
+
+00:01:11.440 --> 00:01:16.380
+And so overall, the two systems are actually
+
+00:01:16.380 --> 00:01:18.020
+well connected and there are many techniques
+
+00:01:18.020 --> 00:01:20.440
+that are shared by them.
+
+00:01:22.620 --> 00:01:24.420
+So this is a slide that you have seen
+
+00:01:24.420 --> 00:01:26.750
+before when we talked about the two
+
+00:01:26.750 --> 00:01:29.430
+different modes of text access - pull
+
+00:01:29.430 --> 00:01:30.420
+and push.
+
+00:01:31.140 --> 00:01:34.790
+An we mentioned that recommender
+
+00:01:34.790 --> 00:01:36.850
+systems are the main systems to serve
+
+00:01:36.850 --> 00:01:39.570
+users in the push mode where the
+
+00:01:39.570 --> 00:01:42.200
+systems would take initiative to
+
+00:01:42.200 --> 00:01:43.910
+recommend the information to user or
+
+00:01:43.910 --> 00:01:46.090
+push a relevant information to the
+
+00:01:46.090 --> 00:01:46.450
+user.
+
+00:01:47.370 --> 00:01:49.376
+And this often works well when the user
+
+00:01:49.376 --> 00:01:51.370
+has a relatively stable information
+
+00:01:51.370 --> 00:01:51.660
+need.
+
+00:01:51.660 --> 00:01:53.380
+When the system has a good knowledge
+
+00:01:53.380 --> 00:01:55.200
+about what the user wants.
+
+00:01:56.480 --> 00:01:58.550
+So a recommender system is sometimes
+
+00:01:58.550 --> 00:02:00.530
+called a filtering system and it's
+
+00:02:00.530 --> 00:02:04.220
+because recommending useful items to
+
+00:02:04.220 --> 00:02:06.675
+people is like discarding or
+
+00:02:06.675 --> 00:02:09.350
+filtering out the useless articles.
+
+00:02:09.350 --> 00:02:13.390
+And so in this sense they are kind of
+
+00:02:13.390 --> 00:02:14.660
+similar.
+
+00:02:15.490 --> 00:02:17.780
+And in all these cases, the system must
+
+00:02:17.780 --> 00:02:20.640
+make a binary decision, and usually
+
+00:02:20.640 --> 00:02:24.010
+there's a dynamic source of information
+
+00:02:24.010 --> 00:02:24.650
+items.
+
+00:02:25.660 --> 00:02:27.640
+And you have some knowledge about this
+
+00:02:27.640 --> 00:02:30.158
+user's interest and then the system
+
+00:02:30.158 --> 00:02:32.390
+would make a delivery decision whether
+
+00:02:32.390 --> 00:02:34.858
+this item is interesting to the user
+
+00:02:34.858 --> 00:02:37.350
+and then if he's interested in, then
+
+00:02:37.350 --> 00:02:39.330
+the system would recommend the article
+
+00:02:39.330 --> 00:02:39.969
+to the user.
+
+00:02:43.170 --> 00:02:45.310
+So the basic of filtering question here
+
+00:02:45.310 --> 00:02:48.763
+is really, will this user like this
+
+00:02:48.763 --> 00:02:49.409
+item.
+
+00:02:49.410 --> 00:02:51.640
+Will you like item X?
+
+00:02:52.560 --> 00:02:54.080
+And there are two ways to answer this
+
+00:02:54.080 --> 00:02:54.670
+question.
+
+00:02:54.670 --> 00:02:57.310
+If you think about it, I wanted to look
+
+00:02:57.310 --> 00:02:59.180
+at what items you like.
+
+00:02:59.810 --> 00:03:02.590
+And then we can see if X actually
+
+00:03:02.590 --> 00:03:03.710
+like those items.
+
+00:03:05.540 --> 00:03:07.840
+The other is to look at the who likes
+
+00:03:07.840 --> 00:03:11.030
+X and we can see if this user looks
+
+00:03:11.030 --> 00:03:12.970
+like a one of those users.
+
+00:03:13.560 --> 00:03:16.290
+or like most of those users. And these
+
+00:03:16.290 --> 00:03:19.130
+strategies can be combined if we follow
+
+00:03:19.130 --> 00:03:21.620
+the first strategy that look at item
+
+00:03:21.620 --> 00:03:22.520
+similarity.
+
+00:03:22.520 --> 00:03:24.580
+In the case of recommending text
+
+00:03:24.580 --> 00:03:25.310
+objects.
+
+00:03:26.030 --> 00:03:27.975
+Then we are talking about the content
+
+00:03:27.975 --> 00:03:29.970
+based filtering or content based
+
+00:03:29.970 --> 00:03:30.720
+recommendation.
+
+00:03:31.360 --> 00:03:34.580
+If we look at the second strategy, then
+
+00:03:34.580 --> 00:03:38.310
+it will compare users and in this case
+
+00:03:38.310 --> 00:03:40.603
+will exploit the user similarity and
+
+00:03:40.603 --> 00:03:42.120
+the technique is often called
+
+00:03:42.120 --> 00:03:43.150
+collaborative filtering.
+
+00:03:45.930 --> 00:03:47.870
+So let's first look at the content
+
+00:03:47.870 --> 00:03:49.150
+based filtering system.
+
+00:03:49.150 --> 00:03:51.190
+This is what the system would look
+
+00:03:51.190 --> 00:03:51.660
+like.
+
+00:03:52.270 --> 00:03:53.790
+Inside the system there will be a
+
+00:03:53.790 --> 00:03:56.190
+binary classifier that would have some
+
+00:03:56.190 --> 00:03:58.040
+knowledge above the users‘ interest.
+
+00:03:58.880 --> 00:04:00.450
+And it's called a user interest
+
+00:04:00.450 --> 00:04:01.100
+profile.
+
+00:04:02.110 --> 00:04:04.130
+It maintains this profile to keep track
+
+00:04:04.130 --> 00:04:05.320
+of the users‘ interest.
+
+00:04:06.300 --> 00:04:08.035
+And then there was a utility function
+
+00:04:08.035 --> 00:04:10.385
+to guide the user to make decisions,
+
+00:04:10.385 --> 00:04:12.500
+and I explained the utility function in
+
+00:04:12.500 --> 00:04:13.130
+the moment.
+
+00:04:13.130 --> 00:04:16.350
+It helps the system decide where to set
+
+00:04:16.350 --> 00:04:17.190
+the threshold.
+
+00:04:17.880 --> 00:04:18.660
+And then the accepted
+
+00:04:18.660 --> 00:04:20.180
+document will be those that have
+
+00:04:20.180 --> 00:04:22.060
+passed the threshold according to the
+
+00:04:22.060 --> 00:04:22.740
+classifier.
+
+00:04:23.380 --> 00:04:24.580
+There should be also an
+
+00:04:24.580 --> 00:04:27.146
+initialization module that would take a
+
+00:04:27.146 --> 00:04:31.320
+users input, maybe from a users
+
+00:04:31.320 --> 00:04:34.040
+specified keywords or chosen category
+
+00:04:34.040 --> 00:04:34.960
+etc.
+
+00:04:34.960 --> 00:04:37.180
+And this will be to feed the system
+
+00:04:37.180 --> 00:04:38.740
+with the initial user profile.
+
+00:04:39.820 --> 00:04:41.510
+There is also typically a learning
+
+00:04:41.510 --> 00:04:43.615
+module that will learn from users
+
+00:04:43.615 --> 00:04:44.770
+feedback overtime.
+
+00:04:44.770 --> 00:04:45.340
+Now.
+
+00:04:45.340 --> 00:04:47.270
+Note that in this case typical users
+
+00:04:47.270 --> 00:04:49.450
+information need is stable, so the
+
+00:04:49.450 --> 00:04:50.540
+system would have a lot of
+
+00:04:50.540 --> 00:04:53.300
+opportunities to observe the users, if the
+
+00:04:53.300 --> 00:04:57.000
+user has taken a recommended item has
+
+00:04:57.000 --> 00:05:00.760
+viewed that, and this is the signal to
+
+00:05:00.760 --> 00:05:02.810
+indicate that the recommended item may
+
+00:05:02.810 --> 00:05:06.340
+be relevant if the user discarded it, it's
+
+00:05:06.340 --> 00:05:08.626
+not relevant, and so such feedback can
+
+00:05:08.626 --> 00:05:10.710
+be a long term feedback and can last
+
+00:05:10.710 --> 00:05:12.090
+for a long time.
+
+00:05:12.350 --> 00:05:14.360
+And the system Clock collect a lot of
+
+00:05:14.360 --> 00:05:16.170
+information about these users interest
+
+00:05:16.170 --> 00:05:18.295
+and this can then be used to improve
+
+00:05:18.295 --> 00:05:19.260
+the classifier.
+
+00:05:19.260 --> 00:05:23.140
+Now what's the criteria for evaluating
+
+00:05:23.140 --> 00:05:24.569
+such a system?
+
+00:05:24.570 --> 00:05:26.700
+How do we know this filtering system
+
+00:05:26.700 --> 00:05:29.320
+actually performs well?
+
+00:05:30.730 --> 00:05:33.330
+Now, in this case we cannot use the
+
+00:05:33.330 --> 00:05:36.280
+ranking evaluation measures like a map
+
+00:05:36.280 --> 00:05:38.620
+because we can afford waiting for a lot
+
+00:05:38.620 --> 00:05:40.185
+of documents and then rank the
+
+00:05:40.185 --> 00:05:41.810
+documents to make a decision for the
+
+00:05:41.810 --> 00:05:42.230
+user.
+
+00:05:42.860 --> 00:05:45.910
+And so the system must make a decision
+
+00:05:45.910 --> 00:05:48.620
+in real time in general to decide
+
+00:05:48.620 --> 00:05:51.180
+whether the item is above the threshold
+
+00:05:51.180 --> 00:05:51.750
+or not.
+
+00:05:51.750 --> 00:05:53.745
+So in other words, we're trying to
+
+00:05:53.745 --> 00:05:55.580
+decide the absolute relevance.
+
+00:05:56.700 --> 00:05:58.990
+So in this case, one commonly used
+
+00:05:58.990 --> 00:06:02.050
+strategies is user utility function to
+
+00:06:02.050 --> 00:06:03.220
+evaluate the system.
+
+00:06:03.220 --> 00:06:05.865
+So here I show a linear utility
+
+00:06:05.865 --> 00:06:08.210
+function that's defined as for example
+
+00:06:08.210 --> 00:06:10.890
+3 multiplied by the number of good
+
+00:06:10.890 --> 00:06:12.950
+items that you delivered minus 2
+
+00:06:12.950 --> 00:06:15.345
+multiplied by the number of bad items
+
+00:06:15.345 --> 00:06:16.890
+you deliver.
+
+00:06:16.890 --> 00:06:20.250
+So in other words, we could kind of
+
+00:06:20.250 --> 00:06:21.030
+just.
+
+00:06:22.220 --> 00:06:25.850
+treat this as almost a in a gambling
+
+00:06:25.850 --> 00:06:26.226
+game.
+
+00:06:26.226 --> 00:06:29.600
+If you delete, if you deliver one good
+
+00:06:29.600 --> 00:06:32.580
+item, let's say you win $3, you gain
+
+00:06:32.580 --> 00:06:33.890
+$3.
+
+00:06:34.520 --> 00:06:36.417
+But if you deliver a better one and you
+
+00:06:36.417 --> 00:06:39.000
+will lose $2 and this utility function
+
+00:06:39.000 --> 00:06:41.470
+basically kind of measures how much
+
+00:06:41.470 --> 00:06:43.823
+money you will get by doing this kind
+
+00:06:43.823 --> 00:06:44.680
+of game.
+
+00:06:45.900 --> 00:06:50.240
+And so it's clear that if you want to
+
+00:06:50.240 --> 00:06:52.560
+maximize this utility function, your
+
+00:06:52.560 --> 00:06:55.520
+strategy should be to deliver as many
+
+00:06:55.520 --> 00:06:58.020
+good articles as possible and to
+
+00:06:58.020 --> 00:07:01.040
+minimize the delivery of bad articles,
+
+00:07:01.040 --> 00:07:02.190
+that's obvious.
+
+00:07:03.510 --> 00:07:06.380
+One interesting question here is how
+
+00:07:06.380 --> 00:07:08.030
+should we set these coefficients?
+
+00:07:08.030 --> 00:07:12.000
+Now I just showed 3 and negative 2 as
+
+00:07:12.000 --> 00:07:13.430
+a possible coefficients.
+
+00:07:14.090 --> 00:07:16.440
+But one can ask the question, are they
+
+00:07:16.440 --> 00:07:17.090
+reasonable?
+
+00:07:17.910 --> 00:07:19.260
+So what do you think?
+
+00:07:21.030 --> 00:07:22.490
+Do you think that's a reasonable
+
+00:07:22.490 --> 00:07:23.400
+choice?
+
+00:07:23.400 --> 00:07:24.680
+What about the other choices?
+
+00:07:26.050 --> 00:07:28.539
+And also for example we can have 10 and
+
+00:07:28.540 --> 00:07:29.270
+minus one.
+
+00:07:30.390 --> 00:07:32.400
+Or one minus ten.
+
+00:07:33.200 --> 00:07:34.660
+What's the difference?
+
+00:07:34.660 --> 00:07:35.480
+What do you think?
+
+00:07:36.810 --> 00:07:38.980
+How would this utility function affect
+
+00:07:38.980 --> 00:07:41.870
+the system's threshold decision?
+
+00:07:43.490 --> 00:07:45.350
+But you can think of these two extreme
+
+00:07:45.350 --> 00:07:49.066
+cases, 10&amp;nbsp; -1 versus 1 -10.
+
+00:07:49.066 --> 00:07:51.705
+Which one do you think it would
+
+00:07:51.705 --> 00:07:54.194
+encourage the system to overdeliver and
+
+00:07:54.194 --> 00:07:56.115
+which one would encourage the system to
+
+00:07:56.115 --> 00:07:57.280
+be conservative?
+
+00:07:57.280 --> 00:07:59.680
+If you think about it, they will see
+
+00:07:59.680 --> 00:08:02.645
+that when we get a big award for
+
+00:08:02.645 --> 00:08:05.560
+delivering a good document, you incur
+
+00:08:05.560 --> 00:08:07.389
+only a small penalty for delivering
+
+00:08:07.390 --> 00:08:08.320
+bad one.
+
+00:08:08.320 --> 00:08:10.356
+Intuitively, you would be encouraged to
+
+00:08:10.356 --> 00:08:11.470
+deliver more right?
+
+00:08:11.470 --> 00:08:13.620
+And you can try to deliver more.
+
+00:08:13.670 --> 00:08:15.660
+In hopes of getting a good one
+
+00:08:15.660 --> 00:08:17.320
+delivered, and then you'll get a big
+
+00:08:17.320 --> 00:08:18.040
+award.
+
+00:08:18.870 --> 00:08:21.400
+I saw, on the other hand, if you choose
+
+00:08:21.400 --> 00:08:24.290
+1 -- 10, you don't really get such a
+
+00:08:24.290 --> 00:08:26.950
+big price if you deliver deliver a good
+
+00:08:26.950 --> 00:08:27.248
+document.
+
+00:08:27.248 --> 00:08:29.389
+On the other hand, you will have a big
+
+00:08:29.390 --> 00:08:30.975
+loss if you deliver a bad one.
+
+00:08:30.975 --> 00:08:32.865
+You can imagine that the system would
+
+00:08:32.865 --> 00:08:35.570
+be very reluctant to deliver a lot of
+
+00:08:35.570 --> 00:08:36.040
+documents.
+
+00:08:36.040 --> 00:08:38.520
+It has to be absolutely sure that it's
+
+00:08:38.520 --> 00:08:40.610
+not a non-relevant one.
+
+00:08:40.610 --> 00:08:42.470
+So this utility function has to be
+
+00:08:42.470 --> 00:08:44.400
+designed based on the specific
+
+00:08:44.400 --> 00:08:45.470
+application.
+
+00:08:45.470 --> 00:08:47.670
+Three basic problems in content based
+
+00:08:47.670 --> 00:08:48.350
+filtering are the following.
+
+00:08:49.010 --> 00:08:52.590
+Frst it has to make a
+
+00:08:52.590 --> 00:08:54.833
+filtering decision so it has to be a
+
+00:08:54.833 --> 00:08:57.870
+binary decision maker binary classifier
+
+00:08:57.870 --> 00:08:59.150
+given a text.
+
+00:08:59.760 --> 00:09:02.380
+Text document and profile description
+
+00:09:02.380 --> 00:09:03.090
+of the user.
+
+00:09:03.090 --> 00:09:05.544
+It has to say yes or no, whether this
+
+00:09:05.544 --> 00:09:07.210
+document should be delivered or not.
+
+00:09:07.210 --> 00:09:10.860
+So that's the decision module and there
+
+00:09:10.860 --> 00:09:12.440
+should be a initialization module.
+
+00:09:12.440 --> 00:09:14.570
+As you have seen earlier and this is to
+
+00:09:14.570 --> 00:09:16.130
+get the system started.
+
+00:09:17.110 --> 00:09:19.520
+And we have to initialize the system
+
+00:09:19.520 --> 00:09:22.580
+based on only very limited text
+
+00:09:22.580 --> 00:09:24.910
+description or very few examples from
+
+00:09:24.910 --> 00:09:25.460
+the user.
+
+00:09:26.610 --> 00:09:28.800
+And the third component is a learning
+
+00:09:28.800 --> 00:09:31.200
+module which he had to be able to learn
+
+00:09:31.200 --> 00:09:33.280
+from limited relevance judgments.
+
+00:09:33.890 --> 00:09:37.496
+Because we count in learn from the
+
+00:09:37.496 --> 00:09:39.790
+user about their preferences on the
+
+00:09:39.790 --> 00:09:41.420
+delivered documents if we don't
+
+00:09:41.420 --> 00:09:43.973
+deliver document to the user, we would
+
+00:09:43.973 --> 00:09:46.920
+never know would never be able to know
+
+00:09:46.920 --> 00:09:49.190
+whether the user likes it or not.
+
+00:09:50.540 --> 00:09:52.019
+And we can accumulate a lot of
+
+00:09:52.020 --> 00:09:54.610
+documents and learn from the entire
+
+00:09:54.610 --> 00:09:57.660
+history and all these modules would
+
+00:09:57.660 --> 00:10:00.340
+have to be optimized to maximize the
+
+00:10:00.340 --> 00:10:00.970
+utility.
+
+00:10:00.970 --> 00:10:02.947
+So how can we build such a system?
+
+00:10:02.947 --> 00:10:04.720
+And there are many different approaches.
+
+00:10:04.720 --> 00:10:05.710
+here.
+
+00:10:05.710 --> 00:10:08.079
+Here we're going to talk about how to extend
+
+00:10:08.080 --> 00:10:09.087
+retrieval system.
+
+00:10:09.087 --> 00:10:11.040
+A search engine for information
+
+00:10:11.040 --> 00:10:11.590
+filtering.
+
+00:10:11.590 --> 00:10:13.330
+Again, here's why.
+
+00:10:13.330 --> 00:10:15.128
+We've spent a lot of time to talk about
+
+00:10:15.128 --> 00:10:16.850
+the search engines because it's
+
+00:10:16.850 --> 00:10:19.458
+actually not very hard to extend the
+
+00:10:19.458 --> 00:10:20.030
+search engine
+
+00:10:20.630 --> 00:10:23.260
+for information filtering. So here's
+
+00:10:23.260 --> 00:10:25.465
+the basic idea for extending a
+
+00:10:25.465 --> 00:10:27.326
+retrieval system for information
+
+00:10:27.326 --> 00:10:27.869
+filtering.
+
+00:10:27.870 --> 00:10:29.810
+First we can reuse a lot of retrieval
+
+00:10:29.810 --> 00:10:31.619
+techniques to do scoring, right, so we
+
+00:10:31.620 --> 00:10:33.290
+know how to score documents against
+
+00:10:33.290 --> 00:10:35.080
+queries, etc.
+
+00:10:35.080 --> 00:10:37.290
+We can measure the similarity between
+
+00:10:37.290 --> 00:10:40.460
+profile text, description and document,
+
+00:10:40.460 --> 00:10:42.696
+and then we can use the score threshold
+
+00:10:42.696 --> 00:10:43.998
+for the filtering decision.
+
+00:10:43.998 --> 00:10:47.130
+We do retrieval, and then we kind of
+
+00:10:47.130 --> 00:10:49.280
+find the scores of documents and then
+
+00:10:49.280 --> 00:10:50.819
+we apply a threshold to see
+
+00:10:51.150 --> 00:10:54.457
+whether document is passing the
+
+00:10:54.457 --> 00:10:56.830
+threshold or not, and if it's passing
+
+00:10:56.830 --> 00:10:58.470
+the threshold we are going to say it's
+
+00:10:58.470 --> 00:11:00.160
+relevant, and we're going to deliver it
+
+00:11:00.160 --> 00:11:01.170
+to the user.
+
+00:11:02.800 --> 00:11:04.400
+And another component that we have to
+
+00:11:04.400 --> 00:11:06.610
+add is for is of course to learn from
+
+00:11:06.610 --> 00:11:09.560
+the history and here we can use the
+
+00:11:09.560 --> 00:11:11.446
+traditional feedback techniques to
+
+00:11:11.446 --> 00:11:12.640
+learn to improve scoring.
+
+00:11:12.640 --> 00:11:15.436
+And we know Rocchio can be used for
+
+00:11:15.436 --> 00:11:16.990
+scoring improvement.
+
+00:11:18.550 --> 00:11:21.410
+And but we have to develop a new
+
+00:11:21.410 --> 00:11:25.113
+approaches to learn how to set the
+
+00:11:25.113 --> 00:11:27.360
+threshold and we need to set it
+
+00:11:27.360 --> 00:11:29.295
+initially and then we have to learn how
+
+00:11:29.295 --> 00:11:31.640
+to update the threshold overtime.
+
+00:11:31.640 --> 00:11:36.380
+So here's what the system might look
+
+00:11:36.380 --> 00:11:39.180
+like if we just generalize the vector
+
+00:11:39.180 --> 00:11:41.860
+space model for filtering problems.
+
+00:11:43.380 --> 00:11:45.866
+Right, so you can see the
+
+00:11:45.866 --> 00:11:47.420
+document vector could be fed into a
+
+00:11:47.420 --> 00:11:49.720
+scoring module which is already exists
+
+00:11:49.720 --> 00:11:52.356
+in a search engine that implements a
+
+00:11:52.356 --> 00:11:55.470
+vector space model and the profile will
+
+00:11:55.470 --> 00:11:58.520
+be treated as a query essentially and
+
+00:11:58.520 --> 00:12:00.130
+then the profile vector can be matched
+
+00:12:00.130 --> 00:12:01.525
+with the document vector to generate
+
+00:12:01.525 --> 00:12:02.320
+the score.
+
+00:12:03.020 --> 00:12:04.930
+And then this score would be fed into a
+
+00:12:04.930 --> 00:12:06.780
+threshold module that would say yes
+
+00:12:06.780 --> 00:12:09.580
+or no, and then the evaluation would be
+
+00:12:09.580 --> 00:12:12.250
+based on utility for the filtering
+
+00:12:12.250 --> 00:12:12.870
+results.
+
+00:12:13.580 --> 00:12:15.680
+If it says yes and then the documents
+
+00:12:15.680 --> 00:12:17.264
+will be sent to the user and then the
+
+00:12:17.264 --> 00:12:19.717
+user could give some feedback and the
+
+00:12:19.717 --> 00:12:21.420
+feedback information would have been
+
+00:12:21.420 --> 00:12:24.819
+,would be used to both adjust to the
+
+00:12:24.819 --> 00:12:27.199
+threshold and to adjust the vector
+
+00:12:27.200 --> 00:12:29.706
+representation so the vector learning
+
+00:12:29.706 --> 00:12:32.950
+is essentially the same as query
+
+00:12:32.950 --> 00:12:34.590
+modification or feedback.
+
+00:12:34.590 --> 00:12:37.344
+in the case of search. The threshold of
+
+00:12:37.344 --> 00:12:39.870
+learning is new component that we need
+
+00:12:39.870 --> 00:12:41.340
+to talk a little bit more about.
+
+

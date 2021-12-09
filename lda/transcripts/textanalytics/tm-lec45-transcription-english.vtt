@@ -1,0 +1,918 @@
+WEBVTT Kind: captions; Language: en-US
+
+NOTE
+Created on 2021-02-27T00:01:46.7227314Z by ClassTranscribe
+
+00:00:00.300 --> 00:00:02.750
+This lecture is about the ordinal
+
+00:00:02.750 --> 00:00:04.570
+logistic regression for sentiment
+
+00:00:04.570 --> 00:00:05.530
+analysis.
+
+00:00:05.530 --> 00:00:08.690
+So this is our problem set up for a
+
+00:00:08.690 --> 00:00:10.550
+typical sentiment classification
+
+00:00:10.550 --> 00:00:13.060
+problem, or more specifically, rating
+
+00:00:13.060 --> 00:00:13.640
+prediction.
+
+00:00:21.380 --> 00:00:24.005
+We have an opinionated text document D
+
+00:00:24.005 --> 00:00:26.280
+as input an we want to generate as
+
+00:00:26.280 --> 00:00:29.510
+output already in the range of one
+
+00:00:29.510 --> 00:00:34.330
+through K, so it's discrete rating and
+
+00:00:34.330 --> 00:00:36.368
+thus this is a categorization problem.
+
+00:00:36.368 --> 00:00:38.410
+We have K categories here.
+
+00:00:38.410 --> 00:00:40.340
+Now we can use a regular text for
+
+00:00:40.340 --> 00:00:42.365
+categorization technique to solve this
+
+00:00:42.365 --> 00:00:45.590
+problem, but such a solution would not
+
+00:00:45.590 --> 00:00:47.803
+consider the order and dependency of
+
+00:00:47.803 --> 00:00:48.729
+the categories.
+
+00:00:48.730 --> 00:00:51.020
+Intuitively, the features that can
+
+00:00:51.020 --> 00:00:53.230
+distinguish Category 2 from
+
+00:00:53.410 --> 00:00:57.470
+1, or rather rating 2 from 1, may be
+
+00:00:57.470 --> 00:01:00.636
+similar to those that can distinguish K
+
+00:01:00.636 --> 00:01:03.329
+from K - 1.
+
+00:01:03.330 --> 00:01:05.960
+For example, positive words generally
+
+00:01:05.960 --> 00:01:07.630
+suggest a higher rating.
+
+00:01:08.220 --> 00:01:11.860
+Now when we train categorisation
+
+00:01:11.860 --> 00:01:14.260
+program by treating these categories as
+
+00:01:14.260 --> 00:01:16.760
+independent, we would not capture this.
+
+00:01:17.600 --> 00:01:18.630
+So what's the solution?
+
+00:01:18.630 --> 00:01:20.720
+In general, we can add order to
+
+00:01:20.720 --> 00:01:22.520
+classify and there are many different
+
+00:01:22.520 --> 00:01:24.640
+approaches, and here we are going to
+
+00:01:24.640 --> 00:01:26.690
+talk about one of them is called the
+
+00:01:26.690 --> 00:01:28.830
+ordinal logistic regression.
+
+00:01:28.830 --> 00:01:31.870
+Now let's first think about how we use
+
+00:01:31.870 --> 00:01:34.600
+logistic regression for binary setting
+
+00:01:34.600 --> 00:01:36.026
+categorization problem.
+
+00:01:36.026 --> 00:01:38.310
+So suppose we just want to distinguish
+
+00:01:38.310 --> 00:01:41.145
+it positive from negative and then it's
+
+00:01:41.145 --> 00:01:42.912
+just a two category categorization
+
+00:01:42.912 --> 00:01:43.395
+problem.
+
+00:01:43.395 --> 00:01:46.560
+So the predictors are represented as X
+
+00:01:46.560 --> 00:01:47.940
+and these are the features and there
+
+00:01:47.940 --> 00:01:48.090
+are
+
+00:01:48.140 --> 00:01:50.510
+M features altogether, which feature
+
+00:01:50.510 --> 00:01:53.500
+value is a real number, and this can be
+
+00:01:53.500 --> 00:01:55.530
+representation of a text document.
+
+00:01:56.930 --> 00:02:00.570
+And y has two values, binary response
+
+00:02:00.570 --> 00:02:03.800
+variable {0,1}. 1 means X is positive, 0
+
+00:02:03.800 --> 00:02:05.040
+means X is negative.
+
+00:02:05.680 --> 00:02:07.770
+And then of course, this is a standard
+
+00:02:07.770 --> 00:02:09.950
+two category categorization problem.
+
+00:02:09.950 --> 00:02:11.720
+We can apply logistical regression.
+
+00:02:11.720 --> 00:02:13.920
+You may recall that in logistic
+
+00:02:13.920 --> 00:02:17.800
+regression we assume the log of
+
+00:02:17.800 --> 00:02:22.459
+probability that Y is equal to 1 is
+
+00:02:22.460 --> 00:02:23.830
+assumed to be a
+
+00:02:24.470 --> 00:02:27.180
+linear function of these features as
+
+00:02:27.180 --> 00:02:27.820
+shown here.
+
+00:02:28.370 --> 00:02:31.710
+So this would allow us to also write
+
+00:02:31.710 --> 00:02:36.390
+the probability of y = 1 given X in
+
+00:02:36.390 --> 00:02:41.420
+this equation that you are seeing on
+
+00:02:41.420 --> 00:02:44.760
+the bottom, and so that's logistical
+
+00:02:44.760 --> 00:02:48.146
+function and you can see it relates
+
+00:02:48.146 --> 00:02:50.230
+this probability to
+
+00:02:51.830 --> 00:02:55.930
+probability that y = 1 to the feature
+
+00:02:55.930 --> 00:02:56.570
+values.
+
+00:02:57.840 --> 00:02:59.410
+And of course, B_i is our
+
+00:02:59.410 --> 00:03:00.620
+parameters here.
+
+00:03:02.170 --> 00:03:04.720
+So this is just a direct application of
+
+00:03:04.720 --> 00:03:06.660
+logistical regression for binary
+
+00:03:06.660 --> 00:03:07.580
+categorization.
+
+00:03:08.710 --> 00:03:10.560
+What if we have multiple categories,
+
+00:03:10.560 --> 00:03:11.620
+multiple levels?
+
+00:03:11.620 --> 00:03:15.150
+We actually use such a binary logistic
+
+00:03:15.150 --> 00:03:17.980
+regression program to solve this multi
+
+00:03:17.980 --> 00:03:20.240
+level rating prediction.
+
+00:03:20.910 --> 00:03:23.210
+And the idea is we can introduce
+
+00:03:23.210 --> 00:03:26.580
+multiple binary classifiers and each
+
+00:03:26.580 --> 00:03:29.510
+case we ask the classifier to predict
+
+00:03:29.510 --> 00:03:33.360
+whether the rating is J or above all
+
+00:03:33.360 --> 00:03:35.139
+the ratings lower than J.
+
+00:03:35.140 --> 00:03:38.300
+So when Y_j is equal to 1, it
+
+00:03:38.300 --> 00:03:41.205
+means rating is J or above.
+
+00:03:41.205 --> 00:03:43.234
+When it's zero, that means the rating
+
+00:03:43.234 --> 00:03:44.260
+is lower than J.
+
+00:03:45.240 --> 00:03:48.570
+So basically, if we want to predict
+
+00:03:48.570 --> 00:03:51.235
+rating in the range of one through K,
+
+00:03:51.235 --> 00:03:53.960
+we first have one classifier to
+
+00:03:53.960 --> 00:03:56.210
+distinguish K versus others.
+
+00:03:56.970 --> 00:04:00.000
+And that's our classifier one, and then
+
+00:04:00.000 --> 00:04:01.316
+we're going to have another classifier
+
+00:04:01.316 --> 00:04:05.030
+to distinguish K - 1 from the rest.
+
+00:04:05.670 --> 00:04:08.280
+That's classifier two, and in the end
+
+00:04:08.280 --> 00:04:10.300
+we need a classifier to distinguish
+
+00:04:10.300 --> 00:04:12.169
+two and one
+
+00:04:13.000 --> 00:04:15.640
+So altogether we'll have K - 1
+
+00:04:15.640 --> 00:04:16.560
+classifiers.
+
+00:04:17.720 --> 00:04:19.860
+Now if we do that of course, then we
+
+00:04:19.860 --> 00:04:24.080
+can also solve this problem, and the
+
+00:04:24.080 --> 00:04:25.770
+logistical regression program would be
+
+00:04:25.770 --> 00:04:28.390
+also very straightforward as you have
+
+00:04:28.390 --> 00:04:30.080
+just seen on the previous slide.
+
+00:04:30.780 --> 00:04:33.740
+Only that here we have more parameters
+
+00:04:33.740 --> 00:04:36.140
+because for each classify we need a
+
+00:04:36.140 --> 00:04:37.670
+different set of parameters.
+
+00:04:38.350 --> 00:04:40.250
+So now the logistic regression
+
+00:04:40.250 --> 00:04:42.480
+classifiers indexed by J, which
+
+00:04:42.480 --> 00:04:44.960
+corresponds to a reading level.
+
+00:04:46.090 --> 00:04:49.230
+And I have also used offer subject to
+
+00:04:49.230 --> 00:04:52.560
+replace beta 0. And
+
+00:04:52.560 --> 00:04:55.350
+this is to make the notation more
+
+00:04:55.350 --> 00:04:59.440
+consistent with what we can show in the
+
+00:04:59.440 --> 00:05:00.910
+ordinal logistic regression.
+
+00:05:02.100 --> 00:05:04.340
+So anyway, so here we now have
+
+00:05:04.340 --> 00:05:07.290
+basically K - 1 regular logistic
+
+00:05:07.290 --> 00:05:08.890
+regression classifiers.
+
+00:05:08.890 --> 00:05:11.960
+Each has its own set of parameters.
+
+00:05:11.960 --> 00:05:16.830
+So now with this approach we can now do
+
+00:05:16.830 --> 00:05:18.500
+rating prediction as follows.
+
+00:05:18.500 --> 00:05:22.390
+After we have trained these K - 1
+
+00:05:22.390 --> 00:05:23.650
+logistic regression classifiers,
+
+00:05:23.650 --> 00:05:24.940
+separately of course,
+
+00:05:25.690 --> 00:05:30.140
+then we can take a new instance and
+
+00:05:30.140 --> 00:05:31.900
+then invoke
+
+00:05:32.490 --> 00:05:36.510
+a classifier sequentially to make the
+
+00:05:36.510 --> 00:05:37.010
+decision.
+
+00:05:37.010 --> 00:05:39.750
+So first let's look at the classifier
+
+00:05:39.750 --> 00:05:43.250
+that corresponds to level of rating K.
+
+00:05:43.850 --> 00:05:45.920
+So this classifier will tell us whether
+
+00:05:45.920 --> 00:05:50.440
+this object should have a rating of K
+
+00:05:50.440 --> 00:05:51.150
+or above.
+
+00:05:53.380 --> 00:05:55.620
+And if its probability according to
+
+00:05:55.620 --> 00:05:57.620
+this logistical regression classifier
+
+00:05:57.620 --> 00:05:59.560
+is larger than .5, we're going to say
+
+00:05:59.560 --> 00:06:01.130
+yes, the rating is K.
+
+00:06:02.300 --> 00:06:06.690
+Now, what if it's not as large as .5?
+
+00:06:06.690 --> 00:06:08.930
+Well, that means the reading is below
+
+00:06:08.930 --> 00:06:10.210
+K, right?
+
+00:06:10.940 --> 00:06:13.060
+So now we need to invoke the next class
+
+00:06:13.060 --> 00:06:16.690
+file, which tells us whether it's above
+
+00:06:16.690 --> 00:06:17.770
+K - 1.
+
+00:06:18.460 --> 00:06:21.000
+It's at least K - 1 and if the
+
+00:06:21.000 --> 00:06:23.320
+probability is larger than .5 then will
+
+00:06:23.320 --> 00:06:23.860
+say, well,
+
+00:06:23.860 --> 00:06:25.310
+then it's K - 1.
+
+00:06:26.320 --> 00:06:27.900
+What if it says no?
+
+00:06:27.900 --> 00:06:29.390
+Well, that means the rating will be
+
+00:06:29.390 --> 00:06:31.610
+even below K minus one, and so we're
+
+00:06:31.610 --> 00:06:33.850
+going to just keep invoking these
+
+00:06:33.850 --> 00:06:36.350
+classifiers until we hit the end.
+
+00:06:37.070 --> 00:06:40.230
+When we need to decide whether it's two
+
+00:06:40.230 --> 00:06:43.005
+or one, so this will help us solve the
+
+00:06:43.005 --> 00:06:43.870
+problem, right?
+
+00:06:43.870 --> 00:06:46.140
+So we can have a classifier that would
+
+00:06:46.140 --> 00:06:49.300
+actually give us a prediction of rating
+
+00:06:49.300 --> 00:06:50.360
+in the range of one through
+
+00:06:50.360 --> 00:06:53.510
+K, unfortunately, such a strategy is
+
+00:06:53.510 --> 00:06:55.175
+not the optimal way of solving this
+
+00:06:55.175 --> 00:06:57.130
+problem, and specifically there are two
+
+00:06:57.130 --> 00:06:59.550
+problems with this approach.
+
+00:07:00.540 --> 00:07:03.950
+So these equations are the same as you
+
+00:07:03.950 --> 00:07:05.320
+have seen before.
+
+00:07:06.040 --> 00:07:08.692
+Now the first problem is that there are
+
+00:07:08.692 --> 00:07:09.970
+just too many parameters.
+
+00:07:09.970 --> 00:07:11.650
+There are many parameters.
+
+00:07:11.650 --> 00:07:13.856
+Now can you count how many parameters we
+
+00:07:13.856 --> 00:07:15.155
+have exactly here?
+
+00:07:15.155 --> 00:07:18.450
+Now this may be interesting exercise.
+
+00:07:18.450 --> 00:07:21.170
+To do so you might want to just pause
+
+00:07:21.170 --> 00:07:23.560
+the video and try to figure out the
+
+00:07:23.560 --> 00:07:25.720
+solution how many premises we have for
+
+00:07:25.720 --> 00:07:27.220
+each classifier?
+
+00:07:28.470 --> 00:07:30.400
+And how many classifiers do we have?
+
+00:07:31.760 --> 00:07:36.160
+You can see the answer is that for each
+
+00:07:36.160 --> 00:07:39.240
+classifier we have N + 1 parameters.
+
+00:07:39.860 --> 00:07:41.870
+And we have K - 1 classifiers
+
+00:07:41.870 --> 00:07:44.080
+altogether, so the total number of
+
+00:07:44.080 --> 00:07:48.960
+premises (K - 1) * (M + 1).
+
+00:07:48.960 --> 00:07:50.820
+That's alot alot of parameters.
+
+00:07:50.820 --> 00:07:53.978
+So when the classifier has a lot of
+
+00:07:53.978 --> 00:07:56.354
+parameters would in general need a lot
+
+00:07:56.354 --> 00:07:58.370
+of data to actually help us training
+
+00:07:58.370 --> 00:08:00.390
+data to help us decide the optimal
+
+00:08:00.390 --> 00:08:02.950
+parameters of the this such a complex
+
+00:08:02.950 --> 00:08:03.400
+model?
+
+00:08:04.350 --> 00:08:06.170
+So that's not the idea.
+
+00:08:07.100 --> 00:08:09.565
+The second problem is that these
+
+00:08:09.565 --> 00:08:13.140
+problems these K - 1 classifiers are
+
+00:08:13.140 --> 00:08:15.170
+not really independent.
+
+00:08:15.170 --> 00:08:17.430
+These problems are actually dependent.
+
+00:08:18.270 --> 00:08:20.920
+In general, words that are positive
+
+00:08:20.920 --> 00:08:25.270
+would make the rating higher and for
+
+00:08:25.270 --> 00:08:28.000
+any of these classifiers, for all these
+
+00:08:28.000 --> 00:08:28.640
+classifiers.
+
+00:08:28.640 --> 00:08:30.433
+So we should be able to take advantage
+
+00:08:30.433 --> 00:08:32.160
+of this factor.
+
+00:08:32.890 --> 00:08:35.600
+Now the idea of ordinal logistic
+
+00:08:35.600 --> 00:08:37.820
+regression is precisely that 
+
+00:08:37.820 --> 00:08:41.000
+A key idea is just the improvement over
+
+00:08:41.000 --> 00:08:43.805
+the K -1 independent logistical
+
+00:08:43.805 --> 00:08:47.138
+regression classifiers, and that idea
+
+00:08:47.138 --> 00:08:51.426
+is to tie these beta parameters and
+
+00:08:51.426 --> 00:08:56.770
+that means we are going to assume the
+
+00:08:57.520 --> 00:09:00.770
+Beta parameters these are the
+
+00:09:00.770 --> 00:09:03.650
+parameters that indicate the influence
+
+00:09:03.650 --> 00:09:04.530
+of those weights.
+
+00:09:05.170 --> 00:09:07.160
+And we're going to assume these better
+
+00:09:07.160 --> 00:09:10.790
+values are the same for all the K - 1
+
+00:09:10.790 --> 00:09:12.890
+premise, and this just encodes our
+
+00:09:12.890 --> 00:09:15.180
+intuition that positive words in
+
+00:09:15.180 --> 00:09:17.630
+general would make a higher rating more
+
+00:09:17.630 --> 00:09:18.120
+likely.
+
+00:09:19.450 --> 00:09:22.120
+So this is intuitively appealing
+
+00:09:22.120 --> 00:09:22.570
+assumption.
+
+00:09:22.570 --> 00:09:25.030
+It's reasonable for our problem set up
+
+00:09:25.030 --> 00:09:26.760
+when we have this order in these
+
+00:09:26.760 --> 00:09:27.490
+categories.
+
+00:09:28.500 --> 00:09:31.880
+Now, in fact, this would allow us to
+
+00:09:31.880 --> 00:09:34.940
+have two positive benefit of one is
+
+00:09:34.940 --> 00:09:36.320
+it's going to reduce the number of
+
+00:09:36.320 --> 00:09:37.660
+parameters significantly.
+
+00:09:38.640 --> 00:09:41.770
+And the other is to allow us to share
+
+00:09:41.770 --> 00:09:43.660
+the training data, because all these
+
+00:09:43.660 --> 00:09:45.710
+parameters are assumed to be equal.
+
+00:09:45.710 --> 00:09:48.500
+So these training data for different
+
+00:09:48.500 --> 00:09:49.340
+classifiers.
+
+00:09:50.170 --> 00:09:53.370
+Can then be shared to help us set the
+
+00:09:53.370 --> 00:09:55.430
+optimal value for beta.
+
+00:09:56.190 --> 00:09:58.990
+So we have more data to help us choose
+
+00:09:58.990 --> 00:10:00.120
+a good beta value.
+
+00:10:01.720 --> 00:10:02.790
+So what's the consequence?
+
+00:10:02.790 --> 00:10:05.120
+The formula would look very similar to
+
+00:10:05.120 --> 00:10:07.830
+what you have seen before, only that
+
+00:10:07.830 --> 00:10:11.056
+now the beta parameter has just one
+
+00:10:11.056 --> 00:10:12.940
+index that correspond to the feature
+
+00:10:12.940 --> 00:10:15.680
+and no longer has the other index that
+
+00:10:15.680 --> 00:10:17.970
+corresponds to the level of rating.
+
+00:10:19.160 --> 00:10:22.280
+So that means we tie them together and
+
+00:10:22.280 --> 00:10:24.250
+there's only one set of beta values
+
+00:10:24.250 --> 00:10:25.630
+for all the classifiers.
+
+00:10:26.210 --> 00:10:28.630
+However, each classifiers there has a
+
+00:10:28.630 --> 00:10:31.750
+distinct Alpha value, the Alpha
+
+00:10:31.750 --> 00:10:35.200
+parameter, the except it's different
+
+00:10:35.200 --> 00:10:37.620
+and this is of course needed to predict
+
+00:10:37.620 --> 00:10:39.480
+the different levels of ratings.
+
+00:10:39.480 --> 00:10:41.830
+So apha subject is different.
+
+00:10:41.830 --> 00:10:42.951
+It depends on J.
+
+00:10:42.951 --> 00:10:46.180
+Different J has a different alpha, but
+
+00:10:46.180 --> 00:10:48.750
+the rest of the parameters of beta
+
+00:10:48.750 --> 00:10:49.340
+are the same.
+
+00:10:49.340 --> 00:10:51.729
+So now you can also ask the question,
+
+00:10:51.730 --> 00:10:53.840
+how many parameters do we have now?
+
+00:10:53.840 --> 00:10:55.420
+Again, that's an interesting question
+
+00:10:55.420 --> 00:10:56.550
+to think about.
+
+00:10:56.990 --> 00:11:00.370
+So if you think about it for a moment
+
+00:11:00.370 --> 00:11:03.513
+and you will see now the plan that we
+
+00:11:03.513 --> 00:11:05.090
+have far fewer parameters.
+
+00:11:05.090 --> 00:11:08.020
+Specifically, we have N + K - 1
+
+00:11:08.020 --> 00:11:11.524
+because we have M beta values and plus
+
+00:11:11.524 --> 00:11:13.850
+K minus one alpha values.
+
+00:11:15.400 --> 00:11:18.022
+So that's just the basically that's
+
+00:11:18.022 --> 00:11:20.680
+basically the main idea of ordinal
+
+00:11:20.680 --> 00:11:21.790
+logistic regression.
+
+00:11:24.480 --> 00:11:27.780
+So now let's see how we can use such a
+
+00:11:27.780 --> 00:11:30.830
+method to actually assign ratings.
+
+00:11:30.830 --> 00:11:33.390
+It turns out that with this.
+
+00:11:34.870 --> 00:11:37.230
+Idea of tying all the parameters,
+
+00:11:37.230 --> 00:11:38.620
+the beta values,
+
+00:11:38.620 --> 00:11:42.370
+we also end up having a simpler way to
+
+00:11:42.370 --> 00:11:44.840
+make decisions, and more specifically
+
+00:11:44.840 --> 00:11:47.810
+now the criteria whether the predicted
+
+00:11:47.810 --> 00:11:50.984
+probabilities above is or at least .5
+
+00:11:50.984 --> 00:11:54.970
+above and now is equivalent to whether
+
+00:11:54.970 --> 00:11:58.580
+the score of the object that is.
+
+00:11:59.900 --> 00:12:03.800
+Larger than or equal to negative of
+
+00:12:03.800 --> 00:12:05.896
+ alpha_j as shown here.
+
+00:12:05.896 --> 00:12:08.460
+Now the scoring function now is just
+
+00:12:08.460 --> 00:12:11.560
+taking linear combination of all the
+
+00:12:11.560 --> 00:12:14.500
+features weighted by beta values.
+
+00:12:15.150 --> 00:12:18.800
+So this means now we can simply make a
+
+00:12:18.800 --> 00:12:21.690
+desicion of rating by looking at the
+
+00:12:21.690 --> 00:12:24.570
+value of this scoring function and see
+
+00:12:24.570 --> 00:12:26.780
+which bracket it falls into.
+
+00:12:27.760 --> 00:12:30.900
+Now you can see the General Decision
+
+00:12:30.900 --> 00:12:31.900
+rule is
+
+00:12:31.900 --> 00:12:36.980
+thus when the score is in the
+
+00:12:36.980 --> 00:12:39.200
+particular range of our values,
+
+00:12:39.910 --> 00:12:43.450
+then we will assign the corresponding
+
+00:12:43.450 --> 00:12:46.610
+rating to that text object.
+
+00:12:49.870 --> 00:12:52.200
+So in sum, in this approach we're going
+
+00:12:52.200 --> 00:12:53.930
+to score the object.
+
+00:12:54.640 --> 00:12:57.430
+By using the features and the parameter
+
+00:12:57.430 --> 00:12:58.850
+values, beta values.
+
+00:12:59.780 --> 00:13:02.850
+And this score will then be compared
+
+00:13:02.850 --> 00:13:05.537
+with a set of training the other values
+
+00:13:05.537 --> 00:13:09.030
+to see which range the score is in, and
+
+00:13:09.030 --> 00:13:11.700
+then using the range we can then decide
+
+00:13:11.700 --> 00:13:13.840
+which rating the object should be
+
+00:13:13.840 --> 00:13:16.730
+getting because these ranges of our
+
+00:13:16.730 --> 00:13:19.730
+values correspond to the different
+
+00:13:19.730 --> 00:13:22.720
+levels of ratings, and that's from the
+
+00:13:22.720 --> 00:13:25.159
+way we train these other values.
+
+00:13:25.960 --> 00:13:28.870
+Each is tied to some level of reading.
+
+

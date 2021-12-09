@@ -1,0 +1,749 @@
+WEBVTT Kind: captions; Language: en-US
+
+NOTE
+Created on 2021-02-26T23:59:34.6399871Z by ClassTranscribe
+
+00:00:00.300 --> 00:00:02.760
+This lecture is the first one about the
+
+00:00:02.760 --> 00:00:03.710
+text clustering.
+
+00:00:18.320 --> 00:00:20.780
+This is very important that technique
+
+00:00:20.780 --> 00:00:23.760
+for doing topic mining an analysis.
+
+00:00:24.480 --> 00:00:26.640
+In particular, in this lecture organ to
+
+00:00:26.640 --> 00:00:29.860
+start with some basic questions about
+
+00:00:29.860 --> 00:00:30.520
+the clustering: What is text clustering and why we are interested in text clustering?
+
+00:00:37.940 --> 00:00:39.635
+In the following lectures, we're going
+
+00:00:39.635 --> 00:00:42.430
+to talk about how to do text clustering
+
+00:00:42.430 --> 00:00:44.180
+and how to evaluate the clustering
+
+00:00:44.180 --> 00:00:44.920
+results.
+
+00:00:46.470 --> 00:00:48.070
+So what is text 
+clustering
+?
+
+00:00:49.420 --> 00:00:52.010
+Clustering actually is a very general
+
+00:00:52.010 --> 00:00:53.510
+technique for data mining.
+
+00:00:53.510 --> 00:00:55.130
+As you might have learned in some other
+
+00:00:55.130 --> 00:00:55.780
+courses.
+
+00:00:56.690 --> 00:00:58.500
+The idea is to discover natural
+
+00:00:58.500 --> 00:01:00.440
+structures in the data.
+
+00:01:01.040 --> 00:01:02.760
+In other words, we want to group
+
+00:01:02.760 --> 00:01:04.190
+similar objects together.
+
+00:01:04.920 --> 00:01:07.560
+In our case, these objects are of
+
+00:01:07.560 --> 00:01:09.070
+course texture objects.
+
+00:01:09.070 --> 00:01:12.110
+For example, they can be documents,
+
+00:01:12.110 --> 00:01:16.260
+turns, passages, sentences or websites.
+
+00:01:17.440 --> 00:01:19.720
+And then our goal is to group similar
+
+00:01:19.720 --> 00:01:21.410
+texture objects together.
+
+00:01:21.410 --> 00:01:24.250
+So let's see a example here.
+
+00:01:24.250 --> 00:01:26.320
+You don't really see text objects,
+
+00:01:26.320 --> 00:01:29.225
+but I just use some shapes to denote
+
+00:01:29.225 --> 00:01:31.770
+objects that can be grouped together.
+
+00:01:33.340 --> 00:01:36.720
+Now, if I ask you what are some natural
+
+00:01:36.720 --> 00:01:39.195
+structures or natural groups well you,
+
+00:01:39.195 --> 00:01:43.110
+if you look at it, you might agree that
+
+00:01:43.110 --> 00:01:46.590
+we can group these objects based on
+
+00:01:46.590 --> 00:01:50.920
+shapes or their locations on this 2
+
+00:01:50.920 --> 00:01:51.840
+dimensional space.
+
+00:01:52.830 --> 00:01:54.520
+So we got the three clusters in this
+
+00:01:54.520 --> 00:01:54.950
+case.
+
+00:01:56.850 --> 00:01:59.640
+And then may not be so much
+
+00:01:59.640 --> 00:02:01.990
+disagreement about these three
+
+00:02:01.990 --> 00:02:04.410
+clusters, but it really depends on the
+
+00:02:04.410 --> 00:02:06.260
+perspective to look at the objects.
+
+00:02:07.540 --> 00:02:10.530
+Maybe some of you have also seen it in
+
+00:02:10.530 --> 00:02:12.090
+a different way, so we might get
+
+00:02:12.090 --> 00:02:13.120
+different clusters.
+
+00:02:13.960 --> 00:02:18.300
+And you will see another example about this
+
+00:02:18.300 --> 00:02:22.350
+ambiguity more clearly, but the main
+
+00:02:22.350 --> 00:02:26.070
+point here is the problem is actually
+
+00:02:26.070 --> 00:02:27.590
+not so well defined.
+
+00:02:29.090 --> 00:02:32.550
+And the problem lies in how to define
+
+00:02:32.550 --> 00:02:34.020
+similarity.
+
+00:02:34.020 --> 00:02:36.300
+What do you mean by similar objects?
+
+00:02:38.020 --> 00:02:39.450
+Now this problem.
+
+00:02:40.000 --> 00:02:42.540
+Has to be clearly defined in order to
+
+00:02:42.540 --> 00:02:44.750
+have well defined clustering problem.
+
+00:02:46.180 --> 00:02:50.070
+And the problem is in general that any
+
+00:02:50.070 --> 00:02:51.970
+two objects can be similar that depending
+
+00:02:51.970 --> 00:02:53.020
+on how you look at them.
+
+00:02:53.020 --> 00:02:54.710
+So for example.
+
+00:02:55.260 --> 00:02:57.550
+Let's look at the two words like car
+
+00:02:57.550 --> 00:02:58.260
+and horse.
+
+00:03:00.100 --> 00:03:03.240
+So are the two words similar
+
+00:03:04.520 --> 00:03:06.760
+It depends on how you look at it.
+
+00:03:06.760 --> 00:03:09.160
+If you look at the physical.
+
+00:03:10.000 --> 00:03:13.500
+Physical properties of car and horse.
+
+00:03:13.500 --> 00:03:14.840
+They are very different.
+
+00:03:15.820 --> 00:03:17.780
+But if you look at the them
+
+00:03:17.780 --> 00:03:20.800
+functionally, a car in the horse can
+
+00:03:20.800 --> 00:03:24.230
+both be transportation tool, so in that
+
+00:03:24.230 --> 00:03:25.640
+sense they may be similar.
+
+00:03:25.640 --> 00:03:28.270
+So as you can see, it really depends on
+
+00:03:28.270 --> 00:03:31.760
+our perspective to look at the objects
+
+00:03:31.760 --> 00:03:35.660
+and so in order to make the clustering
+
+00:03:35.660 --> 00:03:38.480
+problem well defined, a user must
+
+00:03:38.480 --> 00:03:40.020
+define the perspective.
+
+00:03:40.910 --> 00:03:43.290
+For assessing similarity.
+
+00:03:44.200 --> 00:03:46.470
+And we call this perspective the
+
+00:03:46.470 --> 00:03:47.660
+clustering bias.
+
+00:03:49.150 --> 00:03:51.960
+And when you define a clustering
+
+00:03:51.960 --> 00:03:55.630
+problem, it's important to specify your
+
+00:03:55.630 --> 00:03:59.220
+perspective for similarity or for
+
+00:03:59.220 --> 00:04:03.060
+defining the similarity that would be
+
+00:04:03.060 --> 00:04:06.050
+used to group similar objects 'cause
+
+00:04:06.050 --> 00:04:06.930
+otherwise.
+
+00:04:08.540 --> 00:04:10.410
+Similarity is not well defined.
+
+00:04:10.410 --> 00:04:14.930
+An one can have different ways to group
+
+00:04:14.930 --> 00:04:15.650
+objects.
+
+00:04:16.760 --> 00:04:18.650
+So let's look at a concrete example.
+
+00:04:18.650 --> 00:04:22.775
+Here you are seeing some objects or
+
+00:04:22.775 --> 00:04:25.310
+some shapes that are very similar to
+
+00:04:25.310 --> 00:04:27.940
+what you have seen on the 1st slide.
+
+00:04:28.600 --> 00:04:31.640
+But if I ask you to group these objects
+
+00:04:31.640 --> 00:04:34.000
+again, you might.
+
+00:04:36.570 --> 00:04:37.140
+Might.
+
+00:04:37.760 --> 00:04:40.810
+Feel there's more uncertainty here than
+
+00:04:40.810 --> 00:04:42.160
+on the previous slide.
+
+00:04:42.750 --> 00:04:43.990
+For example.
+
+00:04:45.020 --> 00:04:48.280
+You might think, well, we can still
+
+00:04:48.280 --> 00:04:50.600
+group by shapes, so that would give us
+
+00:04:50.600 --> 00:04:52.410
+cluster that looks like this.
+
+00:04:53.400 --> 00:04:56.620
+However, you might also feel that.
+
+00:04:57.400 --> 00:05:00.930
+Maybe the objects can be grouped based
+
+00:05:00.930 --> 00:05:04.290
+on the sizes, so that would give us a
+
+00:05:04.290 --> 00:05:06.350
+different way to cluster the data.
+
+00:05:06.350 --> 00:05:10.819
+If we look at the size and look at the
+
+00:05:10.820 --> 00:05:12.060
+similarity in size.
+
+00:05:12.790 --> 00:05:15.200
+So as you can see clearly here,
+
+00:05:15.200 --> 00:05:16.790
+depending on the perspective will get
+
+00:05:16.790 --> 00:05:19.680
+different clustering results, so that
+
+00:05:19.680 --> 00:05:22.490
+also clearly tells us that in order to
+
+00:05:22.490 --> 00:05:24.990
+evaluate the clustering result we must
+
+00:05:24.990 --> 00:05:26.780
+use perspective.
+
+00:05:26.780 --> 00:05:29.110
+Without perspective, it's very hard to
+
+00:05:29.110 --> 00:05:31.470
+define what is the best clustering
+
+00:05:31.470 --> 00:05:32.070
+result.
+
+00:05:36.190 --> 00:05:38.390
+So there are many examples of text
+
+00:05:38.390 --> 00:05:39.040
+clustering.
+
+00:05:40.460 --> 00:05:41.170
+Set up.
+
+00:05:42.140 --> 00:05:44.870
+And so, for example, we can cluster
+
+00:05:44.870 --> 00:05:47.230
+documents in the whole text
+
+00:05:47.230 --> 00:05:47.840
+collection.
+
+00:05:47.840 --> 00:05:50.570
+So in this case documents are the units
+
+00:05:50.570 --> 00:05:51.420
+to be clustered.
+
+00:05:52.200 --> 00:05:56.010
+We may be able to cluster terms in this
+
+00:05:56.010 --> 00:05:56.290
+case.
+
+00:05:56.290 --> 00:05:57.630
+Terms are objects.
+
+00:05:58.200 --> 00:06:00.170
+And Cluster of terms can be used to
+
+00:06:00.170 --> 00:06:03.380
+define the concept or theme or topic.
+
+00:06:03.380 --> 00:06:05.220
+In fact, the topic models that you have
+
+00:06:05.220 --> 00:06:07.350
+seen some previous lectures.
+
+00:06:07.980 --> 00:06:11.300
+Can give you cluster of terms in some
+
+00:06:11.300 --> 00:06:11.680
+sense.
+
+00:06:11.680 --> 00:06:13.940
+If you take the terms with high
+
+00:06:13.940 --> 00:06:17.720
+probabilities from world distribution.
+
+00:06:19.500 --> 00:06:21.770
+Another example is to just a cluster
+
+00:06:21.770 --> 00:06:24.610
+any texts segments, for example
+
+00:06:24.610 --> 00:06:28.100
+passages, sentences or any segments
+
+00:06:28.100 --> 00:06:29.940
+that you can extract the from a large
+
+00:06:29.940 --> 00:06:31.030
+text objects.
+
+00:06:32.010 --> 00:06:34.345
+For example, we might extract all the
+
+00:06:34.345 --> 00:06:36.520
+text segments about the topic, let's
+
+00:06:36.520 --> 00:06:38.560
+say by using a topic model.
+
+00:06:38.560 --> 00:06:41.970
+Now, once we've got those text objects,
+
+00:06:41.970 --> 00:06:46.010
+then we can cluster.
+
+00:06:46.690 --> 00:06:51.410
+The segments that we've got to discover
+
+00:06:51.410 --> 00:06:54.570
+interesting clusters that might also
+
+00:06:54.570 --> 00:06:55.820
+represent the subtopics.
+
+00:06:56.820 --> 00:06:59.210
+So this is a case of combining text
+
+00:06:59.210 --> 00:07:00.790
+clustering with some other techniques,
+
+00:07:00.790 --> 00:07:03.025
+and in general you will see a lot of
+
+00:07:03.025 --> 00:07:05.870
+text mining algorithms can be actually
+
+00:07:05.870 --> 00:07:09.350
+combined in a flexible way to achieve.
+
+00:07:09.960 --> 00:07:12.850
+The goal of doing more sophisticated
+
+00:07:12.850 --> 00:07:15.040
+mining and analysis of text data.
+
+00:07:15.950 --> 00:07:18.600
+We can also cluster fairly large text
+
+00:07:18.600 --> 00:07:21.340
+law gets, and by that I just mean text
+
+00:07:21.340 --> 00:07:24.590
+objects may contain a lot of documents.
+
+00:07:24.590 --> 00:07:26.330
+So for example we might cluster
+
+00:07:26.330 --> 00:07:27.180
+websites.
+
+00:07:27.180 --> 00:07:29.250
+Each website is actually composed of
+
+00:07:29.250 --> 00:07:30.290
+multiple documents.
+
+00:07:31.270 --> 00:07:33.920
+Similarly, we can also cluster articles
+
+00:07:33.920 --> 00:07:35.610
+written by the same author, for
+
+00:07:35.610 --> 00:07:36.170
+example.
+
+00:07:37.940 --> 00:07:39.910
+So we can treat all the articles
+
+00:07:39.910 --> 00:07:43.470
+published by author as one unit for
+
+00:07:43.470 --> 00:07:44.090
+Clustering.
+
+00:07:44.090 --> 00:07:47.610
+In this way, we might group authors
+
+00:07:47.610 --> 00:07:50.150
+together based on whether they are
+
+00:07:50.150 --> 00:07:51.930
+published papers or similar.
+
+00:07:55.040 --> 00:07:57.120
+Furthermore, text clusters can also be
+
+00:07:57.120 --> 00:07:57.930
+further clustered.
+
+00:07:57.930 --> 00:08:00.550
+Regenerate the hierarchy that that's
+
+00:08:00.550 --> 00:08:03.380
+'cause we can in general, cluster any
+
+00:08:03.380 --> 00:08:06.460
+text object at different levels.
+
+00:08:08.130 --> 00:08:10.770
+So more generally, why is text
+
+00:08:10.770 --> 00:08:11.770
+clustering interesting?
+
+00:08:11.770 --> 00:08:14.030
+Well, it's brcause it's a very
+
+00:08:14.030 --> 00:08:16.080
+useful technique for text mining,
+
+00:08:16.080 --> 00:08:18.870
+particularly exploratory text analysis.
+
+00:08:20.160 --> 00:08:23.214
+And so a typical scenario is that you
+
+00:08:23.214 --> 00:08:25.570
+are getting a lot of text data.
+
+00:08:25.570 --> 00:08:27.430
+Let's say all the email messages from
+
+00:08:27.430 --> 00:08:30.516
+customers in some time period, or all
+
+00:08:30.516 --> 00:08:32.350
+the literature, articles, etc.
+
+00:08:32.350 --> 00:08:33.670
+And then you hope to get the sense
+
+00:08:33.670 --> 00:08:36.196
+about what are the overall content of
+
+00:08:36.196 --> 00:08:36.900
+the collection.
+
+00:08:36.900 --> 00:08:38.270
+So, for example, you might be
+
+00:08:38.270 --> 00:08:40.180
+interested in getting.
+
+00:08:40.750 --> 00:08:44.120
+A sense about the major topics or what
+
+00:08:44.120 --> 00:08:46.630
+are some typical or representative
+
+00:08:46.630 --> 00:08:47.860
+document in the collection?
+
+00:08:48.560 --> 00:08:51.490
+And clustering help us achieve this
+
+00:08:51.490 --> 00:08:52.190
+goal.
+
+00:08:52.190 --> 00:08:55.110
+We sometimes also want to link similar
+
+00:08:55.110 --> 00:08:57.640
+text objects together and these.
+
+00:08:59.900 --> 00:09:02.410
+These objects might be duplicated
+
+00:09:02.410 --> 00:09:04.690
+content for example, and in that case
+
+00:09:04.690 --> 00:09:07.160
+such a technique can help us remove
+
+00:09:07.160 --> 00:09:09.520
+redundancy, removing duplicated
+
+00:09:09.520 --> 00:09:10.120
+documents.
+
+00:09:10.780 --> 00:09:13.040
+Sometimes they are about the same topic
+
+00:09:13.040 --> 00:09:14.650
+and by linking them together we can
+
+00:09:14.650 --> 00:09:17.156
+have more complete coverage of the
+
+00:09:17.156 --> 00:09:17.389
+topic.
+
+00:09:19.590 --> 00:09:21.756
+We may also use text the clustering to
+
+00:09:21.756 --> 00:09:23.680
+create a structure on the text data,
+
+00:09:23.680 --> 00:09:25.920
+and sometimes we can create a hierarchy
+
+00:09:25.920 --> 00:09:28.710
+of structures and this is very useful
+
+00:09:28.710 --> 00:09:29.450
+for browsing.
+
+00:09:31.190 --> 00:09:33.250
+We may also use text clustering to
+
+00:09:33.250 --> 00:09:35.800
+induce additional features to represent
+
+00:09:35.800 --> 00:09:38.020
+text data when we cluster documents
+
+00:09:38.020 --> 00:09:39.469
+together, we can treat each cluster as
+
+00:09:39.469 --> 00:09:41.678
+a feature and then we can say when a
+
+00:09:41.678 --> 00:09:43.982
+document is in this cluster and then
+
+00:09:43.982 --> 00:09:46.686
+the feature value would be one and if a
+
+00:09:46.686 --> 00:09:48.468
+document is not in this cluster, then
+
+00:09:48.468 --> 00:09:50.850
+the future value is zero and this helps
+
+00:09:50.850 --> 00:09:53.350
+provide additional discrimination that
+
+00:09:53.350 --> 00:09:55.040
+might be used for texture
+
+00:09:55.040 --> 00:09:57.500
+classification as we will discuss
+
+00:09:57.500 --> 00:09:58.060
+later.
+
+00:09:59.770 --> 00:10:01.840
+So there are in general many
+
+00:10:01.840 --> 00:10:03.570
+applications of text clustering any.
+
+00:10:03.570 --> 00:10:05.790
+I just saw it with two very specific
+
+00:10:05.790 --> 00:10:06.240
+ones.
+
+00:10:06.240 --> 00:10:08.490
+One is to cluster search results for
+
+00:10:08.490 --> 00:10:09.180
+example and
+
+00:10:09.180 --> 00:10:10.550
+You can imagine a search engine can
+
+00:10:10.550 --> 00:10:12.975
+cluster the search results so that user
+
+00:10:12.975 --> 00:10:16.050
+can see overall structure of those.
+
+00:10:16.660 --> 00:10:18.360
+Results returned for a query.
+
+00:10:18.910 --> 00:10:20.770
+And when the query is ambiguous, this
+
+00:10:20.770 --> 00:10:21.940
+is particularly useful.
+
+00:10:21.940 --> 00:10:24.510
+Becausw clusters likely represent
+
+00:10:24.510 --> 00:10:26.800
+different senses of ambiguous word.
+
+00:10:28.520 --> 00:10:30.680
+Another application is to understand
+
+00:10:30.680 --> 00:10:33.160
+the major complaints from customers
+
+00:10:33.160 --> 00:10:35.000
+based on their emails, right?
+
+00:10:35.000 --> 00:10:36.760
+So in this case we can cluster email
+
+00:10:36.760 --> 00:10:38.959
+messages and then find the major
+
+00:10:38.960 --> 00:10:39.740
+clusters.
+
+00:10:39.740 --> 00:10:40.450
+From there.
+
+00:10:40.450 --> 00:10:42.736
+We can understand what other major
+
+00:10:42.736 --> 00:10:43.760
+complaints about.
+
+

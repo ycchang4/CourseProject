@@ -1,0 +1,759 @@
+WEBVTT Kind: captions; Language: en-US
+
+NOTE
+Created on 2021-02-26T23:59:29.5782396Z by ClassTranscribe
+
+00:00:00.290 --> 00:00:02.800
+In this lecture we give an overview of
+
+00:00:02.800 --> 00:00:04.910
+text mining and analytics.
+
+00:00:13.700 --> 00:00:16.682
+First, let's define the term text
+
+00:00:16.682 --> 00:00:18.430
+mining and the term text
+
+00:00:18.430 --> 00:00:19.423
+analytics.
+
+00:00:19.423 --> 00:00:22.550
+The title of this course is called Text
+
+00:00:22.550 --> 00:00:24.500
+Mining and Analytics,
+
+00:00:25.510 --> 00:00:28.310
+but the two terms text mining and text
+
+00:00:28.310 --> 00:00:31.070
+analytics are actually roughly the
+
+00:00:31.070 --> 00:00:35.040
+same. So we are not going to really
+
+00:00:35.040 --> 00:00:36.710
+distinguish them, and we're going to
+
+00:00:36.710 --> 00:00:38.450
+use them interchangeably.
+
+00:00:39.310 --> 00:00:42.150
+But the reason why we have chosen to
+
+00:00:42.150 --> 00:00:45.630
+use both terms in the title is because
+
+00:00:45.630 --> 00:00:47.660
+there is also some subtle difference
+
+00:00:47.660 --> 00:00:50.400
+if you look at the two phrases
+
+00:00:50.400 --> 00:00:51.160
+literally.
+
+00:00:51.980 --> 00:00:55.360
+Mining emphasizes more on the process,
+
+00:00:55.360 --> 00:00:59.030
+so it gives us an algorithmic
+
+00:00:59.030 --> 00:01:01.350
+view of the problem.
+
+00:01:02.160 --> 00:01:03.770
+Analytics on the other hand
+
+00:01:03.770 --> 00:01:05.960
+emphasizes more on the result
+
+00:01:07.450 --> 00:01:10.060
+or having a problem in mind.
+
+00:01:10.830 --> 00:01:12.700
+We're going to look at the text data
+
+00:01:12.700 --> 00:01:14.620
+to help us solve a problem.
+
+00:01:15.910 --> 00:01:18.410
+But again, as I said, we can treat
+
+00:01:18.410 --> 00:01:20.280
+these two terms roughly the same,
+
+00:01:21.040 --> 00:01:22.440
+and I think in the literature you
+
+00:01:22.440 --> 00:01:24.030
+probably will find the same.
+
+00:01:24.710 --> 00:01:26.300
+So we're not going to really
+
+00:01:26.300 --> 00:01:27.870
+distinguish them in the course.
+
+00:01:29.760 --> 00:01:32.360
+Both text mining and text analytics
+
+00:01:32.360 --> 00:01:33.290
+mean
+
+00:01:34.050 --> 00:01:37.800
+that we want to turn text data into
+
+00:01:37.800 --> 00:01:40.090
+high quality information or actionable
+
+00:01:40.090 --> 00:01:40.740
+knowledge.
+
+00:01:42.450 --> 00:01:48.020
+So in both cases we have the problem of
+
+00:01:48.020 --> 00:01:50.070
+dealing with a lot of text data and we
+
+00:01:50.070 --> 00:01:52.850
+hope to turn these text data into
+
+00:01:52.850 --> 00:01:55.170
+something more useful to us than the
+
+00:01:55.170 --> 00:01:56.260
+raw text data.
+
+00:01:57.610 --> 00:01:59.760
+And here we distinguish two different
+
+00:01:59.760 --> 00:02:00.270
+results
+
+00:02:00.270 --> 00:02:02.240
+one is high quality information,
+
+00:02:02.850 --> 00:02:04.630
+the other is actionable knowledge.
+
+00:02:05.580 --> 00:02:07.590
+Now, sometimes the boundary between the two
+
+00:02:07.590 --> 00:02:08.840
+is not so clear,
+
+00:02:09.770 --> 00:02:11.310
+but I also want to say a little bit
+
+00:02:11.310 --> 00:02:13.240
+about these
+
+00:02:13.830 --> 00:02:16.650
+two different angles of the result of
+
+00:02:16.650 --> 00:02:17.600
+text mining.
+
+00:02:19.120 --> 00:02:21.100
+In the case of high quality information
+
+00:02:21.100 --> 00:02:23.960
+we refer to more concise
+
+00:02:24.580 --> 00:02:25.800
+information
+
+00:02:26.680 --> 00:02:27.830
+about the topic,
+
+00:02:28.790 --> 00:02:31.880
+which might be much easier for humans
+
+00:02:31.880 --> 00:02:34.000
+to digest than the raw text data.
+
+00:02:34.000 --> 00:02:35.850
+For example, you might face a lot of
+
+00:02:35.850 --> 00:02:37.260
+reviews of a product.
+
+00:02:38.020 --> 00:02:39.880
+The more concise form of the
+
+00:02:39.880 --> 00:02:42.160
+information would be very concise
+
+00:02:42.160 --> 00:02:44.620
+summary of the major opinions about the
+
+00:02:44.620 --> 00:02:45.860
+features of the product.
+
+00:02:46.470 --> 00:02:49.940
+Positive about, let's say, battery life
+
+00:02:49.940 --> 00:02:50.790
+of a laptop.
+
+00:02:53.440 --> 00:02:55.360
+Now, this kind of results are very
+
+00:02:55.360 --> 00:02:58.380
+useful to help people digest text data,
+
+00:02:59.800 --> 00:03:02.450
+and so this is to minimize the human
+
+00:03:02.450 --> 00:03:04.670
+effort in consuming text data in some
+
+00:03:04.670 --> 00:03:05.070
+sense.
+
+00:03:06.130 --> 00:03:09.010
+The other kind of output is actionable
+
+00:03:09.010 --> 00:03:09.590
+knowledge.
+
+00:03:09.590 --> 00:03:11.410
+Here we emphasize
+
+00:03:12.250 --> 00:03:15.290
+the utility of the information or
+
+00:03:15.290 --> 00:03:17.380
+knowledge we discover from text data.
+
+00:03:18.130 --> 00:03:21.290
+It's actionable knowledge for some
+
+00:03:21.290 --> 00:03:23.650
+decision problem, or some actions to
+
+00:03:23.650 --> 00:03:24.050
+take.
+
+00:03:24.890 --> 00:03:27.700
+For example, we might be able to
+
+00:03:27.700 --> 00:03:30.680
+determine which product is more
+
+00:03:30.680 --> 00:03:32.060
+appealing to us all,
+
+00:03:33.250 --> 00:03:35.800
+a better choice for a shopping
+
+00:03:35.800 --> 00:03:36.380
+decision.
+
+00:03:37.980 --> 00:03:38.430
+Now,
+
+00:03:38.980 --> 00:03:40.950
+such an outcome
+
+00:03:41.570 --> 00:03:42.630
+could be called actionable
+
+00:03:42.630 --> 00:03:44.970
+knowledge because a consumer can
+
+00:03:44.970 --> 00:03:47.190
+take the knowledge and make a decision
+
+00:03:47.190 --> 00:03:48.500
+and act on it.
+
+00:03:49.410 --> 00:03:51.590
+So in this case, text mining supplies
+
+00:03:51.590 --> 00:03:54.000
+knowledge for optimal decision making.
+
+00:03:55.140 --> 00:03:59.510
+But again, the two are not so clearly
+
+00:03:59.510 --> 00:04:01.710
+distinguished, so we don't necessarily
+
+00:04:01.710 --> 00:04:03.150
+have to make a distinction.
+
+00:04:06.320 --> 00:04:08.920
+Text mining is also related to text
+
+00:04:08.920 --> 00:04:09.610
+retrieval,
+
+00:04:10.930 --> 00:04:12.890
+which is an essential component in any
+
+00:04:12.890 --> 00:04:14.480
+text mining systems.
+
+00:04:15.790 --> 00:04:19.540
+Now text retrieval refers to finding
+
+00:04:19.540 --> 00:04:21.270
+relevant information from a large
+
+00:04:21.270 --> 00:04:22.580
+amount of text data.
+
+00:04:23.160 --> 00:04:26.660
+So I've taught another separate MOOC
+
+00:04:26.660 --> 00:04:29.440
+on text retrieval and search engines,
+
+00:04:31.560 --> 00:04:33.500
+where we discussed various techniques
+
+00:04:33.500 --> 00:04:34.860
+for text retrieval.
+
+00:04:36.230 --> 00:04:38.370
+If you have taken that MOOC, you
+
+00:04:38.370 --> 00:04:41.210
+will find some overlap
+
+00:04:42.000 --> 00:04:45.380
+and it would be useful to know the
+
+00:04:45.380 --> 00:04:46.950
+background of text retrieval for
+
+00:04:46.950 --> 00:04:49.230
+understanding some of the topics in
+
+00:04:49.230 --> 00:04:50.170
+text mining.
+
+00:04:51.660 --> 00:04:54.480
+But if you have not taken that MOOC it's
+
+00:04:54.480 --> 00:04:57.210
+also fine, because in this more context
+
+00:04:57.210 --> 00:04:59.560
+mining and analytics we're going to
+
+00:04:59.560 --> 00:05:01.940
+repeat some of the key concepts that
+
+00:05:01.940 --> 00:05:03.390
+are relevant for text mining.
+
+00:05:04.180 --> 00:05:06.560
+But at the high level, let me also
+
+00:05:06.560 --> 00:05:08.840
+explain the relation between text
+
+00:05:08.840 --> 00:05:10.490
+retrieval and text mining.
+
+00:05:12.030 --> 00:05:16.465
+Text retrieval is very useful for text
+
+00:05:16.465 --> 00:05:18.360
+mining in two ways:
+
+00:05:18.360 --> 00:05:20.920
+First, text retrieval can be a
+
+00:05:20.920 --> 00:05:23.450
+pre-processor for text mining, meaning
+
+00:05:23.450 --> 00:05:27.160
+that it can help us turn big text data
+
+00:05:27.160 --> 00:05:30.350
+into a relatively small amount of most
+
+00:05:30.350 --> 00:05:32.670
+relevant text data, which is often
+
+00:05:32.670 --> 00:05:34.710
+what's needed for solving a particular
+
+00:05:34.710 --> 00:05:35.330
+problem.
+
+00:05:35.910 --> 00:05:38.070
+And in this sense, text retrieval also
+
+00:05:38.070 --> 00:05:40.420
+helps minimize human effort.
+
+00:05:43.230 --> 00:05:45.120
+Text retrieval is also needed for
+
+00:05:45.120 --> 00:05:47.730
+knowledge provenance and this roughly
+
+00:05:47.730 --> 00:05:50.945
+corresponds to the interpretation of
+
+00:05:50.945 --> 00:05:54.320
+text mining as turning text data into
+
+00:05:54.320 --> 00:05:56.030
+actionable knowledge.
+
+00:05:56.030 --> 00:05:58.719
+Once we find the patterns in text data
+
+00:05:58.720 --> 00:06:00.030
+or actionable knowledge,
+
+00:06:00.800 --> 00:06:03.528
+we generally would have to verify the
+
+00:06:03.528 --> 00:06:05.296
+knowledge by looking at the original
+
+00:06:05.296 --> 00:06:07.847
+text data so the users would have to
+
+00:06:07.847 --> 00:06:09.950
+have some text retrieval support to go
+
+00:06:09.950 --> 00:06:12.499
+back to the original text data to
+
+00:06:12.500 --> 00:06:14.810
+interpret the pattern, or to better
+
+00:06:14.810 --> 00:06:17.009
+understand the knowledge or to verify
+
+00:06:17.010 --> 00:06:19.525
+whether the pattern is really reliable.
+
+00:06:19.525 --> 00:06:21.636
+So this is a high level introduction to
+
+00:06:21.636 --> 00:06:24.390
+the concept of text mining and
+
+00:06:25.630 --> 00:06:28.820
+the relation between text mining and
+
+00:06:28.820 --> 00:06:29.690
+retrieval.
+
+00:06:31.580 --> 00:06:34.520
+Next, let's talk about text data as a
+
+00:06:34.520 --> 00:06:36.370
+special kind of data.
+
+00:06:39.690 --> 00:06:42.600
+Now it's interesting to
+
+00:06:43.150 --> 00:06:47.390
+view text data as data
+
+00:06:47.390 --> 00:06:48.450
+generated by
+
+00:06:49.210 --> 00:06:51.380
+humans as subjective sensors.
+
+00:06:53.070 --> 00:06:57.670
+So this slide shows an
+
+00:06:58.810 --> 00:07:02.180
+analogy between text data and non
+
+00:07:02.180 --> 00:07:05.730
+text data and between humans as
+
+00:07:05.730 --> 00:07:09.426
+subjective sensors and physical sensors
+
+00:07:09.426 --> 00:07:13.160
+such as network sensor or
+
+00:07:13.160 --> 00:07:13.900
+thermometer.
+
+00:07:16.250 --> 00:07:19.340
+So in general, a sensor will monitor
+
+00:07:19.340 --> 00:07:21.720
+the real world in some way it will
+
+00:07:21.720 --> 00:07:25.159
+sense some signal from the real world
+
+00:07:25.160 --> 00:07:28.420
+and then would report the signal as
+
+00:07:28.420 --> 00:07:29.670
+data
+
+00:07:30.670 --> 00:07:32.980
+in various forms, for example, a
+
+00:07:32.980 --> 00:07:35.170
+thermometer would watch the temperature
+
+00:07:35.170 --> 00:07:35.640
+of
+
+00:07:36.210 --> 00:07:38.920
+real world and then will report the
+
+00:07:38.920 --> 00:07:42.390
+temperature in particular format.
+
+00:07:44.820 --> 00:07:47.320
+Similarly a geo sensor would sense the
+
+00:07:47.320 --> 00:07:49.000
+location and then report
+
+00:07:50.850 --> 00:07:54.120
+the location specification, for example
+
+00:07:54.120 --> 00:07:56.860
+in the form of longitude value and
+
+00:07:56.860 --> 00:07:57.940
+lattitude value.
+
+00:07:58.560 --> 00:08:00.750
+Network sensor would monitor network
+
+00:08:00.750 --> 00:08:03.290
+traffic or activities in the network
+
+00:08:03.290 --> 00:08:07.270
+and report some digital format of data.
+
+00:08:09.450 --> 00:08:14.410
+Similarly, we can think of humans as
+
+00:08:14.410 --> 00:08:17.650
+subjective sensors that would observe
+
+00:08:17.650 --> 00:08:18.770
+the real world
+
+00:08:19.380 --> 00:08:22.890
+from some perspective, and then humans
+
+00:08:22.890 --> 00:08:25.590
+would express what they have observed
+
+00:08:25.590 --> 00:08:27.990
+in the form of text data.
+
+00:08:27.990 --> 00:08:30.370
+So in this sense human is actually
+
+00:08:30.370 --> 00:08:31.560
+a subjective sensor
+
+00:08:31.560 --> 00:08:34.590
+that would also sense what's happening
+
+00:08:34.590 --> 00:08:37.120
+in the world and then express what's
+
+00:08:37.120 --> 00:08:39.655
+observed in the form of data,
+
+00:08:39.655 --> 00:08:41.960
+in this case text data.
+
+00:08:42.910 --> 00:08:45.280
+Now looking at the text data in this
+
+00:08:45.280 --> 00:08:47.720
+way has the advantage of being able to
+
+00:08:47.720 --> 00:08:50.060
+integrate all kinds of data together,
+
+00:08:50.060 --> 00:08:53.310
+and that's indeed needed in most data
+
+00:08:53.310 --> 00:08:54.510
+mining problems.
+
+00:08:55.950 --> 00:08:58.330
+So here we are looking at
+
+00:08:59.330 --> 00:09:01.560
+the general problem of data mining,
+
+00:09:02.730 --> 00:09:05.730
+and in general we would be dealing with
+
+00:09:05.730 --> 00:09:08.870
+a lot of data about our world
+
+00:09:09.440 --> 00:09:11.080
+that are related to a problem.
+
+00:09:11.710 --> 00:09:13.910
+And in general would be dealing with
+
+00:09:13.910 --> 00:09:17.420
+both non text data and text data and of
+
+00:09:17.420 --> 00:09:19.710
+course the non text data are usually
+
+00:09:19.710 --> 00:09:21.500
+produced by physical sensors.
+
+00:09:22.490 --> 00:09:25.350
+And those non text data can be also of
+
+00:09:25.350 --> 00:09:26.340
+different formats - 
+
+00:09:27.070 --> 00:09:29.410
+numerical data or categorical or
+
+00:09:29.410 --> 00:09:31.750
+relational data or multimedia data
+
+00:09:31.750 --> 00:09:33.380
+like a video or speech.
+
+00:09:35.110 --> 00:09:39.250
+So, these non text data are often very
+
+00:09:39.250 --> 00:09:40.980
+important in some problems.
+
+00:09:41.820 --> 00:09:45.170
+But text data is also very important,
+
+00:09:45.170 --> 00:09:49.150
+mostly because they contain a lot of
+
+00:09:49.150 --> 00:09:53.910
+semantic content and they often contain
+
+00:09:53.910 --> 00:09:56.350
+knowledge about the users, especially
+
+00:09:56.350 --> 00:09:58.930
+preferences and opinions of users.
+
+00:10:00.760 --> 00:10:04.790
+So, but by treating text data as the
+
+00:10:04.790 --> 00:10:07.403
+data observed from human sensors, we
+
+00:10:07.403 --> 00:10:10.560
+can treat all these data together in
+
+00:10:10.560 --> 00:10:14.723
+the same framework. So, data
+
+00:10:14.723 --> 00:10:16.720
+mining problem is basically to turn
+
+00:10:16.720 --> 00:10:19.150
+such data, turn all the data into
+
+00:10:19.150 --> 00:10:21.100
+actionable knowledge that we can take
+
+00:10:21.100 --> 00:10:24.200
+the advantage to change the real world,
+
+00:10:24.200 --> 00:10:25.565
+of course, for better.
+
+00:10:25.565 --> 00:10:30.020
+So this means that data mining problem
+
+00:10:30.790 --> 00:10:33.789
+is basically taking a lot of data as
+
+00:10:33.790 --> 00:10:36.330
+input and giving actionable knowledge
+
+00:10:36.330 --> 00:10:39.460
+as output. Inside the data mining
+
+00:10:39.460 --> 00:10:40.630
+module
+
+00:10:40.630 --> 00:10:43.855
+you can also see we have a number of
+
+00:10:43.855 --> 00:10:46.134
+different kinds of mining algorithms
+
+00:10:46.134 --> 00:10:48.470
+and this is because for different
+
+00:10:48.470 --> 00:10:51.388
+kinds of data we generally need
+
+00:10:51.388 --> 00:10:54.731
+different algorithms for mining the
+
+00:10:54.731 --> 00:10:55.399
+data.
+
+00:10:56.280 --> 00:10:59.110
+For example, video data might require
+
+00:10:59.110 --> 00:11:01.460
+computer vision to understand video
+
+00:11:01.460 --> 00:11:04.040
+content and that would facilitate the
+
+00:11:04.040 --> 00:11:06.700
+more effective mining and
+
+00:11:06.700 --> 00:11:08.660
+we also have a lot of general
+
+00:11:08.660 --> 00:11:12.490
+algorithms that are applicable to all
+
+00:11:12.490 --> 00:11:14.980
+kinds of data, and those algorithms of
+
+00:11:14.980 --> 00:11:16.270
+course are very useful,
+
+00:11:16.940 --> 00:11:19.040
+although for a particular kind of data
+
+00:11:19.040 --> 00:11:21.180
+we generally want to also develop
+
+00:11:21.180 --> 00:11:22.300
+special algorithms.
+
+00:11:22.990 --> 00:11:26.440
+So this course will cover specialized
+
+00:11:26.440 --> 00:11:28.990
+algorithms that are particularly useful
+
+00:11:28.990 --> 00:11:30.470
+for mining text data.
+
+

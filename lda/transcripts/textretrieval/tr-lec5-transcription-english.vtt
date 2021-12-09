@@ -1,0 +1,690 @@
+WEBVTT Kind: captions; Language: en-US
+
+NOTE
+Created on 2021-02-27T00:07:08.7459499Z by ClassTranscribe
+
+00:00:00.280 --> 00:00:02.940
+This lecture is about the vector space
+
+00:00:02.940 --> 00:00:05.520
+retrieval model we're going to give a
+
+00:00:05.520 --> 00:00:07.600
+introduction to its basic idea.
+
+00:00:18.960 --> 00:00:21.590
+In the last lecture we talked about the
+
+00:00:21.590 --> 00:00:24.160
+different ways of designing a retrieval
+
+00:00:24.160 --> 00:00:24.900
+model.
+
+00:00:25.690 --> 00:00:28.290
+Which would give us a different a
+
+00:00:28.290 --> 00:00:29.170
+ranking function.
+
+00:00:30.150 --> 00:00:31.720
+In this lecture we're going to talk
+
+00:00:31.720 --> 00:00:34.100
+about this specific way of designing
+
+00:00:34.100 --> 00:00:34.550
+a ranking function
+
+00:00:34.550 --> 00:00:36.340
+called vector space retrieval
+
+00:00:36.340 --> 00:00:36.800
+model.
+
+00:00:37.640 --> 00:00:39.730
+And we're going to give a brief
+
+00:00:39.730 --> 00:00:41.700
+introduction to the basic idea.
+
+00:00:44.160 --> 00:00:47.300
+Vector space model is a special case of
+
+00:00:47.300 --> 00:00:48.930
+similarity based models,
+
+00:00:48.930 --> 00:00:51.900
+as we discussed before, which means we
+
+00:00:51.900 --> 00:00:55.210
+assume relevance is roughly
+
+00:00:55.840 --> 00:00:58.740
+similarity between the document and
+
+00:00:58.740 --> 00:00:59.600
+the query.
+
+00:01:02.020 --> 00:01:04.720
+Now, whether this assumption is true is
+
+00:01:04.720 --> 00:01:05.640
+actually a question.
+
+00:01:06.210 --> 00:01:08.740
+But in order to solve a search problem,
+
+00:01:08.740 --> 00:01:12.380
+we have to convert the vague notion of
+
+00:01:12.380 --> 00:01:14.970
+relevance into a more precise
+
+00:01:15.530 --> 00:01:19.540
+definition that can be implemented with
+
+00:01:19.540 --> 00:01:20.990
+the programming language.
+
+00:01:21.580 --> 00:01:24.420
+So in this process will have to make a
+
+00:01:24.420 --> 00:01:27.450
+number of assumptions. This is
+
+00:01:28.990 --> 00:01:31.430
+the first assumption that we make here.
+
+00:01:31.430 --> 00:01:33.720
+Basically, we assume that if a document
+
+00:01:33.720 --> 00:01:35.930
+is more similar to a query than
+
+00:01:35.930 --> 00:01:36.940
+another document
+
+00:01:37.500 --> 00:01:39.420
+then the first document will be assumed
+
+00:01:39.420 --> 00:01:41.090
+to be more relevant than the second
+
+00:01:41.090 --> 00:01:43.750
+one, and this is the basis for ranking
+
+00:01:43.750 --> 00:01:45.440
+documents in this approach.
+
+00:01:46.680 --> 00:01:48.920
+Again, it's questionable whether this
+
+00:01:48.920 --> 00:01:50.880
+is really the best definition for
+
+00:01:50.880 --> 00:01:51.500
+relevance.
+
+00:01:52.130 --> 00:01:53.880
+As we will see later, there are other
+
+00:01:53.880 --> 00:01:55.890
+ways to model relevance.
+
+00:01:58.230 --> 00:02:00.100
+The basic idea of vector space
+
+00:02:00.100 --> 00:02:02.040
+retrieval model is actually very easy
+
+00:02:02.040 --> 00:02:02.940
+to understand.
+
+00:02:02.940 --> 00:02:05.280
+Imagine a high dimensional space.
+
+00:02:06.940 --> 00:02:10.010
+Where each dimension corresponds to a
+
+00:02:10.010 --> 00:02:10.570
+term.
+
+00:02:11.570 --> 00:02:13.680
+So here I show a 3 dimensional
+
+00:02:13.680 --> 00:02:14.240
+space.
+
+00:02:15.120 --> 00:02:18.480
+With three words, programming, library
+
+00:02:18.480 --> 00:02:19.420
+and presidential.
+
+00:02:21.020 --> 00:02:22.750
+So each term here defines one
+
+00:02:22.750 --> 00:02:23.400
+dimension.
+
+00:02:24.240 --> 00:02:27.350
+Now we can consider vectors in this 3
+
+00:02:27.350 --> 00:02:28.370
+dimensional space.
+
+00:02:29.080 --> 00:02:31.060
+And we're going to assume that all our
+
+00:02:31.060 --> 00:02:34.100
+documents and the query will be placed
+
+00:02:34.100 --> 00:02:35.440
+in this vector space.
+
+00:02:36.070 --> 00:02:38.960
+So for example, one document might be
+
+00:02:38.960 --> 00:02:41.650
+represented by this vector,
+
+00:02:42.340 --> 00:02:43.040
+D1.
+
+00:02:44.150 --> 00:02:46.160
+Now this means this document
+
+00:02:47.050 --> 00:02:49.040
+probably covers library, and
+
+00:02:49.040 --> 00:02:51.250
+presidential, but it doesn't really
+
+00:02:51.250 --> 00:02:52.890
+talk about programming.
+
+00:02:54.590 --> 00:02:55.790
+Alright, what does this
+
+00:02:56.730 --> 00:02:59.070
+mean terms of representation of
+
+00:02:59.070 --> 00:02:59.570
+document?
+
+00:03:00.170 --> 00:03:02.230
+That just means we're going to look at
+
+00:03:02.230 --> 00:03:04.430
+our document from the perspective of
+
+00:03:04.430 --> 00:03:06.610
+this vector. We're going to ignore
+
+00:03:06.610 --> 00:03:07.710
+everything else.
+
+00:03:07.710 --> 00:03:11.466
+Basically, what we see here is only the
+
+00:03:11.466 --> 00:03:13.099
+vector representation of the document.
+
+00:03:14.340 --> 00:03:15.940
+Of course, the document has other
+
+00:03:15.940 --> 00:03:16.400
+information.
+
+00:03:16.400 --> 00:03:19.170
+For example, the orders of words are
+
+00:03:19.170 --> 00:03:20.930
+simply ignored, and that's because we
+
+00:03:20.930 --> 00:03:22.430
+assume that the bag of words with
+
+00:03:22.430 --> 00:03:23.000
+representation.
+
+00:03:24.860 --> 00:03:27.110
+So with this representation you can
+
+00:03:27.110 --> 00:03:28.100
+already see
+
+00:03:28.100 --> 00:03:30.650
+D1 seems to suggest a topic
+
+00:03:30.650 --> 00:03:32.070
+about presidential library.
+
+00:03:33.640 --> 00:03:35.400
+Now this is different from another
+
+00:03:35.400 --> 00:03:37.780
+document which might be represented as
+
+00:03:37.780 --> 00:03:39.340
+a different vector D2 here.
+
+00:03:40.090 --> 00:03:42.130
+So in this case, the document covers
+
+00:03:42.130 --> 00:03:44.390
+programming and library, but does not
+
+00:03:44.390 --> 00:03:45.610
+talk about the presidential.
+
+00:03:46.860 --> 00:03:48.695
+So what does this remind you?
+
+00:03:48.695 --> 00:03:51.560
+You can probably guess the topic is
+
+00:03:51.560 --> 00:03:54.520
+likely about programming language, and
+
+00:03:54.520 --> 00:03:57.030
+the library is software library.
+
+00:03:57.990 --> 00:04:01.660
+So this shows that by using this vector
+
+00:04:01.660 --> 00:04:04.760
+space representation we can actually
+
+00:04:04.760 --> 00:04:06.850
+capture the differences between topics
+
+00:04:06.850 --> 00:04:07.760
+of documents.
+
+00:04:09.490 --> 00:04:11.580
+Now you can also imagine there are other
+
+00:04:11.580 --> 00:04:13.370
+vectors, for example D3 is
+
+00:04:13.370 --> 00:04:14.780
+pointing to that direction.
+
+00:04:14.780 --> 00:04:16.700
+That might be about present in your
+
+00:04:16.700 --> 00:04:17.320
+program.
+
+00:04:18.040 --> 00:04:19.630
+And in fact that we can place all the
+
+00:04:19.630 --> 00:04:21.820
+documents in this vector space.
+
+00:04:22.810 --> 00:04:25.200
+And they will be pointing to all kinds
+
+00:04:25.200 --> 00:04:25.970
+of directions.
+
+00:04:26.580 --> 00:04:28.190
+And similarly, we're going to place our
+
+00:04:28.190 --> 00:04:31.270
+query also in this space as another
+
+00:04:31.270 --> 00:04:31.740
+vector.
+
+00:04:32.500 --> 00:04:34.420
+And then we're going to measure the
+
+00:04:34.420 --> 00:04:37.520
+similarity between the query vector and
+
+00:04:37.520 --> 00:04:39.410
+every document vector.
+
+00:04:39.410 --> 00:04:41.140
+So in this case, for example, we can
+
+00:04:41.140 --> 00:04:44.750
+easily see D2 seems to be the closest
+
+00:04:44.750 --> 00:04:47.850
+to this query vector, and therefore
+
+00:04:47.850 --> 00:04:50.140
+D2 will be ranked above others.
+
+00:04:51.800 --> 00:04:55.010
+So this is basically the main idea of
+
+00:04:55.010 --> 00:04:56.790
+the vector space model.
+
+00:04:58.260 --> 00:05:00.200
+So to be more precise.
+
+00:05:01.280 --> 00:05:02.650
+To be more precise.
+
+00:05:03.920 --> 00:05:07.440
+Vector space model is a framework.
+
+00:05:08.880 --> 00:05:10.730
+In this framework, we make the
+
+00:05:10.730 --> 00:05:11.870
+following assumptions.
+
+00:05:12.420 --> 00:05:15.530
+First, we represent a document and
+
+00:05:15.530 --> 00:05:17.530
+query via term vector.
+
+00:05:18.590 --> 00:05:20.670
+So here are term can be any basic
+
+00:05:20.670 --> 00:05:23.550
+concept, for example a word or a
+
+00:05:23.550 --> 00:05:24.050
+phrase.
+
+00:05:25.620 --> 00:05:28.100
+Or even N-gram of characters.
+
+00:05:28.820 --> 00:05:31.180
+Those are just sequence of characters
+
+00:05:32.100 --> 00:05:33.060
+Inside the word.
+
+00:05:34.340 --> 00:05:36.650
+Each term is assumed to define one
+
+00:05:36.650 --> 00:05:37.240
+dimension.
+
+00:05:37.240 --> 00:05:40.090
+Therefore, N terms in our vocabulary
+
+00:05:40.090 --> 00:05:42.500
+would define an N dimensional space.
+
+00:05:43.950 --> 00:05:47.840
+A query vector would consist of a number
+
+00:05:47.840 --> 00:05:48.690
+of elements.
+
+00:05:49.550 --> 00:05:52.740
+Corresponding to the weights on
+
+00:05:52.740 --> 00:05:53.780
+different terms.
+
+00:05:56.090 --> 00:05:57.580
+Each document vector
+
+00:05:58.260 --> 00:05:59.450
+is also similar.
+
+00:05:59.450 --> 00:06:02.600
+It has a number of elements and each
+
+00:06:02.600 --> 00:06:04.580
+value of each element
+
+00:06:05.530 --> 00:06:07.420
+is indicating that weight of the
+
+00:06:07.420 --> 00:06:08.620
+corresponding term.
+
+00:06:09.500 --> 00:06:11.599
+Here you can see we assume there are N
+
+00:06:11.600 --> 00:06:12.310
+dimensions.
+
+00:06:12.310 --> 00:06:14.520
+Therefore there are N elements.
+
+00:06:15.390 --> 00:06:17.990
+Each corresponding to the weight on a
+
+00:06:17.990 --> 00:06:18.880
+particular term.
+
+00:06:21.300 --> 00:06:24.260
+So the relevance in this case would be
+
+00:06:24.260 --> 00:06:26.415
+assumed to be the similarity between
+
+00:06:26.415 --> 00:06:28.120
+the two vectors.
+
+00:06:29.300 --> 00:06:31.260
+Therefore, our ranking function is also
+
+00:06:31.260 --> 00:06:34.090
+defined as the similarity between the
+
+00:06:34.090 --> 00:06:36.010
+query vector and document vector.
+
+00:06:37.450 --> 00:06:39.830
+Now, if I ask you to write a program to
+
+00:06:39.830 --> 00:06:42.170
+implement this approach in the search
+
+00:06:42.170 --> 00:06:42.590
+engine,
+
+00:06:43.930 --> 00:06:45.190
+you would realize that
+
+00:06:46.110 --> 00:06:48.370
+this is far from clear, right?
+
+00:06:48.370 --> 00:06:50.970
+We haven't said a lot of things in
+
+00:06:50.970 --> 00:06:53.200
+detail, therefore it's impossible to
+
+00:06:53.200 --> 00:06:55.010
+actually write the program to implement
+
+00:06:55.010 --> 00:06:55.390
+this.
+
+00:06:56.000 --> 00:06:58.380
+That's why I said this is a framework.
+
+00:06:59.250 --> 00:07:02.520
+And this has to be refined in order to
+
+00:07:02.520 --> 00:07:03.510
+actually
+
+00:07:04.260 --> 00:07:06.600
+suggest a particular ranking function
+
+00:07:06.600 --> 00:07:08.310
+that you can implement on your
+
+00:07:08.310 --> 00:07:08.890
+computer.
+
+00:07:10.820 --> 00:07:13.100
+So what does this framework not say?
+
+00:07:13.720 --> 00:07:17.750
+It actually hasn't set up many things
+
+00:07:17.750 --> 00:07:19.710
+that would be required in order to
+
+00:07:20.240 --> 00:07:22.450
+implement this function.
+
+00:07:24.340 --> 00:07:27.340
+First, it did not say how we should
+
+00:07:27.340 --> 00:07:30.000
+define or select the basic concepts
+
+00:07:30.000 --> 00:07:30.740
+exactly.
+
+00:07:32.470 --> 00:07:34.939
+We clearly assume the concepts are
+
+00:07:34.940 --> 00:07:38.070
+orthogonal, otherwise there will be
+
+00:07:38.070 --> 00:07:38.560
+redundancy.
+
+00:07:38.560 --> 00:07:41.530
+For example, if two synonyms are
+
+00:07:41.530 --> 00:07:44.973
+somehow distinguished as two different
+
+00:07:44.973 --> 00:07:47.410
+concepts, then there would be defining
+
+00:07:47.410 --> 00:07:49.160
+two different dimensions and that
+
+00:07:49.160 --> 00:07:53.720
+would clearly cause redundancy here, or
+
+00:07:54.440 --> 00:07:55.470
+over
+
+00:07:56.680 --> 00:07:58.700
+emphasizing of matching
+
+00:07:59.370 --> 00:08:00.760
+this concept.
+
+00:08:01.550 --> 00:08:04.420
+Because it would be as if you match the
+
+00:08:04.420 --> 00:08:07.110
+two dimensions when you actually match
+
+00:08:07.110 --> 00:08:08.930
+one semantic concept.
+
+00:08:11.300 --> 00:08:14.080
+Secondly, it did not say how exactly
+
+00:08:14.080 --> 00:08:16.800
+should place documents and query in
+
+00:08:16.800 --> 00:08:17.580
+this space.
+
+00:08:18.140 --> 00:08:20.200
+Basically I showed you some examples of
+
+00:08:20.200 --> 00:08:23.480
+query and document vectors, but where
+
+00:08:23.480 --> 00:08:25.650
+exactly should the vector for a
+
+00:08:25.650 --> 00:08:27.430
+particular document point to?
+
+00:08:28.450 --> 00:08:31.590
+So this is equivalent to how to define
+
+00:08:31.590 --> 00:08:32.620
+the term weights.
+
+00:08:33.850 --> 00:08:37.030
+How do you compute those element values
+
+00:08:37.030 --> 00:08:38.050
+in those vectors?
+
+00:08:39.220 --> 00:08:41.940
+Now this is a very important question
+
+00:08:41.940 --> 00:08:42.690
+because
+
+00:08:43.420 --> 00:08:46.010
+term weight in the query vector indicates
+
+00:08:46.010 --> 00:08:47.470
+the importance of term.
+
+00:08:48.720 --> 00:08:50.480
+So depending on how you assign the
+
+00:08:50.480 --> 00:08:53.250
+weights, you might prefer some terms to
+
+00:08:53.250 --> 00:08:55.720
+be matched over others.
+
+00:08:56.550 --> 00:08:58.510
+Similarly to term weight in the document
+
+00:08:58.510 --> 00:09:00.270
+is also very meaningful. It indicates
+
+00:09:00.270 --> 00:09:02.373
+how well the term characterizes the
+
+00:09:02.373 --> 00:09:02.879
+document.
+
+00:09:03.710 --> 00:09:06.630
+If you got it wrong, then you clearly
+
+00:09:06.630 --> 00:09:08.020
+don't represent this document
+
+00:09:08.020 --> 00:09:08.780
+accurately.
+
+00:09:09.710 --> 00:09:11.980
+Finally, how to define the similarity
+
+00:09:11.980 --> 00:09:13.390
+measure is also not given.
+
+00:09:15.500 --> 00:09:17.470
+So these questions must be addressed
+
+00:09:17.470 --> 00:09:19.960
+before we can have a operational
+
+00:09:19.960 --> 00:09:23.220
+function that we can actually implement
+
+00:09:23.220 --> 00:09:24.700
+using a program language.
+
+00:09:25.840 --> 00:09:27.950
+So how do we solve these problems?
+
+00:09:27.950 --> 00:09:31.420
+Is the main topic of the next lecture.
+
+

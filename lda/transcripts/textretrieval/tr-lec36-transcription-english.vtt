@@ -1,0 +1,309 @@
+WEBVTT Kind: captions; Language: en-US
+
+NOTE
+Created on 2021-02-26T23:59:34.3385557Z by ClassTranscribe
+
+00:00:00.280 --> 00:00:01.280
+There are many more
+
+00:00:01.280 --> 00:00:02.850
+advanced learning algorithms, then
+
+00:00:02.850 --> 00:00:05.090
+the regression based approaches and
+
+00:00:05.090 --> 00:00:07.560
+they generally attempt to direct the
+
+00:00:07.560 --> 00:00:09.160
+optimizer retrieval measure.
+
+00:00:16.580 --> 00:00:18.910
+like MAP or nDCG.
+
+00:00:18.910 --> 00:00:19.710
+Note that
+
+00:00:20.790 --> 00:00:23.180
+the optimization objective function
+
+00:00:23.180 --> 00:00:26.280
+that we have seen on the previous slide
+
+00:00:26.280 --> 00:00:29.160
+is not directly related to retrieval
+
+00:00:29.160 --> 00:00:29.790
+measure
+
+00:00:30.560 --> 00:00:33.770
+By maximizing the prediction of one
+
+00:00:33.770 --> 00:00:36.360
+or zero, we don't necessarily
+
+00:00:36.360 --> 00:00:38.070
+optimize the ranking of those
+
+00:00:38.070 --> 00:00:38.750
+documents.
+
+00:00:39.310 --> 00:00:42.010
+One can imagine that why our
+
+00:00:42.010 --> 00:00:44.180
+prediction may not be too bad.
+
+00:00:44.180 --> 00:00:47.060
+Let's say both are around .5, so
+
+00:00:47.060 --> 00:00:49.010
+it's kinda of in the middle of zero and
+
+00:00:49.010 --> 00:00:50.380
+one for the two documents.
+
+00:00:51.160 --> 00:00:53.340
+But the ranking can be wrong, so we
+
+00:00:53.340 --> 00:00:56.440
+might have got a larger value for
+
+00:00:56.440 --> 00:00:58.580
+D2 and than D1.
+
+00:01:00.640 --> 00:01:03.150
+So that won't be good from retrieval
+
+00:01:03.150 --> 00:01:05.150
+perspective, even though by likelihood
+
+00:01:05.150 --> 00:01:07.330
+function is not bad.
+
+00:01:07.330 --> 00:01:09.440
+In contrast, we might have another case
+
+00:01:09.440 --> 00:01:12.670
+where we predicted values all around
+
+00:01:12.670 --> 00:01:13.950
+.9, let's say
+
+00:01:13.950 --> 00:01:15.605
+and by the objective functioning
+
+00:01:15.605 --> 00:01:17.970
+the error will be larger, but if we can
+
+00:01:17.970 --> 00:01:19.680
+get the order of the two documents
+
+00:01:19.680 --> 00:01:21.550
+correct, that's actually a better
+
+00:01:21.550 --> 00:01:22.250
+result.
+
+00:01:22.860 --> 00:01:25.660
+So these new, more advanced approaches
+
+00:01:25.660 --> 00:01:27.970
+will try to correct that problem.
+
+00:01:27.970 --> 00:01:30.990
+Of course, then the challenge is that the
+
+00:01:30.990 --> 00:01:32.820
+optimization problem would be harder to
+
+00:01:32.820 --> 00:01:35.040
+solve and then researchers have
+
+00:01:35.040 --> 00:01:37.562
+proposed many solutions to the problem
+
+00:01:37.562 --> 00:01:39.280
+and you can read more
+
+00:01:40.970 --> 00:01:43.620
+reference at the end to know more about
+
+00:01:43.620 --> 00:01:45.640
+the these approaches.
+
+00:01:46.350 --> 00:01:49.410
+Now these learning to rank approaches
+
+00:01:49.410 --> 00:01:51.510
+are actually general, so they can also be
+
+00:01:51.510 --> 00:01:53.450
+applied to many other ranking problems,
+
+00:01:53.450 --> 00:01:55.015
+not just the retrieval problem.
+
+00:01:55.015 --> 00:01:56.980
+So here I list some, for example
+
+00:01:56.980 --> 00:01:59.370
+recommender systems, computational
+
+00:01:59.370 --> 00:02:02.720
+advertising or summarization and
+
+00:02:02.720 --> 00:02:04.930
+there are many others that you can
+
+00:02:04.930 --> 00:02:07.830
+probably encounter in your
+
+00:02:07.830 --> 00:02:08.790
+applications.
+
+00:02:11.280 --> 00:02:14.370
+To summarize this lecture we have
+
+00:02:14.370 --> 00:02:16.510
+talked about the using machine learning
+
+00:02:16.510 --> 00:02:19.820
+to combine multiple features to improve
+
+00:02:19.820 --> 00:02:21.330
+ranking results.
+
+00:02:22.660 --> 00:02:26.430
+Actually the use of machine learning in information
+
+00:02:26.430 --> 00:02:28.980
+retrieval has started since many
+
+00:02:28.980 --> 00:02:29.880
+decades ago.
+
+00:02:29.880 --> 00:02:32.083
+So, for example, the Rocchio feedback
+
+00:02:32.083 --> 00:02:34.520
+approaches that we talked about earlier
+
+00:02:34.520 --> 00:02:37.910
+was machine learning approach applied
+
+00:02:37.910 --> 00:02:39.950
+to relevance feedback
+
+00:02:40.650 --> 00:02:43.490
+But the most recent use of machine
+
+00:02:43.490 --> 00:02:46.260
+learning has been driven by some
+
+00:02:46.260 --> 00:02:49.000
+changes in the environment of
+
+00:02:49.000 --> 00:02:52.130
+applications of retrieval systems, and
+
+00:02:52.130 --> 00:02:53.150
+first,
+
+00:02:53.150 --> 00:02:57.000
+it's mostly driven by the availability
+
+00:02:57.000 --> 00:02:59.120
+of a lot of training data in the form
+
+00:02:59.120 --> 00:03:00.140
+of click throughs.
+
+00:03:00.980 --> 00:03:04.440
+Such data won't available before, so
+
+00:03:04.440 --> 00:03:06.700
+the data can provide a lot of
+
+00:03:08.770 --> 00:03:11.400
+useful knowledge about the relevance
+
+00:03:11.400 --> 00:03:14.110
+and machine learning methods can be
+
+00:03:14.110 --> 00:03:15.780
+applied to leverage this.
+
+00:03:16.810 --> 00:03:19.090
+Secondly, it's also driven by the need
+
+00:03:19.090 --> 00:03:20.780
+for combining many features and this is
+
+00:03:20.780 --> 00:03:22.800
+not only just because there are more
+
+00:03:22.800 --> 00:03:26.060
+features available on the web that can
+
+00:03:26.060 --> 00:03:28.370
+be naturally used to improve scoring,
+
+00:03:28.370 --> 00:03:31.210
+it's also because by combining them
+
+00:03:31.210 --> 00:03:34.160
+we can improve the robustness of
+
+00:03:34.160 --> 00:03:37.830
+ranking, so this is desired for
+
+00:03:37.830 --> 00:03:39.040
+combating spams.
+
+00:03:41.350 --> 00:03:43.370
+Modern search engines are all used,
+
+00:03:43.370 --> 00:03:44.730
+some kind of machine learning
+
+00:03:44.730 --> 00:03:46.020
+techniques combined with many
+
+00:03:46.020 --> 00:03:49.390
+features to optimize ranking and this
+
+00:03:49.390 --> 00:03:51.895
+is a major feature of these commercial
+
+00:03:51.895 --> 00:03:53.750
+engines such as Google or Bing.
+
+00:03:55.230 --> 00:03:57.680
+The topic of learning to rank is still
+
+00:03:57.680 --> 00:04:00.450
+active research topic in the community
+
+00:04:00.450 --> 00:04:02.590
+and so you can expect to see new
+
+00:04:02.590 --> 00:04:04.010
+results being developed
+
+00:04:05.480 --> 00:04:08.880
+in the next few years, perhaps.
+
+00:04:12.870 --> 00:04:14.940
+Here are some additional readings that
+
+00:04:14.940 --> 00:04:17.050
+can give you more information about how
+
+00:04:17.050 --> 00:04:21.230
+learning to rank works and also some
+
+00:04:21.230 --> 00:04:22.690
+advanced methods.
+
+

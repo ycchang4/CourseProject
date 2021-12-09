@@ -1,0 +1,1026 @@
+WEBVTT Kind: captions; Language: en-US
+
+NOTE
+Created on 2021-02-26T23:59:45.7214794Z by ClassTranscribe
+
+00:00:00.290 --> 00:00:01.950
+This lecture is about the Word
+
+00:00:01.950 --> 00:00:04.520
+Association mining and analysis.
+
+00:00:14.970 --> 00:00:17.100
+In this lecture we're going to talk
+
+00:00:17.100 --> 00:00:20.690
+about how to mine associations of words
+
+00:00:20.690 --> 00:00:21.530
+from text.
+
+00:00:22.880 --> 00:00:26.320
+This is an example of knowledge about
+
+00:00:26.320 --> 00:00:28.860
+natural language that we can mine
+
+00:00:28.860 --> 00:00:30.000
+from text data.
+
+00:00:33.210 --> 00:00:34.620
+Here's the outline.
+
+00:00:34.620 --> 00:00:36.460
+We are gooing to first talk about what is
+
+00:00:36.460 --> 00:00:39.080
+word Association and then
+
+00:00:40.340 --> 00:00:42.550
+explain why discovering such
+
+00:00:42.550 --> 00:00:45.080
+relations is useful and finally we are
+
+00:00:45.080 --> 00:00:46.600
+going to talk about some general
+
+00:00:46.600 --> 00:00:48.660
+ideas about how to mine word
+
+00:00:48.660 --> 00:00:50.630
+associations. In general
+
+00:00:50.630 --> 00:00:53.260
+there are two word relations, and
+
+00:00:53.260 --> 00:00:55.440
+these are quite basic.
+
+00:00:56.470 --> 00:00:58.440
+One is called a paradigmatic
+
+00:00:58.440 --> 00:01:01.970
+relation, the other is syntagmatic
+
+00:01:01.970 --> 00:01:03.190
+relations.
+
+00:01:03.190 --> 00:01:08.630
+A&amp;B have paradigmatic relation if they
+
+00:01:08.630 --> 00:01:10.690
+can be substituted for each other.
+
+00:01:11.370 --> 00:01:12.450
+That means,
+
+00:01:13.110 --> 00:01:16.290
+the two words that have paradigmatic
+
+00:01:16.290 --> 00:01:20.135
+relation would be in the same semantic
+
+00:01:20.135 --> 00:01:23.510
+class or syntactic class, and we can in
+
+00:01:23.510 --> 00:01:26.240
+general replace one by the other
+
+00:01:26.240 --> 00:01:29.180
+without affecting the understanding of
+
+00:01:29.180 --> 00:01:29.880
+the sentence.
+
+00:01:29.880 --> 00:01:32.390
+That means we would still have a valid
+
+00:01:32.390 --> 00:01:35.750
+sentence. For example, cat and dog.
+
+00:01:37.060 --> 00:01:39.450
+And these two words have
+
+00:01:39.450 --> 00:01:42.160
+paradigmatic relation because
+
+00:01:42.900 --> 00:01:44.980
+they are in the same class
+
+00:01:45.610 --> 00:01:46.490
+of animal.
+
+00:01:47.570 --> 00:01:50.330
+And in general, if we replace cat with
+
+00:01:50.330 --> 00:01:53.470
+dog in a sentence, the sentence would
+
+00:01:53.470 --> 00:01:56.140
+still be a valid sentence that you can
+
+00:01:56.140 --> 00:01:57.000
+make sense of.
+
+00:01:58.200 --> 00:02:00.770
+Similarly, Monday and Tuesday have
+
+00:02:00.770 --> 00:02:02.130
+paradigmatic relation.
+
+00:02:04.830 --> 00:02:08.080
+The second kind of relation is called
+
+00:02:08.080 --> 00:02:09.680
+syntagmatic relation.
+
+00:02:10.480 --> 00:02:13.768
+In this case, the two words that have
+
+00:02:13.768 --> 00:02:16.701
+this relation can be combined with each
+
+00:02:16.701 --> 00:02:17.119
+other.
+
+00:02:17.120 --> 00:02:19.930
+So A&amp;B have syntagmatic relation
+
+00:02:19.930 --> 00:02:21.753
+If they can be combined with each other
+
+00:02:21.753 --> 00:02:22.820
+in a sentence.
+
+00:02:25.340 --> 00:02:28.410
+That means these two words are
+
+00:02:28.410 --> 00:02:29.710
+semantically related.
+
+00:02:30.630 --> 00:02:34.010
+So for example, Cat and sit are related
+
+00:02:34.010 --> 00:02:36.960
+because a cat can sit somewhere.
+
+00:02:37.970 --> 00:02:41.400
+Similarly, car and drive are related
+
+00:02:42.900 --> 00:02:44.750
+semantically, and they can be combined
+
+00:02:44.750 --> 00:02:47.250
+with each other to convey meaning.
+
+00:02:47.250 --> 00:02:51.050
+However, in general we cannot replace
+
+00:02:51.050 --> 00:02:55.320
+cat with sit in a sentence or car with
+
+00:02:55.320 --> 00:02:57.920
+drive in a sentence to still get a
+
+00:02:57.920 --> 00:02:58.986
+valid sentence.
+
+00:02:58.986 --> 00:03:01.270
+Meaning that if we do that, the
+
+00:03:01.270 --> 00:03:03.210
+sentence will become somewhat
+
+00:03:03.210 --> 00:03:04.240
+meaningless.
+
+00:03:05.900 --> 00:03:08.960
+So this is different from paradigmatic
+
+00:03:08.960 --> 00:03:12.170
+relation and these two relations are
+
+00:03:12.170 --> 00:03:16.132
+in fact so fundamental, that they
+
+00:03:16.132 --> 00:03:20.150
+can be generalized to capture basic
+
+00:03:20.150 --> 00:03:22.970
+relations between units in arbitrary
+
+00:03:22.970 --> 00:03:23.665
+sequences.
+
+00:03:23.665 --> 00:03:26.680
+And definitely they can be generalized to
+
+00:03:26.680 --> 00:03:30.380
+describe relations of any items in the
+
+00:03:30.380 --> 00:03:30.930
+language.
+
+00:03:31.500 --> 00:03:34.670
+So A&amp;B don't have to be words and they
+
+00:03:34.670 --> 00:03:36.710
+can be phrases example.
+
+00:03:37.840 --> 00:03:41.380
+And they can even be more complex
+
+00:03:41.380 --> 00:03:42.110
+phrases
+
+00:03:42.920 --> 00:03:44.790
+than just a noun phrase.
+
+00:03:44.790 --> 00:03:46.767
+If you think about the general problem
+
+00:03:46.767 --> 00:03:49.250
+of the sequence mining, then we can
+
+00:03:49.250 --> 00:03:52.079
+think about the units in the sequence
+
+00:03:52.080 --> 00:03:55.310
+data, and then we think of paradigmatic
+
+00:03:55.310 --> 00:04:00.353
+relation as relations that are applied to
+
+00:04:00.353 --> 00:04:03.160
+units that tend to occur in similar
+
+00:04:03.160 --> 00:04:06.370
+locations in a sentence or in
+
+00:04:07.400 --> 00:04:10.220
+a sequence of data elements in
+
+00:04:10.220 --> 00:04:10.810
+general.
+
+00:04:11.570 --> 00:04:15.550
+So they occur in similar locations
+
+00:04:15.550 --> 00:04:17.830
+relative to the neighbors
+
+00:04:18.650 --> 00:04:20.300
+in the sequence.
+
+00:04:20.860 --> 00:04:23.410
+Syntagmatic relation on the other
+
+00:04:23.410 --> 00:04:26.300
+hand, is related to co-occurring
+
+00:04:26.300 --> 00:04:29.100
+elements that tend to show up in the
+
+00:04:29.100 --> 00:04:30.290
+same sequence.
+
+00:04:33.050 --> 00:04:35.660
+So these two are complementary
+
+00:04:35.660 --> 00:04:38.820
+and basically relations of words, and
+
+00:04:38.820 --> 00:04:40.760
+we're interested in discovering them
+
+00:04:40.760 --> 00:04:42.490
+automatically from text data.
+
+00:04:42.490 --> 00:04:45.420
+Discovering such world relations has
+
+00:04:45.420 --> 00:04:46.410
+many applications.
+
+00:04:47.130 --> 00:04:49.800
+First, such relations can be directly
+
+00:04:49.800 --> 00:04:51.990
+useful for improving accuracy of
+
+00:04:51.990 --> 00:04:54.523
+many NLP tasks, and this is
+
+00:04:54.523 --> 00:04:57.680
+because this is part of our knowledge
+
+00:04:57.680 --> 00:04:58.650
+about the language.
+
+00:04:58.650 --> 00:05:01.180
+So if you know these two words or
+
+00:05:01.180 --> 00:05:03.516
+synonyms, for example, and then you can
+
+00:05:03.516 --> 00:05:05.100
+help a lot of tasks.
+
+00:05:05.100 --> 00:05:08.850
+And grammar learning can be also done by
+
+00:05:08.850 --> 00:05:11.370
+using such techniques because
+
+00:05:12.140 --> 00:05:14.806
+If we can learn paradigmatic relations,
+
+00:05:14.806 --> 00:05:17.650
+then we form classes of words.
+
+00:05:17.650 --> 00:05:18.680
+Syntactic classes for example.
+
+00:05:18.680 --> 00:05:22.770
+And if we learn syntagmatic
+
+00:05:22.770 --> 00:05:24.660
+relations, then we would be able to
+
+00:05:24.660 --> 00:05:28.250
+know the rules for putting together a
+
+00:05:28.250 --> 00:05:30.790
+larger expression based on component
+
+00:05:30.790 --> 00:05:31.640
+expressions.
+
+00:05:32.280 --> 00:05:35.390
+So we'll learn the structure and what
+
+00:05:35.390 --> 00:05:37.500
+can go with what else.
+
+00:05:39.730 --> 00:05:42.785
+Word relations can be also very useful
+
+00:05:42.785 --> 00:05:45.290
+for many applications in text retrieval
+
+00:05:45.290 --> 00:05:46.070
+and mining.
+
+00:05:46.070 --> 00:05:48.250
+For example, in search in text
+
+00:05:48.250 --> 00:05:51.420
+retrieval we can use word associations
+
+00:05:51.420 --> 00:05:53.300
+to modify a query.
+
+00:05:53.940 --> 00:05:56.410
+And this can be used to introduce
+
+00:05:56.410 --> 00:05:58.940
+additional related words to a query to
+
+00:05:58.940 --> 00:06:00.620
+make the query more effective.
+
+00:06:01.440 --> 00:06:03.480
+It's often called query expansion.
+
+00:06:04.160 --> 00:06:06.160
+Or you can use related words to
+
+00:06:06.160 --> 00:06:08.610
+suggest related queries to the user
+
+00:06:08.610 --> 00:06:10.760
+to explore the information space.
+
+00:06:12.630 --> 00:06:14.550
+Another application is to use word
+
+00:06:14.550 --> 00:06:16.675
+associations to automatically construct
+
+00:06:16.675 --> 00:06:19.990
+the topic map for browsing where we
+
+00:06:19.990 --> 00:06:21.770
+can have words as nodes
+
+00:06:21.770 --> 00:06:24.940
+and associations as edge. The user
+
+00:06:24.940 --> 00:06:27.240
+could navigate from one word to
+
+00:06:27.240 --> 00:06:30.385
+another to find information in the
+
+00:06:30.385 --> 00:06:31.200
+information space.
+
+00:06:33.360 --> 00:06:36.590
+Finally, such word associations can also
+
+00:06:36.590 --> 00:06:39.010
+be used to compare and summarize
+
+00:06:39.010 --> 00:06:39.740
+opinions.
+
+00:06:40.510 --> 00:06:44.000
+For example, we might be interested in
+
+00:06:44.000 --> 00:06:46.310
+understanding positive and negative
+
+00:06:46.310 --> 00:06:47.990
+opinions about iPhone 6.
+
+00:06:49.130 --> 00:06:51.130
+In order to do that, we can look at
+
+00:06:51.130 --> 00:06:54.230
+what words are most strongly associated
+
+00:06:54.230 --> 00:06:55.340
+with a feature word
+
+00:06:55.340 --> 00:06:58.270
+like the battery in positive
+
+00:06:58.270 --> 00:07:00.570
+versus negative reviews.
+
+00:07:01.520 --> 00:07:04.490
+Such a syntagmatic relations would help
+
+00:07:04.490 --> 00:07:08.040
+us show the detailed opinions about the
+
+00:07:08.040 --> 00:07:08.570
+product.
+
+00:07:10.480 --> 00:07:13.320
+So how can we discover such
+
+00:07:13.320 --> 00:07:15.200
+associations automatically?
+
+00:07:15.200 --> 00:07:15.390
+Now,
+
+00:07:15.390 --> 00:07:18.150
+here are some intuitions about how to
+
+00:07:18.150 --> 00:07:18.790
+do that.
+
+00:07:18.790 --> 00:07:20.990
+Let's first look at the paradigmatic
+
+00:07:20.990 --> 00:07:21.580
+relation.
+
+00:07:28.900 --> 00:07:31.210
+Here we essentially can take advantage
+
+00:07:31.210 --> 00:07:33.310
+of similar context.
+
+00:07:34.010 --> 00:07:37.090
+So here you see some simple sentences
+
+00:07:37.090 --> 00:07:38.640
+about cat and dog.
+
+00:07:39.850 --> 00:07:42.340
+You can see they generally occur in
+
+00:07:42.340 --> 00:07:43.490
+similar context.
+
+00:07:44.230 --> 00:07:46.650
+And that, after all, is the definition
+
+00:07:46.650 --> 00:07:48.470
+of paradigmatic relation.
+
+00:07:49.370 --> 00:07:52.870
+So on the right side you can see I
+
+00:07:52.870 --> 00:07:56.000
+extracted explicitly the context of cat
+
+00:07:56.000 --> 00:07:58.870
+and dog from this small sample of text
+
+00:07:58.870 --> 00:07:59.250
+data.
+
+00:08:00.390 --> 00:08:02.975
+So I have taken away cat and dog from
+
+00:08:02.975 --> 00:08:05.570
+the corresponding sentences so that you
+
+00:08:05.570 --> 00:08:07.490
+can see just the context.
+
+00:08:08.690 --> 00:08:10.760
+Now of course we can have different
+
+00:08:10.760 --> 00:08:12.990
+perspectives to look at the context.
+
+00:08:13.700 --> 00:08:15.870
+For example, we can look at the what
+
+00:08:15.870 --> 00:08:21.940
+words occur in the left part of this
+
+00:08:21.940 --> 00:08:22.520
+context.
+
+00:08:23.400 --> 00:08:28.260
+So we can call this left context. What
+
+00:08:28.260 --> 00:08:32.150
+words occur before we see cat, cat or
+
+00:08:32.150 --> 00:08:32.670
+dog.
+
+00:08:34.250 --> 00:08:37.410
+So you can see in this case clearly dog
+
+00:08:37.410 --> 00:08:39.540
+and cat have similar left context.
+
+00:08:40.600 --> 00:08:43.767
+You generally say his cat or my cat, and
+
+00:08:43.767 --> 00:08:46.980
+you say also my dog and his dog. So
+
+00:08:46.980 --> 00:08:50.870
+that makes them similar in the left
+
+00:08:50.870 --> 00:08:51.390
+context.
+
+00:08:53.560 --> 00:08:55.930
+Similarly, if you look at the words
+
+00:08:55.930 --> 00:08:59.250
+that occur after cat and dog, which we
+
+00:08:59.250 --> 00:09:02.610
+can call right context and they also
+
+00:09:02.610 --> 00:09:04.509
+very similar in this case, of course
+
+00:09:04.510 --> 00:09:06.860
+it's extreme case where you only see
+
+00:09:06.860 --> 00:09:08.650
+eats and
+
+00:09:08.650 --> 00:09:11.366
+In general you will see many other
+
+00:09:11.366 --> 00:09:11.823
+words.
+
+00:09:11.823 --> 00:09:15.360
+Of course that can follow cat and dog.
+
+00:09:17.710 --> 00:09:20.320
+You can also even look at the general
+
+00:09:20.320 --> 00:09:21.020
+context.
+
+00:09:21.570 --> 00:09:23.785
+And that might improve the all words in
+
+00:09:23.785 --> 00:09:26.070
+the sentence or in sentences around
+
+00:09:26.070 --> 00:09:26.910
+this word.
+
+00:09:27.520 --> 00:09:30.320
+And even in the general context you also
+
+00:09:30.320 --> 00:09:33.750
+see some similarity between the two
+
+00:09:33.750 --> 00:09:34.320
+words.
+
+00:09:35.320 --> 00:09:39.230
+So this is just suggesting that we can
+
+00:09:39.230 --> 00:09:43.280
+discover paradigmatic relation by
+
+00:09:43.280 --> 00:09:46.119
+looking at the similarity of context of
+
+00:09:46.120 --> 00:09:46.810
+words.
+
+00:09:46.810 --> 00:09:49.860
+So for example, if we think about the
+
+00:09:49.860 --> 00:09:51.626
+following questions, how similar are
+
+00:09:51.626 --> 00:09:55.040
+context of cat and context of dog?
+
+00:09:56.110 --> 00:09:59.369
+In contrast, how similar are context of
+
+00:09:59.370 --> 00:10:01.670
+cat and context of computer?
+
+00:10:02.420 --> 00:10:06.090
+Now intuitively, with imagine the
+
+00:10:06.090 --> 00:10:08.880
+context of Cat and context of dog would
+
+00:10:08.880 --> 00:10:11.520
+be more similar than the
+
+00:10:12.430 --> 00:10:15.550
+context of cat and context of
+
+00:10:15.550 --> 00:10:18.560
+computer, that means the first in the
+
+00:10:18.560 --> 00:10:20.140
+first case, the similarity value would
+
+00:10:20.140 --> 00:10:20.820
+be high.
+
+00:10:21.450 --> 00:10:23.900
+Between the context of cat and dog,
+
+00:10:23.900 --> 00:10:26.830
+whereas in the second the similarity
+
+00:10:26.830 --> 00:10:29.450
+between contexts of cat and computer
+
+00:10:29.450 --> 00:10:32.730
+would be low because they are
+
+00:10:33.370 --> 00:10:35.400
+not having paradigmatic
+
+00:10:35.400 --> 00:10:36.450
+relationship.
+
+00:10:37.370 --> 00:10:39.540
+And then imagine what words occur after
+
+00:10:39.540 --> 00:10:40.000
+computer.
+
+00:10:40.000 --> 00:10:42.270
+In general they will be very different
+
+00:10:42.270 --> 00:10:45.080
+from what words occur after cat.
+
+00:10:46.420 --> 00:10:48.160
+So this is the basic idea of
+
+00:10:48.160 --> 00:10:50.870
+discovering paradigmatic relation.
+
+00:10:51.930 --> 00:10:54.330
+What about the syntagmatic relation?
+
+00:10:54.330 --> 00:10:56.520
+Here we we are going to explore the
+
+00:10:56.520 --> 00:10:59.610
+correlated occurrences again based on
+
+00:10:59.610 --> 00:11:02.610
+the definition of syntagmatic relation.
+
+00:11:03.830 --> 00:11:05.960
+Here you see the same sample of text.
+
+00:11:06.540 --> 00:11:08.400
+But here we are interested in knowing
+
+00:11:08.400 --> 00:11:10.630
+what other words are correlated with
+
+00:11:10.630 --> 00:11:11.990
+the verb eats.
+
+00:11:12.790 --> 00:11:14.790
+And what words can go with eat?
+
+00:11:16.240 --> 00:11:20.170
+And if you look at the right side of
+
+00:11:20.170 --> 00:11:22.840
+the slide and you will see I've taken away
+
+00:11:22.840 --> 00:11:25.830
+the two words around eats.
+
+00:11:26.970 --> 00:11:30.020
+I've taken away the word to its left and
+
+00:11:30.020 --> 00:11:32.140
+also the world to its right,
+
+00:11:32.950 --> 00:11:33.970
+In each sentence.
+
+00:11:34.560 --> 00:11:37.480
+And then we can ask the question what
+
+00:11:37.480 --> 00:11:41.190
+words tend to occur to the left of eat
+
+00:11:43.520 --> 00:11:46.630
+and what words tend to occur to the
+
+00:11:46.630 --> 00:11:47.950
+right of eat?
+
+00:11:49.430 --> 00:11:51.760
+Now thinking about this question would
+
+00:11:51.760 --> 00:11:55.540
+help us discover Syntagmatic relations.
+
+00:11:56.120 --> 00:11:58.380
+Because syntagmatic relation
+
+00:11:58.380 --> 00:12:01.180
+essentially captures such correlations.
+
+00:12:02.970 --> 00:12:04.870
+So the important question to ask
+
+00:12:04.870 --> 00:12:09.190
+for syntagmatic relation is whenever
+
+00:12:09.190 --> 00:12:10.340
+eats occurs,
+
+00:12:11.690 --> 00:12:14.660
+what other words also tend to occur?
+
+00:12:16.040 --> 00:12:17.960
+So the question here has to do with
+
+00:12:17.960 --> 00:12:20.850
+whether there are some other words that
+
+00:12:20.850 --> 00:12:23.640
+tend to co-occur together with eats,
+
+00:12:23.640 --> 00:12:26.564
+meaning that whenever you see eat, you
+
+00:12:26.564 --> 00:12:28.209
+tend to see the other words.
+
+00:12:29.480 --> 00:12:32.340
+And if you don't see eat, probably you
+
+00:12:32.340 --> 00:12:34.760
+don't see other words often either.
+
+00:12:36.450 --> 00:12:38.830
+So this intuition can help us discover
+
+00:12:38.830 --> 00:12:40.240
+syntagmatic relations.
+
+00:12:41.380 --> 00:12:43.290
+Now again, consider example-
+
+00:12:44.030 --> 00:12:46.400
+How helpful is the occurrence of eats
+
+00:12:46.400 --> 00:12:48.500
+for predicting occurrence of meat?
+
+00:12:49.800 --> 00:12:53.045
+knowing whether eats occurs in a
+
+00:12:53.045 --> 00:12:55.720
+sentence would generally help us predict
+
+00:12:55.720 --> 00:12:56.370
+the
+
+00:12:56.370 --> 00:12:59.440
+Whether meat also occurs indeed as if
+
+00:12:59.440 --> 00:13:02.450
+we will see eats occur in a sentence,
+
+00:13:02.450 --> 00:13:04.115
+and that should increase the chance
+
+00:13:04.115 --> 00:13:05.879
+that meat will also occur.
+
+00:13:08.350 --> 00:13:10.170
+In contrast, if you look at the
+
+00:13:10.170 --> 00:13:12.996
+question in the bottom, how helpful is
+
+00:13:12.996 --> 00:13:14.730
+occurrence of eats for predicting the
+
+00:13:14.730 --> 00:13:15.740
+occurrence of text?
+
+00:13:17.220 --> 00:13:19.480
+Because eats and text are not really
+
+00:13:19.480 --> 00:13:22.620
+related, so knowing whether eats occurred
+
+00:13:22.620 --> 00:13:26.520
+in a sentence doesn't really help us
+
+00:13:26.520 --> 00:13:27.010
+predict
+
+00:13:27.010 --> 00:13:28.840
+whether text also occurs in the
+
+00:13:28.840 --> 00:13:29.410
+sentence.
+
+00:13:30.010 --> 00:13:32.660
+So this is in contrast to the question
+
+00:13:32.660 --> 00:13:34.150
+about eats and meat.
+
+00:13:35.460 --> 00:13:38.690
+This also helps explain the intuition
+
+00:13:38.690 --> 00:13:41.650
+behind the methods for discovering
+
+00:13:41.650 --> 00:13:43.180
+syntagmatic relation.
+
+00:13:43.860 --> 00:13:45.720
+Mainly we need to capture the
+
+00:13:45.720 --> 00:13:48.380
+correlation between the occurrences of
+
+00:13:48.380 --> 00:13:49.100
+two words.
+
+00:13:50.310 --> 00:13:52.860
+So to summarize, the general ideas for
+
+00:13:52.860 --> 00:13:55.450
+discovering word associations are the
+
+00:13:55.450 --> 00:13:55.940
+following.
+
+00:13:56.710 --> 00:13:59.420
+For paradigmatically relation we
+
+00:13:59.420 --> 00:14:01.910
+represent each word by its context,
+
+00:14:01.910 --> 00:14:03.560
+and then compute the context
+
+00:14:03.560 --> 00:14:04.160
+similarity.
+
+00:14:04.730 --> 00:14:07.320
+We are gonna assume the words that have high
+
+00:14:07.320 --> 00:14:10.520
+context similarity to have paradigmatic
+
+00:14:11.660 --> 00:14:12.640
+relation.
+
+00:14:14.510 --> 00:14:17.080
+For syntagmatic relation, we will
+
+00:14:17.080 --> 00:14:19.460
+count how many times two words occur
+
+00:14:19.460 --> 00:14:21.890
+together in a context which can be a
+
+00:14:21.890 --> 00:14:25.000
+sentence, paragraph or a document
+
+00:14:25.000 --> 00:14:25.330
+even.
+
+00:14:26.760 --> 00:14:28.810
+And we're going to compare their Co
+
+00:14:28.810 --> 00:14:30.910
+occurrences with their individual
+
+00:14:30.910 --> 00:14:31.690
+occurrences.
+
+00:14:32.500 --> 00:14:35.060
+We're going to assume words with high
+
+00:14:35.060 --> 00:14:37.390
+co-occurrences, but relatively low
+
+00:14:37.390 --> 00:14:39.890
+individual occurrences to have
+
+00:14:39.890 --> 00:14:42.830
+syntagmatic relations because they tend
+
+00:14:42.830 --> 00:14:45.310
+to occur together, and they don't
+
+00:14:45.310 --> 00:14:46.810
+usually occur alone.
+
+00:14:46.810 --> 00:14:49.608
+Note that the paradigmatic relation
+
+00:14:49.608 --> 00:14:52.070
+and syntagmatic relation, are actually
+
+00:14:52.070 --> 00:14:53.230
+closely related.
+
+00:14:55.080 --> 00:14:58.040
+In that paradigmatically related words
+
+00:14:58.040 --> 00:15:01.597
+tend to have syntagmatic relation with
+
+00:15:01.597 --> 00:15:02.730
+the same word that
+
+00:15:02.730 --> 00:15:04.533
+they tend to be associated with the
+
+00:15:04.533 --> 00:15:06.763
+same word, and that suggests that we
+
+00:15:06.763 --> 00:15:09.500
+can also do join the discovery of the
+
+00:15:09.500 --> 00:15:10.710
+two relations.
+
+00:15:10.710 --> 00:15:12.539
+So these general ideas can be
+
+00:15:12.540 --> 00:15:15.065
+implemented in many different ways, and
+
+00:15:15.065 --> 00:15:18.210
+the course won't cover all of them, but
+
+00:15:18.210 --> 00:15:21.710
+we will cover at least some of the
+
+00:15:21.710 --> 00:15:24.790
+methods that effective for discovering
+
+00:15:24.790 --> 00:15:25.910
+these relations.
+
+
