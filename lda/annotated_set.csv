@@ -1,0 +1,43 @@
+﻿Lexical Analysis; Part of Speech tagging; Semantic Analysis; Parsing; Syntactical ambiguities; Prepositional Phrase attachment ambiguity; Pragmatic Analysis; State of the art of Natural Language Processing; Shallow vs Deep Natural Langauge Processing; Text Retrieval; Bag of words; Introduction to Natural Langauge Processing; Challenges in Parsing
+Relevant text data; pull mode; push mode; search engines; recommender systems;querying; browsing;information seeking; sightseeing;text access; Information Seeking as Sightseeing; Querying vs Browsing; Push vs Pull Modes of Text Access
+Definition of text retrieval; Text Retrieval vs. Database Retrieval; Formal Formulation of Text Retrieval
+Designing Ranking Functions; Types of Models; Common Ideas in Models; Choosing the Best Model
+Vector space model framework; Similarity based models; Document ranking functions; Vector Space Model; Vector Space Model Illustration; What Vector Space Model Lacks
+Vector Space Model; Bit Vector; how to define Vector Space Model; Similarity function example; Bag of Words with Vector Space Model; Simplest Vector Space Model; Simplest Instantiation; Bag of Words; Similarity Instantiation; Dot Product
+Problems with simplest Vector Space Model; Improved Vector Space Model Instantiation; TF Weighting; IDF Weighting: Vector Space Model; Frequency Vector; Dot Product; Stop Word; Inverse Document Frequency
+TF transformation; Ranking function with TF-IDF weighting; BM25 Transformation; Reasons for using Sublinear TF transformation; Vector Space Model with TF-IDF; TF weight
+Document Length Normalization; Pivoted Length Normalization; Okapi BM25; BM25+; Improved Vector Space Model
+Typical Text Retrieval System Architecture; Tokenization;Indexing;Inverted Index;Inverted Index for Fast Search;Empirical Distribution of Words;Zipf’s Law;Data Structures for Inverted Index; Three parts of search engine: Indexer; Scorer and Feedback; mechanism tokenization; Stop and rare word distribution; Dictionary and Postings
+"Sort-based Inversion; Inverted Index Compression;Integer Compression;Uncompress Inverted Index; Inverted Index Construction;Sort-based Inverted Index Inversion;Term-Frequency and Document ID compression;Binary, Unary coding; Gamma coding; Delta coding; Decoding Inverted Index"
+Fast Search; Inverted Index; Score Accumulators; Text Retrieval; Ranking Documents; Inverse Document Frequency; Techniques to scale up Fast Search
+Text Retrival Systems; Cranfield Evaluation Method; Test Collection Evaluation; Evaluation of text retrieval systems; interactive information retrieval evaluation; test set information retrieval evaluation
+Quantitatively compared retrieval systems;Test collection evaluation; precision;recall;Precision of 10 documents;F-measure;Tradeoff between precision and recall
+Evaluate Ranked List;Precision-Recall Curve;Comparing Precision-Recall Curve;Area Under Curve(AUC);Average Precision
+Arithmetic mean of average precision over a set of queries; geometric mean of average precision of a set of queries; Mean Reciprocal Rank
+Multi-level relevance judgement;Cumulative Gain;Normalized Discounted Cumulative Gain;Discounted Cumulative Gain
+"Pratical issues of Text Retrieval;Challenges in Creating Test Collection; Representative Queries; Relevance Judgement, Measures, Statistical Significance Tests; Sign Test; Wilcoxon Test; Pooling; Summary of Text Retrieval Evaluation"
+Probabilistic retrieval model; Language model; Query likelihood retrieval model; Divergence from randomness; Probability of Relevance; Conditional Probability; Imaginary Relevant Document; Probabalistic Models; Classic Probabalistic Model; Query Likelihood
+"Statistical Language Model; Unigram Language Model; Text Generation with Unigram Language Model; Uses of Language Model; Topic Representation; Discovering Word Associations"
+Query Likelihood;Query likelihood retrieval function;TF heuristic;Unigram language model;Document language model;Log of query likelihood to avoid underflow problem;Query Likelihood ranking
+Ranking Function based on Query Likelihood; Maximum Likelihood Estimate; Smoothed Likelihood Model; Probability of Unseen Words; Ranking Function with Smoothing; Probabilistic retrieval model; query likelihood retrieval model
+Problems with simplest Vector Space Model; Improved Vector Space Model Instantiation; TF Weighting; IDF Weighting: Vector Space Model; Frequency Vector; Dot Product; Stop Word; Inverse Document Frequency
+Smoothing Query Likelihood; Linear Interpolation (Jelinek-Mercer) Smoothing; Dirichlet Prior (Bayesian) Smoothing; smoothing methods for langugage model; probabilistic retrieval model; query likelihood;
+Jelinek-Mercer Smoothing; Dirichlet Prior Smoothing; TF-IDF Weighting; Document Length Normalization; Single Smoothing Parameter
+Relevance Feedback; Pseudo feedback; Implicit feedback; Explicit Relevance
+Vector space model feedback; query modification; Rocchio Feedback; query expansion; relevance feedback; pseudo feedback; Positive centroid vector; Negative Centroid vector; Retrieval accuracy
+KL Divergence retrieval model; Cross entropy; Generative Mixture Model; Pseudo-Feedback Query Model; Feedback in text Retrieval; Language Model Feedback; Query Likelihood; Maximum likelihood
+Web Search Engines; Web search challenges & opportunities; Crawling strategies; Basic search engine technologies; Crawler problems; Crawling scenarios
+Web Indexing; Google File System Architecture; MapReduce; Hadoop; Inverted Indexing; Map Function; Reduce Function; Word Counting
+Link Analysis for web search; Ranking Algorithms for web search; Inter-Document Links; PageRank 
+Random Surfing Model and Equlibrium Equation for Page Rank Algorithm;  Example for multiplication in PageRank
+Link Analysis; HITS Algorithm; Hypertext-Induced Topic Search
+Combining Ranking Features; Creating Relevance Function; Relationship between Relevance Function and Training Data
+Rank;Regression-based approach; Logistic regression; maximizing likelihood
+Machine learning to optimize mean of average precision or normalized Discounted Cumulative Gain ranking measures; Applications of learning to rank; combining features; Advanced learning to rank algorithms; trends in learning to rank; summary of learning to rank
+next generation search engines; data-user-service triangle; future intelligent information systems
+Recommender systems; pull mode; search engines; filtering system; push mode; content based filtering system; problems in content-based filtering; binary classifier; initialization; learning from judgements; information filtering; information based retrieval system
+content-based filtering; threshold learning; adaptive learning algorithm; Difficulties in Threshold Learning; Exploration vs Exploitation; Empirical Utility Optimization; Beta-Gamma Threshold Learning; Content-based Filtering Summary
+Collaberative filtering; Recommender system; Basic Filtering Question; What is Collaborative Filtering; Collaborative Filtering Assumptions; Collaborative Filtering Problem
+Recommender system; Collaborative Filtering; Collaborative Filtering Problem; Memory Based Approaches; User Similarity Measures; Pearson Correlation Coefficient; Cosine Measure; How to improve User Similarity Measures
+Summary of Recommender Systems; Filtering; Recommendation; Content-based filtering; Collaborative Filtering; Hybrid; Recommendation combined with search; Advanced algorithms
+Natural Language Content Analysis; Text Retrieval Methods; Vector Space Model; Probabilistic Model; Retrieval Systems; Model Evaluation; Feedback Techniques; Web Search; Recommendation Systems; Text Mining Methods; text ranking problem; MapReduce; Ranking systems; Query vs browsing; Text analysis vs Text mining comparison; Rocchio feedback
