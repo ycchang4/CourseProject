@@ -4,6 +4,7 @@
 import logging
 from os import write
 import numpy as np
+import sys
 
 def write_to_file(f, lst):
     with open(f, 'w') as fout:
@@ -13,7 +14,17 @@ def write_to_file(f, lst):
 
 docs = [] # corpus, where each string is a document
 
-with open('textretrieval.txt', 'r') as fin:
+in_f = 'textretrieval.txt'
+out_f = 'lda_results.txt'
+argc = len(sys.argv)
+
+if argc > 1:
+    in_f = sys.argv[1]
+
+if argc > 2:
+    out_f = sys.argv[2]
+
+with open(in_f, 'r') as fin:
     for line in fin:
         docs.append(line.strip())
 
@@ -122,7 +133,7 @@ model = LdaModel(
     eval_every=1
 )
 
-with open('lda_results.txt', 'w') as fout:
+with open(out_f, 'w') as fout:
     for lecture in range(0, len(corpus)):
         print('working on lecture {}'.format(lecture+1))
         fout.write('lecture {}\n'.format(lecture+1))
