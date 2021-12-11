@@ -1,3 +1,8 @@
-# CourseProject
+# CS410 CourseProject ConceptView
 
-Please fork this repository and paste the github link of your fork on Microsoft CMT. Detailed instructions are on Coursera under Week 1: Course Project Overview/Week 9 Activities.
+## Required File Submissions:
+
+Project Proposal: Project Proposal.pdf
+Progress Report: Progress Report.pdf
+[Final Presentation Link](https://youtu.be/QRdiEo0CIgs): Software usage tutorial presentation Video Link.md
+Final Report: Project Documentation.pdf
