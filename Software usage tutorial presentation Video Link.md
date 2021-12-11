@@ -1,1 +1,1 @@
-[Software usage tutorial presentation Video Link:](https://youtu.be/QRdiEo0CIgs)
+[Click here to access Software usage tutorial presentation Video](https://youtu.be/QRdiEo0CIgs)
